@@ -25,6 +25,8 @@
                                                     <option selected>Pilih Jenis</option>
                                                     <option value="Simental">Simental</option>
                                                     <option value="Limosin">Limosin</option>
+                                                    <option value="Pesisir">Pesisir</option>
+                                                    <option value="Australia">Australia</option>
                                                 </select>
                                             </div>
                                         </div>
