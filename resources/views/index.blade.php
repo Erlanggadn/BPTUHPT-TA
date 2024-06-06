@@ -7,13 +7,23 @@
         <div class="row justify-content-between gy-5">
             <div
                 class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
-                <h2 data-aos="fade-up">selamat Datang di <br>BPTU HPT Padang Mengatas<br></h2>
+                <h2 data-aos="fade-up">selamat Datang @if(Auth::check() && Auth::user())
+                    <b>{{ Auth::user()->name }} </b>
+                    @else
+                    @endif<br> , di BPTU HPT Padang
+                    Mengatas<br></h2>
                 <p data-aos="fade-up" data-aos-delay="100">Balai Pembibitan Ternak Unggul dan Hijauan Pakan Ternak
                     (BPTUHPT) Padang Mengatas merupakan salah satu unit pelaksana teknis (UPT) dibawah Direktorat
                     Jenderal Peternakan dan Kesehatan Hewan Kementerian Pertanian.</p>
+                @if(Auth::check() && Auth::user())
+                <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
+                    <a href="/daftar" class="btn-book-a-table">ayok explore</a>
+                </div>
+                @else
                 <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
                     <a href="/daftar" class="btn-book-a-table">Daftar</a>
                 </div>
+                @endif
             </div>
             <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
                 <img src="{{ asset('img/wajah.png') }}" class="img-fluid" alt="" data-aos="zoom-out"
@@ -108,7 +118,7 @@
                 </div>
             </div>
             {{-- <div class="col-lg-7 position-relative about-img" style="background-image: url(img/foto.jpg);" data-aos="fade-up" data-aos-delay="150"> --}}
-           
+
         </div>
         <div class="d-flex align-items-end" data-aos="fade-up" data-aos-delay="300">
             <div class="content ps-0 ps-lg-5">

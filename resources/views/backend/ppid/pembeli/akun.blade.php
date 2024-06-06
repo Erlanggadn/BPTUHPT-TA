@@ -1,16 +1,11 @@
 @include('layouts.utama.main2')
-@include('layouts.admin.main')
-@include('layouts.admin.sidebar')
+@include('layouts.ppid.navbar')
+@include('layouts.ppid.sidebar')
 
 <main id="main" class="main">
 
     <div class="pagetitle">
         <h1>Selamat Datang, {{ Auth::user()->name }} sebagai {{ Auth::user()->role }}</h1>
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/akunadmin">Home</a></li>
-            </ol>
-        </nav>
     </div><!-- End Page Title -->
 
     <section class="section">
@@ -20,7 +15,8 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Data Hak Akses Akun Pembeli</h5>
-                        <p>Berikut ini adalah data hak akses akun yang sepenuhnya dikelola oleh <b>Admin dan Divisi PPID </b> BPTU HPT
+                        <p>Berikut ini adalah data hak akses akun yang sepenuhnya dikelola oleh <b>Admin dan Divisi PPID
+                            </b> BPTU HPT
                             Padang
                             Mengatas
                         </p>

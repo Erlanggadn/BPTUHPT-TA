@@ -87,7 +87,7 @@ class AuthController extends Controller
                     $route = 'bendahara';
                     break;
                 case 'pembeli':
-                    $route = 'pembeli';
+                    $route = '/';
                     break;
                 default:
                     $route = '/';
@@ -141,5 +141,10 @@ class AuthController extends Controller
     public function unauthorized()
     {
         return view('backend.auth.unauthorized');
+    }
+
+    public function home()
+    {
+        return view('index');
     }
 }

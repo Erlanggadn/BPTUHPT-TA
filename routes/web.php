@@ -1,23 +1,26 @@
 <?php
 
+use App\Models\RumputSiapJual;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AkunController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PPIDController;
 use App\Http\Controllers\SapiController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\JenisKandangController;
-use App\Http\Controllers\KegiatanKandangController;
-use App\Http\Controllers\KegiatanSapiController;
 use App\Http\Controllers\RumputController;
-use App\Http\Controllers\WastukanController;
-use App\Http\Controllers\RumputSiapJualController;
 use App\Http\Controllers\SapiJualController;
-use App\Models\RumputSiapJual;
+use App\Http\Controllers\WastukanController;
+use App\Http\Controllers\JenisKandangController;
+use App\Http\Controllers\KegiatanSapiController;
+use App\Http\Controllers\RumputSiapJualController;
+use App\Http\Controllers\KegiatanKandangController;
 
 // HOME
 Route::get('/', function () {
     return view('index');
 });
+
+Route::get('/', [AuthController::class, 'home'])->name('home');
 // LOGIN & DAFTAR PEMBELI
 Route::get('daftar', [AuthController::class, 'daftar'])->name('daftar');
 Route::post('daftar', [AuthController::class, 'daftarsave'])->name('daftar.save');
@@ -51,7 +54,7 @@ Route::middleware(['auth', 'checkKeswan'])->group(function () {
     Route::delete('/keswan/delete/{id}', [SapiController::class, 'deletesapi'])->name('deletesapi');
     // KESWAN - DETAIL PROFIL
     Route::get('/keswan/profil/{id}', [AkunController::class, 'profilkeswan'])->name('profilkeswan');
-}); 
+});
 //WASTUKAN 
 Route::middleware(['auth', 'checkWastukan'])->group(function () {
     Route::get('/wastukan', [WastukanController::class, 'index'])->name('wastukan');
@@ -116,9 +119,20 @@ Route::middleware(['auth', 'checkWasbitnak'])->group(function () {
     });
 });
 //PPID
-Route::middleware(['auth', 'checkWasbitnak'])->group(function () {
 
+Route::middleware(['auth', 'checkPPID'])->group(function () {
+    Route::get('/ppid', [PPIDController::class, 'index'])->name('ppid');
+    Route::get('/ppid/detail-profil', [AkunController::class, 'profilppid'])->name('ppid.profil');
+    Route::prefix('/ppid/siap-jual')->group(function () {
+        Route::get('/sapi', [PPIDController::class, 'indexsapi'])->name('ppid.sapi');
+        Route::get('/rumput', [PPIDController::class, 'indexrumput'])->name('ppid.rumput');
+    });
+    Route::prefix('/ppid/pembeli')->group(function () {
+        Route::get('/list-akun', [PPIDController::class, 'indexpembeli'])->name('ppid.list.pembeli');
+
+    });   
 });
+
 //BENDAHARA
 
 //KEPALA
@@ -126,7 +140,7 @@ Route::middleware(['auth', 'checkWasbitnak'])->group(function () {
 
 
 // lOGOUT
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 //403
 Route::get('/unauthorized', [AuthController::class, 'unauthorized'])->name('unauthorized');
 // PENDING
