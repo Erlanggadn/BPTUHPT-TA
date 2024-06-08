@@ -31,7 +31,7 @@ class AuthController extends Controller
             'nohp' => $request->nohp,
             'alamat' => $request->alamat,
             'password' => Hash::make($request->password),
-            'role' => 'pembeli'
+            'role' => 'admin'
         ]);
 
         return redirect()->route('login');
@@ -52,8 +52,10 @@ class AuthController extends Controller
             [
                 'email.required' => 'EMAIL WAJIB DIISI',
                 'password.required' => 'PASSWORD HARUS DIISI'
+
             ]
         );
+        // dd($request->all());
 
         $infologin = [
             'email' => $request->email,
@@ -86,9 +88,7 @@ class AuthController extends Controller
                 case 'bendahara':
                     $route = 'bendahara';
                     break;
-                case 'pembeli':
-                    $route = '/';
-                    break;
+
                 default:
                     $route = '/';
             }

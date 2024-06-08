@@ -17,25 +17,26 @@ use App\Http\Controllers\RumputSiapJualController;
 use App\Http\Controllers\KegiatanKandangController;
 
 // HOME
-Route::get('/', function () {
-    return view('index');
-});
+// Route::get('/', function () {
+//     return view('index');
+// });
 Route::get('/', [AuthController::class, 'home'])->name('home');
-// LOGIN & DAFTAR
-Route::get('daftar', [AuthController::class, 'daftar'])->name('daftar');
+// LOGIN & DAFTAR (PEGAWAI)
+Route::get('daftar-pegawai', [AuthController::class, 'daftar'])->name('daftar');
 Route::post('daftar', [AuthController::class, 'daftarsave'])->name('daftar.save');
-Route::get('login', [AuthController::class, 'login'])->name('login');
+Route::get('login-pegawai', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'loginAction'])->name('login.action');
 Route::get('/akun/edit/{id}', [AkunController::class, 'edit'])->name('akunadmin.edit');
 Route::put('/akun/update/{id}', [AkunController::class, 'update'])->name('akunadmin.update');
-// PEMBELI
+// LOGIN & DAFTAR
 Route::get('daftar-pembeli', [PembeliAuthController::class, 'daftar'])->name('pembeli.register');
 Route::post('store-pembeli', [PembeliAuthController::class, 'register'])->name('pembeli.save');
 Route::get('login-pembeli', [PembeliAuthController::class, 'showLoginForm'])->name('pembeli.login');
 Route::post('post-pembeli', [PembeliAuthController::class, 'login'])->name('post.pembeli');
-Route::post('logout', [PembeliAuthController::class, 'logout'])->name('pembeli.logout');
-Route::get('/pembeli', [AdminController::class, 'pembeli']);
-Route::get('/akun/{id}', [AkunController::class, 'detailpembeli'])->name('detailpembeli');
+
+// PEMBELI
+
+
 // ADMIN 
 Route::middleware(['auth', 'checkAdmin'])->group(function () {
     Route::get('/akunpembeli', [AkunController::class, 'indexpembeli'])->name('akunpembeli');

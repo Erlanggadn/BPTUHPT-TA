@@ -21,7 +21,9 @@
                 <li><a href="#about">Tentang</a></li>
             </ul>
         </nav><!-- .navbar -->
-
+        @if(Auth::check())
+        {{ Auth::user()->name }} - Role: {{ Auth::user()->role }}
+        @endif
         @if(Auth::check() && Auth::user()->role == 'pembeli')
         <a class="btn-book-a-table" href="{{ route('logout') }}"
             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>

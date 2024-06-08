@@ -7,7 +7,8 @@
         <div class="row justify-content-between gy-5">
             <div
                 class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
-                <h2 data-aos="fade-up">selamat Datang @if(Auth::check() && Auth::user())
+                <h2 data-aos="fade-up">selamat Datang 
+                    @if(Auth::check() && Auth::user())
                     <b>{{ Auth::user()->name }} </b>
                     @else
                     @endif<br> , di BPTU HPT Padang

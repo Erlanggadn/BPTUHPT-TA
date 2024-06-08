@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pembeli;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\TryCatch;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -72,26 +73,37 @@ class PembeliAuthController extends Controller
 
     public function login(Request $request)
     {
-         // Validasi input
+        // dd($request->all());
         $request->validate([
-            'email' => 'required|email',
+            'email' => 'required|email|exists:pembeli,email',
             'password' => 'required|string',
         ]);
 
-        // Mengambil kredensial dari request
-        $credentials = $request->only('email', 'password');
+        // $credentials = $request->only('email', 'password');
 
-        // Percobaan login
-        if (Auth::attempt($credentials)) {
-            // Regenerasi session untuk keamanan
-            $request->session()->regenerate();
-            return redirect()->intended('/');
+        // Find user by email
+        $user = Pembeli::where('email', $request->email)->first();
+
+        if ($user) {
+            // Check if the password matches
+            if (Hash::check($request->password, $user->password)) {
+                // Login the user
+                Auth::login($user);
+                $request->session()->regenerate();
+
+                // Redirect based on user role
+                if ($user->role == 'pembeli') {
+                    return view('index')->with('success', 'Berhasil login!');
+                }
+            } else {
+                return back()->withErrors([
+                    'password' => 'Password salah.',
+                ])->withInput($request->except('password'));
+            }
+        } else {
+            return back()->withErrors([
+                'email' => 'Email atau password salah.',
+            ])->withInput($request->except('password'));
         }
-
-        // Jika login gagal, kirim pesan kesalahan kembali ke form login
-        return back()->withErrors([
-            'email' => 'Email atau password salah.',
-        ])->withInput($request->except('password'));
     }
-    
 }
