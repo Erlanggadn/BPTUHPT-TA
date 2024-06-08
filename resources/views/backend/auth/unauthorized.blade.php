@@ -60,7 +60,8 @@
 
 <body>
     <div class="unauthorized-container">
-        <img src="{{ asset('img/403.gif') }}" alt="Unauthorized Access">
+        <h1><B>403</B></h1>
+        {{-- <img src="{{ asset('img/403.gif') }}" alt="Unauthorized Access"> --}}
         <h1 class="text-center"><b>Ups.., Anda tidak dapat mengakses halaman ini</b></h1>
         <button onclick="history.back()" class="btn btn-danger">Kembali</button>
     </div>

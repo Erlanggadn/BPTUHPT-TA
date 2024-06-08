@@ -16,12 +16,10 @@
                     (BPTUHPT) Padang Mengatas merupakan salah satu unit pelaksana teknis (UPT) dibawah Direktorat
                     Jenderal Peternakan dan Kesehatan Hewan Kementerian Pertanian.</p>
                 @if(Auth::check() && Auth::user())
-                <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-                    <a href="/daftar" class="btn-book-a-table">ayok explore</a>
-                </div>
+
                 @else
                 <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-                    <a href="/daftar" class="btn-book-a-table">Daftar</a>
+                    <a href="{{ route('pembeli.register') }}" class="btn-book-a-table">Daftar</a>
                 </div>
                 @endif
             </div>

@@ -35,14 +35,12 @@
                             </div>
 
                             
-                            @if(auth()->user()->role == 'admin')
+                           
                             <a class="btn btn-outline-success" href="https://wa.me/{{ $akunuser->nohp }}"
                                 target="_blank"><i class="bi bi-whatsapp"></i> Whatsapp</a>
-                            <a class="btn btn-outline-secondary" href="#" class="telephone"><i
-                                    class="bi bi-telephone-fill"></i> Telepon</a>
                             <a class="btn btn-outline-warning" href="{{ route('akunadmin.edit', $akunuser->id) }}"
                                 class="edit"><i class="bi bi-pencil-square"></i> Edit</a>
-                            @endif
+                            
 
                         </div>
 

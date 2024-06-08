@@ -10,6 +10,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RumputController;
 use App\Http\Controllers\SapiJualController;
 use App\Http\Controllers\WastukanController;
+use App\Http\Controllers\PembeliAuthController;
 use App\Http\Controllers\JenisKandangController;
 use App\Http\Controllers\KegiatanSapiController;
 use App\Http\Controllers\RumputSiapJualController;
@@ -19,14 +20,20 @@ use App\Http\Controllers\KegiatanKandangController;
 Route::get('/', function () {
     return view('index');
 });
-
 Route::get('/', [AuthController::class, 'home'])->name('home');
-// LOGIN & DAFTAR PEMBELI
+// LOGIN & DAFTAR
 Route::get('daftar', [AuthController::class, 'daftar'])->name('daftar');
 Route::post('daftar', [AuthController::class, 'daftarsave'])->name('daftar.save');
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'loginAction'])->name('login.action');
+Route::get('/akun/edit/{id}', [AkunController::class, 'edit'])->name('akunadmin.edit');
+Route::put('/akun/update/{id}', [AkunController::class, 'update'])->name('akunadmin.update');
 // PEMBELI
+Route::get('daftar-pembeli', [PembeliAuthController::class, 'daftar'])->name('pembeli.register');
+Route::post('store-pembeli', [PembeliAuthController::class, 'register'])->name('pembeli.save');
+Route::get('login-pembeli', [PembeliAuthController::class, 'showLoginForm'])->name('pembeli.login');
+Route::post('post-pembeli', [PembeliAuthController::class, 'login'])->name('post.pembeli');
+Route::post('logout', [PembeliAuthController::class, 'logout'])->name('pembeli.logout');
 Route::get('/pembeli', [AdminController::class, 'pembeli']);
 Route::get('/akun/{id}', [AkunController::class, 'detailpembeli'])->name('detailpembeli');
 // ADMIN 
@@ -35,8 +42,7 @@ Route::middleware(['auth', 'checkAdmin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'indexadmin'])->name('akunadmin');
     Route::get('/akun/{id}', [AkunController::class, 'detailakun'])->name('detailakun');
     Route::get('/profil/{id}', [AkunController::class, 'profiladmin'])->name('profiladmin');
-    Route::get('/akun/edit/{id}', [AkunController::class, 'edit'])->name('akunadmin.edit');
-    Route::put('/akun/update/{id}', [AkunController::class, 'update'])->name('akunadmin.update');
+
     Route::delete('/akun/delete/{id}', [AkunController::class, 'delete'])->name('akunadmin.delete');
     //ADMIN - DAFTAR PEGAWAI
     Route::get('pegawai/daftar', [AuthController::class, 'pegawaidaftar'])->name('pegawaidaftar');
@@ -119,7 +125,6 @@ Route::middleware(['auth', 'checkWasbitnak'])->group(function () {
     });
 });
 //PPID
-
 Route::middleware(['auth', 'checkPPID'])->group(function () {
     Route::get('/ppid', [PPIDController::class, 'index'])->name('ppid');
     Route::get('/ppid/detail-profil', [AkunController::class, 'profilppid'])->name('ppid.profil');
@@ -129,18 +134,16 @@ Route::middleware(['auth', 'checkPPID'])->group(function () {
     });
     Route::prefix('/ppid/pembeli')->group(function () {
         Route::get('/list-akun', [PPIDController::class, 'indexpembeli'])->name('ppid.list.pembeli');
-
-    });   
+    });
 });
 
 //BENDAHARA
 
 //KEPALA
 
-
-
 // lOGOUT
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 //403
 Route::get('/unauthorized', [AuthController::class, 'unauthorized'])->name('unauthorized');
 // PENDING
+

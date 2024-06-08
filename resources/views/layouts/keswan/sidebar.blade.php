@@ -13,6 +13,12 @@
                     <i class="bi bi-journal-plus"></i>
                     <span>Form Ternak Lahir</span>
                 </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/keswan/form">
+                    <i class="bi bi-printer-fill"></i>
+                    <span>Cetak Laporan</span>
+                </a>
             </li><!-- End Register Page Nav -->
         </ul>
 

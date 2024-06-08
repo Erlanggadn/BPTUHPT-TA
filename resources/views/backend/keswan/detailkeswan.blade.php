@@ -5,3 +5,6 @@
 @section('content')
 
 @include('backend.auth.detailprofil')
+
+
+

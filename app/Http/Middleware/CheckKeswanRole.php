@@ -17,6 +17,16 @@ class CheckKeswanRole
      */
     public function handle(Request $request, Closure $next)
     {
+        $excludedRoutes = [
+            'akunadmin/edit/*',
+            'akunadmin/update/*',
+        ];
+    
+        foreach ($excludedRoutes as $route) {
+            if ($request->is($route)) {
+                return $next($request);
+            }
+        }
         if (Auth::check() && Auth::user()->role == 'keswan') {
             return $next($request);
         }
