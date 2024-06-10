@@ -24,9 +24,12 @@
                 </a><!-- End Profile Iamge Icon -->
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li>
+                        {{-- <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                        </form> --}}
                         <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}">
-                        <i class="bi bi-box-arrow-right"></i>
-                        <span>Log Out</span>
+                            <i class="bi bi-box-arrow-right"></i>
+                            <span>Log Out</span>
                         </a>
                     </li>
                     @auth

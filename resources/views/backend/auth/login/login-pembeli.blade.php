@@ -23,7 +23,7 @@
                                     {{ session('error') }}
                                 </div>
                                 @endif
-                                <form action="{{ route('login.action') }}" method="POST"
+                                <form action="{{ route('login.pembeli.action') }}" method="POST"
                                     class="row g-3 needs-validation" novalidate>
                                     @csrf
                                     <div class="col-12">

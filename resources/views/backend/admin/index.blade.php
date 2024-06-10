@@ -18,6 +18,11 @@
                             Padang
                             Mengatas
                         </p>
+                        <p>Jumlah Pegawai Saat Ini : <b>{{ $jumlahPegawai }}</b></p>
+                        <a class="btn btn-outline-success mb-4" href=""><i class="bi bi-file-earmark-spreadsheet"></i>
+                            Cetak Excel</a>
+                        <a class="btn btn-outline-danger mb-4" href=""><i class="bi bi-file-earmark-pdf-fill"></i>
+                            Cetak PDF</a>
 
                         <!-- Table with stripped rows -->
                         <table class="table datatable">
@@ -27,6 +32,7 @@
                                     <th>Email</th>
                                     <th>Nama</th>
                                     <th>Status</th>
+                                    <th>Tgl Buat</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -38,6 +44,7 @@
                                     <td>{{ $item->email }}</td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->role }}</td>
+                                    <td>{{ $item->created_at->translatedFormat('d F Y') }}</td>
                                     <td><a class="btn btn-outline-success"
                                             href="{{ route('detailakun', $item->id) }}"><i
                                                 class="bi bi-info-square-fill"></i></a>

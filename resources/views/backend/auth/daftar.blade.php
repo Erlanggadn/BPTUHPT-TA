@@ -1,11 +1,10 @@
 @include('layouts.utama.main2')
 <main>
     <div class="container">
-
         <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-lg-4 col-md-6  flex-column align-items-center justify-content-center">
+                    <div class="col-lg-4 col-md-6 flex-column align-items-center justify-content-center">
                         <div class="d-flex justify-content-center py-4">
                         </div><!-- End Logo -->
                         <form action="{{ route('daftar.save') }}" method="POST">
@@ -27,25 +26,25 @@
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <label for="yourUsername" class="form-label">Nama Anda</label>
+                                            <label for="yourName" class="form-label">Nama Anda</label>
                                             <div class="input-group has-validation">
-                                                <input type="text" name="name" class="form-control" id="yourUsername"
+                                                <input type="text" name="name" class="form-control" id="yourName"
                                                     required>
                                                 <div class="invalid-feedback">Masukkan Nama anda dengan benar</div>
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <label for="yourUsername" class="form-label">No. Hp</label>
+                                            <label for="yourNohp" class="form-label">No. Hp</label>
                                             <div class="input-group has-validation">
-                                                <input type="number" name="nohp" class="form-control" id="yourUsername"
+                                                <input type="number" name="nohp" class="form-control" id="yourNohp"
                                                     required>
                                                 <div class="invalid-feedback">Masukkan No.Hp anda dengan benar</div>
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <label for="yourUsername" class="form-label">Alamat</label>
+                                            <label for="yourAlamat" class="form-label">Alamat</label>
                                             <div class="input-group has-validation">
-                                                <input type="text" name="alamat" class="form-control" id="yourUsername"
+                                                <input type="text" name="alamat" class="form-control" id="yourAlamat"
                                                     required>
                                                 <div class="invalid-feedback">Masukkan Alamat anda dengan benar</div>
                                             </div>
@@ -56,19 +55,30 @@
                                                 id="yourPassword" required>
                                             <div class="invalid-feedback">Masukkan Password anda</div>
                                         </div>
+                                        <div class="col-12 mb-4">
+                                            <label for="confirmPassword" class="form-label">Konfirmasi Password</label>
+                                            <input type="password" name="password_confirmation" class="form-control"
+                                                id="confirmPassword" required>
+                                            <div class="invalid-feedback">Konfirmasi Password anda</div>
+                                        </div>
+                                        <div class="col-12">
+                                            <input type="checkbox" id="showPasswordToggle">
+                                            Tampilkan Password
+                                        </div>
                                         <br>
                                         <div class="col-12">
-                                            <button class="btn btn-success w-100" type="submit"><i
+                                            <button class="btn btn-outline-success w-100" type="submit"><i
                                                     class="bi bi-box-arrow-in-right"></i> Daftar</button>
                                         </div>
                                         <br>
                                         <div class="col-12">
-                                            <a href="/" class="btn btn-secondary w-100"><i
+                                            <a href="/" class="btn btn-outline-secondary w-100"><i
                                                     class="bi bi-house-door-fill"></i> Beranda</a>
                                         </div>
                                         <br>
                                         <div class="col-12">
-                                            <p class="small mb-0 ">Sudah Punya Akun?<a href="/login"> Login</a></p>
+                                            <p class="small mb-0">Sudah Punya Akun? <a
+                                                    href="{{ route('loginpembeli') }}">Login</a></p>
                                         </div>
                                     </form>
                                 </div>
@@ -77,9 +87,7 @@
                     </div>
                 </div>
             </div>
-
         </section>
-
     </div>
 </main><!-- End #main -->
 
@@ -98,3 +106,18 @@
 
 <!-- Template Main JS File -->
 <script src="assets/js/main.js"></script>
+
+<script>
+    document.getElementById('showPasswordToggle').addEventListener('change', function () {
+        var passwordField = document.getElementById('yourPassword');
+        var confirmPasswordField = document.getElementById('confirmPassword');
+        if (this.checked) {
+            passwordField.type = 'text';
+            confirmPasswordField.type = 'text';
+        } else {
+            passwordField.type = 'password';
+            confirmPasswordField.type = 'password';
+        }
+    });
+
+</script>

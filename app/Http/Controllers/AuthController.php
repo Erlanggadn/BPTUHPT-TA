@@ -19,10 +19,10 @@ class AuthController extends Controller
     {
         Validator::make($request->all(), [
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|email|unique:users,email',
             'nohp' => 'required',
             'alamat' => 'required',
-            'password' => 'required',
+            'password' => 'required|confirmed',
         ])->validate();
 
         User::create([
@@ -31,18 +31,26 @@ class AuthController extends Controller
             'nohp' => $request->nohp,
             'alamat' => $request->alamat,
             'password' => Hash::make($request->password),
-            'role' => 'admin'
+            'role' => 'pembeli'
         ]);
 
-        return redirect()->route('login');
+        // Jika Anda ingin pengguna langsung login setelah mendaftar
+        Auth::attempt(['email' => $request->email, 'password' => $request->password]);
+
+        return redirect()->route('loginpembeli');
     }
 
     public function login()
     {
-        return view('backend/auth/login');
+        return view('backend.auth.login.login-pegawai'); // Untuk semua role kecuali pembeli
     }
 
-    function loginAction(Request $request)
+    public function loginPembeli()
+    {
+        return view('backend.auth.login.login-pembeli'); // Khusus pembeli
+    }
+
+    public function loginAction(Request $request)
     {
         $request->validate(
             [
@@ -52,10 +60,8 @@ class AuthController extends Controller
             [
                 'email.required' => 'EMAIL WAJIB DIISI',
                 'password.required' => 'PASSWORD HARUS DIISI'
-
             ]
         );
-        // dd($request->all());
 
         $infologin = [
             'email' => $request->email,
@@ -68,7 +74,7 @@ class AuthController extends Controller
 
             switch ($role) {
                 case 'admin':
-                    $route = 'admin';
+                    $route = '/admin/akun-pegawai';
                     break;
                 case 'wasbitnak':
                     $route = 'wasbitnak';
@@ -88,9 +94,10 @@ class AuthController extends Controller
                 case 'bendahara':
                     $route = 'bendahara';
                     break;
+            }
 
-                default:
-                    $route = '/';
+            if ($role == 'pembeli') {
+                return redirect()->back()->withErrors('Akses tidak diizinkan')->with('error', 'Gagal login, Anda tidak memiliki akses.');
             }
 
             return redirect($route)->with('success', 'Berhasil login!');
@@ -98,6 +105,39 @@ class AuthController extends Controller
             return redirect()->back()->withErrors('Email dan Password yang dimasukkan tidak sesuai')->withInput()->with('error', 'Gagal login, silakan cek kembali email dan password Anda.');
         }
     }
+
+    public function loginPembeliAction(Request $request)
+    {
+        $request->validate(
+            [
+                'email' => 'required',
+                'password' => 'required'
+            ],
+            [
+                'email.required' => 'EMAIL WAJIB DIISI',
+                'password.required' => 'PASSWORD HARUS DIISI'
+            ]
+        );
+
+        $infologin = [
+            'email' => $request->email,
+            'password' => $request->password,
+        ];
+
+        if (Auth::attempt($infologin)) {
+            $role = Auth::user()->role;
+
+            if ($role != 'pembeli') {
+                Auth::logout();
+                return redirect()->back()->withErrors('Akses tidak diizinkan')->with('error', 'Gagal login, Anda tidak memiliki akses.');
+            }
+
+            return redirect('/')->with('success', 'Berhasil login!');
+        } else {
+            return redirect()->back()->withErrors('Email dan Password yang dimasukkan tidak sesuai')->withInput()->with('error', 'Gagal login, silakan cek kembali email dan password Anda.');
+        }
+    }
+
 
 
     public function pegawaidaftar()

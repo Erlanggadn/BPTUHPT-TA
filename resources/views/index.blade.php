@@ -7,11 +7,11 @@
         <div class="row justify-content-between gy-5">
             <div
                 class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
-                <h2 data-aos="fade-up">selamat Datang 
+                <h2 data-aos="fade-up">selamat Datang
                     @if(Auth::check() && Auth::user())
-                    <b>{{ Auth::user()->name }} </b>
+                    <b style="color: #138220">{{ Auth::user()->name}} </b>
                     @else
-                    @endif<br> , di BPTU HPT Padang
+                    @endif<br>, di BPTU HPT Padang
                     Mengatas<br></h2>
                 <p data-aos="fade-up" data-aos-delay="100">Balai Pembibitan Ternak Unggul dan Hijauan Pakan Ternak
                     (BPTUHPT) Padang Mengatas merupakan salah satu unit pelaksana teknis (UPT) dibawah Direktorat
@@ -20,7 +20,8 @@
 
                 @else
                 <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-                    <a href="{{ route('pembeli.register') }}" class="btn-book-a-table">Daftar</a>
+                    <a href="{{ route('daftar') }}" class="btn-book-a-table">Daftar Sekarang <i
+                            class="bi bi-arrow-up-right-circle-fill"></i></a>
                 </div>
                 @endif
             </div>
@@ -51,10 +52,17 @@
                         <span>Tersedia beragam jenis hewan ternak</span>
                         <p>Dengan kualitas daging yang tinggi, pertumbuhan yang cepat, serta ketahanan yang
                             handal.Jangan lewatkan kesempatan untuk memiliki sapi-sapi berkualitas ini.</p>
+                        @if(Auth::check() && Auth::user()->role == 'pembeli')
                         <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
                             <a href="#sapi" class="btn-book-a-table ">Lihat Selengkapnya <i
                                     class="bi bi-arrow-right-circle"></i></a>
                         </div>
+                        @else
+                        <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
+                            <a href="{{ route('daftar') }}" class="btn-book-a-table ">Lihat Selengkapnya <i
+                                    class="bi bi-arrow-right-circle"></i></a>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div><!-- End Chefs Member -->
@@ -70,10 +78,17 @@
                         <p>Dengan kandungan gizi yang optimal, konsistensi yang terjaga, dan formulasi yang disesuaikan,
                             pakan ternak kami memberikan nutrisi yang tepat untuk pertumbuhan dan kesehatan ternak Anda.
                         </p>
+                        @if(Auth::check() && Auth::user()->role == 'pembeli')
                         <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-                            <a href="#rumput" class="btn-book-a-table ">Lihat Selengkapnya <i
+                            <a href="#sapi" class="btn-book-a-table ">Lihat Selengkapnya <i
                                     class="bi bi-arrow-right-circle"></i></a>
                         </div>
+                        @else
+                        <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
+                            <a href="{{ route('daftar') }}" class="btn-book-a-table ">Lihat Selengkapnya <i
+                                    class="bi bi-arrow-right-circle"></i></a>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div><!-- End Chefs Member -->
@@ -81,7 +96,9 @@
     </div>
 </section><!-- End Chefs Section -->
 
-<!-- ======= About Section ======= -->
+@if(Auth::check() && Auth::user()->role == 'pembeli')
+
+@else
 <section id="about" class="about">
     <div class="container mb-4" data-aos="fade-up">
 
@@ -119,7 +136,7 @@
             {{-- <div class="col-lg-7 position-relative about-img" style="background-image: url(img/foto.jpg);" data-aos="fade-up" data-aos-delay="150"> --}}
 
         </div>
-        <div class="d-flex align-items-end" data-aos="fade-up" data-aos-delay="300">
+        <div class="d-flex align-items-end " data-aos="fade-up" data-aos-delay="300">
             <div class="content ps-0 ps-lg-5">
                 <p>
                     BPTUHPT Padang Mengatas adalah Unit Pelaksana Teknis (UPT) di bawah Direktorat Jenderal Peternakan
@@ -130,11 +147,11 @@
                     priority".
                 </p>
 
-                <p>
+                <p class="mb-4">
                     BPTUHPT Padang Mengatas berada pada ketinggian lokasi 790-1014 meter dari permukaan laut dengan suhu
                     udara antara 18 – 28 0C atau rata-rata 23 0C. Kelembapan sekitar 70%, curah hujan lebih kurang 1800
                     mm/tahun. Iklim tropis dan jenis tanah posolik merah kuning dengan tekstur liat dan pH tanah antara
-                    5 – 6.5. <a href="">Baca Selengkapnya</a>.
+                    5 – 6.5.
                 </p>
             </div>
         </div>
@@ -142,36 +159,58 @@
 
     </div>
 </section><!-- End About Section -->
-<br>
+<section id="maps" class="maps">
+    <div class="container mb-4" data-aos="fade-up">
+        <div class="section-header">
+            <h2>Lokasi kami</h2>
+            <p>Kunjungi Kami<span> disini</span></p>
+        </div>
+        <div class="text-center">
+            <iframe style="width: 80%"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.7700415037957!2d100.6851777736301!3d-0.2818641997153618!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e2ab54a02a257f5%3A0x1b37017a18f596e9!2sBPTU-HPT%20Padang%20Mengatas!5e0!3m2!1sid!2sid!4v1717929841048!5m2!1sid!2sid"
+                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
 
+    </div>
+</section><!-- End About Section -->
+<br>
+@endif
+<!-- ======= About Section ======= -->
+
+
+@if(Auth::check() && Auth::user()->role == 'pembeli')
 {{-- Start tabel harga sapi --}}
 <section id="sapi">
     <div class="section-header">
         <h2>Produk Kami</h2>
         <p><span>-Daftar</span>Harga<span>Sapi-</span></p>
+
+        <table class=" container table table-striped mb-4 ">
+            <thead>
+                <tr>
+                    <th scope="col">Jenis Sapi</th>
+                    <th scope="col">Jumlah Sapi Tersedia</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Handle</th>
+                </tr>
+            </thead>
+            <tbody>
+                @isset($sapi)
+                @foreach ($sapi as $item)
+                <tr>
+                    <th>{{ $item->jenis}}</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                </tr>
+                @endforeach
+                @endisset
+            </tbody>
+        </table>
+        <a href="" class="btn btn-dark"><i class="bi bi-envelope-paper-fill"></i> Ajukan Pembelian Sapi</a>
     </div>
-    <table class=" container table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">Jenis Sapi</th>
-                <th scope="col">Jumlah Sapi Tersedia</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
-            </tr>
-        </thead>
-        <tbody>
-            @isset($sapi)
-            @foreach ($sapi as $item)
-            <tr>
-                <th>{{ $item->jenis}}</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            @endforeach
-            @endisset
-        </tbody>
-    </table>
+
 </section>
 <br>
 {{-- End Harga Sapi --}}
@@ -180,38 +219,44 @@
     <div class="section-header">
         <h2>Produk Kami</h2>
         <p><span>-Daftar</span>Harga<span>Pakan</span>Ternak-</p>
+
+        <table class=" container table table-striped mb-4">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Handle</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Larry the Bird</td>
+                    <td>@twitter</td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="" class="btn btn-dark"><i class="bi bi-envelope-paper-fill"></i> Ajukan Pembelian Rumput</a>
     </div>
-    <table class=" container table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">No</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
-            </tr>
-        </tbody>
-    </table>
+
 </section>
 {{-- End Harga Sapi --}}
+@else
+@endif
+
 
 <!-- ======= Footer ======= -->
 <footer id="kontak" class="footer">
@@ -269,10 +314,6 @@
             &copy; Copyright <strong><span>BPTU HPT - Tugas Akhir</span></strong>. All Rights Reserved
         </div>
         <div class="credits">
-            <!-- All the links in the footer should remain intact. -->
-            <!-- You can delete the links only if you purchased the pro version. -->
-            <!-- Licensing information: https://bootstrapmade.com/license/ -->
-            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/yummy-bootstrap-restaurant-website-template/ -->
             Designed by <a href="">Muhammad Erlangga Adi Nugraha</a>
         </div>
     </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pembeli;
 use App\Models\SapiJual;
 use Illuminate\Http\Request;
 use App\Models\RumputSiapJual;
@@ -23,7 +24,7 @@ class PPIDController extends Controller
     }
 
     public function indexpembeli(){
-        $akunuser = User::whereNotIn('role', ['wasbitnak', 'wastukan','kepala','admin','ppid', 'bendahara', 'keswan'])->get();
+        $akunuser = Pembeli::all();
         return view('backend.ppid.pembeli.akun', ['akunuser' => $akunuser ]);
     }
 

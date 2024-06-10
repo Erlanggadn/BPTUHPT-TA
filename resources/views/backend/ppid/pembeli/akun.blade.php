@@ -5,7 +5,7 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Selamat Datang, {{ Auth::user()->name }} sebagai {{ Auth::user()->role }}</h1>
+        <h1>Selamat Datang, <b>{{ Auth::user()->name }}</b> sebagai {{ Auth::user()->role }}</h1>
     </div><!-- End Page Title -->
 
     <section class="section">
@@ -28,7 +28,7 @@
                                     <th>ID</th>
                                     <th>Email</th>
                                     <th>Nama</th>
-                                    <th>Status</th>
+                                    <th>Sebagai</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -36,22 +36,22 @@
                                 @isset($akunuser)
                                 @foreach ($akunuser as $item)
                                 <tr>
-                                    <td>{{ $item->id }}</td>
+                                    <td>{{ $item->id_pembeli }}</td>
                                     <td>{{ $item->email }}</td>
-                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->nama }}</td>
                                     <td>{{ $item->role }}</td>
-                                    <td><a class="btn btn-outline-success"
+                                    {{-- <td><a class="btn btn-outline-success"
                                             href="{{ route('detailakun', $item->id) }}"><i
-                                                class="bi bi-info-square-fill"></i></a>
-                                        <form action="{{ route('akunadmin.delete', $item->id) }}" method="POST"
-                                            style="display: inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-outline-danger"
-                                                onclick="return confirm('Apakah Anda yakin ingin menghapus akun ini?')"><i
-                                                    class="bi bi-person-x-fill"></i></button>
-                                        </form>
-                                    </td>
+                                        class="bi bi-info-square-fill"></i></a>
+                                    <form action="{{ route('akunadmin.delete', $item->id) }}" method="POST"
+                                        style="display: inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-outline-danger"
+                                            onclick="return confirm('Apakah Anda yakin ingin menghapus akun ini?')"><i
+                                                class="bi bi-person-x-fill"></i></button>
+                                    </form>
+                                    </td> --}}
                                 </tr>
                                 @endforeach
                                 @endisset

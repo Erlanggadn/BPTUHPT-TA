@@ -68,5 +68,6 @@ class Kernel extends HttpKernel
         'checkWastukan' => \App\Http\Middleware\CheckWastukanRole::class,
         'checkWasbitnak' => \App\Http\Middleware\CheckWasbitnakRole::class,
         'checkPPID' => \App\Http\Middleware\CheckPPIDRole::class,
+        'checkPembeli' => \App\Http\Middleware\CheckPembeliRole::class,
     ];
 }

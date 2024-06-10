@@ -17,6 +17,7 @@ class CreateKegiatanKandangTable extends Migration
             $table->id('id_kegiatan');
             $table->string('kode_kandang');
             $table->foreign('kode_kandang')->references('id_kandang')->on('jenis_kandang')->onDelete('cascade');
+            $table->date('tanggal_kegiatan');
             $table->text('kegiatan');
             $table->string('status');
             $table->timestamps();
@@ -27,6 +28,7 @@ class CreateKegiatanKandangTable extends Migration
             $table->unsignedBigInteger('id_kegiatan');
             $table->string('kode_sapi');
             $table->foreign('id_kegiatan')->references('id_kegiatan')->on('kegiatan_kandang')->onDelete('cascade');
+            $table->date('tanggal_kegiatan');
             $table->foreign('kode_sapi')->references('id')->on('sapi')->onDelete('cascade');
             $table->timestamps();
         });

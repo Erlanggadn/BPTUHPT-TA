@@ -17,37 +17,32 @@ use App\Http\Controllers\RumputSiapJualController;
 use App\Http\Controllers\KegiatanKandangController;
 
 // HOME
-// Route::get('/', function () {
-//     return view('index');
-// });
 Route::get('/', [AuthController::class, 'home'])->name('home');
-// LOGIN & DAFTAR (PEGAWAI)
-Route::get('daftar-pegawai', [AuthController::class, 'daftar'])->name('daftar');
-Route::post('daftar', [AuthController::class, 'daftarsave'])->name('daftar.save');
-Route::get('login-pegawai', [AuthController::class, 'login'])->name('login');
+// LOGIN (PEGAWAI)
+Route::get('login-pegawai', [AuthController::class, 'login'])->name('loginpegawai');
 Route::post('login', [AuthController::class, 'loginAction'])->name('login.action');
-Route::get('/akun/edit/{id}', [AkunController::class, 'edit'])->name('akunadmin.edit');
-Route::put('/akun/update/{id}', [AkunController::class, 'update'])->name('akunadmin.update');
-// LOGIN & DAFTAR
-Route::get('daftar-pembeli', [PembeliAuthController::class, 'daftar'])->name('pembeli.register');
-Route::post('store-pembeli', [PembeliAuthController::class, 'register'])->name('pembeli.save');
-Route::get('login-pembeli', [PembeliAuthController::class, 'showLoginForm'])->name('pembeli.login');
-Route::post('post-pembeli', [PembeliAuthController::class, 'login'])->name('post.pembeli');
-
+// LOGIN & DAFTAR (PEMBELI)
+Route::get('daftar', [AuthController::class, 'daftar'])->name('daftar');
+Route::post('daftar', [AuthController::class, 'daftarsave'])->name('daftar.save');
+Route::get('login-pembeli', [AuthController::class, 'loginpembeli'])->name('loginpembeli');
+Route::post('login-post', [AuthController::class, 'loginPembeliAction'])->name('login.pembeli.action');
 // PEMBELI
-
-
+Route::middleware(['auth', 'checkPembeli'])->group(function () {
+});
 // ADMIN 
 Route::middleware(['auth', 'checkAdmin'])->group(function () {
-    Route::get('/akunpembeli', [AkunController::class, 'indexpembeli'])->name('akunpembeli');
-    Route::get('/admin', [AdminController::class, 'indexadmin'])->name('akunadmin');
-    Route::get('/akun/{id}', [AkunController::class, 'detailakun'])->name('detailakun');
-    Route::get('/profil/{id}', [AkunController::class, 'profiladmin'])->name('profiladmin');
-
-    Route::delete('/akun/delete/{id}', [AkunController::class, 'delete'])->name('akunadmin.delete');
+    Route::get('/admin/akun-pegawai', [AdminController::class, 'indexadmin'])->name('akunadmin');
+    Route::get('/admin/akun-pegawai/{id}', [AkunController::class, 'detailakun'])->name('detailakun');
+    Route::get('/admin/akun-pembeli', [AkunController::class, 'indexpembeli'])->name('akunpembeli');
+    Route::get('/admin/akun-pembeli/{id}', [AkunController::class, 'detailakunpembeli'])->name('detailakunpembeli');
+    Route::get('/admin/profil-admin/{id}', [AkunController::class, 'profiladmin'])->name('profiladmin');
+    Route::get('/admin/akun/edit/{id}', [AkunController::class, 'edit'])->name('akunadmin.edit');
+    Route::put('/admin/akun/update/{id}', [AkunController::class, 'update'])->middleware('can:update,akunuser')->name('akunadmin.update');
+    Route::delete('/admin/akun/delete/{id}', [AkunController::class, 'delete'])->name('akunadmin.delete');
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('dashboard.admin');
     //ADMIN - DAFTAR PEGAWAI
-    Route::get('pegawai/daftar', [AuthController::class, 'pegawaidaftar'])->name('pegawaidaftar');
-    Route::post('pegawai/daftar', [AuthController::class, 'pegawaidaftarsave'])->name('pegawaidaftar.save');
+    Route::get('/admin/pegawai/daftar', [AuthController::class, 'pegawaidaftar'])->name('pegawaidaftar');
+    Route::post('/admin/pegawai/daftar', [AuthController::class, 'pegawaidaftarsave'])->name('pegawaidaftar.save');
 });
 // KESWAN
 Route::middleware(['auth', 'checkKeswan'])->group(function () {
@@ -137,7 +132,6 @@ Route::middleware(['auth', 'checkPPID'])->group(function () {
         Route::get('/list-akun', [PPIDController::class, 'indexpembeli'])->name('ppid.list.pembeli');
     });
 });
-
 //BENDAHARA
 
 //KEPALA
@@ -148,3 +142,4 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/unauthorized', [AuthController::class, 'unauthorized'])->name('unauthorized');
 // PENDING
 
+Route::get('/export', [AkunController::class, 'export']);

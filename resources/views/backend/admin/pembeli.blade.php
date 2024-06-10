@@ -6,11 +6,7 @@
 
     <div class="pagetitle">
         <h1>Selamat Datang, {{ Auth::user()->name }} sebagai {{ Auth::user()->role }}</h1>
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/akunadmin">Home</a></li>
-            </ol>
-        </nav>
+
     </div><!-- End Page Title -->
 
     <section class="section">
@@ -20,10 +16,16 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Data Hak Akses Akun Pembeli</h5>
-                        <p>Berikut ini adalah data hak akses akun yang sepenuhnya dikelola oleh <b>Admin dan Divisi PPID </b> BPTU HPT
+                        <p>Berikut ini adalah data hak akses akun yang sepenuhnya dikelola oleh <b>Admin dan Divisi PPID
+                            </b> BPTU HPT
                             Padang
                             Mengatas
                         </p>
+                        <p>Jumlah Pembeli Saat Ini : <b>{{ $jumlahPembeli }}</b></p>
+                        <a class="btn btn-outline-success mb-4" href=""><i class="bi bi-file-earmark-spreadsheet"></i>
+                            Cetak Excel</a>
+                        <a class="btn btn-outline-danger mb-4" href=""><i class="bi bi-file-earmark-pdf-fill"></i>
+                            Cetak PDF</a>
 
                         <!-- Table with stripped rows -->
                         <table class="table datatable">
@@ -33,6 +35,7 @@
                                     <th>Email</th>
                                     <th>Nama</th>
                                     <th>Status</th>
+                                    <th>Tgl Buat</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -44,8 +47,9 @@
                                     <td>{{ $item->email }}</td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->role }}</td>
+                                    <td>{{ $item->created_at->translatedFormat('d F Y') }}</td>
                                     <td><a class="btn btn-outline-success"
-                                            href="{{ route('detailakun', $item->id) }}"><i
+                                            href="{{ route('detailakunpembeli', $item->id) }}"><i
                                                 class="bi bi-info-square-fill"></i></a>
                                         <form action="{{ route('akunadmin.delete', $item->id) }}" method="POST"
                                             style="display: inline;">
