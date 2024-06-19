@@ -24,7 +24,8 @@
                         <p>Jumlah Pembeli Saat Ini : <b>{{ $jumlahPembeli }}</b></p>
                         <a class="btn btn-outline-success mb-4" href=""><i class="bi bi-file-earmark-spreadsheet"></i>
                             Cetak Excel</a>
-                        <a class="btn btn-outline-danger mb-4" href=""><i class="bi bi-file-earmark-pdf-fill"></i>
+                        <a class="btn btn-outline-danger mb-4" href="" target="_blank"><i
+                                class="bi bi-file-earmark-pdf-fill"></i>
                             Cetak PDF</a>
 
                         <!-- Table with stripped rows -->
@@ -34,7 +35,6 @@
                                     <th>ID</th>
                                     <th>Email</th>
                                     <th>Nama</th>
-                                    <th>Status</th>
                                     <th>Tgl Buat</th>
                                     <th>Action</th>
                                 </tr>
@@ -46,11 +46,9 @@
                                     <td>{{ $item->id }}</td>
                                     <td>{{ $item->email }}</td>
                                     <td>{{ $item->name }}</td>
-                                    <td>{{ $item->role }}</td>
                                     <td>{{ $item->created_at->translatedFormat('d F Y') }}</td>
                                     <td><a class="btn btn-outline-success"
-                                            href="{{ route('detailakunpembeli', $item->id) }}"><i
-                                                class="bi bi-info-square-fill"></i></a>
+                                            href="{{ route('detailakunpembeli', $item->id) }}"><i class="bi bi-info-lg"></i></a>
                                         <form action="{{ route('akunadmin.delete', $item->id) }}" method="POST"
                                             style="display: inline;">
                                             @csrf
@@ -75,19 +73,6 @@
     </section>
 
 </main><!-- End #main -->
-
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-        class="bi bi-arrow-up-short"></i></a>
-
-<!-- Vendor JS Files -->
-<script src="vendor/apexcharts/apexcharts.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="vendor/chart.js/chart.umd.js"></script>
-<script src="vendor/echarts/echarts.min.js"></script>
-<script src="vendor/quill/quill.min.js"></script>
-<script src="vendor/simple-datatables/simple-datatables.js"></script>
-<script src="vendor/tinymce/tinymce.min.js"></script>
-<script src="vendor/php-email-form/validate.js"></script>
 
 <!-- Template Main JS File -->
 <script src="js/main.js"></script>

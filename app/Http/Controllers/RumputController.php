@@ -15,7 +15,7 @@ class RumputController extends Controller
     public function index()
     {
         $rumput = rumput::all();
-        return view('backend.wastukan.jenis.index_jenis', ["rumput"=>$rumput]);
+        return view('backend.wastukan.jenis.index_jenis', ["rumput" => $rumput]);
     }
     /**
      * Show the form for creating a new resource.
@@ -25,7 +25,7 @@ class RumputController extends Controller
     public function tambahjenis()
     {
         $rumput = rumput::all();
-        return view('backend.wastukan.jenis.tambah_jenis', ["rumput"=>$rumput]);
+        return view('backend.wastukan.jenis.tambah_jenis', ["rumput" => $rumput]);
     }
 
     /**
@@ -68,8 +68,8 @@ class RumputController extends Controller
      */
     public function detailjenis($id)
     {
-        $rumput = rumput::where('id',$id)->get(); // Mengambil data berdasarkan id
-        return view('backend.wastukan.jenis.detail_jenis', ["rumput"=>$rumput]);
+        $rumput = rumput::where('id', $id)->get(); // Mengambil data berdasarkan id
+        return view('backend.wastukan.jenis.detail_jenis', ["rumput" => $rumput]);
     }
 
     /**
@@ -101,7 +101,7 @@ class RumputController extends Controller
         $rumput->deskripsi_rumput = $request->filled('deskripsi_rumput') ? $request->deskripsi_rumput : 'tidak ada';
         $rumput->save();
 
-    return redirect()->route('detailjenis', $rumput->id)->with('success', 'Data berhasil diperbarui');
+        return redirect()->route('detailjenis', $rumput->id)->with('success', 'Data berhasil diperbarui');
     }
 
     /**

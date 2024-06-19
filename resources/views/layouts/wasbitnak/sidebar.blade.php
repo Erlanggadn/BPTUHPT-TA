@@ -41,6 +41,14 @@
                     <span>Dashboard Laporan</span>
                 </a>
             </li>
+            <li class="nav-heading">Jenis Sapi</li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('index.jenis.sapi') }}">
+                    <i class="bi bi-journal-bookmark-fill"></i>
+                    <span>Jenis Sapi</span>
+                </a>
+            </li>
+
             <!-- End Register Page Nav -->
         </ul>
 

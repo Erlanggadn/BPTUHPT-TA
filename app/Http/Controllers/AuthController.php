@@ -169,15 +169,14 @@ class AuthController extends Controller
             'role' => $request->role
         ]);
 
-        return redirect()->route('akunadmin')->with('success', 'Akun berhasil didaftarkan.');
+        return redirect()->route('akunadmin')->with('berhasil.pegawai', 'Akun berhasil didaftarkan.');
     }
 
     public function logout()
     {
         Auth::logout();
-        return redirect('/'); // Redirect ke halaman login setelah logout
+        return redirect('/');
     }
-
     public function unauthorized()
     {
         return view('backend.auth.unauthorized');

@@ -10,8 +10,11 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RumputController;
 use App\Http\Controllers\SapiJualController;
 use App\Http\Controllers\WastukanController;
+use App\Http\Controllers\JenisLahanController;
+use App\Http\Controllers\JenisRumputController;
 use App\Http\Controllers\PembeliAuthController;
 use App\Http\Controllers\JenisKandangController;
+use App\Http\Controllers\JenisSapiController;
 use App\Http\Controllers\KegiatanSapiController;
 use App\Http\Controllers\RumputSiapJualController;
 use App\Http\Controllers\KegiatanKandangController;
@@ -37,7 +40,7 @@ Route::middleware(['auth', 'checkAdmin'])->group(function () {
     Route::get('/admin/akun-pembeli/{id}', [AkunController::class, 'detailakunpembeli'])->name('detailakunpembeli');
     Route::get('/admin/profil-admin/{id}', [AkunController::class, 'profiladmin'])->name('profiladmin');
     Route::get('/admin/akun/edit/{id}', [AkunController::class, 'edit'])->name('akunadmin.edit');
-    Route::put('/admin/akun/update/{id}', [AkunController::class, 'update'])->middleware('can:update,akunuser')->name('akunadmin.update');
+    Route::put('/admin/akun/update/{id}', [AkunController::class, 'update'])->name('akunadmin.update');
     Route::delete('/admin/akun/delete/{id}', [AkunController::class, 'delete'])->name('akunadmin.delete');
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('dashboard.admin');
     //ADMIN - DAFTAR PEGAWAI
@@ -54,7 +57,12 @@ Route::middleware(['auth', 'checkKeswan'])->group(function () {
     Route::get('/keswan/edit/{id}', [SapiController::class, 'edit'])->name('editsapi');
     Route::put('/keswan/update/{id}', [SapiController::class, 'update'])->name('updatesapi');
     Route::delete('/keswan/delete/{id}', [SapiController::class, 'deletesapi'])->name('deletesapi');
+
+
+
     // KESWAN - DETAIL PROFIL
+    Route::get('/keswan/list-pegawai', [AdminController::class, 'pegawaiKeswan'])->name('pegawai.keswan');
+    Route::get('/keswan/detail-pegawai/{id}', [AdminController::class, 'detailPKeswan'])->name('detail.pegawai.keswan');
     Route::get('/keswan/profil/{id}', [AkunController::class, 'profilkeswan'])->name('profilkeswan');
 });
 //WASTUKAN 
@@ -76,13 +84,21 @@ Route::middleware(['auth', 'checkWastukan'])->group(function () {
     //WASTUKAN - DETAIL PROFIL
     Route::get('/wastukan/profil', [AkunController::class, 'profilwastukan'])->name('profilwastukan');
     //WASTUKAN - JENIS RUMPUT
-    Route::get('/wastukan/jenis_rumput', [RumputController::class, 'index'])->name('indexrumput');
-    Route::get('/wastukan/tambah/jenis', [RumputController::class, 'tambahjenis'])->name('tambahjenis');
-    Route::post('/wastukan/store/jenis', [RumputController::class, 'postjenis'])->name('postjenis');
-    Route::get('/wastukan/jenis_rumput/detail/{id}', [RumputController::class, 'detailjenis'])->name('detailjenis');
-    Route::get('/wastukan/jenis_rumput/detail/edit/{id}', [RumputController::class, 'editjenis'])->name('editjenis');
-    Route::put('/wastukan/jenis_rumput/update/{id}', [RumputController::class, 'updatejenis'])->name('updatejenis');
-    Route::delete('/wastukan/jenis_rumput/delete/{id}', [RumputController::class, 'deletejenis'])->name('deletejenis');
+    Route::get('/wastukan/jenis_rumput', [JenisRumputController::class, 'index'])->name('index.jenis.rumput');
+    Route::get('/wastukan/tambah/jenis_rumput', [JenisRumputController::class, 'show'])->name('show.jenis.rumput');
+    Route::post('/wastukan/store/jenis_rumput', [JenisRumputController::class, 'store'])->name('store.jenis.rumput');
+    Route::get('/wastukan/jenis_rumput/detail/{rum_id}', [JenisRumputController::class, 'detail'])->name('detail.jenis.rumput');
+    Route::get('/wastukan/jenis_rumput/detail/edit/{rum_id}', [JenisRumputController::class, 'edit'])->name('edit.jenis.rumput');
+    Route::put('/wastukan/jenis_rumput/update/{rum_id}', [JenisRumputController::class, 'update'])->name('update.jenis.rumput');
+    Route::delete('/wastukan/jenis_rumput/delete/{rum_id}', [JenisRumputController::class, 'destroy'])->name('destroy.jenis.rumput');
+    //WASTUKAN - JENIS LAHAN
+    Route::get('/wastukan/jenis_lahan', [JenisLahanController::class, 'index'])->name('index.jenis.lahan');
+    Route::get('/wastukan/tambah/jenis_lahan', [JenisLahanController::class, 'show'])->name('show.jenis.lahan');
+    Route::post('/wastukan/store/jenis', [JenisLahanController::class, 'store'])->name('store.jenis.lahan');
+    Route::get('/wastukan/jenis_lahan/detail/{lahan_id}', [JenisLahanController::class, 'detail'])->name('detail.jenis.lahan');
+    Route::get('/wastukan/jenis_lahan/detail/edit/{lahan_id}', [JenisLahanController::class, 'edit'])->name('edit.jenis.lahan');
+    Route::put('/wastukan/jenis_lahan/update/{lahan_id}', [JenisLahanController::class, 'update'])->name('update.jenis.lahan');
+    Route::delete('/wastukan/jenis_lahan/delete/{lahan_id}', [JenisLahanController::class, 'destroy'])->name('destroy.jenis.lahan');
 });
 //WASBITNAK
 Route::middleware(['auth', 'checkWasbitnak'])->group(function () {
@@ -110,6 +126,18 @@ Route::middleware(['auth', 'checkWasbitnak'])->group(function () {
         Route::get('/tambah/{id_kegiatan}', [KegiatanSapiController::class, 'getsapi'])->name('getSapi');
         Route::post('/store/{id_kegiatan}', [KegiatanSapiController::class, 'tambahSapi'])->name('tambahSapi');
     });
+
+    //WASBITNAK - JENIS SAPI
+    Route::prefix('jenis_sapi')->group(function () {
+        Route::get('/', [JenisSapiController::class, 'index'])->name('index.jenis.sapi');
+        Route::get('/tambah', [JenisSapiController::class, 'show'])->name('show.jenis.sapi');
+        Route::post('/store', [JenisSapiController::class, 'store'])->name('store.jenis.sapi');
+        Route::get('/detail/{sjenis_id}', [JenisSapiController::class, 'detail'])->name('detail.jenis.sapi');
+        Route::get('/edit/{sjenis_id}', [JenisSapiController::class, 'edit'])->name('edit.jenis.sapi');
+        Route::put('/update/{sjenis_id}', [JenisSapiController::class, 'update'])->name('update.jenis.sapi');
+        Route::delete('/delete/{sjenis_id}', [JenisSapiController::class, 'destroy'])->name('destroy.jenis.sapi');
+    });
+
     //WASBITNAK - SAPI SIAP JUAL
     Route::prefix('sapi-jual')->group(function () {
         Route::get('/', [SapiJualController::class, 'index'])->name('sapi-jual.index');

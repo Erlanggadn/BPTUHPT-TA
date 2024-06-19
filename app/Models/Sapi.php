@@ -10,7 +10,6 @@ class Sapi extends Model
     use HasFactory;
 
     protected $table = 'sapi';
-    
     protected $primaryKey = 'id'; // Jika Anda ingin menetapkan nama kolom primary key secara eksplisit
     
     protected $keyType = 'string'; // Menentukan tipe data primary key

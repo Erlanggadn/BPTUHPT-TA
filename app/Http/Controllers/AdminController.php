@@ -21,7 +21,22 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        return view('backend.admin.dashboard.index');
+        $jumlahPegawai = User::whereNotIn('role', ['admin', 'pembeli'])->count();
+        $jumlahPembeli = User::whereNotIn('role', ['admin', 'ppid', 'wastukan', 'wasbitnak', 'kepala', 'keswan', 'bendahara'])->count();
+        return view('backend.admin.dashboard.index', ['jumlahPegawai'=> $jumlahPegawai, 'jumlahPembeli' => $jumlahPembeli] );
+    }
+
+    public function pegawaiKeswan()
+    {
+        $jumlahKeswan = User::whereNotIn('role', ['admin', 'ppid', 'wastukan', 'wasbitnak', 'kepala', 'pembeli', 'bendahara'])->get();
+        $jumlahPkeswan = User::whereNotIn('role', ['admin', 'ppid', 'wastukan', 'wasbitnak', 'kepala', 'pembeli', 'bendahara'])->count();
+        return view('backend.keswan.list-pegawai.index', ['jumlahKeswan' => $jumlahKeswan, 'jumlahPKeswan' => $jumlahPkeswan]);;
+    }
+
+    public function detailPKeswan($id)
+    {
+        $akunuser = User::where('id', $id)->get(); // Mengambil data berdasarkan id
+        return view('backend.keswan.list-pegawai.detail', ["akunuser" => $akunuser]);
     }
 
     // public function generatePDF()

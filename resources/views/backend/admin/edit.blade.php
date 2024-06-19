@@ -1,13 +1,11 @@
 @include('layouts.utama.main2')
 <main>
     <div class="container">
-
         <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-4 col-md-6 flex-column align-items-center justify-content-center">
-                        <div class="d-flex justify-content-center py-4">
-                        </div><!-- End Logo -->
+                        <div class="d-flex justify-content-center py-4"></div><!-- End Logo -->
                         <form action="{{ route('akunadmin.update', $akunuser->id) }}" method="POST">
                             @csrf
                             @method('PUT')
@@ -78,44 +76,54 @@
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <label for="currentPassword" class="form-label">Password Lama</label>
-                                            <input type="password" name="current_password" class="form-control @error('current_password') is-invalid @enderror" id="currentPassword" required>
-                                            @error('current_password')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="col-12">
-                                            <label for="newPassword" class="form-label">Password Baru</label>
-                                            <input type="password" name="new_password" class="form-control @error('new_password') is-invalid @enderror" id="newPassword">
-                                            @error('new_password')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="col-12">
-                                            <label for="confirmNewPassword" class="form-label">Konfirmasi Password Baru</label>
-                                            <input type="password" name="new_password_confirmation" class="form-control @error('new_password_confirmation') is-invalid @enderror" id="confirmNewPassword">
-                                            @error('new_password_confirmation')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="col-12">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="showPassword">
-                                                <label class="form-check-label" for="showPassword">
-                                                    Tampilkan Password
+                                                <input class="form-check-input" type="checkbox" id="changePasswordCheckbox">
+                                                <label class="form-check-label" for="changePasswordCheckbox">
+                                                    Perbarui Password
                                                 </label>
+                                            </div>
+                                        </div>
+                                        <div id="passwordFields" style="display:none;">
+                                            <div class="col-12">
+                                                <label for="currentPassword" class="form-label">Password Lama</label>
+                                                <input type="password" name="current_password"
+                                                    class="form-control @error('current_password') is-invalid @enderror" id="currentPassword">
+                                                @error('current_password')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                            <div class="col-12">
+                                                <label for="newPassword" class="form-label">Password Baru</label>
+                                                <input type="password" name="new_password"
+                                                    class="form-control @error('new_password') is-invalid @enderror" id="newPassword">
+                                                @error('new_password')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                            <div class="col-12">
+                                                <label for="confirmNewPassword" class="form-label">Konfirmasi Password Baru</label>
+                                                <input type="password" name="new_password_confirmation"
+                                                    class="form-control @error('new_password_confirmation') is-invalid @enderror" id="confirmNewPassword">
+                                                @error('new_password_confirmation')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="showPassword">
+                                                    <label class="form-check-label" for="showPassword">
+                                                        Tampilkan Password
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
                                         <br>
                                         <div class="col-12">
-                                            <button class="btn btn-outline-success w-100" type="submit"><i
-                                                    class="bi bi-box-arrow-in-right"></i> Simpan</button>
+                                            <button class="btn btn-outline-success w-100" type="submit"><i class="bi bi-box-arrow-in-right"></i> Simpan</button>
                                         </div>
                                         <br>
                                         <div class="col-12">
-                                            <a href="{{ route('detailakun', $akunuser->id) }}"
-                                                class="btn btn-outline-danger w-100"><i
-                                                    class="bi bi-house-door-fill"></i> Beranda</a>
+                                            <a href="{{ route('detailakun', $akunuser->id) }}" class="btn btn-outline-danger w-100"><i class="bi bi-house-door-fill"></i> Beranda</a>
                                         </div>
                                         <br>
                                     </div>
@@ -125,14 +133,11 @@
                     </div>
                 </div>
             </div>
-
         </section>
-
     </div>
 </main><!-- End #main -->
 
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-        class="bi bi-arrow-up-short"></i></a>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 <!-- Vendor JS Files -->
 <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
@@ -156,6 +161,15 @@
         } else {
             newPassword.type = 'password';
             confirmNewPassword.type = 'password';
+        }
+    });
+
+    document.getElementById('changePasswordCheckbox').addEventListener('change', function (e) {
+        let passwordFields = document.getElementById('passwordFields');
+        if (this.checked) {
+            passwordFields.style.display = 'block';
+        } else {
+            passwordFields.style.display = 'none';
         }
     });
 </script>

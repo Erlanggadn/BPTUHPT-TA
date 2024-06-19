@@ -17,12 +17,16 @@
                         <p>Berikut ini adalah data hewan ternak yang sepenuhnya dikelola oleh <b>Divisi Kesehatan
                                 Hewan</b> BPTU HPT Padang Mengatas
                         </p>
+                        <a class="btn btn-outline-success mb-4" href=""><i class="bi bi-file-earmark-spreadsheet"></i>
+                            Cetak Excel</a>
+                        <a class="btn btn-outline-danger mb-4" href=""><i class="bi bi-file-earmark-pdf-fill"></i> Cetak
+                            PDF</a>
 
                         <!-- Table with stripped rows -->
                         <table class="table datatable">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>ID Sapi</th>
                                     <th>Jenis</th>
                                     <th>Penyakit</th>
                                     <th>TTL</th>
@@ -33,22 +37,23 @@
                                 @isset($sapi)
                                 @foreach ($sapi as $item)
                                 <tr>
-                                    <td>{{ $item->id }}</td>
+                                    <td><span class="badge bg-primary">{{ $item->id }}</span></td>
                                     <td>{{ $item->jenis }}</td>
                                     <td>{{ $item->riwayat_penyakit }}</td>
                                     <td>{{ $item->tanggal_lahir }}</td>
 
-                                    <td><a class="btn btn-outline-warning" href="{{ route('printsapi', $item->id) }}"><i
-                                                class="bi bi-fingerprint"></i></a> <a class="btn btn-outline-success"
+                                    <td><a class="btn btn-outline-warning" target="_blank"
+                                            href="{{ route('printsapi', $item->id) }}"><i class="bi bi-upc"></i></a> <a
+                                            class="btn btn-outline-success"
                                             href="{{ route('detailsapi', $item->id) }}"><i
-                                                class="bi bi-info-square-fill"></i></a>
+                                                class="bi bi-info-lg"></i></a>
                                         <form action="{{ route('deletesapi', $item->id) }}" method="POST"
                                             style="display: inline;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-outline-danger"
                                                 onclick="return confirm('Apakah Anda yakin ingin menghapus data sapi ini?')"><i
-                                                    class="bi bi-person-x-fill"></i></button>
+                                                    class="bi bi-trash"></i></button>
                                         </form>
                                     </td>
                                 </tr>

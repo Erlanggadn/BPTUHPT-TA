@@ -16,7 +16,7 @@
                         <li><a href="#rumput">Daftar Harga Rumput</a></li>
                     </ul>
                 </li>
-                <li><a href="#kontak">Kontak</a></li>
+                <li><a href="#kontak">Kontak Kami</a></li>
                 <li class="dropdown"><a href="#"><span>Profil</span> <i
                             class="bi bi-chevron-down dropdown-indicator"></i></a>
                     <ul>
@@ -35,7 +35,7 @@
                     </ul>
                 </li>
                 <li><a href="#maps">Lokasi</a></li>
-                <li><a href="#kontak">Kontak</a></li>
+                <li><a href="#kontak">Kontak Kami</a></li>
                 <li><a href="#about">Tentang</a></li>
             </ul>
             @endif

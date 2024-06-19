@@ -13,8 +13,8 @@ class AkunController extends Controller
 {
     public function detailakun($id)
     {
-        $akunuser = User::where('id', $id)->get(); // Mengambil data berdasarkan id
-        return view('backend.admin.detailakun', ["akunuser" => $akunuser]);
+            $akunuser = User::where('id', $id)->get(); // Mengambil data berdasarkan id
+            return view('backend.admin.detailakun', ["akunuser" => $akunuser]);
     }
 
     public function detailakunpembeli($id)
@@ -69,11 +69,11 @@ class AkunController extends Controller
             'name' => 'required|string',
             'nohp' => 'required|numeric',
             'alamat' => 'required|string',
-            'current_password' => 'required|string',
+            'current_password' => 'nullable|string',
             'new_password' => 'nullable|string|confirmed',
         ]);
 
-        // Tambahkan pesan error custom
+        // Tambahkan pesan error custom 
         $validator->after(function ($validator) use ($request, $akunuser) {
             if ($request->filled('current_password') && !Hash::check($request->current_password, $akunuser->password)) {
                 $validator->errors()->add('current_password', 'Password tidak sesuai');
@@ -95,11 +95,8 @@ class AkunController extends Controller
         // Update data pengguna dengan data yang telah dimodifikasi
         $akunuser->update($data);
 
-        // Redirect ke URL sebelumnya atau ke halaman akun admin jika URL sebelumnya tidak ada
-        $previousUrl = $request->input('previous_url', route('akunadmin'));
-
         // Redirect dengan pesan sukses
-        return redirect($previousUrl)->with('success', 'Akun berhasil diperbarui');
+        return redirect()->route('detailakun', $akunuser->id)->with('berhasil.edit', 'Akun berhasil diperbarui');
     }
 
     public function editpegawai($id)
@@ -136,7 +133,7 @@ class AkunController extends Controller
         $akunuser = User::findOrFail($id);
         $akunuser->delete();
 
-        return redirect()->route('akunadmin')->with('success', 'Akun berhasil dihapus');
+        return redirect()->route('akunadmin')->with('berhasil.hapus', 'Akun berhasil dihapus');
     }
 
     public function indexpembeli()
