@@ -23,11 +23,6 @@
                                         {{ session('success') }}
                                     </div>
                                     @endif
-                                    @if (session('error'))
-                                    <div class="alert alert-danger" role="alert">
-                                        {{ session('error') }}
-                                    </div>
-                                    @endif
                                     @if ($errors->any())
                                     <div class="alert alert-danger" role="alert">
                                         {{ $errors->first() }}
@@ -51,20 +46,6 @@
                                                 <div class="invalid-feedback">Masukkan Keterangan dengan benar</div>
                                             </div>
                                         </div>
-                                        <div class="col-12">
-                                            <label for="sjenisAktif" class="form-label">Status Jenis Sapi</label>
-                                            <select name="sjenis_aktif" class="form-select" id="sjenisAktif" required>
-                                                <option selected disabled>Pilih Status</option>
-                                                    <option value="Aktif"
-                                                        {{ $jenisSapi->sjenis_aktif == 'Aktif' ? 'selected' : '' }}>Aktif
-                                                    </option>
-                                                    <option value="NonAktif"
-                                                        {{ $jenisSapi->sjenis_aktif == 'NonAktif' ? 'selected' : '' }}>Non
-                                                        Aktif
-                                                    </option>
-                                            </select>
-                                            <div class="invalid-feedback">Pilih Status Sapi</div>
-                                        </div>
                                         <br>
                                         <div class="col-12">
                                             <button class="btn btn-outline-success w-100" type="submit"><i
@@ -72,7 +53,7 @@
                                         </div>
                                         <br>
                                         <div class="col-12">
-                                            <a href="{{ route('index.jenis.rumput') }}"
+                                            <a href="{{ route('index.jenis.sapi') }}"
                                                 class="btn btn-outline-secondary w-100"><i
                                                     class="bi bi-house-door-fill"></i> Kembali</a>
                                         </div>

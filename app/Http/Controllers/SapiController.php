@@ -21,7 +21,7 @@ class SapiController extends Controller
 
     public function show()
     {
-        $jenisSapi = ModJenisSapi::where('sjenis_aktif', 'Aktif')->get();
+        $jenisSapi = ModJenisSapi::all();
         return view('backend.keswan.sapi.create', compact('jenisSapi'));
     }
 
@@ -102,17 +102,23 @@ class SapiController extends Controller
     public function filter(Request $request)
     {
         $jenisSapi = $request->input('jenis_sapi');
+        $bulanLahir = $request->input('bulan_lahir');
+
         $Sapi = ModSapi::with('jenisSapi')
             ->when($jenisSapi, function ($query, $jenisSapi) {
                 return $query->whereHas('jenisSapi', function ($query) use ($jenisSapi) {
                     $query->where('sjenis_id', $jenisSapi);
                 });
             })
+            ->when($bulanLahir, function ($query, $bulanLahir) {
+                return $query->whereMonth('sapi_tanggal_lahir', $bulanLahir);
+            })
             ->get();
 
-        $jenisList = ModJenisSapi::all(); // Mengambil daftar jenis sapi untuk dropdown filter
+        $jenisList = ModJenisSapi::all(); 
         return view('backend.keswan.sapi.index', compact('Sapi', 'jenisList'));
     }
+
 
     public function export(Request $request)
     {

@@ -31,11 +31,9 @@
                         <table class="table datatable">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Kode Sapi</th>
                                     <th>Jenis Sapi</th>
                                     <th>Keterangan</th>
-                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -43,15 +41,9 @@
                                 @isset($JenisSapi)
                                 @foreach ($JenisSapi as $item)
                                 <tr>
-                                    <td>{{ $item->sjenis_id }}</td>
-                                    <td><span class="badge bg-primary">{{ $item->sjenis_kode }}</span></td>
+                                    <td><span class="badge bg-primary">{{ $item->sjenis_id }}</span></td>
                                     <td>{{ $item->sjenis_nama }}</td>
                                     <td>{{ $item->sjenis_keterangan }}</td>
-                                    <td>@if ($item->sjenis_aktif === 'Aktif')
-                                        <span class="badge bg-success">{{ $item->sjenis_aktif }}</span>
-                                        @else
-                                        <span class="badge bg-danger">{{ $item->sjenis_aktif }}</span>
-                                        @endif</span></td>
                                     <td> <a class="btn btn-outline-success"
                                             href="{{ route('detail.jenis.sapi', $item->sjenis_id) }}"><i
                                                 class="bi bi-info-lg"></i></a>

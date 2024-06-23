@@ -23,17 +23,15 @@ class JenisSapiController extends Controller
         $request->validate([
             'sjenis_nama' => 'required|string|max:50|unique:master_sapi_jenis,sjenis_nama',
             'sjenis_keterangan' => 'required|string|max:50',
-            'sjenis_aktif' => 'required|in:Aktif,NonAktif',
         ]);
 
         $lastKode = ModJenisSapi::orderBy('sjenis_id', 'desc')->first();
-        $newKode = $lastKode ? 'JS' . str_pad(((int) substr($lastKode->sjenis_kode, 2)) + 1, 3, '0', STR_PAD_LEFT) : 'JS001';
+        $newKode = $lastKode ? 'JS' . str_pad(((int) substr($lastKode->sjenis_id, 2)) + 1, 3, '0', STR_PAD_LEFT) : 'JS001';
 
         ModJenisSapi::create([
-            'sjenis_kode' => $newKode,
+            'sjenis_id' => $newKode,
             'sjenis_nama' => $request->sjenis_nama,
             'sjenis_keterangan' => $request->sjenis_keterangan,
-            'sjenis_aktif' => $request->sjenis_aktif,
             'created_id' => auth()->user()->id, // Assuming user authentication is implemented
             'created_nama' => auth()->user()->name,
             'updated_id' => auth()->user()->id,
@@ -42,6 +40,7 @@ class JenisSapiController extends Controller
 
         return redirect()->route('index.jenis.sapi')->with('success', 'Jenis Sapi berhasil ditambahkan');
     }
+
 
     public function detail($id)
     {
@@ -56,24 +55,23 @@ class JenisSapiController extends Controller
     }
 
     public function update(Request $request, $sjenis_id)
-    {
-        $request->validate([
-            'sjenis_nama' => 'required|string|max:50',
-            'sjenis_keterangan' => 'required|string|max:50',
-            'sjenis_aktif' => 'required|in:Aktif,NonAktif',
-        ]);
+{
+    $jenisSapi = ModJenisSapi::findOrFail($sjenis_id);
+    $request->validate([
+        'sjenis_nama' => 'required|string|max:50|unique:master_sapi_jenis,sjenis_nama,' . $sjenis_id . ',sjenis_id',
+        'sjenis_keterangan' => 'required|string|max:50',
+    ], [
+        'sjenis_nama.unique' => 'Jenis sapi sudah ada',
+    ]);
+    $jenisSapi->update([
+        'sjenis_nama' => $request->sjenis_nama,
+        'sjenis_keterangan' => $request->sjenis_keterangan,
+        'updated_id' => auth()->user()->id,
+        'updated_nama' => auth()->user()->name,
+    ]);
+    return redirect()->route('index.jenis.sapi')->with('success', 'Jenis Sapi berhasil diperbarui.');
+}
 
-        $jenisSapi = ModJenisSapi::findOrFail($sjenis_id);
-        $jenisSapi->update([
-            'sjenis_nama' => $request->sjenis_nama,
-            'sjenis_keterangan' => $request->sjenis_keterangan,
-            'sjenis_aktif' => $request->sjenis_aktif,
-            'updated_id' => auth()->user()->id,
-            'updated_nama' => auth()->user()->name,
-        ]);
-
-        return redirect()->route('index.jenis.sapi')->with('success', 'Jenis Sapi berhasil diperbarui.');
-    }
 
     public function destroy($id)
     {

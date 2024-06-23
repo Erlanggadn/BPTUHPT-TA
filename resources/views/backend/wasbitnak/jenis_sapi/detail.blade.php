@@ -14,18 +14,11 @@
                             <h5 class="card-title">Detail Jenis Sapi</h5>
 
                             <div class="row">
-                                <div class="col-lg-3 col-md-4 label">ID Jenis Sapi</div>
+                                <div class="col-lg-3 col-md-4 label">Kode Jenis Sapi</div>
                                 <div class="col-lg-9 col-md-8"> : {{ $jenisSapi->sjenis_id }}</div>
                             </div>
-
                             <div class="row">
-                                <div class="col-lg-3 col-md-4 label">Kode</div>
-                                <div class="col-lg-9 col-md-8"> : <span
-                                        class="badge bg-primary">{{ $jenisSapi->sjenis_kode }}</span></div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-3 col-md-4 label">Nama</div>
+                                <div class="col-lg-3 col-md-4 label">Nama Jenis Sapi</div>
                                 <div class="col-lg-9 col-md-8"> : {{ $jenisSapi->sjenis_nama }}</div>
                             </div>
 
@@ -33,17 +26,6 @@
                                 <div class="col-lg-3 col-md-4 label">Keterangan</div>
                                 <div class="col-lg-9 col-md-8"> : {{ $jenisSapi->sjenis_keterangan }}</div>
                             </div>
-
-                            <div class="row">
-                                <div class="col-lg-3 col-md-4 label">Status</div>
-                                <div class="col-lg-9 col-md-8"> : @if ($jenisSapi->sjenis_aktif === 'Aktif')
-                                    <span class="badge bg-success">{{ $jenisSapi->sjenis_aktif }}</span>
-                                    @else
-                                    <span class="badge bg-danger">{{ $jenisSapi->sjenis_aktif }}</span>
-                                    @endif</span>
-                                </div>
-                            </div>
-
                             <div class="row mb-4">
                                 <div class="col-lg-3 col-md-4 label">Dibuat Pada</div>
                                 <div class="col-lg-9 col-md-8"> :

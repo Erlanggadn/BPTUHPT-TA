@@ -14,11 +14,10 @@ class CreateMasterSapiJenisTable extends Migration
     public function up()
     {
         Schema::create('master_sapi_jenis', function (Blueprint $table) {
-            $table->increments('sjenis_id');
-            $table->string('sjenis_kode', 50);
-            $table->string('sjenis_nama', 50);
+            $table->string('sjenis_id')->primary();
+            $table->string('sjenis_nama', 50)->unique();
             $table->string('sjenis_keterangan', 50);
-            $table->enum('sjenis_aktif', ['Aktif', 'NonAktif']);
+
             $table->timestamp('created_at')->useCurrent();
             $table->string('created_id', 50);
             $table->string('created_nama', 50);

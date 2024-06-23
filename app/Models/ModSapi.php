@@ -19,6 +19,7 @@ class ModSapi extends Model
         'sapi_tanggal_lahir',
         'sapi_no_induk',
         'sapi_keterangan',
+        
         'created_id',
         'created_nama',
         'updated_id',

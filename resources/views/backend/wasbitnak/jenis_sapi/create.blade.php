@@ -48,15 +48,6 @@
                                                 <div class="invalid-feedback">Masukkan Keterangan dengan benar</div>
                                             </div>
                                         </div>
-                                        <div class="col-12">
-                                            <label for="sjenisAktif" class="form-label">Aktif</label>
-                                            <select name="sjenis_aktif" class="form-select" id="sjenisAktif" required>
-                                                <option selected disabled>Pilih Status</option>
-                                                <option value="Aktif">Aktif</option>
-                                                <option value="NonAktif">Non Aktif</option>
-                                            </select>
-                                            <div class="invalid-feedback">Pilih Status Rumput</div>
-                                        </div>
                                         <br>
                                         <div class="col-12">
                                             <button class="btn btn-outline-success w-100" type="submit"><i
