@@ -23,4 +23,8 @@ class ModJenisSapi extends Model
         'updated_id',
         'updated_nama',
     ];
+    public function sapi()
+    {
+        return $this->hasMany(ModSapi::class, 'sapi_jenis', 'sjenis_id');
+    }
 }

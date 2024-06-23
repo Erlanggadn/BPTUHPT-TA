@@ -1,55 +1,40 @@
     <!-- ======= Sidebar ======= -->
     <aside id="sidebar" class="sidebar">
         <ul class="sidebar-nav" id="sidebar-nav">
-            <li class="nav-heading">Pengelolaan - Wasbitnak</li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('indexkegiatankandang') }}">
-                    <i class="bi bi-card-list"></i>
-                    <span>Logbook Kegiatan Kandang</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('tambah.jenis.kegiatan') }}">
-                    <i class="bi bi-journal-plus"></i>
-                    <span>Tambah Kegiatan</span>
-                </a>
-            </li><!-- End Dashboard Nav -->
-            <li class="nav-heading">JENIS Kandang</li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('wasbitnak') }}">
-                    <i class="bi bi-card-list"></i>
-                    <span>Dashboard Jenis Kandang</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('tambah.jenis.kandang') }}">
-                    <i class="bi bi-journal-plus"></i>
-                    <span>Tambah Jenis</span>
-                </a>
-            </li>
-            <li class="nav-heading">Sapi Siap Jual</li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('sapi-jual.index') }}">
-                    <i class="bi bi-card-list"></i>
-                    <span>Dashboard Sapi Siap Jual</span>
-                </a>
-            </li>
-            <li class="nav-heading">laporan Wasbitnak</li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="">
-                    <i class="bi bi-journal-bookmark-fill"></i>
-                    <span>Dashboard Laporan</span>
-                </a>
-            </li>
-            <li class="nav-heading">Jenis Sapi</li>
+            <li class="nav-heading">Wasbitnak - Sapi</li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('index.jenis.sapi') }}">
-                    <i class="bi bi-journal-bookmark-fill"></i>
+                    <i class="bi bi-list-nested"></i>
                     <span>Jenis Sapi</span>
                 </a>
             </li>
-
-            <!-- End Register Page Nav -->
+            <li class="nav-heading">wasbitnak - Kandang</li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('index.jenis.kandang') }}">
+                    <i class="bi bi-list-nested"></i>
+                    <span>Jenis Kandang/Plot</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('index.kandang') }}">
+                    <i class="bi bi-list-nested"></i>
+                    <span>Kandang</span>
+                </a>
+            </li>
+            <li class="nav-heading">Wasbitnak - Kegiatan Kandang</li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('index.jenis.sapi') }}">
+                    <i class="bi bi-list-nested"></i>
+                    <span>Logbook Kegiatan</span>
+                </a>
+            </li> 
+            <li class="nav-heading">Wasbitnak - Sapi Siap Jual</li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('index.jenis.sapi') }}">
+                    <i class="bi bi-list-nested"></i>
+                    <span>Siap Jual</span>
+                </a>
+            </li><!-- End Register Page Nav -->
         </ul>
 
     </aside><!-- End Sidebar-->

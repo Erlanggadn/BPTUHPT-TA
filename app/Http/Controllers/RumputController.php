@@ -2,119 +2,89 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\rumput;
+use App\Models\ModRumput;
 use Illuminate\Http\Request;
+use App\Models\ModJenisRumput;
+use Illuminate\Routing\Controller;
 
 class RumputController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response    
-     */
     public function index()
     {
-        $rumput = rumput::all();
-        return view('backend.wastukan.jenis.index_jenis', ["rumput" => $rumput]);
-    }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function tambahjenis()
-    {
-        $rumput = rumput::all();
-        return view('backend.wastukan.jenis.tambah_jenis', ["rumput" => $rumput]);
+        $Rumput = ModRumput::with('jenisRumput')->get();
+        $jenisList = ModJenisRumput::all(); // Mengambil daftar jenis sapi untuk dropdown filter
+        return view('backend.wastukan.rumput.index', compact('Rumput', 'jenisList'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function postjenis(Request $request)
+    public function show()
+    {
+        $jenisRumput = ModJenisRumput::where('rum_aktif', 'Aktif')->get();
+        return view('backend.wastukan.rumput.create', compact('jenisRumput'));
+    }
+
+    public function store(Request $request)
     {
         $request->validate([
-            'jenis_rumput' => 'required|string|max:255',
-            'kode_rumput' => 'required|string|max:255',
-            'deskripsi_rumput' => 'nullable|string'
+            'rumput_jenis' => 'required',
+            'rumput_berat' => 'required|integer|max:5',
+            'rumput_masuk' => 'required|date',
+            'rumput_keterangan' => 'required|string|max:50',
+            'rumput_aktif' => 'required|in:Aktif,NonAktif',
         ]);
 
-        $latest = Rumput::latest('id')->first();
-        if ($latest) {
-            $number = (int) substr($latest->id, 1) + 1;
-            $id = 'R' . str_pad($number, 3, '0', STR_PAD_LEFT);
-        } else {
-            $id = 'R001';
-        }
+        $lastKode = ModRumput::orderBy('rumput_kode', 'desc')->first();
+        $newKode = $lastKode ? 'R' .  str_pad(((int) substr($lastKode->rumput_kode, 2)) + 1, 3, '0', STR_PAD_LEFT) : 'R001';
 
-        Rumput::create([
-            'id' => $id,
-            'jenis_rumput' => $request->jenis_rumput,
-            'kode_rumput' => $request->kode_rumput,
-            'deskripsi_rumput' => $request->deskripsi_rumput ?? 'tidak ada'
+        ModRumput::create([
+            'rumput_kode' => $newKode,
+            'rumput_jenis' => $request->rumput_jenis,
+            'rumput_berat' => $request->rumput_berat,
+            'rumput_masuk' => $request->rumput_masuk,
+            'rumput_keterangan' => $request->rumput_keterangan,
+            'rumput_aktif' => $request->rumput_aktif,
+
+            'created_id' => auth()->user()->id,
+            'created_nama' => auth()->user()->name,
+            'updated_id' => auth()->user()->id,
+            'updated_nama' => auth()->user()->name,
         ]);
 
-        return redirect()->route('indexrumput')->with('success', 'Jenis rumput berhasil ditambahkan');
+        return redirect()->route('index.rumput')->with('success', 'rumput berhasil ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\rumput  $rumput
-     * @return \Illuminate\Http\Response
-     */
-    public function detailjenis($id)
+    public function detail($id)
     {
-        $rumput = rumput::where('id', $id)->get(); // Mengambil data berdasarkan id
-        return view('backend.wastukan.jenis.detail_jenis', ["rumput" => $rumput]);
+        $rumput = ModRumput::with('jenisRumput')->findOrFail($id);
+        return view('backend.wastukan.rumput.detail', compact('rumput'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\rumput  $rumput
-     * @return \Illuminate\Http\Response
-     */
-    public function editjenis($id)
+    public function update(Request $request, $id)
     {
-        $rumput = rumput::findOrFail($id);
-        return view('backend.wastukan.jenis.edit_jenis', compact('rumput'));
-    }
+        $request->validate([
+            // 'rumput_jenis' => 'required',
+            'rumput_berat' => 'required|integer|max:5',
+            'rumput_masuk' => 'required|date',
+            'rumput_keterangan' => 'required|string|max:50',
+            'rumput_aktif' => 'required|in:Aktif,NonAktif',
+        ]);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\rumput  $rumput
-     * @return \Illuminate\Http\Response
-     */
-    public function updatejenis(Request $request, $id)
-    {
-        $rumput = rumput::findOrFail($id);
+        $rumput = ModRumput::findOrFail($id);
 
-        // Update data rumput
-        $rumput->jenis_rumput = $request->jenis_rumput;
-        $rumput->kode_rumput = $request->kode_rumput;
-        $rumput->deskripsi_rumput = $request->filled('deskripsi_rumput') ? $request->deskripsi_rumput : 'tidak ada';
+        $rumput->rumput_berat = $request->rumput_berat;
+        $rumput->rumput_masuk = $request->rumput_masuk;
+        $rumput->rumput_keterangan = $request->rumput_keterangan;
+        $rumput->rumput_aktif = $request->rumput_aktif;
+        $rumput->updated_id = auth()->user()->id;
+        $rumput->updated_nama = auth()->user()->name;
         $rumput->save();
 
-        return redirect()->route('detailjenis', $rumput->id)->with('success', 'Data berhasil diperbarui');
+        return redirect()->route('detail.rumput', $id)->with('success', 'Data sapi berhasil diperbarui');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\rumput  $rumput
-     * @return \Illuminate\Http\Response
-     */
-    public function deletejenis($id)
+    public function destroy($id)
     {
-        $rumput = rumput::findOrFail($id);
+        $rumput = ModRumput::findOrFail($id);
         $rumput->delete();
-
-        return redirect()->route('indexrumput')->with('success', 'Data berhasil dihapus');
+        return redirect()->route('index.rumput')->with('success', 'Data rumput berhasil dihapus');
     }
 }

@@ -4,7 +4,7 @@
             <li class="nav-heading">Kelola akun - Admin</li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('dashboard.admin') }}">
-                    <i class="bi bi-journal-bookmark-fill"></i>
+                    <i class="bi bi-list-nested"></i>
                     <span>Dashboard Laporan</span>
                 </a>
             </li>

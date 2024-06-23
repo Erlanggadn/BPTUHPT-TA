@@ -55,13 +55,13 @@
                                             <label for="sjenisAktif" class="form-label">Status Jenis Sapi</label>
                                             <select name="sjenis_aktif" class="form-select" id="sjenisAktif" required>
                                                 <option selected disabled>Pilih Status</option>
-                                                <option value="Aktif"
-                                                    {{ $jenisSapi->sjenis_aktif == 'Aktif' ? 'selected' : '' }}>Aktif
-                                                </option>
-                                                <option value="NonAktif"
-                                                    {{ $jenisSapi->sjenis_aktif == 'NonAktif' ? 'selected' : '' }}>Non
-                                                    Aktif
-                                                </option>
+                                                    <option value="Aktif"
+                                                        {{ $jenisSapi->sjenis_aktif == 'Aktif' ? 'selected' : '' }}>Aktif
+                                                    </option>
+                                                    <option value="NonAktif"
+                                                        {{ $jenisSapi->sjenis_aktif == 'NonAktif' ? 'selected' : '' }}>Non
+                                                        Aktif
+                                                    </option>
                                             </select>
                                             <div class="invalid-feedback">Pilih Status Sapi</div>
                                         </div>

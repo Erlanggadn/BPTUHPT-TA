@@ -83,7 +83,7 @@ class AuthController extends Controller
                     $route = 'keswan';
                     break;
                 case 'wastukan':
-                    $route = 'wastukan';
+                    $route = '/wastukan/jenis_rumput';
                     break;
                 case 'ppid':
                     $route = 'ppid';

@@ -28,7 +28,7 @@ class JenisRumputController extends Controller
         ]);
 
         $lastRumput = ModJenisRumput::orderBy('rum_id', 'desc')->first();
-        $rum_kode = 'R' . str_pad($lastRumput ? $lastRumput->rum_id + 1 : 1, 3, '0', STR_PAD_LEFT);
+        $rum_kode = 'RJ' . str_pad($lastRumput ? $lastRumput->rum_id + 1 : 1, 3, '0', STR_PAD_LEFT);
 
         ModJenisRumput::create([
             'rum_kode' => $rum_kode,
