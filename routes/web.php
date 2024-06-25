@@ -130,6 +130,8 @@ Route::middleware(['auth', 'checkWasbitnak'])->group(function () {
         Route::get('/detail/{kegiatan_id}', [KegiatanKandangController::class, 'detail'])->name('detail.kegiatan.kandang');
         Route::put('/edit/{kegiatan_id}', [KegiatanKandangController::class, 'update'])->name('update.kegiatan.kandang');
         Route::delete('/delete/{kegiatan_id}', [KegiatanKandangController::class, 'destroy'])->name('destroy.kegiatan.kandang');
+        Route::get('/export-kegiatan-kandang', [KegiatanKandangController::class, 'export'])->name('export.kegiatan.kandang');
+        Route::get('/filter-kegiatan-kandang', [KegiatanKandangController::class, 'filter'])->name('filter.kegiatan.kandang');
     });
     //WASBITNAK - JENIS SAPI
     Route::prefix('jenis_sapi')->group(function () {

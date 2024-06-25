@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use App\Models\ModKegiatanKandang;
 use Illuminate\Routing\Controller;
 use App\Models\ModDetailKandangSapi;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class KegiatanKandangController extends Controller
 {
@@ -143,5 +145,62 @@ class KegiatanKandangController extends Controller
         $kegiatanKandang->delete();
 
         return redirect()->route('index.kegiatan.kandang')->with('success', 'Data berhasil dihapus');
+    }
+    public function export(Request $request)
+    {
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        $kegiatan = ModKegiatanKandang::with('kandang.jenisKandang')
+            ->when($startDate, function ($query, $startDate) {
+                return $query->whereDate('kegiatan_tanggal', '>=', $startDate);
+            })
+            ->when($endDate, function ($query, $endDate) {
+                return $query->whereDate('kegiatan_tanggal', '<=', $endDate);
+            })
+            ->get();
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->setCellValue('A1', 'ID/Kode Kegiatan');
+        $sheet->setCellValue('B1', 'Kode Kandang');
+        $sheet->setCellValue('C1', 'Tanggal Kegiatan');
+        $sheet->setCellValue('D1', 'Keterangan');
+        $sheet->setCellValue('E1', 'Status');
+
+        $row = 2;
+        foreach ($kegiatan as $item) {
+            $sheet->setCellValue('A' . $row, $item->kegiatan_id);
+            $sheet->setCellValue('B' . $row, $item->kegiatan_jenis_kandang . ' - [ ' . $item->kandang->jenisKandang->kandang_tipe . ' - ' . $item->kandang->kand_nama . ' ]');
+            $sheet->setCellValue('C' . $row, $item->kegiatan_tanggal);
+            $sheet->setCellValue('D' . $row, $item->kegiatan_keterangan);
+            $sheet->setCellValue('E' . $row, $item->kegiatan_status);
+            $row++;
+        }
+
+        $writer = new Xlsx($spreadsheet);
+        $fileName = 'data_kegiatan_kandang.xlsx';
+        $filePath = public_path($fileName);
+        $writer->save($filePath);
+
+        return response()->download($filePath)->deleteFileAfterSend(true);
+    }
+
+    public function filter(Request $request)
+    {
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        $kegiatan = ModKegiatanKandang::with('kandang.jenisKandang')
+            ->when($startDate, function ($query, $startDate) {
+                return $query->whereDate('kegiatan_tanggal', '>=', $startDate);
+            })
+            ->when($endDate, function ($query, $endDate) {
+                return $query->whereDate('kegiatan_tanggal', '<=', $endDate);
+            })
+            ->get();
+
+        return view('backend.wasbitnak.kegiatan_kandang.index', compact('kegiatan'));
     }
 }
