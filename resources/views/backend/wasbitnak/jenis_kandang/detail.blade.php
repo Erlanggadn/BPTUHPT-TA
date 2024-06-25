@@ -17,36 +17,14 @@
                                 <div class="col-lg-3 col-md-4 label">ID Jenis Kandang</div>
                                 <div class="col-lg-9 col-md-8"> : {{ $jenisKandang->kandang_id }}</div>
                             </div>
-
-                            <div class="row">
-                                <div class="col-lg-3 col-md-4 label">Kode Kandang</div>
-                                <div class="col-lg-9 col-md-8"> : <span
-                                        class="badge bg-primary">{{ $jenisKandang->kandang_kode }}</span></div>
-                            </div>
                             <div class="row">
                                 <div class="col-lg-3 col-md-4 label">Tipe Kandang</div>
                                 <div class="col-lg-9 col-md-8"> : <span
                                         class="badge bg-secondary">{{ $jenisKandang->kandang_tipe }}</span></div>
                             </div>
-
-                            <div class="row">
-                                <div class="col-lg-3 col-md-4 label">Nama</div>
-                                <div class="col-lg-9 col-md-8"> : {{ $jenisKandang->kandang_nama }}</div>
-                            </div>
-
                             <div class="row">
                                 <div class="col-lg-3 col-md-4 label">Keterangan</div>
                                 <div class="col-lg-9 col-md-8"> : {{ $jenisKandang->kandang_keterangan }}</div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-3 col-md-4 label">Status</div>
-                                <div class="col-lg-9 col-md-8"> : @if ($jenisKandang->kandang_aktif === 'Aktif')
-                                    <span class="badge bg-success">{{ $jenisKandang->kandang_aktif }}</span>
-                                    @else
-                                    <span class="badge bg-danger">{{ $jenisKandang->kandang_aktif }}</span>
-                                    @endif</span>
-                                </div>
                             </div>
 
                             <div class="row mb-4">

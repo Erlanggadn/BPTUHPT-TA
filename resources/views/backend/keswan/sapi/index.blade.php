@@ -25,50 +25,60 @@
                         @endif
                         <a href="{{ route('show.sapi') }}" class="btn btn-primary mb-4"><i class="bi bi-plus"></i>
                             Tambah Sapi</a>
-                            <a href="{{ route('export.sapi', ['jenis_sapi' => request('jenis_sapi')]) }}" class="btn btn-success mb-4">
-                                <i class="bi bi-file-earmark-excel"></i> Export to Excel
-                            </a>
-                            <form action="{{ route('filter.sapi') }}" method="GET" class="mb-4">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <select name="jenis_sapi" class="form-select">
-                                            <option value="">Semua Sapi</option>
-                                            @foreach($jenisList as $jenis)
-                                            <option value="{{ $jenis->sjenis_id }}">{{ $jenis->sjenis_nama }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <select name="bulan_lahir" class="form-select">
-                                            <option value="">Semua Bulan Lahir</option>
-                                            <option value="1">Januari</option>
-                                            <option value="2">Februari</option>
-                                            <option value="3">Maret</option>
-                                            <option value="4">April</option>
-                                            <option value="5">Mei</option>
-                                            <option value="6">Juni</option>
-                                            <option value="7">Juli</option>
-                                            <option value="8">Agustus</option>
-                                            <option value="9">September</option>
-                                            <option value="10">Oktober</option>
-                                            <option value="11">November</option>
-                                            <option value="12">Desember</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <button type="submit" class="btn btn-primary">Filter</button>
-                                    </div>
+                        <a href="{{ route('export.sapi', ['jenis_sapi' => request('jenis_sapi')]) }}"
+                            class="btn btn-success mb-4">
+                            <i class="bi bi-file-earmark-excel"></i> Export to Excel
+                        </a>
+                        <form action="{{ route('filter.sapi') }}" method="GET" class="mb-4">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <select name="jenis_sapi" class="form-select">
+                                        <option value="">Semua Sapi</option>
+                                        @foreach($jenisList as $jenis)
+                                        <option value="{{ $jenis->sjenis_id }}">{{ $jenis->sjenis_nama }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
-                            </form>
-                            
+                                <div class="col-md-2">
+                                    <select name="bulan_lahir" class="form-select">
+                                        <option value="">Semua Bulan Lahir</option>
+                                        <option value="1">Januari</option>
+                                        <option value="2">Februari</option>
+                                        <option value="3">Maret</option>
+                                        <option value="4">April</option>
+                                        <option value="5">Mei</option>
+                                        <option value="6">Juni</option>
+                                        <option value="7">Juli</option>
+                                        <option value="8">Agustus</option>
+                                        <option value="9">September</option>
+                                        <option value="10">Oktober</option>
+                                        <option value="11">November</option>
+                                        <option value="12">Desember</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <select name="tahun_lahir" class="form-select">
+                                        <option value="">Semua Tahun Lahir</option>
+                                        @for($year = date('Y'); $year >= 2000; $year--)
+                                        <option value="{{ $year }}">{{ $year }}</option>
+                                        @endfor
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="submit" class="btn btn-primary"><i class="bi bi-funnel"></i>
+                                        Filter</button>
+                                </div>
+                            </div>
+                        </form>
+
                         <!-- Table with stripped rows -->
                         <table class="table datatable">
                             <thead>
                                 <tr>
                                     <th>ID/Kode Sapi</th>
                                     <th>jenis Sapi</th>
-                                    <th>Tanggal Lahir</th>
-                                    <th>No Induk</th>
+                                    <th>Umur Sapi</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -78,8 +88,8 @@
                                 <tr>
                                     <td>{{ $item->sapi_id }}</td>
                                     <td>{{ $item->jenisSapi->sjenis_nama }}</td>
-                                    <td>{{ $item->sapi_tanggal_lahir }}</td>
-                                    <td>{{ $item->sapi_no_induk }}</td>
+                                    <td>{{ $item->sapi_umur }} Bulan</td>
+                                    <td>{{ $item->sapi_status }}</td>
                                     <td> <a class="btn btn-outline-success"
                                             href="{{ route('detail.sapi', $item->sapi_id) }}"><i
                                                 class="bi bi-info-lg"></i></a>

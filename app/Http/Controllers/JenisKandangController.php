@@ -22,22 +22,18 @@ class JenisKandangController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'kandang_nama' => 'required|string|max:50',
-            'kandang_tipe' => 'required|string|max:50',
+            'kandang_tipe' => 'required|string|max:50|unique:master_kandang_jenis,kandang_tipe',
             'kandang_keterangan' => 'required|string|max:50',
-            'kandang_aktif' => 'required|in:Aktif,NonAktif',
         ]);
 
         $lastKode = ModJenisKandang::orderBy('kandang_id', 'desc')->first();
-        $newKode = $lastKode ? 'KD' . str_pad(((int) substr($lastKode->kandang_kode, 2)) + 1, 3, '0', STR_PAD_LEFT) : 'KD001';
+        $newKode = $lastKode ? 'KD' . str_pad(((int) substr($lastKode->kandang_id, 2)) + 1, 3, '0', STR_PAD_LEFT) : 'KD001';
 
         ModJenisKandang::create([
-            'kandang_kode' => $newKode,
-            'kandang_nama' => $request->kandang_nama,
-            'kandang_tipe' => $request->kandang_tipe,
+            'kandang_id' => $newKode,
+            'kandang_tipe' => $request->kandang_tipe,   
             'kandang_keterangan' => $request->kandang_keterangan,
-            'kandang_aktif' => $request->kandang_aktif,
-            'created_id' => auth()->user()->id, // Assuming user authentication is implemented
+            'created_id' => auth()->user()->id,
             'created_nama' => auth()->user()->name,
             'updated_id' => auth()->user()->id,
             'updated_nama' => auth()->user()->name,
@@ -61,18 +57,14 @@ class JenisKandangController extends Controller
     public function update(Request $request, $kandang_id)
     {
         $request->validate([
-            'kandang_nama' => 'required|string|max:50',
-            'kandang_tipe' => 'required|string|max:50',
+            'kandang_tipe' => 'required|string|max:50|unique:master_kandang_jenis,kandang_tipe',
             'kandang_keterangan' => 'required|string|max:50',
-            'kandang_aktif' => 'required|in:Aktif,NonAktif',
         ]);
 
         $jenisKandang = ModJenisKandang::findOrFail($kandang_id);
         $jenisKandang->update([
-            'kandang_nama' => $request->kandang_nama,
             'kandang_tipe' => $request->kandang_tipe,
             'kandang_keterangan' => $request->kandang_keterangan,
-            'kandang_aktif' => $request->kandang_aktif,
             'updated_id' => auth()->user()->id,
             'updated_nama' => auth()->user()->name,
         ]);

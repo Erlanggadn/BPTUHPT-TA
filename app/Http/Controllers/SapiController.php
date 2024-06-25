@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Sapi;
 use App\Models\ModSapi;
 use App\Models\ModJenisSapi;
@@ -34,6 +35,7 @@ class SapiController extends Controller
             'sapi_tanggal_lahir' => 'required|date',
             'sapi_no_induk' => 'required|string|max:255',
             'sapi_keterangan' => 'required|string|max:255',
+            'sapi_status' => 'required|string|max:255', // Tambahkan validasi status
         ]);
 
         // Generate sapi_id
@@ -58,10 +60,12 @@ class SapiController extends Controller
         $sapi->sapi_tanggal_lahir = $request->sapi_tanggal_lahir;
         $sapi->sapi_no_induk = $request->sapi_no_induk;
         $sapi->sapi_keterangan = $request->sapi_keterangan;
-        $sapi->created_id = auth()->user()->id; // Atau sesuaikan dengan user ID yang login
-        $sapi->created_nama = auth()->user()->name; // Atau sesuaikan dengan user name yang login
-        $sapi->updated_id = auth()->user()->id; // Atau sesuaikan dengan user ID yang login
-        $sapi->updated_nama = auth()->user()->name; // Atau sesuaikan dengan user name yang login
+        $sapi->sapi_status = $request->sapi_status; // Set status
+        $sapi->sapi_umur = Carbon::parse($request->sapi_tanggal_lahir)->diffInMonths(Carbon::now()); // Hitung umur
+        $sapi->created_id = auth()->user()->id;
+        $sapi->created_nama = auth()->user()->name;
+        $sapi->updated_id = auth()->user()->id;
+        $sapi->updated_nama = auth()->user()->name;
         $sapi->save();
 
         return redirect()->route('index.sapi')->with('success', 'Data sapi berhasil disimpan');
@@ -78,12 +82,15 @@ class SapiController extends Controller
         $request->validate([
             'sapi_no_induk' => 'required|string|max:255',
             'sapi_keterangan' => 'required|string|max:255',
+            'sapi_status' => 'required|string|max:255', // Tambahkan validasi status
         ]);
 
         $sapi = ModSapi::findOrFail($id);
 
         $sapi->sapi_no_induk = $request->sapi_no_induk;
         $sapi->sapi_keterangan = $request->sapi_keterangan;
+        $sapi->sapi_status = $request->sapi_status; // Set status
+        $sapi->sapi_umur = Carbon::parse($sapi->sapi_tanggal_lahir)->diffInMonths(Carbon::now()); // Hitung ulang umur
         $sapi->updated_id = auth()->user()->id;
         $sapi->updated_nama = auth()->user()->name;
         $sapi->save();
@@ -103,6 +110,7 @@ class SapiController extends Controller
     {
         $jenisSapi = $request->input('jenis_sapi');
         $bulanLahir = $request->input('bulan_lahir');
+        $tahunLahir = $request->input('tahun_lahir'); // Ambil input tahun lahir
 
         $Sapi = ModSapi::with('jenisSapi')
             ->when($jenisSapi, function ($query, $jenisSapi) {
@@ -113,11 +121,15 @@ class SapiController extends Controller
             ->when($bulanLahir, function ($query, $bulanLahir) {
                 return $query->whereMonth('sapi_tanggal_lahir', $bulanLahir);
             })
+            ->when($tahunLahir, function ($query, $tahunLahir) { // Tambahkan kondisi untuk tahun lahir
+                return $query->whereYear('sapi_tanggal_lahir', $tahunLahir);
+            })
             ->get();
 
-        $jenisList = ModJenisSapi::all(); 
+        $jenisList = ModJenisSapi::all();
         return view('backend.keswan.sapi.index', compact('Sapi', 'jenisList'));
     }
+
 
 
     public function export(Request $request)

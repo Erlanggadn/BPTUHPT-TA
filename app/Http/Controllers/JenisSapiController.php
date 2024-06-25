@@ -32,7 +32,7 @@ class JenisSapiController extends Controller
             'sjenis_id' => $newKode,
             'sjenis_nama' => $request->sjenis_nama,
             'sjenis_keterangan' => $request->sjenis_keterangan,
-            'created_id' => auth()->user()->id, // Assuming user authentication is implemented
+            'created_id' => auth()->user()->id, 
             'created_nama' => auth()->user()->name,
             'updated_id' => auth()->user()->id,
             'updated_nama' => auth()->user()->name,

@@ -19,6 +19,7 @@ use App\Http\Controllers\JenisKandangController;
 use App\Http\Controllers\KegiatanSapiController;
 use App\Http\Controllers\RumputSiapJualController;
 use App\Http\Controllers\KegiatanKandangController;
+use App\Http\Controllers\DetailKandangSapiController;
 
 // HOME
 Route::get('/', [AuthController::class, 'home'])->name('home');
@@ -123,19 +124,13 @@ Route::middleware(['auth', 'checkWasbitnak'])->group(function () {
 
     // WASBITNAK - KEGIATAN KANDANG
     Route::prefix('kegiatan')->group(function () {
-        Route::get('/', [KegiatanKandangController::class, 'index'])->name('indexkegiatankandang');
-        Route::get('/tambah', [KegiatanKandangController::class, 'create'])->name('tambah.jenis.kegiatan');
-        Route::post('/store', [KegiatanKandangController::class, 'store'])->name('post.jenis.kegiatan');
-        Route::delete('/delete/{id}', [KegiatanKandangController::class, 'delete'])->name('deletekegiatankandang');
-        Route::get('/edit/{id_kegiatan}', [KegiatanKandangController::class, 'edit'])->name('editkegiatankandang');
-        Route::put('/update/{id_kegiatan}', [KegiatanKandangController::class, 'update'])->name('updatekegiatankandang');
-        Route::get('/detail/{id_kegiatan}', [KegiatanKandangController::class, 'detail'])->name('detailkegiatan');
-        //KEGIATAN SAPI
-        Route::delete('/{id_kegiatan}/sapi/{id_sapi}', [KegiatanKandangController::class, 'hapusSapi'])->name('hapusSapi');
-        Route::get('/tambah/{id_kegiatan}', [KegiatanSapiController::class, 'getsapi'])->name('getSapi');
-        Route::post('/store/{id_kegiatan}', [KegiatanSapiController::class, 'tambahSapi'])->name('tambahSapi');
+        Route::get('/', [KegiatanKandangController::class, 'index'])->name('index.kegiatan.kandang');
+        Route::get('/tambah', [KegiatanKandangController::class, 'show'])->name('show.kegiatan.kandang');
+        Route::post('/store', [KegiatanKandangController::class, 'store'])->name('store.kegiatan.kandang');
+        Route::get('/detail/{kegiatan_id}', [KegiatanKandangController::class, 'detail'])->name('detail.kegiatan.kandang');
+        Route::put('/edit/{kegiatan_id}', [KegiatanKandangController::class, 'update'])->name('update.kegiatan.kandang');
+        Route::delete('/delete/{kegiatan_id}', [KegiatanKandangController::class, 'destroy'])->name('destroy.kegiatan.kandang');
     });
-
     //WASBITNAK - JENIS SAPI
     Route::prefix('jenis_sapi')->group(function () {
         Route::get('/', [JenisSapiController::class, 'index'])->name('index.jenis.sapi');
@@ -145,16 +140,6 @@ Route::middleware(['auth', 'checkWasbitnak'])->group(function () {
         Route::get('/edit/{sjenis_id}', [JenisSapiController::class, 'edit'])->name('edit.jenis.sapi');
         Route::put('/update/{sjenis_id}', [JenisSapiController::class, 'update'])->name('update.jenis.sapi');
         Route::delete('/delete/{sjenis_id}', [JenisSapiController::class, 'destroy'])->name('destroy.jenis.sapi');
-    });
-
-    //WASBITNAK - SAPI SIAP JUAL
-    Route::prefix('sapi-jual')->group(function () {
-        Route::get('/', [SapiJualController::class, 'index'])->name('sapi-jual.index');
-        Route::get('/create', [SapiJualController::class, 'create'])->name('sapi-jual.create');
-        Route::post('/', [SapiJualController::class, 'store'])->name('sapi-jual.store');
-        Route::get('/{id}/edit', [SapiJualController::class, 'edit'])->name('sapi-jual.edit');
-        Route::put('/{id}', [SapiJualController::class, 'update'])->name('sapi-jual.update');
-        Route::delete('/{id}', [SapiJualController::class, 'destroy'])->name('sapi-jual.destroy');
     });
 });
 //PPID

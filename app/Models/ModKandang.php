@@ -14,7 +14,8 @@ class ModKandang extends Model
     protected $keyType = 'string';
     public $incrementing = false;
     protected $fillable = [
-        'kand.id',
+        'kand_id',
+        'kand_nama',
         'kand_kode',
         'kand_jenis',
         'kand_keterangan',
@@ -28,5 +29,10 @@ class ModKandang extends Model
     public function jenisKandang()
     {
         return $this->belongsTo(ModJenisKandang::class, 'kand_jenis', 'kandang_id');
+    }
+
+    public function kegiatanKandangs()
+    {
+        return $this->hasMany(ModKegiatanKandang::class, 'kegiatan_jenis_kandang', 'kand_id');
     }
 }

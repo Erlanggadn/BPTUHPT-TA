@@ -11,14 +11,13 @@ class ModJenisKandang extends Model
 
     protected $table = 'master_kandang_jenis';
     protected $primaryKey = 'kandang_id';
+    public $incrementing = false;
     public $timestamps = true;
 
     protected $fillable = [
-        'kandang_kode',
-        'kandang_nama',
+        'kandang_id',
         'kandang_tipe',
         'kandang_keterangan',
-        'kandang_aktif',
         'created_id',
         'created_nama',
         'updated_id',

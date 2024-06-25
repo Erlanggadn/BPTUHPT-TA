@@ -23,11 +23,11 @@
             </li>
             <li class="nav-heading">Wasbitnak - Kegiatan Kandang</li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('index.jenis.sapi') }}">
+                <a class="nav-link collapsed" href="{{ route('index.kegiatan.kandang') }}">
                     <i class="bi bi-list-nested"></i>
                     <span>Logbook Kegiatan</span>
                 </a>
-            </li> 
+            </li>
             <li class="nav-heading">Wasbitnak - Sapi Siap Jual</li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('index.jenis.sapi') }}">

@@ -1,7 +1,6 @@
 @include('layouts.utama.main2')
 @include('layouts.wasbitnak.navbar')
 @include('layouts.wasbitnak.sidebar')
-
 <main id="main" class="main">
 
     <div class="pagetitle">
@@ -13,9 +12,11 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Data Jenis Kandang</h5>
-                        <p>Berikut ini adalah data Jenis Kandang yang sepenuhnya dikelola oleh <b>Divisi Pengawas Bibit
-                                Ternak</b> BPTU HPT Padang Mengatas
+                        <h5 class="card-title">Data Kegiatan Kandang</h5>
+                        <p>Berikut ini adalah data Kegiatan Kandang yang sepenuhnya dikelola oleh <b>Divisi Pengawas
+                                Bibit
+                                Ternak</b> BPTU
+                            HPT Padang Mengatas
                         </p>
                         @if (session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -23,42 +24,73 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                         @endif
-
-
-                        <a href="{{ route('show.jenis.kandang') }}" class="btn btn-primary mb-4"><i
+                        <a href="{{ route('show.kegiatan.kandang') }}" class="btn btn-primary mb-4"><i
                                 class="bi bi-plus"></i>
-                            Tambah Jenis</a>
+                            Tambah Kegiatan </a>
+
+                        {{-- <form action="{{ route('filter.kandang') }}" method="GET" class="mb-4">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <select name="jenis_sapi" class="form-select">
+                                    <option value="">Semua Tipe</option>
+                                    @foreach($jenisKegiatan $jeniskegiatan)
+                                    <option value="{{ $jeniskegiatan->kegiatan_id }}">
+                                        {{ $jeniskegiatan->kegiatan_jenis_kandang }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-outline-primary">Filter</button>
+                            </div>
+                        </div>
+                        </form> --}}
                         <!-- Table with stripped rows -->
                         <table class="table datatable">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Tipe Kandang</th>
+                                    <th>ID/Kode Kegiatan</th>
+                                    <th>Kode Kandang</th>
+                                    <th>Tanggal Kegiatan</th>
                                     <th>Keterangan</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @isset($JenisKandang)
-                                @foreach ($JenisKandang as $item)
+                                @isset($Kegiatan)
+                                @foreach ($Kegiatan as $item)
                                 <tr>
-                                    <td>{{ $item->kandang_id }}</td>
-                                    <td><span class="badge bg-info">{{ $item->kandang_tipe }}</span></td>
-                                    <td>{{ $item->kandang_keterangan }}</td>
-                                    <td> <a class="btn btn-outline-success"
-                                            href="{{ route('detail.jenis.kandang', $item->kandang_id) }}"><i
+                                    <td>{{ $item->kegiatan_id }}</td>
+                                    <td>{{ $item->kegiatan_jenis_kandang }} -
+                                        [ {{ $item->kandang->jenisKandang->kandang_tipe }} -
+                                        {{ $item->kandang->kand_nama }} ]</td>
+                                    <td>{{ $item->kegiatan_tanggal }}</td>
+                                    <td>{{ $item->kegiatan_keterangan }}</td>
+                                    <td>
+                                        @if ($item->kegiatan_status == 'Selesai')
+                                        <span class="badge bg-success">Selesai</span>
+                                        @elseif ($item->kegiatan_status == 'Proses')
+                                        <span class="badge bg-warning">Proses</span>
+                                        @else
+                                        <span class="badge bg-danger">Belum Selesai</span>
+                                        @endif
+                                    </td>
+
+                                    <td>
+                                        <a class="btn btn-outline-success"
+                                            href="{{ route('detail.kegiatan.kandang', $item->kegiatan_id) }}"><i
                                                 class="bi bi-info-lg"></i></a>
                                         <form id="deleteForm"
-                                            action="{{ route('destroy.jenis.kandang', $item->kandang_id) }}"
+                                            action="{{ route('destroy.kegiatan.kandang', $item->kegiatan_id) }}"
                                             method="POST" style="display: inline;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="button" class="btn btn-outline-danger"
-                                                onclick="showDeleteModal('{{ route('destroy.jenis.kandang', $item->kandang_id) }}')">
+                                                onclick="showDeleteModal('{{ route('destroy.kegiatan.kandang', $item->kegiatan_id) }}')">
                                                 <i class="bi bi-trash-fill"></i>
                                             </button>
                                         </form>
-
                                     </td>
                                 </tr>
                                 @endforeach
@@ -80,7 +112,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Apakah Anda yakin ingin menghapus data jenis Kandang ini?</p>
+                    <p>Apakah Anda yakin ingin menghapus data Kandang ini?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>

@@ -14,9 +14,9 @@ class CreateMasterKandangTable extends Migration
     public function up()
     {
         Schema::create('master_kandang', function (Blueprint $table) {
-            $table->increments('kand_id');
-            $table->string('kand_kode');
-            $table->unsignedInteger('kand_jenis');
+            $table->string('kand_id')->primary();
+            $table->string('kand_jenis');
+            $table->string('kand_nama');
             $table->string('kand_keterangan');
             $table->enum('kand_aktif', ['Aktif', 'NonAktif']);
             

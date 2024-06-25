@@ -52,8 +52,8 @@
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Tanggal Lahir</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input type="text" class="form-control" value="{{ $sapi->sapi_tanggal_lahir }}"
-                                        disabled>
+                                    <input type="text" class="form-control"
+                                        value="{{ $sapi->sapi_tanggal_lahir->format('d-m-Y') }}" disabled>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -63,25 +63,36 @@
                                         class="form-control">{{ $sapi->sapi_keterangan }}</textarea>
                                 </div>
                             </div>
+                            <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">Tanggal Lahir</div>
+                                <div class="col-lg-9 col-md-8">
+                                    <select name="sapi_status" id="sapi_status" class="form-control" required>
+                                        <option value="">Pilih Status</option>
+                                        <option value="siap jual">Siap Jual</option>
+                                        <option value="sakit">Sakit</option>
+                                        <option value="isolasi">Isolasi</option>
+                                    </select>
+                                </div>
+                            </div>
 
 
 
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-outline-success">Update</button>
-                        <a href="{{ route('index.sapi') }}" class="btn btn-outline-secondary">Kembali</a>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-outline-success">Update</button>
+                                <a href="{{ route('index.sapi') }}" class="btn btn-outline-secondary">Kembali</a>
+                            </div>
+                        </form>
+
+                        {{-- <a class="btn btn-outline-warning mt-3" href="{{ route('editsapi', $sapi->id) }}"><i
+                            class="bi bi-pencil-fill"></i> Edit</a>
+                        <a class="btn btn-outline-primary mt-3" href="{{ route('printsapi', $sapi->id) }}"><i
+                                class="bi bi-upc"></i> Cetak Kode</a> --}}
+
                     </div>
-                    </form>
 
-                    {{-- <a class="btn btn-outline-warning mt-3" href="{{ route('editsapi', $sapi->id) }}"><i
-                        class="bi bi-pencil-fill"></i> Edit</a>
-                    <a class="btn btn-outline-primary mt-3" href="{{ route('printsapi', $sapi->id) }}"><i
-                            class="bi bi-upc"></i> Cetak Kode</a> --}}
+                </div><!-- End Bordered Tabs -->
 
-                </div>
-
-            </div><!-- End Bordered Tabs -->
-
-        </div>
+            </div>
         </div>
         @endisset
     </section>

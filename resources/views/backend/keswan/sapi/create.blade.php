@@ -32,7 +32,7 @@
                                         <p class="text-center small">Pastikan Data Diisi dengan Benar!</p>
                                     </div>
                                     <div class="row g-3 needs-validation" novalidate>
-                                        <div class="row mb-3">
+                                        <div class="mb-3">
                                             <label class="col-form-label">Jenis Hewan Ternak</label>
                                             <div class="">
                                                 <select name="sapi_jenis" class="form-select"
@@ -48,7 +48,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="row mb-3">
+                                        <div class="mb-3">
                                             <label for="yourUsername" class="form-label">Urutan Lahir</label>
                                             <div class="input-group has-validation">
                                                 <input type="number" name="sapi_urutan_lahir" class="form-control"
@@ -58,7 +58,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="row mb-3">
+                                        <div class="mb-3">
                                             <label for="yourUsername" class="form-label">Tanggal Lahir</label>
                                             <div class="input-group has-validation">
                                                 <input type="date" name="sapi_tanggal_lahir" class="form-control"
@@ -68,7 +68,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="row mb-3">
+                                        <div class="mb-3">
                                             <label for="yourUsername" class="form-label">No.ID Induk</label>
                                             <div class="input-group has-validation">
                                                 <input type="text" name="sapi_no_induk" class="form-control"
@@ -78,7 +78,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="row mb-3">
+                                        <div class="mb-3">
                                             <label for="yourUsername" class="form-label">Keterangan</label>
                                             <div class="input-group has-validation">
                                                 <input type="text" name="sapi_keterangan" class="form-control"
@@ -87,6 +87,15 @@
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="sapi_status">Status Sapi</label>
+                                            <select name="sapi_status" id="sapi_status" class="form-control" required>
+                                                <option value="">Pilih Status</option>
+                                                <option value="Siap Jual">Siap Jual</option>
+                                                <option value="Sakit">Sakit</option>
+                                                <option value="Isolasi">Isolasi</option>
+                                            </select>
                                         </div>
                                         <br>
                                         <div class="col-12">

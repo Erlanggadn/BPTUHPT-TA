@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
+use App\Models\ModJenisSapi;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ModSapi extends Model
 {
@@ -19,14 +21,29 @@ class ModSapi extends Model
         'sapi_tanggal_lahir',
         'sapi_no_induk',
         'sapi_keterangan',
+        'sapi_umur',
+        'sapi_status',
+
         
         'created_id',
         'created_nama',
         'updated_id',
         'updated_nama',
     ];
+    protected $dates = ['sapi_tanggal_lahir'];
+
     public function jenisSapi()
     {
         return $this->belongsTo(ModJenisSapi::class, 'sapi_jenis', 'sjenis_id');
+    }
+
+    public function getUmurAttribute()
+    {
+        return $this->sapi_tanggal_lahir->diffInMonths(Carbon::now());
+    }
+
+    public function detailKandangSapis()
+    {
+        return $this->hasMany(ModDetailKandangSapi::class, 'detail_sapi', 'sapi_id');
     }
 }

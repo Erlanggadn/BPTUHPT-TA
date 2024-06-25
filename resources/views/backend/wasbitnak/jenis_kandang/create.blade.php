@@ -33,20 +33,11 @@
                                     @endif
                                     <form class="row g-3 needs-validation" novalidate>
                                         <div class="col-12">
-                                            <label for="kandangtipe" class="form-label">Tipe Kandang</label>
-                                            <select name="kandang_tipe" class="form-select" id="kandangtipe" required>
-                                                <option selected disabled>Pilih Tipe</option>
-                                                <option value="Kandang">Kandang</option>
-                                                <option value="Plot">Plot</option>
-                                            </select>
-                                            <div class="invalid-feedback">Pilih Tipe Kandang</div>
-                                        </div>
-                                        <div class="col-12">
                                             <label for="kandangNama" class="form-label">Jenis Kandang</label>
                                             <div class="input-group has-validation">
-                                                <input type="text" name="kandang_nama" class="form-control"
+                                                <input type="text" name="kandang_tipe" class="form-control"
                                                     id="kandangNama" required>
-                                                <div class="invalid-feedback">Masukkan Nama Kandang dengan benar</div>
+                                                <div class="invalid-feedback">Masukkan Jenis Kandang dengan benar</div>
                                             </div>
                                         </div>
                                         <div class="col-12">
@@ -56,15 +47,6 @@
                                                     id="kandangKeterangan" required>
                                                 <div class="invalid-feedback">Masukkan Keterangan dengan benar</div>
                                             </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <label for="kandangAktif" class="form-label">Aktif</label>
-                                            <select name="kandang_aktif" class="form-select" id="kandangAktif" required>
-                                                <option selected disabled>Pilih Status</option>
-                                                <option value="Aktif">Aktif</option>
-                                                <option value="NonAktif">Non Aktif</option>
-                                            </select>
-                                            <div class="invalid-feedback">Pilih Status Kandang</div>
                                         </div>
                                         <br>
                                         <div class="col-12">

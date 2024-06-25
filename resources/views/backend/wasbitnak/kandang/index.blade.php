@@ -25,15 +25,14 @@
                         @endif
                         <a href="{{ route('show.kandang') }}" class="btn btn-primary mb-4"><i class="bi bi-plus"></i>
                             Tambah Kandang</a>
-                            
+
                         <form action="{{ route('filter.kandang') }}" method="GET" class="mb-4">
                             <div class="row">
                                 <div class="col-md-2">
                                     <select name="jenis_sapi" class="form-select">
                                         <option value="">Semua Tipe</option>
                                         @foreach($jenisList as $jenis)
-                                        <option value="{{ $jenis->kandang_id }}">{{ $jenis->kandang_tipe }} -
-                                            {{ $jenis->kandang_nama }}
+                                        <option value="{{ $jenis->kandang_id }}">{{ $jenis->kandang_tipe }}
                                         </option>
                                         @endforeach
                                     </select>
@@ -47,8 +46,8 @@
                         <table class="table datatable">
                             <thead>
                                 <tr>
-                                    <th>ID Kandang</th>
-                                    <th>Kode Kandang</th>
+                                    <th>ID/Kode Kandang</th>
+                                    <th>Tipe Kandang</th>
                                     <th>Jenis Kandang</th>
                                     <th>Status</th>
                                     <th>Action</th>
@@ -59,8 +58,8 @@
                                 @foreach ($Kandang as $item)
                                 <tr>
                                     <td>{{ $item->kand_id }}</td>
-                                    <td>{{ $item->kand_kode }}</td>
-                                    <td>{{ $item->jenisKandang->kandang_tipe }} - {{ $item->jenisKandang->kandang_nama }}</td>
+                                    <td>{{ $item->jenisKandang->kandang_tipe }}</td>
+                                    <td>{{ $item->kand_nama }}</td>
                                     <td>
                                         @if ($item->kand_aktif === 'Aktif')
                                         <span class="badge bg-success">{{ $item->kand_aktif }}</span>
@@ -68,12 +67,16 @@
                                         <span class="badge bg-danger">{{ $item->kand_aktif }}</span>
                                         @endif
                                     </td>
-                                    <td> 
-                                        <a class="btn btn-outline-success" href="{{ route('detail.kandang', $item->kand_id) }}"><i class="bi bi-info-lg"></i></a>
-                                        <form id="deleteForm" action="{{ route('destroy.kandang', $item->kand_id) }}" method="POST" style="display: inline;">
+                                    <td>
+                                        <a class="btn btn-outline-success"
+                                            href="{{ route('detail.kandang', $item->kand_id) }}"><i
+                                                class="bi bi-info-lg"></i></a>
+                                        <form id="deleteForm" action="{{ route('destroy.kandang', $item->kand_id) }}"
+                                            method="POST" style="display: inline;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="button" class="btn btn-outline-danger" onclick="showDeleteModal('{{ route('destroy.kandang', $item->kand_id) }}')">
+                                            <button type="button" class="btn btn-outline-danger"
+                                                onclick="showDeleteModal('{{ route('destroy.kandang', $item->kand_id) }}')">
                                                 <i class="bi bi-trash-fill"></i>
                                             </button>
                                         </form>
@@ -98,7 +101,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Apakah Anda yakin ingin menghapus data Kandang ini?</p>
+                    <p>Apakah Anda yakin ingin menghapus data Kegiatan Kandang ini?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -110,7 +113,8 @@
 
 </main><!-- End #main -->
 
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+        class="bi bi-arrow-up-short"></i></a>
 <!-- Template Main JS File -->
 <script src="{{ asset ('js/main.js') }}"></script>
 <script>
@@ -124,4 +128,5 @@
     document.getElementById('confirmDelete').addEventListener('click', function () {
         document.getElementById('deleteForm').submit();
     });
+
 </script>

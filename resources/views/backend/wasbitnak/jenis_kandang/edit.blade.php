@@ -35,25 +35,11 @@
                                     @endif
                                     <form class="row g-3 needs-validation" novalidate>
                                         <div class="col-12 mb-4">
-                                            <label for="kandangtipe" class="form-label">Tipe Jenis Kandang</label>
-                                            <select name="kandang_tipe" class="form-select" id="kandangtipe" required>
-                                                <option selected disabled>Pilih Tipe</option>
-                                                <option value="Plot"
-                                                    {{ $jenisKandang->kandang_tipe == 'Plot' ? 'selected' : '' }}>Plot
-                                                </option>
-                                                <option value="Kandang"
-                                                    {{ $jenisKandang->kandang_tipe == 'Kandang' ? 'selected' : '' }}>
-                                                    Kandang
-                                                </option>
-                                            </select>
-                                            <div class="invalid-feedback">Pilih Status Kandang</div>
-                                        </div>
-                                        <div class="col-12 mb-4">
-                                            <label for="kandangNama" class="form-label">Nama Kandang</label>
+                                            <label for="kandangtipe" class="form-label">Tipe Kandang</label>
                                             <div class="input-group has-validation">
-                                                <input type="text" name="kandang_nama" class="form-control"
-                                                    id="kandangNama" value="{{ $jenisKandang->kandang_nama }}" required>
-                                                <div class="invalid-feedback">Masukkan Nama Kandang dengan benar</div>
+                                                <input type="text" name="kandang_tipe" class="form-control"
+                                                    id="kandangtipe" value="{{ $jenisKandang->kandang_tipe }}" required>
+                                                <div class="invalid-feedback">Masukkan Tipe Kandang dengan benar</div>
                                             </div>
                                         </div>
                                         <div class="col-12 mb-4">
@@ -64,22 +50,6 @@
                                                     value="{{ $jenisKandang->kandang_keterangan }}" required>
                                                 <div class="invalid-feedback">Masukkan Keterangan dengan benar</div>
                                             </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <label for="kandangAktif" class="form-label">Status Jenis Kandang</label>
-                                            <select name="kandang_aktif" class="form-select" id="kandangAktif" required>
-                                                <option selected disabled>Pilih Status</option>
-                                                <option value="Aktif"
-                                                    {{ $jenisKandang->kandang_aktif == 'Aktif' ? 'selected' : '' }}>
-                                                    Aktif
-                                                </option>
-                                                <option value="NonAktif"
-                                                    {{ $jenisKandang->kandang_aktif == 'NonAktif' ? 'selected' : '' }}>
-                                                    Non
-                                                    Aktif
-                                                </option>
-                                            </select>
-                                            <div class="invalid-feedback">Pilih Status Kandang</div>
                                         </div>
                                         <br>
                                         <div class="col-12">

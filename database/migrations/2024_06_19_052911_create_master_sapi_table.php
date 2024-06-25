@@ -20,6 +20,8 @@ class CreateMasterSapiTable extends Migration
             $table->date('sapi_tanggal_lahir');
             $table->string('sapi_no_induk');
             $table->string('sapi_keterangan');
+            $table->integer('sapi_umur')->nullable(); 
+            $table->string('sapi_status')->nullable(); 
             
             $table->timestamp('created_at')->useCurrent();
             $table->string('created_id', 50);

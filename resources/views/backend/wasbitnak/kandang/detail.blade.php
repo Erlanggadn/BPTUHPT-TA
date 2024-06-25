@@ -23,89 +23,82 @@
                             @csrf
                             @method('PUT')
                             <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">ID Sapi</div>
+                                <div class="col-lg-3 col-md-4 label">ID/Kode Sapi</div>
                                 <div class="col-lg-9 col-md-8">
                                     <input type="text" class="form-control" value="{{ $Kandang->kand_id }}" disabled>
                                 </div>
                             </div>
-                            </div>
                             <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Kode Kandang</div>
+                                <div class="col-lg-3 col-md-4 label">Jenis Kandang</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input name="kand_kode" type="text" class="form-control" value="{{ $Kandang->kand_kode }}">
+                                    <input name="kand_nama" type="text" class="form-control"
+                                        value="{{ $Kandang->kand_nama }}">
                                 </div>
                             </div>
-                            <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Tipe Kandang ID</div>
-                                <div class="col-lg-9 col-md-8">
-                                    <input name="kand_jenis" type="text" class="form-control" value="{{ $Kandang->kand_jenis }}"
-                                        disabled>
-                                </div>
-                            </div>
-                            <div class="row mb-4">
-                                <div class="col-lg-3 col-md-4 label">Tipe Kandang</div>
-                                <div class="col-lg-9 col-md-8">
-                                    <select name="kand_jenis" class="form-select">
-                                        @foreach($jenisList as $jenis)
-                                        <option value="{{ $jenis->kandang_id }}">{{ $jenis->kandang_tipe }} -
-                                            {{ $jenis->kandang_nama }}
-                                        </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Keterangan</div>
-                                <div class="col-lg-9 col-md-8">
-                                    <textarea name="kand_keterangan"
-                                        class="form-control">{{ $Kandang->kand_keterangan }}</textarea>
-                                </div>
-                            </div>
-                            <div class="row mb-4">
-                                <div class="col-lg-3 col-md-4 label">Status Kandang</div>
-                                <div class="col-lg-9 col-md-8">
-                                    <select name="kand_aktif" class="form-select">
-                                        <option value="Aktif"
-                                                    {{ $Kandang->kand_aktif == 'Aktif' ? 'selected' : '' }}>Aktif
-                                                </option>
-                                                <option value="NonAktif"
-                                                    {{ $Kandang->kand_aktif == 'NonAktif' ? 'selected' : '' }}>Non
-                                                    Aktif
-                                                </option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Dibuat Oleh</div>
-                                <div class="col-lg-9 col-md-8">
-                                    <textarea name="kand_keterangan"
-                                        class="form-control" disabled>{{ $Kandang->created_nama }}</textarea>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Diupdate Oleh</div>
-                                <div class="col-lg-9 col-md-8">
-                                    <textarea name="kand_keterangan"
-                                        class="form-control" disabled>{{ $Kandang->updated_nama }}</textarea>
-                                </div>
-                            </div>
-
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-outline-success">Update</button>
-                                <a href="{{ route('index.kandang') }}" class="btn btn-outline-secondary">Kembali</a>
-                            </div>
-                        </form>
-
-                        {{-- <a class="btn btn-outline-warning mt-3" href="{{ route('editsapi', $sapi->id) }}"><i
-                            class="bi bi-pencil-fill"></i> Edit</a>
-                        <a class="btn btn-outline-primary mt-3" href="{{ route('printsapi', $sapi->id) }}"><i
-                                class="bi bi-upc"></i> Cetak Kode</a> --}}
-
                     </div>
+                    <div class="row mb-4">
+                        <div class="col-lg-3 col-md-4 label">Tipe Kandang</div>
+                        <div class="col-lg-9 col-md-8">
+                            <select name="kand_jenis" class="form-select" disabled>
+                                @foreach($jenisList as $jenis)
+                                <option value="{{ $jenis->kandang_id }}">{{ $jenis->kandang_tipe }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-lg-3 col-md-4 label">Keterangan</div>
+                        <div class="col-lg-9 col-md-8">
+                            <textarea name="kand_keterangan"
+                                class="form-control">{{ $Kandang->kand_keterangan }}</textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-lg-3 col-md-4 label">Status Kandang</div>
+                        <div class="col-lg-9 col-md-8">
+                            <select name="kand_aktif" class="form-select">
+                                <option value="Aktif" {{ $Kandang->kand_aktif == 'Aktif' ? 'selected' : '' }}>Aktif
+                                </option>
+                                <option value="NonAktif" {{ $Kandang->kand_aktif == 'NonAktif' ? 'selected' : '' }}>Non
+                                    Aktif
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-lg-3 col-md-4 label">Dibuat Oleh</div>
+                        <div class="col-lg-9 col-md-8">
+                            <textarea name="kand_keterangan" class="form-control"
+                                disabled>{{ $Kandang->created_nama }}</textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-lg-3 col-md-4 label">Diupdate Oleh</div>
+                        <div class="col-lg-9 col-md-8">
+                            <textarea name="kand_keterangan" class="form-control"
+                                disabled>{{ $Kandang->updated_nama }}</textarea>
+                        </div>
+                    </div>
+                </div>
 
-                </div><!-- End Bordered Tabs -->
+
+                <div class="text-center mb-4">
+                    <button type="submit" class="btn btn-outline-success">Update</button>
+                    <a href="{{ route('index.kandang') }}" class="btn btn-outline-secondary">Kembali</a>
+                </div>
+                </form>
+
+                {{-- <a class="btn btn-outline-warning mt-3" href="{{ route('editsapi', $sapi->id) }}"><i
+                    class="bi bi-pencil-fill"></i> Edit</a>
+                <a class="btn btn-outline-primary mt-3" href="{{ route('printsapi', $sapi->id) }}"><i
+                        class="bi bi-upc"></i> Cetak Kode</a> --}}
 
             </div>
+
+        </div><!-- End Bordered Tabs -->
+
+        </div>
         </div>
         @endisset
     </section>

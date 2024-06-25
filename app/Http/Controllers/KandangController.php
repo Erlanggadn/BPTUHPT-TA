@@ -18,7 +18,7 @@ class KandangController extends Controller
 
     public function show()
     {
-        $jenisKandang = ModJenisKandang::where('kandang_aktif', 'Aktif')->get();
+        $jenisKandang = ModJenisKandang::all();
         return view('backend.wasbitnak.kandang.create', compact('jenisKandang'));
     }
 
@@ -26,16 +26,21 @@ class KandangController extends Controller
     {
         $request->validate([
             'kand_jenis' => 'required|string|max:50',
-            'kand_kode' => 'required|string|max:50',
+            'kand_nama' => 'required|string|max:50',
             'kand_keterangan' => 'required|string|max:50',
             'kand_aktif' => 'required|in:Aktif,NonAktif',
         ]);
 
+        $lastKode = ModKandang::orderBy('kand_id', 'desc')->first();
+        $newKode = $lastKode ? 'K' . str_pad(((int) substr($lastKode->kand_id, 2)) + 1, 3, '0', STR_PAD_LEFT) : 'K001';
+
         ModKandang::create([
+            'kand_id' => $newKode,
             'kand_jenis' => $request->kand_jenis,
-            'kand_kode' => $request->kand_kode,
+            'kand_nama' => $request->kand_nama,
             'kand_keterangan' => $request->kand_keterangan,
             'kand_aktif' => $request->kand_aktif,
+
             'created_id' => auth()->user()->id, // Assuming user authentication is implemented
             'created_nama' => auth()->user()->name,
             'updated_id' => auth()->user()->id,
@@ -54,16 +59,15 @@ class KandangController extends Controller
     public function update(Request $request, $kand_id)
     {
         $request->validate([
-            'kand_kode' => 'required|string|max:50',
-            'kand_jenis' => 'required|string|max:50',
+            'kand_nama' => 'required|string|max:50',
+
             'kand_keterangan' => 'required|string|max:50',
             'kand_aktif' => 'required|in:Aktif,NonAktif',
         ]);
 
         $Kandang = ModKandang::findOrFail($kand_id);
         $Kandang->update([
-            'kand_kode' => $request->kand_kode,
-            'kand_jenis' => $request->kand_jenis,
+            'kand_nama' => $request->kand_nama,
             'kan_keterangan' => $request->kand_keterangan,
             'kand_aktif' => $request->kand_aktif,
             'updated_id' => auth()->user()->id,

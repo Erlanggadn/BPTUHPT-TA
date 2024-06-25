@@ -40,18 +40,17 @@
                                                     <option selected disabled>Pilih Jenis/Tipe</option>
                                                     @foreach($jenisKandang as $jenis)
                                                     <option value="{{ $jenis->kandang_id }}">{{ $jenis->kandang_tipe }}
-                                                        - {{ $jenis->kandang_nama }}
                                                     </option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="row-12 ">
-                                            <label for="yourUsername" class="form-label">Kode Kandang</label>
+                                            <label for="yourUsername" class="form-label">Nama Kandang</label>
                                             <div class="input-group has-validation">
-                                                <input type="text" name="kand_kode" class="form-control"
+                                                <input type="text" name="kand_nama" class="form-control"
                                                     id="yourUsername" required>
-                                                <div class="invalid-feedback">Masukkan Kode Kandang dengan benar</div>
+                                                <div class="invalid-feedback">Masukkan Nama Kandang dengan benar</div>
                                             </div>
                                         </div>
                                         <div class="row-12 ">
