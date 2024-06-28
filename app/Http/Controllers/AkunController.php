@@ -47,7 +47,7 @@ class AkunController extends Controller
         return view('backend.wasbitnak.profil.detailprofil', ["akunuser" => $akunuser]);
     }
 
-    public function profilppid()
+    public function profilppid()    
     {
         $akunuser = Auth::user();
         return view('backend.ppid.profil.detailprofil', ["akunuser" => $akunuser]);

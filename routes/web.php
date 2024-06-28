@@ -121,7 +121,6 @@ Route::middleware(['auth', 'checkWasbitnak'])->group(function () {
         Route::put('/update/{kandang_id}', [KandangController::class, 'update'])->name('update.kandang');
         Route::delete('/delete/{kandang_id}', [KandangController::class, 'destroy'])->name('destroy.kandang');
     });
-
     // WASBITNAK - KEGIATAN KANDANG
     Route::prefix('kegiatan')->group(function () {
         Route::get('/', [KegiatanKandangController::class, 'index'])->name('index.kegiatan.kandang');
@@ -142,6 +141,24 @@ Route::middleware(['auth', 'checkWasbitnak'])->group(function () {
         Route::get('/edit/{sjenis_id}', [JenisSapiController::class, 'edit'])->name('edit.jenis.sapi');
         Route::put('/update/{sjenis_id}', [JenisSapiController::class, 'update'])->name('update.jenis.sapi');
         Route::delete('/delete/{sjenis_id}', [JenisSapiController::class, 'destroy'])->name('destroy.jenis.sapi');
+    });
+    // WASBITNAK - DATA SAPI
+    Route::prefix('sapi')->group(function () {
+        Route::get('/', [SapiJualController::class, 'index'])->name('index.sapi.wasbitnak');
+        Route::get('/tambah', [SapiJualController::class, 'show'])->name('show.sapi.wasbitnak');
+        Route::post('/store', [SapiJualController::class, 'store'])->name('store.sapi.wasbitnak');
+        Route::get('/detail/{sapi_id}', [SapiJualController::class, 'detail'])->name('detail.sapi.wasbitnak');
+        Route::get('/print/{sapi_id}', [SapiJualController::class, 'printsapi'])->name('print.sapi.wasbitnak');
+        Route::get('/export-sapi', [SapiJualController::class, 'export'])->name('export.sapi.wasbitnak');
+        Route::get('/sapi/filter', [SapiJualController::class, 'filter'])->name('filter.sapi.wasbitnak');
+        Route::get('/edit/{sapi_id}', [SapiJualController::class, 'edit'])->name('edit.sapi.wasbitnak');
+        Route::put('/update/{sapi_id}', [SapiJualController::class, 'update'])->name('update.sapi.wasbitnak');
+        Route::delete('/delete/{sapi_id}', [SapiJualController::class, 'destroy'])->name('destroy.sapi.wasbitnak');
+    });
+    // WASBITNAK - DATA PEGAWAI
+    Route::prefix('pegawai-wasbitnak')->group(function () {
+        Route::get('/', [AdminController::class, 'pegawaiWasbitnak'])->name('index.pegawai.wasbitnak');
+        Route::get('/detail/{id}', [AdminController::class, 'detailPWasbitnak'])->name('detail.pegawai.wasbitnak');
     });
 });
 //PPID

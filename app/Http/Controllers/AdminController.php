@@ -35,14 +35,20 @@ class AdminController extends Controller
 
     public function detailPKeswan($id)
     {
-        $akunuser = User::where('id', $id)->get(); // Mengambil data berdasarkan id
+        $akunuser = User::where('id', $id)->get(); 
         return view('backend.keswan.list-pegawai.detail', ["akunuser" => $akunuser]);
     }
 
-    // public function generatePDF()
-    // {
-    //     $data = ['title' => 'Welcome to Laravel PDF'];
-    //     $pdf = PDF::loadView('pdf_view', $data);
-    //     return $pdf->download('invoice.pdf');
-    // }
+    public function pegawaiWasbitnak()
+    {
+        $jumlahWasbitnak = User::whereNotIn('role', ['admin', 'ppid', 'wastukan', 'keswan', 'kepala', 'pembeli', 'bendahara'])->get();
+        $jumlahPwasbitnak = User::whereNotIn('role', ['admin', 'ppid', 'wastukan', 'keswan', 'kepala', 'pembeli', 'bendahara'])->count();
+        return view('backend.wasbitnak.pegawai.index', ['jumlahWasbitnak' => $jumlahWasbitnak, 'jumlahPWasbitnak' => $jumlahPwasbitnak]);;
+    }
+
+    public function detailPWasbitnak($id)
+    {
+        $akunuser = User::where('id', $id)->get(); 
+        return view('backend.wasbitnak.pegawai.detail', ["akunuser" => $akunuser]);
+    }
 }

@@ -8,6 +8,12 @@
                     <span>Jenis Sapi</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('index.sapi.wasbitnak') }}">
+                    <i class="bi bi-list-nested"></i>
+                    <span>Kondisi Sapi</span>
+                </a>
+            </li>
             <li class="nav-heading">wasbitnak - Kandang</li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('index.jenis.kandang') }}">
@@ -28,13 +34,14 @@
                     <span>Logbook Kegiatan</span>
                 </a>
             </li>
-            <li class="nav-heading">Wasbitnak - Sapi Siap Jual</li>
+            <li class="nav-heading">Wasbitnak - Pegawai</li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('index.jenis.sapi') }}">
-                    <i class="bi bi-list-nested"></i>
-                    <span>Siap Jual</span>
+                <a class="nav-link collapsed" href="{{ route('index.pegawai.wasbitnak') }}">
+                    <i class="bi bi-file-person"></i>
+                    <span>Daftar Pegawai</span>
                 </a>
-            </li><!-- End Register Page Nav -->
+            </li>
+            <!-- End Register Page Nav -->
         </ul>
 
     </aside><!-- End Sidebar-->
