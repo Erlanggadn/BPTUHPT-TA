@@ -36,7 +36,8 @@
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Tanggal</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input type="date" name="kegiatan_tanggal" id="kegiatan_tanggal" class="form-control" required>
+                                    <input type="date" name="kegiatan_tanggal" id="kegiatan_tanggal"
+                                        class="form-control" required>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -84,7 +85,7 @@
                                         <input class="form-check-input" type="checkbox" name="kode_sapi[]"
                                             value="{{ $sapi->sapi_id }}" id="sapi-{{ $sapi->sapi_id }}">
                                         <label class="form-check-label" for="sapi-{{ $sapi->sapi_id }}">
-                                            Sapi {{ $sapi->jenisSapi->sjenis_nama }} - {{ $sapi->sapi_id }}
+                                            {{ $sapi->sapi_id }} [{{ $sapi->sapi_status }}]
                                         </label>
                                     </div>
                                     @endforeach
@@ -125,7 +126,7 @@
 
     <!-- Search Sapi Script -->
     <script>
-        document.getElementById('search-sapi').addEventListener('input', function() {
+        document.getElementById('search-sapi').addEventListener('input', function () {
             let filter = this.value.toLowerCase();
             let sapiList = document.getElementById('sapi-list');
             let sapis = sapiList.getElementsByClassName('form-check');
@@ -142,7 +143,7 @@
         });
 
         // Set minimum date to today
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             var today = new Date();
             var dd = String(today.getDate()).padStart(2, '0');
             var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -156,5 +157,6 @@
         var successModal = new bootstrap.Modal(document.getElementById('successModal'));
         successModal.show();
         @endif
+
     </script>
 </main>

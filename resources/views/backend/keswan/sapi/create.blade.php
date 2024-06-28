@@ -92,9 +92,13 @@
                                             <label for="sapi_status">Status Sapi</label>
                                             <select name="sapi_status" id="sapi_status" class="form-control" required>
                                                 <option value="">Pilih Status</option>
-                                                <option value="Siap Jual">Siap Jual</option>
-                                                <option value="Sakit">Sakit</option>
-                                                <option value="Isolasi">Isolasi</option>
+                                                <option value="Hamil">Hamil</option>
+                                                <option value="Menyusui">Menyusui</option>
+                                                <option value="Dijual">Dijual</option>
+                                                <option value="Terjual">Terjual</option>
+                                                <option value="Produktif">Produktif</option>
+                                                <option value="Pemeriksaan">Pemeriksaan</option>
+                                                <option value="Karantina">Karantina</option>
                                             </select>
                                         </div>
                                         <br>

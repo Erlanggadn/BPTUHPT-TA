@@ -98,7 +98,8 @@
                                         <input class="form-check-input" type="checkbox" name="kode_sapi[]"
                                             value="{{ $sapi->sapi_id }}"
                                             {{ in_array($sapi->sapi_id, $selectedSapi) ? 'checked' : '' }}>
-                                        <label class="form-check-label">{{ $sapi->sapi_id }}</label>
+                                        <label class="form-check-label">{{ $sapi->sapi_id }}
+                                            [{{ $sapi->sapi_status }}]</label>
                                     </div>
                                     @endforeach
                                 </div>
