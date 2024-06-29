@@ -13,22 +13,25 @@ class ModRumput extends Model
     protected $primaryKey = 'rumput_id';
     protected $keyType = 'string';
     public $incrementing = false;
+
     protected $fillable = [
         'rumput_id',
         'rumput_jenis',
-        'rumput_kode',
-        'rumput_berat',
+        'rumput_berat_awal',
+        'rumput_berat_hasil',
         'rumput_masuk',
         'rumput_keterangan',
-        'rumput_aktif',
-
+        'rumput_status',
+        
         'created_id',
         'created_nama',
         'updated_id',
         'updated_nama',
     ];
+
     public function jenisRumput()
     {
         return $this->belongsTo(ModJenisRumput::class, 'rumput_jenis', 'rum_id');
     }
 }
+

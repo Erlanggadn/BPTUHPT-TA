@@ -31,10 +31,9 @@
                         <table class="table datatable">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Kode Lahan</th>
+                                    <th>ID/kode Lahan</th>
                                     <th>Nama Lahan</th>
-                                    <th>Ukuran Lahan</th>
+                                    <th>Jenis Tanah</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -43,10 +42,9 @@
                                 @isset($JenisLahan)
                                 @foreach ($JenisLahan as $item)
                                 <tr>
-                                    <td>{{ $item->lahan_id }}</td>
-                                    <td><span class="badge bg-primary">{{ $item->lahan_kode }}</span></td>
+                                    <td><span class="badge bg-success">{{ $item->lahan_id }}</span></td>
                                     <td>{{ $item->lahan_nama }}</td>
-                                    <td>{{ $item->lahan_keterangan }}</td>
+                                    <td>{{ $item->lahan_jenis_tanah }}</td>
                                     <td>@if ($item->lahan_aktif === 'Aktif')
                                         <span class="badge bg-success">{{ $item->lahan_aktif }}</span>
                                         @else

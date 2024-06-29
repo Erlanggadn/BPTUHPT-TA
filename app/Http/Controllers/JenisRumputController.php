@@ -24,17 +24,17 @@ class JenisRumputController extends Controller
         $request->validate([
             'rum_nama' => 'required|string|max:50|unique:master_rumput_jenis,rum_nama',
             'rum_keterangan' => 'required|string|max:50',
-            'rum_aktif' => 'required|in:Aktif,NonAktif',
+
         ]);
 
-        $lastRumput = ModJenisRumput::orderBy('rum_id', 'desc')->first();
-        $rum_kode = 'RJ' . str_pad($lastRumput ? $lastRumput->rum_id + 1 : 1, 3, '0', STR_PAD_LEFT);
+        $lastKode = ModJenisRumput::orderBy('rum_id', 'desc')->first();
+        $newKode = $lastKode ? 'JR' . str_pad(((int) substr($lastKode->rum_id, 2)) + 1, 3, '0', STR_PAD_LEFT) : 'JR001';
 
         ModJenisRumput::create([
-            'rum_kode' => $rum_kode,
+            'rum_id' => $newKode,
             'rum_nama' => $request->rum_nama,
             'rum_keterangan' => $request->rum_keterangan,
-            'rum_aktif' => $request->rum_aktif,
+
             'created_id' => auth()->user()->id,
             'created_nama' => auth()->user()->name,
             'updated_id' => auth()->user()->id,
@@ -50,25 +50,18 @@ class JenisRumputController extends Controller
         return view('backend.wastukan.jenis_rumput.detail', compact('jenisRumput'));
     }
 
-    public function edit($rum_id)
-    {
-        $jenisRumput = ModJenisRumput::findOrFail($rum_id);
-        return view('backend.wastukan.jenis_rumput.edit', compact('jenisRumput'));
-    }
-
     public function update(Request $request, $rum_id)
     {
+        
         $request->validate([
             'rum_nama' => 'required|string|max:50',
             'rum_keterangan' => 'required|string|max:50',
-            'rum_aktif' => 'required|in:Aktif,NonAktif',
         ]);
 
         $jenisRumput = ModJenisRumput::findOrFail($rum_id);
         $jenisRumput->update([
             'rum_nama' => $request->rum_nama,
             'rum_keterangan' => $request->rum_keterangan,
-            'rum_aktif' => $request->rum_aktif,
             'updated_id' => auth()->user()->id,
             'updated_nama' => auth()->user()->name,
         ]);

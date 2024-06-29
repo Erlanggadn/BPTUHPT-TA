@@ -14,11 +14,12 @@ class CreateMasterRumputJenisTable extends Migration
     public function up()
     {
         Schema::create('master_rumput_jenis', function (Blueprint $table) {
-            $table->increments('rum_id');
-            $table->string('rum_kode', 50);
+            $table->string('rum_id')->primary();
+            // $table->string('rum_kode', 50);
             $table->string('rum_nama', 50);
             $table->string('rum_keterangan', 50);
-            $table->enum('rum_aktif', ['Aktif', 'NonAktif']);
+            // $table->enum('rum_aktif', ['Aktif', 'NonAktif']);
+
             $table->timestamp('created_at')->useCurrent();
             $table->string('created_id', 50);
             $table->string('created_nama', 50);

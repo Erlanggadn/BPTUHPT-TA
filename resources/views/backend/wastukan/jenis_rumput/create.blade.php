@@ -48,7 +48,7 @@
                                                 <div class="invalid-feedback">Masukkan Keterangan dengan benar</div>
                                             </div>
                                         </div>
-                                        <div class="col-12">
+                                        {{-- <div class="col-12">
                                             <label for="rumAktif" class="form-label">Aktif</label>
                                             <select name="rum_aktif" class="form-select" id="rumAktif" required>
                                                 <option selected disabled>Pilih Status</option>
@@ -56,7 +56,7 @@
                                                 <option value="NonAktif">Non Aktif</option>
                                             </select>
                                             <div class="invalid-feedback">Pilih Status Rumput</div>
-                                        </div>
+                                        </div> --}}
                                         <br>
                                         <div class="col-12">
                                             <button class="btn btn-outline-success w-100" type="submit"><i

@@ -11,13 +11,14 @@ class ModJenisRumput extends Model
 
     protected $table = 'master_rumput_jenis';
     protected $primaryKey = 'rum_id';
+    public $incrementing = false;
     public $timestamps = true;
 
     protected $fillable = [
-        'rum_kode',
+        'rum_id',
         'rum_nama',
         'rum_keterangan',
-        'rum_aktif',
+        // 'rum_aktif',
         'created_id',
         'created_nama',
         'updated_id',

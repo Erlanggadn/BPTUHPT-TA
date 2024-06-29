@@ -41,7 +41,23 @@
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <label for="lahanKeterangan" class="form-label">Ukuran Lahan</label>
+                                            <label for="lahanJenisTanah" class="form-label">Jenis Tanah</label>
+                                            <div class="input-group has-validation">
+                                                <input type="text" name="lahan_jenis_tanah" class="form-control"
+                                                    id="lahanJenisTanah" required>
+                                                <div class="invalid-feedback">Masukkan Jenis Tanah dengan benar</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="lahanUkuran" class="form-label">Ukuran Lahan (m2)</label>
+                                            <div class="input-group has-validation">
+                                                <input type="number" name="lahan_ukuran" class="form-control"
+                                                    id="lahanUkuran" required>
+                                                <div class="invalid-feedback">Masukkan Ukuran dengan benar</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="lahanKeterangan" class="form-label">Keterangan Lahan</label>
                                             <div class="input-group has-validation">
                                                 <input type="text" name="lahan_keterangan" class="form-control"
                                                     id="lahanKeterangan" required>

@@ -25,14 +25,7 @@
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Kode Rumput</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input type="text" class="form-control" value="{{ $rumput->rumput_kode }}" disabled>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Berat Rumput (KG)</div>
-                                <div class="col-lg-9 col-md-8">
-                                    <input type="text" name="rumput_berat" class="form-control"
-                                        value="{{ $rumput->rumput_berat }}">
+                                    <input type="text" class="form-control" value="{{ $rumput->rumput_id}}" disabled>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -42,6 +35,21 @@
                                         disabled>
                                 </div>
                             </div>
+                            <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">Berat Rumput Awal (KG)</div>
+                                <div class="col-lg-9 col-md-8">
+                                    <input type="text" name="rumput_berat_awal" class="form-control"
+                                        value="{{ $rumput->rumput_berat_awal }}">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">Berat Rumput Hasil (KG)</div>
+                                <div class="col-lg-9 col-md-8">
+                                    <input type="text" name="rumput_berat_hasil" class="form-control"
+                                        value="{{ $rumput->rumput_berat_hasil }}">
+                                </div>
+                            </div>
+
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Tanggal Masuk</div>
                                 <div class="col-lg-9 col-md-8">
@@ -56,19 +64,47 @@
                                         class="form-control">{{ $rumput->rumput_keterangan }}</textarea>
                                 </div>
                             </div>
-                            <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Status</div>
+                            <div class="row mb-4">
+                                <div class="col-lg-3 col-md-4 label">Status Kandang</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <select name="rumput_aktif" class="form-select" id="rumputAktif" required>
-                                        <option selected disabled>Pilih Status</option>
-                                        <option value="Aktif" {{ $rumput->rumput_aktif == 'Aktif' ? 'selected' : '' }}>
-                                            Aktif
+                                    <select name="rumput_status" class="form-select">
+                                        <option value="Bibit" {{ $rumput->rumput_status == 'Bibit' ? 'selected' : '' }}>
+                                            Bibit
                                         </option>
-                                        <option value="NonAktif"
-                                            {{ $rumput->rumput_aktif == 'NonAktif' ? 'selected' : '' }}>Non
-                                            Aktif
+                                        <option value="Baru Ditanam"
+                                            {{ $rumput->rumput_status == 'Baru Ditanam' ? 'selected' : '' }}>Baru
+                                            Ditanam
+                                        </option>
+                                        <option value="Siap Panen"
+                                            {{ $rumput->rumput_status == 'Siap Panen' ? 'selected' : '' }}>Siap Panen
+                                        </option>
+                                        <option value="Stok Habis"
+                                            {{ $rumput->rumput_status == 'Stok Habis' ? 'selected' : '' }}>Stok Habis
+                                        </option>
+                                        <option value="Rusak/Tidak Layak"
+                                            {{ $rumput->rumput_status == 'Rusak/Tidak Layak' ? 'selected' : '' }}>
+                                            Rusak/Tidak Layak
+                                        </option>
+                                        <option value="Siap Jual"
+                                            {{ $rumput->rumput_status == 'Siap Jual' ? 'selected' : '' }}>Siap Jual
+                                        </option>
+                                        <option value="Siap Pakan"
+                                            {{ $rumput->rumput_status == 'Siap Pakan' ? 'selected' : '' }}>Siap Pakan
                                         </option>
                                     </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">Dibuat Oleh</div>
+                                <div class="col-lg-9 col-md-8">
+                                    <input type="text" class="form-control" value="{{ $rumput->created_nama }}"
+                                        disabled>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">Di Update Oleh</div>
+                                <div class="col-lg-9 col-md-8">
+                                    <input type="text" class="form-control" value="{{ $rumput->updated_nama}}" disabled>
                                 </div>
                             </div>
                     </div>

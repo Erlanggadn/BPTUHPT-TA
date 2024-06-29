@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\RumputSiapJual;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AkunController;
 use App\Http\Controllers\AuthController;
@@ -10,16 +10,12 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RumputController;
 use App\Http\Controllers\KandangController;
 use App\Http\Controllers\SapiJualController;
-use App\Http\Controllers\WastukanController;
 use App\Http\Controllers\JenisSapiController;
 use App\Http\Controllers\JenisLahanController;
 use App\Http\Controllers\JenisRumputController;
-use App\Http\Controllers\PembeliAuthController;
 use App\Http\Controllers\JenisKandangController;
-use App\Http\Controllers\KegiatanSapiController;
-use App\Http\Controllers\RumputSiapJualController;
 use App\Http\Controllers\KegiatanKandangController;
-use App\Http\Controllers\DetailKandangSapiController;
+
 
 // HOME
 Route::get('/', [AuthController::class, 'home'])->name('home');
@@ -91,7 +87,6 @@ Route::middleware(['auth', 'checkWastukan'])->group(function () {
     Route::get('/wastukan/tambah/jenis_lahan', [JenisLahanController::class, 'show'])->name('show.jenis.lahan');
     Route::post('/wastukan/store/jenis', [JenisLahanController::class, 'store'])->name('store.jenis.lahan');
     Route::get('/wastukan/jenis_lahan/detail/{lahan_id}', [JenisLahanController::class, 'detail'])->name('detail.jenis.lahan');
-    Route::get('/wastukan/jenis_lahan/detail/edit/{lahan_id}', [JenisLahanController::class, 'edit'])->name('edit.jenis.lahan');
     Route::put('/wastukan/jenis_lahan/update/{lahan_id}', [JenisLahanController::class, 'update'])->name('update.jenis.lahan');
     Route::delete('/wastukan/jenis_lahan/delete/{lahan_id}', [JenisLahanController::class, 'destroy'])->name('destroy.jenis.lahan');
 });

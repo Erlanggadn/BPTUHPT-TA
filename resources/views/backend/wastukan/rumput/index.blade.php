@@ -31,7 +31,7 @@
                         <table class="table datatable">
                             <thead>
                                 <tr>
-                                    <th>Kode Rumput</th>
+                                    <th>ID/KodeRumput</th>
                                     <th>Jenis Rumput</th>
                                     <th>Tanggal Masuk</th>
                                     <th>Keterangan</th>
@@ -43,27 +43,23 @@
                                 @isset($Rumput)
                                 @foreach ($Rumput as $item)
                                 <tr>
-                                    <td><span class="badge bg-primary">{{ $item->rumput_kode }}</span></td>
+                                    <td><span class="badge bg-primary">{{ $item->rumput_id }}</span></td>
                                     <td>{{ $item->jenisRumput->rum_nama }}</td>
                                     <td>{{ $item->rumput_masuk }}</td>
                                     <td>{{ $item->rumput_keterangan }}</td>
-                                    <td>@if ($item->rumput_aktif === 'Aktif')
-                                        <span class="badge bg-success">{{ $item->rumput_aktif }}</span>
-                                        @else
-                                        <span class="badge bg-danger">{{ $item->rumput_aktif }}</span>
-                                        @endif</span></td>
+                                    <td>{{ $item->rumput_status}}</td>
                                     <td> <a class="btn btn-outline-success"
                                             href="{{ route('detail.rumput', $item->rumput_id) }}"><i
-                                        class="bi bi-info-lg"></i></a>
-                                    <form id="deleteForm" action="{{ route('destroy.rumput', $item->rumput_id) }}"
-                                        method="POST" style="display: inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="button" class="btn btn-outline-danger"
-                                            onclick="showDeleteModal('{{ route('destroy.rumput', $item->rumput_id) }}')">
-                                            <i class="bi bi-trash-fill"></i>
-                                        </button>
-                                    </form>
+                                                class="bi bi-info-lg"></i></a>
+                                        <form id="deleteForm" action="{{ route('destroy.rumput', $item->rumput_id) }}"
+                                            method="POST" style="display: inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="button" class="btn btn-outline-danger"
+                                                onclick="showDeleteModal('{{ route('destroy.rumput', $item->rumput_id) }}')">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </button>
+                                        </form>
 
                                     </td>
                                 </tr>

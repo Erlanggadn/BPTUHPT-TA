@@ -1,20 +1,20 @@
     <!-- ======= Sidebar ======= -->
     <aside id="sidebar" class="sidebar">
         <ul class="sidebar-nav" id="sidebar-nav">
-            <li class="nav-heading">Wastukan - Daftar Jenis</li>
+            <li class="nav-heading">Wastukan - LAHAN</li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('index.jenis.lahan') }}">
                     <i class="bi bi-list-nested"></i>
                     <span>Daftar Jenis Lahan</span>
                 </a>
             </li>
+            <li class="nav-heading">wastukan - rumput</li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('index.jenis.rumput') }}">
                     <i class="bi bi-list-nested"></i>
                     <span>Daftar Jenis Rumput</span>
                 </a>
             </li>
-            <li class="nav-heading">Daftar Jenis</li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('index.rumput') }}">
                     <i class="bi bi-list-nested"></i>

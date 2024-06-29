@@ -3,111 +3,119 @@
 @include('layouts.wastukan.sidebar')
 
 <main id="main" class="main">
-
     <section class="section profile">
-        <div class="row">
-            <div class="">
-                <div class="card">
-                    <div class="card-body pt-3">
-                        <!-- Bordered Tabs -->
-                        <div class="tab-content pt-2">
-                            <h5 class="card-title">Detail Jenis Rumput</h5>
+        @isset($jenisRumput)
+        <div class="">
+            <div class="card">
+                <div class="card-body pt-3">
 
-                            <div class="row">
-                                <div class="col-lg-3 col-md-4 label">ID Jenis Rumput</div>
-                                <div class="col-lg-9 col-md-8"> : {{ $jenisRumput->rum_id }}</div>
-                            </div>
+                    <div class="tab-content pt-2">
+                        <h5 class="card-title">Profil Rumput</h5>
 
-                            <div class="row">
-                                <div class="col-lg-3 col-md-4 label">Kode</div>
-                                <div class="col-lg-9 col-md-8"> : <span
-                                        class="badge bg-primary">{{ $jenisRumput->rum_kode }}</span></div>
-                            </div>
+                        @if (session('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('success') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        @endif
 
-                            <div class="row">
-                                <div class="col-lg-3 col-md-4 label">Nama</div>
-                                <div class="col-lg-9 col-md-8"> : {{ $jenisRumput->rum_nama }}</div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-3 col-md-4 label">Keterangan</div>
-                                <div class="col-lg-9 col-md-8"> : {{ $jenisRumput->rum_keterangan }}</div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-3 col-md-4 label">Status</div>
-                                <div class="col-lg-9 col-md-8"> : @if ($jenisRumput->rum_aktif === 'Aktif')
-                                    <span class="badge bg-success">{{ $jenisRumput->rum_aktif }}</span>
-                                    @else
-                                    <span class="badge bg-danger">{{ $jenisRumput->rum_aktif }}</span>
-                                    @endif</span>
+                        <form action="{{ route('update.jenis.rumput', ['rum_id' => $jenisRumput->rum_id]) }}"
+                            method="POST">
+                            @csrf
+                            @method('PUT')
+                            <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">ID/Kode Jenis Rumput</div>
+                                <div class="col-lg-9 col-md-8">
+                                    <input type="text" class="form-control" value="{{ $jenisRumput->rum_id}}" disabled>
                                 </div>
                             </div>
-
-                            <div class="row mb-4">
-                                <div class="col-lg-3 col-md-4 label">Dibuat Pada</div>
-                                <div class="col-lg-9 col-md-8"> :
-                                    {{ $jenisRumput->created_at->translatedFormat('d F Y') }}</div>
+                            <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">Jenis Kandang</div>
+                                <div class="col-lg-9 col-md-8">
+                                    <input name="rum_nama" type="text" class="form-control"
+                                        value="{{ $jenisRumput->rum_nama }}">
+                                </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-3 col-md-4 label">Dibuat Oleh</div>
-                                <div class="col-lg-9 col-md-8"> : {{ $jenisRumput->created_nama }}</div>
-                            </div>
-                            <div class="row mb-4">
-                                <div class="col-lg-3 col-md-4 label">Diupdate Oleh</div>
-                                <div class="col-lg-9 col-md-8"> : {{ $jenisRumput->updated_nama }}</div>
-                            </div>
+                    </div>
 
-                            <a href="{{ route('edit.jenis.rumput', ['rum_id' => $jenisRumput->rum_id]) }}"
-                                class="btn btn-outline-warning edit">
-                                <i class="bi bi-pencil-square"></i> Edit
-                            </a>
-
-                            {{-- <form action="{{ route('rumput_jenis.delete', $jenisRumput->rum_id) }}" method="POST"
-                            style="display: inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-outline-danger"
-                                onclick="return confirm('Apakah Anda yakin ingin menghapus jenis rumput ini?')">
-                                <i class="bi bi-trash"></i> Hapus
-                            </button>
-                            </form> --}}
-
+                    <div class="row mb-3">
+                        <div class="col-lg-3 col-md-4 label">Keterangan</div>
+                        <div class="col-lg-9 col-md-8">
+                            <textarea name="rum_keterangan"
+                                class="form-control">{{ $jenisRumput->rum_keterangan }}</textarea>
                         </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-lg-3 col-md-4 label">Dibuat Pada</div>
+                        <div class="col-lg-9 col-md-8">
+                            <input name="kand_created_time" type="text" class="form-control"
+                                value="{{ $jenisRumput->created_at }}" disabled>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-lg-3 col-md-4 label">Dibuat Oleh</div>
+                        <div class="col-lg-9 col-md-8">
+                            <input name="rum_nama" type="text" class="form-control"
+                                value="{{ $jenisRumput->created_nama }}" disabled>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-lg-3 col-md-4 label">Di Update Oleh</div>
+                        <div class="col-lg-9 col-md-8">
+                            <input name="rum_nama" type="text" class="form-control"
+                                value="{{ $jenisRumput->updated_nama }}" disabled>
+                        </div>
+                    </div>
+                </div>
 
-                    </div><!-- End Bordered Tabs -->
 
+                <div class="text-center mb-4">
+                    <button type="submit" class="btn btn-outline-success">Update</button>
+                    <a href="{{ route('index.jenis.rumput') }}" class="btn btn-outline-secondary">Kembali</a>
+                </div>
+                </form>
+
+                {{-- <a class="btn btn-outline-warning mt-3" href="{{ route('editsapi', $sapi->id) }}"><i
+                    class="bi bi-pencil-fill"></i> Edit</a>
+                <a class="btn btn-outline-primary mt-3" href="{{ route('printsapi', $sapi->id) }}"><i
+                        class="bi bi-upc"></i>
+                    Cetak Kode</a> --}}
+
+            </div>
+
+        </div><!-- End Bordered Tabs -->
+
+        </div>
+        </div>
+        @endisset
+    </section>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Success</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Data sapi berhasil diperbarui.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
-    </section>
-</main>
-
-// Modal Edit Berhasil
-<div class="modal fade" id="successModalEditRumput" tabindex="-1" aria-labelledby="successModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="successModalLabel">Edit Jenis Rumput</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Jenis rumput berhasil diubah.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Tutup</button>
-            </div>
-        </div>
     </div>
-</div>
 
-@if(session('berhasil.edit'))
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var successModal = new bootstrap.Modal(document.getElementById('successModalEditRumput'));
+    <!-- Template Main JS File -->
+    <script src="{{ asset('js/main.js') }}"></script>
+
+    <script>
+        @if(session('success'))
+        var successModal = new bootstrap.Modal(document.getElementById('successModal'));
         successModal.show();
-    });
+        @endif
 
-</script>
-@endif
+    </script>
+</main>

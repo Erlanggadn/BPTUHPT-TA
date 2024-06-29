@@ -11,13 +11,17 @@ class ModJenisLahan extends Model
 
     protected $table = 'master_lahan_jenis';
     protected $primaryKey = 'lahan_id';
+    public $incrementing = false; 
     public $timestamps = true;
 
     protected $fillable = [
-        'lahan_kode',
+        'lahan_id',
         'lahan_nama',
         'lahan_keterangan',
+        'lahan_jenis_tanah',
+        'lahan_ukuran',
         'lahan_aktif',
+
         'created_id',
         'created_nama',
         'updated_id',
