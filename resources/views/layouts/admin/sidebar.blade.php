@@ -1,13 +1,14 @@
     <!-- ======= Sidebar ======= -->
     <aside id="sidebar" class="sidebar">
         <ul class="sidebar-nav" id="sidebar-nav">
-            <li class="nav-heading">Kelola akun - Admin</li>
+            <li class="nav-heading">Admin - PROFIL</li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('dashboard.admin') }}">
-                    <i class="bi bi-list-nested"></i>
-                    <span>Dashboard Laporan</span>
+                <a class="nav-link collapsed" href="{{ route('profiladmin', Auth::user()->id) }}">
+                    <i class="bi bi-person-circle"></i>
+                    <span>Profil Saya</span>
                 </a>
             </li>
+            <li class="nav-heading">Admin - Kelola Akun</li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('akunadmin') }}">
                     <i class="bi bi-person-badge-fill"></i>
@@ -20,16 +21,20 @@
                     <span>Data Pembeli</span>
                 </a>
             </li>
-            <li class="nav-heading">Tambah Akun - Admin</li>
+            <li class="nav-heading">Admin - Tambah Akun</li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('pegawaidaftar') }}">
                     <i class="bi bi-person-add"></i>
                     <span>Form Akun</span>
                 </a>
             </li>
-            {{-- <li class="nav-heading">Laporan - Admin</li> --}}
-
-            <!-- End Register Page Nav -->
+            <li class="nav-heading">Admin - Logout</li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('logout') }}">
+                    <i class="bi bi-box-arrow-left"></i>
+                    <span>Keluar</span>
+                </a>
+            </li>
         </ul>
 
     </aside><!-- End Sidebar-->

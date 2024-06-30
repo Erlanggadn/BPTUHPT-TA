@@ -1,6 +1,13 @@
     <!-- ======= Sidebar ======= -->
     <aside id="sidebar" class="sidebar">
         <ul class="sidebar-nav" id="sidebar-nav">
+            <li class="nav-heading">Wasbitnak - PROFIL</li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('profilwasbitnak', Auth::user()->id) }}">
+                    <i class="bi bi-person-circle"></i>
+                    <span>Profil Saya</span>
+                </a>
+            </li>
             <li class="nav-heading">Wasbitnak - Sapi</li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('index.jenis.sapi') }}">
@@ -39,6 +46,13 @@
                 <a class="nav-link collapsed" href="{{ route('index.pegawai.wasbitnak') }}">
                     <i class="bi bi-file-person"></i>
                     <span>Daftar Pegawai</span>
+                </a>
+            </li>
+            <li class="nav-heading">Admin - Logout</li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('logout') }}">
+                    <i class="bi bi-box-arrow-left"></i>
+                    <span>Keluar</span>
                 </a>
             </li>
             <!-- End Register Page Nav -->

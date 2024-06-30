@@ -65,7 +65,7 @@
         </div>
     </section>
 </main>
-//Modal Edit Berhasil
+<script src="{{ asset ('js/main.js') }}"></script>
 <div class="modal fade" id="successModalEditAkun" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

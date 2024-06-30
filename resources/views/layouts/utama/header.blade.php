@@ -1,3 +1,6 @@
+@include('layouts.utama.main')
+
+
 <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
         <a href="" class="navbar-brand p-0">
@@ -5,7 +8,6 @@
             <img src="img/pkh.png" alt="Logo" class="logo" width="10%">
             <img src="img/bptu.png" alt="Logo" class="logo" width="20%">
         </a>
-
         <nav id="navbar" class="navbar">
             @if(Auth::check() && Auth::user()->role == 'pembeli')
             <ul>
@@ -48,7 +50,8 @@
         <a class="btn-book-a-table" href="{{ route('loginpembeli') }}">Login</a>
         @endif
 
-        <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
-        <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+        {{-- <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+        <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i> --}}
     </div>
 </header><!-- End Header -->
+<script src="{{ asset ('js/main.js') }}"></script>

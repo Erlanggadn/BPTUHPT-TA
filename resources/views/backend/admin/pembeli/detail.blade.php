@@ -52,3 +52,4 @@
         </div>
         </div>
     </section>
+    <script src="{{ asset ('js/main.js') }}"></script>

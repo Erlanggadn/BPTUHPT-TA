@@ -37,7 +37,7 @@
                             <tbody>
                                 @isset($jumlahKeswan)
                                 @foreach ($jumlahKeswan as $item)
-                                <tr>    
+                                <tr>
                                     <td><span class="badge bg-primary">{{ $item->id }}</span></td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->created_at->translatedFormat('d F Y') }}</td>
@@ -60,3 +60,4 @@
     </section>
 
 </main>
+<script src="{{ asset ('js/main.js') }}"></script>
