@@ -14,7 +14,7 @@ class CreateMasterRumputTable extends Migration
     public function up()
     {
         Schema::create('master_rumput', function (Blueprint $table) {
-            $table->string('rumput_id');
+            $table->string('rumput_id')->primary();
             $table->string('rumput_jenis');
             $table->integer('rumput_berat_awal');
             $table->integer('rumput_berat_hasil')->default(0);

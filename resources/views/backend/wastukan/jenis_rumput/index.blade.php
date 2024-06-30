@@ -28,42 +28,45 @@
                         <a href="{{ route('show.jenis.rumput') }}" class="btn btn-primary mb-4"><i
                                 class="bi bi-plus"></i> Tambah Jenis</a>
                         <!-- Table with stripped rows -->
-                        <table class="table datatable">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nama Rumput</th>
-                                    <th>Keterangan</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @isset($JenisRumput)
-                                @foreach ($JenisRumput as $item)
-                                <tr>
-                                    <td><span class="badge bg-success">{{ $item->rum_id }}</span></td>
-                                    <td>{{ $item->rum_nama }}</td>
-                                    <td>{{ $item->rum_keterangan }}</td>
-                                    <td> <a class="btn btn-outline-success"
-                                            href="{{ route('detail.jenis.rumput', $item->rum_id) }}"><i
-                                                class="bi bi-info-lg"></i></a>
-                                        <form id="deleteForm"
-                                            action="{{ route('destroy.jenis.rumput', $item->rum_id) }}" method="POST"
-                                            style="display: inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="button" class="btn btn-outline-danger"
-                                                onclick="showDeleteModal('{{ route('destroy.jenis.rumput', $item->rum_id) }}')">
-                                                <i class="bi bi-trash-fill"></i>
-                                            </button>
-                                        </form>
+                        <div class="table-responsive">
+                            <table class="table datatable">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nama Rumput</th>
+                                        <th>Keterangan</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @isset($JenisRumput)
+                                    @foreach ($JenisRumput as $item)
+                                    <tr>
+                                        <td><span class="badge bg-success">{{ $item->rum_id }}</span></td>
+                                        <td>{{ $item->rum_nama }}</td>
+                                        <td>{{ $item->rum_keterangan }}</td>
+                                        <td> <a class="btn btn-outline-success"
+                                                href="{{ route('detail.jenis.rumput', $item->rum_id) }}"><i
+                                                    class="bi bi-info-lg"></i></a>
+                                            <form id="deleteForm"
+                                                action="{{ route('destroy.jenis.rumput', $item->rum_id) }}"
+                                                method="POST" style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="btn btn-outline-danger"
+                                                    onclick="showDeleteModal('{{ route('destroy.jenis.rumput', $item->rum_id) }}')">
+                                                    <i class="bi bi-trash-fill"></i>
+                                                </button>
+                                            </form>
 
-                                    </td>
-                                </tr>
-                                @endforeach
-                                @endisset
-                            </tbody>
-                        </table>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    @endisset
+                                </tbody>
+                            </table>
+                        </div>
+
                         <!-- End Table with stripped rows -->
                     </div>
                 </div>

@@ -28,45 +28,48 @@
                         <a href="{{ route('show.rumput') }}" class="btn btn-primary mb-4"><i class="bi bi-plus"></i>
                             Tambah Rumput</a>
                         <!-- Table with stripped rows -->
-                        <table class="table datatable">
-                            <thead>
-                                <tr>
-                                    <th>ID/KodeRumput</th>
-                                    <th>Jenis Rumput</th>
-                                    <th>Tanggal Masuk</th>
-                                    <th>Keterangan</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @isset($Rumput)
-                                @foreach ($Rumput as $item)
-                                <tr>
-                                    <td><span class="badge bg-primary">{{ $item->rumput_id }}</span></td>
-                                    <td>{{ $item->jenisRumput->rum_nama }}</td>
-                                    <td>{{ $item->rumput_masuk }}</td>
-                                    <td>{{ $item->rumput_keterangan }}</td>
-                                    <td>{{ $item->rumput_status}}</td>
-                                    <td> <a class="btn btn-outline-success"
-                                            href="{{ route('detail.rumput', $item->rumput_id) }}"><i
-                                                class="bi bi-info-lg"></i></a>
-                                        <form id="deleteForm" action="{{ route('destroy.rumput', $item->rumput_id) }}"
-                                            method="POST" style="display: inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="button" class="btn btn-outline-danger"
-                                                onclick="showDeleteModal('{{ route('destroy.rumput', $item->rumput_id) }}')">
-                                                <i class="bi bi-trash-fill"></i>
-                                            </button>
-                                        </form>
+                        <div class="table-responsive">
+                            <table class="table datatable">
+                                <thead>
+                                    <tr>
+                                        <th>ID/KodeRumput</th>
+                                        <th>Jenis Rumput</th>
+                                        <th>Tanggal Masuk</th>
+                                        <th>Keterangan</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @isset($Rumput)
+                                    @foreach ($Rumput as $item)
+                                    <tr>
+                                        <td><span class="badge bg-primary">{{ $item->rumput_id }}</span></td>
+                                        <td>{{ $item->jenisRumput->rum_nama }}</td>
+                                        <td>{{ $item->rumput_masuk }}</td>
+                                        <td>{{ $item->rumput_keterangan }}</td>
+                                        <td>{{ $item->rumput_status}}</td>
+                                        <td> <a class="btn btn-outline-success"
+                                                href="{{ route('detail.rumput', $item->rumput_id) }}"><i
+                                                    class="bi bi-info-lg"></i></a>
+                                            <form id="deleteForm"
+                                                action="{{ route('destroy.rumput', $item->rumput_id) }}" method="POST"
+                                                style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="btn btn-outline-danger"
+                                                    onclick="showDeleteModal('{{ route('destroy.rumput', $item->rumput_id) }}')">
+                                                    <i class="bi bi-trash-fill"></i>
+                                                </button>
+                                            </form>
 
-                                    </td>
-                                </tr>
-                                @endforeach
-                                @endisset
-                            </tbody>
-                        </table>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    @endisset
+                                </tbody>
+                            </table>
+                        </div>
                         <!-- End Table with stripped rows -->
                     </div>
                 </div>

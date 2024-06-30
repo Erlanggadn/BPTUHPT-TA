@@ -14,6 +14,7 @@ use App\Http\Controllers\JenisSapiController;
 use App\Http\Controllers\JenisLahanController;
 use App\Http\Controllers\JenisRumputController;
 use App\Http\Controllers\JenisKandangController;
+use App\Http\Controllers\KegiatanLahanController;
 use App\Http\Controllers\KegiatanKandangController;
 
 
@@ -89,6 +90,19 @@ Route::middleware(['auth', 'checkWastukan'])->group(function () {
     Route::get('/wastukan/jenis_lahan/detail/{lahan_id}', [JenisLahanController::class, 'detail'])->name('detail.jenis.lahan');
     Route::put('/wastukan/jenis_lahan/update/{lahan_id}', [JenisLahanController::class, 'update'])->name('update.jenis.lahan');
     Route::delete('/wastukan/jenis_lahan/delete/{lahan_id}', [JenisLahanController::class, 'destroy'])->name('destroy.jenis.lahan');
+    //WASTUKAN - KEGIATAN LAHAN
+    Route::prefix('kegiatan_lahan')->group(function () {
+        Route::get('/', [KegiatanLahanController::class, 'index'])->name('index.tanam');
+        Route::get('/tambah', [KegiatanLahanController::class, 'show'])->name('show.tanam');
+        Route::post('/store', [KegiatanLahanController::class, 'store'])->name('store.tanam');
+        Route::get('/detail/{id}', [KegiatanLahanController::class, 'detail'])->name('detail.tanam');
+        Route::put('/update/{tanam_id}', [KegiatanLahanController::class, 'update'])->name('update.tanam');
+        Route::delete('/delete/{tanam_id}', [KegiatanLahanController::class, 'destroy'])->name('destroy.tanam');
+    });
+    Route::prefix('pegawai-wastukan')->group(function () {
+        Route::get('/', [AdminController::class, 'pegawaiWastukan'])->name('index.pegawai.wastukan');
+        Route::get('/detail/{id}', [AdminController::class, 'detailPwastukan'])->name('detail.pegawai.wastukan');
+    });
 });
 //WASBITNAK
 Route::middleware(['auth', 'checkWasbitnak'])->group(function () {

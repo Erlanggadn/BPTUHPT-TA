@@ -13,8 +13,8 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Data Jenis Lahan</h5>
-                        <p>Berikut ini adalah data Jenis Lahan yang sepenuhnya dikelola oleh <b>Divisi Pengawas Mutu
+                        <h5 class="card-title">Data Kegiatan Lahan</h5>
+                        <p>Berikut ini adalah data kegiatan yang sepenuhnya dikelola oleh <b>Divisi Pengawas Mutu
                                 Pakan</b> BPTU HPT Padang Mengatas
                         </p>
                         @if (session('success'))
@@ -24,47 +24,58 @@
                         </div>
                         @endif
 
-
-                        <a href="{{ route('show.jenis.lahan') }}" class="btn btn-primary mb-4"><i
-                                class="bi bi-plus"></i> Tambah Jenis</a>
+                        <a href="{{ route('show.tanam') }}" class="btn btn-primary mb-4"><i class="bi bi-plus"></i>
+                            Tambah Kegiatan</a>
                         <!-- Table with stripped rows -->
                         <div class="table-responsive">
                             <table class="table datatable">
                                 <thead>
                                     <tr>
-                                        <th>ID/kode Lahan</th>
-                                        <th>Nama Lahan</th>
-                                        <th>Jenis Tanah</th>
+                                        <th>ID</th>
+                                        <th>Lahan</th>
+                                        <th>Rumput</th>
+                                        <th>Tanggal</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @isset($JenisLahan)
-                                    @foreach ($JenisLahan as $item)
+                                    @isset($kegiatanLahan)
+                                    @foreach ($kegiatanLahan as $kegiatan)
                                     <tr>
-                                        <td><span class="badge bg-success">{{ $item->lahan_id }}</span></td>
-                                        <td>{{ $item->lahan_nama }}</td>
-                                        <td>{{ $item->lahan_jenis_tanah }}</td>
-                                        <td>@if ($item->lahan_aktif === 'Aktif')
-                                            <span class="badge bg-success">{{ $item->lahan_aktif }}</span>
+                                        <td>{{ $kegiatan->tanam_id }}</td>
+                                        <td>{{ $kegiatan->lahan->lahan_nama}}</td>
+                                        <td>{{ $kegiatan->rumput->rumput_id }}
+                                            [{{ $kegiatan->rumput->jenisRumput->rum_nama }} -
+                                            {{ $kegiatan->rumput->rumput_berat_awal }}
+                                            KG]</td>
+                                        <td>{{ \Carbon\Carbon::parse($kegiatan->tanam_tanggal)->translatedFormat('d F Y') }}
+                                            [{{ $kegiatan->tanam_jam_mulai }}
+                                            - {{ $kegiatan->tanam_jam_selesai }}]
+                                        </td>
+                                        <td>
+                                            @if ($kegiatan->tanam_status === 'Selesai')
+                                            <span class="badge bg-success">{{ $kegiatan->tanam_status }}</span>
+                                            @elseif ($kegiatan->tanam_status === 'Proses')
+                                            <span class="badge bg-warning">{{ $kegiatan->tanam_status }}</span>
                                             @else
-                                            <span class="badge bg-danger">{{ $item->lahan_aktif }}</span>
-                                            @endif</span></td>
-                                        <td> <a class="btn btn-outline-success"
-                                                href="{{ route('detail.jenis.lahan', $item->lahan_id) }}"><i
+                                            <span class="badge bg-danger">{{ $kegiatan->tanam_status }}</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-outline-success"
+                                                href="{{ route('detail.tanam', $kegiatan->tanam_id) }}"><i
                                                     class="bi bi-info-lg"></i></a>
-                                            <form id="deleteForm"
-                                                action="{{ route('destroy.jenis.lahan', $item->lahan_id) }}"
-                                                method="POST" style="display: inline;">
+                                            <form id="deleteForm-{{ $kegiatan->tanam_id }}"
+                                                action="{{ route('destroy.tanam', $kegiatan->tanam_id) }}" method="POST"
+                                                style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="button" class="btn btn-outline-danger"
-                                                    onclick="showDeleteModal('{{ route('destroy.jenis.lahan', $item->lahan_id) }}')">
+                                                    onclick="showDeleteModal('{{ $kegiatan->tanam_id }}')">
                                                     <i class="bi bi-trash-fill"></i>
                                                 </button>
                                             </form>
-
                                         </td>
                                     </tr>
                                     @endforeach
@@ -87,7 +98,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Apakah Anda yakin ingin menghapus data jenis lahan ini?</p>
+                    <p>Apakah Anda yakin ingin menghapus data kegiatan ini?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -104,15 +115,15 @@
 <!-- Template Main JS File -->
 <script src="{{ asset ('js/main.js') }}"></script>
 <script>
-    function showDeleteModal(action) {
-        var deleteForm = document.getElementById('deleteForm');
-        deleteForm.action = action;
+    function showDeleteModal(id) {
+        var deleteForm = document.getElementById('deleteForm-' + id);
+        deleteForm.action = deleteForm.action;
         var deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
         deleteModal.show();
-    }
 
-    document.getElementById('confirmDelete').addEventListener('click', function () {
-        document.getElementById('deleteForm').submit();
-    });
+        document.getElementById('confirmDelete').onclick = function () {
+            deleteForm.submit();
+        };
+    }
 
 </script>
