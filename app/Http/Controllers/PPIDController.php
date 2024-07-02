@@ -90,14 +90,11 @@ class PPIDController extends Controller
     public function updatesapijual(Request $request, $id)
     {
         $request->validate([
-            'sapi_no_induk' => 'required|string|max:255',
             'sapi_keterangan' => 'required|string|max:255',
             'sapi_status' => 'required|string|max:255', // Tambahkan validasi status
         ]);
 
         $sapi = ModSapi::findOrFail($id);
-
-        $sapi->sapi_no_induk = $request->sapi_no_induk;
         $sapi->sapi_keterangan = $request->sapi_keterangan;
         $sapi->sapi_status = $request->sapi_status;
         $sapi->sapi_umur = Carbon::parse($sapi->sapi_tanggal_lahir)->diffInMonths(Carbon::now());

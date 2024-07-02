@@ -7,6 +7,16 @@
                     <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
                         <div class="d-flex justify-content-center py-4">
                         </div><!-- End Logo -->
+                        <div class="d-flex justify-content-center py-4">
+                            <a href="" class="d-flex align-items-center justify-content-center">
+                                <img src="{{ asset('img/peternakan.png') }}" alt="" class="img-fluid mx-2"
+                                    style="max-height: 80px;">
+                                <img src="{{ asset('img/pkh.png') }}" alt="" class="img-fluid mx-2"
+                                    style="max-height: 80px;">
+                                <img src="{{ asset('img/bptu.png') }}" alt="" class="img-fluid mx-2"
+                                    style="max-height: 80px;">
+                            </a>
+                        </div>
                         <div class="card mb-3">
                             <div class="card-body">
                                 <div class="pt-4 pb-2">

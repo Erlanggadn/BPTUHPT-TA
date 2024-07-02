@@ -32,11 +32,11 @@
                                 <div class="col-lg-3 col-md-4 label">ID Induk Sapi</div>
                                 <div class="col-lg-9 col-md-8">
                                     <input type="text" name="sapi_no_induk" class="form-control"
-                                        value="{{ $sapi->sapi_no_induk }}">
+                                        value="{{ $sapi->sapi_no_induk }}" disabled>
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Jenis</div>
+                                <div class="col-lg-3 col-md-4 label">Jenis Sapi</div>
                                 <div class="col-lg-9 col-md-8">
                                     <input type="text" class="form-control" value="{{ $sapi->jenisSapi->sjenis_nama }}"
                                         disabled>
@@ -64,7 +64,7 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Tanggal Lahir</div>
+                                <div class="col-lg-3 col-md-4 label">Status Sapi</div>
                                 <div class="col-lg-9 col-md-8">
                                     <select name="sapi_status" id="sapi_status" class="form-control" required>
                                         <option value="">Pilih Status</option>

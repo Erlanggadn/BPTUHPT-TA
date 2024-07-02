@@ -64,7 +64,7 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Tanggal Lahir</div>
+                                <div class="col-lg-3 col-md-4 label">Status Sapi</div>
                                 <div class="col-lg-9 col-md-8">
                                     <select name="sapi_status" id="sapi_status" class="form-control" required>
                                         <option value="">Pilih Status</option>
@@ -80,7 +80,8 @@
                             </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-outline-success">Update</button>
-                                <a href="{{ route('index.sapi.wasbitnak') }}" class="btn btn-outline-secondary">Kembali</a>
+                                <a href="{{ route('index.sapi.wasbitnak') }}"
+                                    class="btn btn-outline-secondary">Kembali</a>
                             </div>
                         </form>
 
