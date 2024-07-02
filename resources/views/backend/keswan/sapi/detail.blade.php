@@ -57,6 +57,12 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">Jenis Kelamin</div>
+                                <div class="col-lg-9 col-md-8">
+                                    <input type="text" class="form-control" value="{{ $sapi->sapi_kelamin }}" disabled>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Keterangan</div>
                                 <div class="col-lg-9 col-md-8">
                                     <textarea name="sapi_keterangan"

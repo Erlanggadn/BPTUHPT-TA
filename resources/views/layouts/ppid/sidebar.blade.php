@@ -1,33 +1,47 @@
     <!-- ======= Sidebar ======= -->
     <aside id="sidebar" class="sidebar">
         <ul class="sidebar-nav" id="sidebar-nav">
-            <li class="nav-heading">Pengelolaan - PPID</li>
+            <li class="nav-heading">ppid- PROFIL</li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('ppid') }}">
-                    <i class="bi bi-house-door-fill"></i>
-                    <span>Dashboard</span>
+                <a class="nav-link collapsed" href="">
+                    <i class="bi bi-person-circle"></i>
+                    <span>Profil Saya</span>
                 </a>
             </li>
+            <li class="nav-heading">PPID - Pembeli</li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('ppid.list.pembeli') }}">
-                    <i class="bi bi-cart-fill"></i>
-                    <span>Data Akun Pembeli</span>
+                <a class="nav-link collapsed" href="{{ route('index.daftar.pembeli') }}">
+                    <i class="bi bi-list-nested"></i>
+                    <span>Daftar Akun Pembeli</span>
                 </a>
             </li>
-            <li class="nav-heading">Siap Jual</li>
+            <li class="nav-heading">PPID - Sapi</li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('ppid.sapi') }}">
-                    <i class="bi bi-list-task"></i>
-                    <span>List Sapi</span>
+                <a class="nav-link collapsed" href="{{ route('index.ppid.sapi') }}">
+                    <i class="bi bi-list-nested"></i>
+                    <span>List Sapi Jual</span>
                 </a>
             </li>
+            <li class="nav-heading">PPID - Rumput</li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('ppid.rumput') }}">
-                    <i class="bi bi-list-task"></i>
-                    <span>List Rumput</span>
+                <a class="nav-link collapsed" href="{{ route('index.ppid.rumput') }}">
+                    <i class="bi bi-list-nested"></i>
+                    <span>List Rumput Jual</span>
                 </a>
-            </li><!-- End Dashboard Nav -->
-                <!-- End Register Page Nav -->
+            </li>
+            <li class="nav-heading">PPID - Pengajuan Beli</li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('index.daftar.pembeli') }}">
+                    <i class="bi bi-list-nested"></i>
+                    <span>Daftar Pengajuan</span>
+                </a>
+            </li>
+            <li class="nav-heading">Wastukan - Logout</li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('logout') }}">
+                    <i class="bi bi-box-arrow-left"></i>
+                    <span>Keluar</span>
+                </a>
+            </li>
         </ul>
-
-    </aside><!-- End Sidebar-->
+    </aside>

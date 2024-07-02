@@ -89,6 +89,14 @@
                                             </div>
                                         </div>
                                         <div class="form-group mb-3">
+                                            <label for="sapi_kelamin">Jenis Kelamin</label>
+                                            <select name="sapi_kelamin" id="sapi_kelamin" class="form-control" required>
+                                                <option value="">Pilih Jenis</option>
+                                                <option value="Jantan">Jantan</option>
+                                                <option value="Betina">Betina</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group mb-3">
                                             <label for="sapi_status">Status Sapi</label>
                                             <select name="sapi_status" id="sapi_status" class="form-control" required>
                                                 <option value="">Pilih Status</option>

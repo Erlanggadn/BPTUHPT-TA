@@ -83,19 +83,11 @@ class AkunController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
-
-        // Mengambil semua data dari request kecuali password
         $data = $request->except('password', 'new_password', 'current_password', 'new_password_confirmation');
-
-        // Jika password baru diberikan, hash password tersebut
         if ($request->filled('new_password')) {
             $data['password'] = Hash::make($request->new_password);
         }
-
-        // Update data pengguna dengan data yang telah dimodifikasi
         $akunuser->update($data);
-
-        // Redirect dengan pesan sukses
         return redirect()->route('detailakun', $akunuser->id)->with('berhasil.edit', 'Akun berhasil diperbarui');
     }
 

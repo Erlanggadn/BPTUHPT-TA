@@ -129,8 +129,6 @@ class SapiJualController extends Controller
         return view('backend.wasbitnak.sapi.index', compact('Sapi', 'jenisList'));
     }
 
-
-
     public function export(Request $request)
     {
         $jenisSapi = $request->input('jenis_sapi');

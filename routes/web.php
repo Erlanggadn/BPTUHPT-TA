@@ -172,15 +172,27 @@ Route::middleware(['auth', 'checkWasbitnak'])->group(function () {
 });
 //PPID
 Route::middleware(['auth', 'checkPPID'])->group(function () {
-    Route::get('/ppid', [PPIDController::class, 'index'])->name('ppid');
-    Route::get('/ppid/detail-profil', [AkunController::class, 'profilppid'])->name('ppid.profil');
-    Route::prefix('/ppid/siap-jual')->group(function () {
-        Route::get('/sapi', [PPIDController::class, 'indexsapi'])->name('ppid.sapi');
-        Route::get('/rumput', [PPIDController::class, 'indexrumput'])->name('ppid.rumput');
+    Route::get('/daftar-pembeli', [PPIDController::class, 'daftarpembeli'])->name('index.daftar.pembeli');
+    Route::prefix('akun-pembeli')->group(function () {
+        Route::get('/detail/{id}', [PPIDController::class, 'detailPembeli'])->name('detail.ppid.pembeli');
+        Route::put('/update/{id}', [PPIDController::class, 'updatePembeli'])->name('update.ppid.pembeli');
+        Route::delete('/delete/{id}', [PPIDController::class, 'deletepembeli'])->name('delete.ppid.pembeli');
     });
-    Route::prefix('/ppid/pembeli')->group(function () {
-        Route::get('/list-akun', [PPIDController::class, 'indexpembeli'])->name('ppid.list.pembeli');
+    Route::prefix('sapi-jual')->group(function () {
+        Route::get('/', [PPIDController::class, 'indexsapijual'])->name('index.ppid.sapi');
+        Route::get('/detail/{id}', [PPIDController::class, 'detailsapijual'])->name('detail.ppid.sapi');
+        Route::put('/update/{id}', [PPIDController::class, 'updatesapijual'])->name('update.ppid.sapi');
+        Route::delete('/delete/{id}', [PPIDController::class, 'deletesapijual'])->name('delete.ppid.sapi');
+        Route::get('/export', [PPIDController::class, 'exportsapijual'])->name('export.ppid.sapi');
+        Route::get('/filter', [PPIDController::class, 'filtersapijual'])->name('filter.ppid.sapi');
     });
+    Route::prefix('rumput-jual')->group(function () {
+        Route::get('/', [PPIDController::class, 'indexrumputjual'])->name('index.ppid.rumput');
+        Route::get('/detail/{id}', [PPIDController::class, 'detailrumputjual'])->name('detail.ppid.rumput');
+        Route::put('/update/{id}', [PPIDController::class, 'updaterumputjual'])->name('update.ppid.rumput');
+        Route::delete('/delete/{id}', [PPIDController::class, 'deleterumputjual'])->name('delete.ppid.rumput');
+    });
+
 });
 //BENDAHARA
 

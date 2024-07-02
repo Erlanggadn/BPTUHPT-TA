@@ -1,6 +1,6 @@
 @include('layouts.utama.main2')
-@include('layouts.wasbitnak.navbar')
-@include('layouts.wasbitnak.sidebar')
+@include('layouts.ppid.navbar')
+@include('layouts.ppid.sidebar')
 
 <main id="main" class="main">
     <section class="section profile">
@@ -19,7 +19,7 @@
                         </div>
                         @endif
 
-                        <form action="{{ route('update.sapi.wasbitnak', $sapi->sapi_id) }}" method="POST">
+                        <form action="{{ route('update.ppid.sapi', $sapi->sapi_id) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="row mb-3">
@@ -68,19 +68,19 @@
                                 <div class="col-lg-9 col-md-8">
                                     <select name="sapi_status" id="sapi_status" class="form-control" required>
                                         <option value="">Pilih Status</option>
-                                        <option value="Hamil">Hamil</option>
-                                        <option value="Menyusui">Menyusui</option>
                                         <option value="Dijual">Dijual</option>
                                         <option value="Terjual">Terjual</option>
-                                        <option value="Produktif">Produktif</option>
                                         <option value="Pemeriksaan/Sakit">Pemeriksaan/Sakit</option>
                                         <option value="Karantina">Karantina</option>
                                     </select>
                                 </div>
                             </div>
+
+
+
                             <div class="text-center">
                                 <button type="submit" class="btn btn-outline-success">Update</button>
-                                <a href="{{ route('index.sapi.wasbitnak') }}" class="btn btn-outline-secondary">Kembali</a>
+                                <a href="{{ route('index.ppid.sapi') }}" class="btn btn-outline-secondary">Kembali</a>
                             </div>
                         </form>
 

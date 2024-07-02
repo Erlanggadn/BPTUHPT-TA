@@ -35,7 +35,8 @@ class SapiController extends Controller
             'sapi_tanggal_lahir' => 'required|date',
             'sapi_no_induk' => 'required|string|max:255',
             'sapi_keterangan' => 'required|string|max:255',
-            'sapi_status' => 'required|string|max:255', // Tambahkan validasi status
+            'sapi_kelamin' => 'required|string|max:255',
+            'sapi_status' => 'required|string|max:255', 
         ]);
 
         // Generate sapi_id
@@ -60,6 +61,7 @@ class SapiController extends Controller
         $sapi->sapi_tanggal_lahir = $request->sapi_tanggal_lahir;
         $sapi->sapi_no_induk = $request->sapi_no_induk;
         $sapi->sapi_keterangan = $request->sapi_keterangan;
+        $sapi->sapi_kelamin = $request->sapi_kelamin;
         $sapi->sapi_status = $request->sapi_status; // Set status
         $sapi->sapi_umur = Carbon::parse($request->sapi_tanggal_lahir)->diffInMonths(Carbon::now()); // Hitung umur
         $sapi->created_id = auth()->user()->id;
@@ -98,7 +100,6 @@ class SapiController extends Controller
         return redirect()->route('detail.sapi', $id)->with('success', 'Data sapi berhasil diperbarui');
     }
 
-
     public function destroy($id)
     {
         $sapi = ModSapi::findOrFail($id);
@@ -130,8 +131,6 @@ class SapiController extends Controller
         return view('backend.keswan.sapi.index', compact('Sapi', 'jenisList'));
     }
 
-
-
     public function export(Request $request)
     {
         $jenisSapi = $request->input('jenis_sapi');
@@ -154,6 +153,8 @@ class SapiController extends Controller
         $sheet->setCellValue('B1', 'Jenis Sapi');
         $sheet->setCellValue('C1', 'Tanggal Lahir');
         $sheet->setCellValue('D1', 'No Induk');
+        $sheet->setCellValue('E1', 'Umur');
+        $sheet->setCellValue('F1', 'Jenis Kelamin');
 
         $row = 2;
         foreach ($sapi as $item) {
@@ -161,6 +162,8 @@ class SapiController extends Controller
             $sheet->setCellValue('B' . $row, $item->jenisSapi->sjenis_nama);
             $sheet->setCellValue('C' . $row, $item->sapi_tanggal_lahir);
             $sheet->setCellValue('D' . $row, $item->sapi_no_induk);
+            $sheet->setCellValue('E' . $row, (string)$item->sapi_umur);
+            $sheet->setCellValue('F' . $row, $item->sapi_kelamin);
             $row++;
         }
 

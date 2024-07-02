@@ -20,6 +20,7 @@ class CreateMasterSapiTable extends Migration
             $table->date('sapi_tanggal_lahir');
             $table->string('sapi_no_induk');
             $table->string('sapi_keterangan');
+            $table->string('sapi_kelamin');
             $table->integer('sapi_umur')->nullable(); 
             $table->string('sapi_status')->nullable(); 
             
