@@ -33,7 +33,13 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('index.daftar.pembeli') }}">
                     <i class="bi bi-list-nested"></i>
-                    <span>Daftar Pengajuan</span>
+                    <span>Beli Sapi</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('index.daftar.pembeli') }}">
+                    <i class="bi bi-list-nested"></i>
+                    <span>Beli Rumput</span>
                 </a>
             </li>
             <li class="nav-heading">Wastukan - Logout</li>

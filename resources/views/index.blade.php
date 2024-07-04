@@ -188,7 +188,6 @@
     @endif
     <!-- ======= About Section ======= -->
 
-
     @if(Auth::check() && Auth::user()->role == 'pembeli')
     {{-- Start tabel harga sapi --}}
     <section id="sapi" class="menu">
@@ -197,7 +196,8 @@
             <div class="section-header">
                 <h2>Menu</h2>
                 <p>Check Harga <span>Sapi</span></p>
-                <a href="" class="btn btn-success"><i class="bi bi-envelope-paper-fill"></i> Ajukan Pembelian
+                <a href="{{ route('show.pengajuan.sapi') }}" class="btn btn-success"><i
+                        class="bi bi-envelope-paper-fill"></i> Ajukan Pembelian
                     Sapi</a>
             </div>
 
@@ -264,8 +264,7 @@
                                 </p>
                             </div><!-- Menu Item -->
                         </div>
-                        <a href="" class="btn btn-success"><i class="bi bi-envelope-paper-fill"></i> Ajukan Pembelian
-                            Sapi</a>
+
                     </div>
 
                 </div><!-- End Starter Menu Content -->
@@ -487,7 +486,10 @@
             <div class="section-header">
                 <h2>Menu</h2>
                 <p>Check Harga <span>Rumput</span></p>
+                <a href="" class="btn btn-success"><i class="bi bi-envelope-paper-fill"></i> Ajukan Pembelian
+                    Rumput</a>
             </div>
+
 
             <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
 

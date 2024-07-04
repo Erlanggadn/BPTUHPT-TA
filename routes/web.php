@@ -16,7 +16,7 @@ use App\Http\Controllers\JenisRumputController;
 use App\Http\Controllers\JenisKandangController;
 use App\Http\Controllers\KegiatanLahanController;
 use App\Http\Controllers\KegiatanKandangController;
-
+use App\Http\Controllers\PengajuanSapiController;
 
 // HOME
 Route::get('/', [AuthController::class, 'home'])->name('home');
@@ -30,6 +30,11 @@ Route::get('login-pembeli', [AuthController::class, 'loginpembeli'])->name('logi
 Route::post('login-post', [AuthController::class, 'loginPembeliAction'])->name('login.pembeli.action');
 // PEMBELI
 Route::middleware(['auth', 'checkPembeli'])->group(function () {
+    Route::prefix('pengajuan-sapi')->group(function () {
+        Route::get('/', [PengajuanSapiController::class, 'index'])->name('index.pengajuan.sapi');
+        Route::get('/tambah', [PengajuanSapiController::class, 'show'])->name('show.pengajuan.sapi');
+        Route::post('/store', [PengajuanSapiController::class, 'store'])->name('store.pengajuan.sapi');
+    });
 });
 // ADMIN 
 Route::middleware(['auth', 'checkAdmin'])->group(function () {

@@ -41,7 +41,7 @@ class KegiatanLahanController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        // Check for overlapping activities on the same lahan and date
+
         $existingKegiatan = ModKegiatanLahan::where('tanam_detail_lahan', $request->tanam_detail_lahan)
             ->where('tanam_tanggal', $request->tanam_tanggal)
             ->where(function ($query) use ($request) {
