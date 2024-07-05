@@ -18,6 +18,7 @@ class ModKegiatanKandang extends Model
     protected $fillable = [
         'kegiatan_id',
         'kegiatan_jenis_kandang',
+        'kegiatan_orang',
         'kegiatan_tanggal',
         'kegiatan_jam_mulai',
         'kegiatan_jam_selesai',
@@ -30,16 +31,6 @@ class ModKegiatanKandang extends Model
         'updated_id',
         'updated_nama'
     ];
-
-    // protected static function boot()
-    // {
-    //     parent::boot();
-
-    //     static::creating(function ($model) {
-    //         $model->{$model->getKeyName()} = (string) Str::uuid();
-    //     });
-    // }
-
     public function kandang()
     {
         return $this->belongsTo(ModKandang::class, 'kegiatan_jenis_kandang', 'kand_id');

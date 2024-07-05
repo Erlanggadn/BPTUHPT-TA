@@ -23,7 +23,7 @@ class AdminController extends Controller
     {
         $jumlahPegawai = User::whereNotIn('role', ['admin', 'pembeli'])->count();
         $jumlahPembeli = User::whereNotIn('role', ['admin', 'ppid', 'wastukan', 'wasbitnak', 'kepala', 'keswan', 'bendahara'])->count();
-        return view('backend.admin.dashboard.index', ['jumlahPegawai'=> $jumlahPegawai, 'jumlahPembeli' => $jumlahPembeli] );
+        return view('backend.admin.dashboard.index', ['jumlahPegawai' => $jumlahPegawai, 'jumlahPembeli' => $jumlahPembeli]);
     }
 
     public function pegawaiKeswan()
@@ -35,7 +35,7 @@ class AdminController extends Controller
 
     public function detailPKeswan($id)
     {
-        $akunuser = User::where('id', $id)->get(); 
+        $akunuser = User::where('id', $id)->get();
         return view('backend.keswan.list-pegawai.detail', ["akunuser" => $akunuser]);
     }
 
@@ -48,7 +48,8 @@ class AdminController extends Controller
 
     public function detailPWasbitnak($id)
     {
-        $akunuser = User::where('id', $id)->get(); 
+        $akunuser = User::where('id', $id)->get();
+        // $pegawai = $akunuser->pegawai
         return view('backend.wasbitnak.pegawai.detail', ["akunuser" => $akunuser]);
     }
 
@@ -61,7 +62,7 @@ class AdminController extends Controller
 
     public function detailPWastukan($id)
     {
-        $akunuser = User::where('id', $id)->get(); 
+        $akunuser = User::where('id', $id)->get();
         return view('backend.wastukan.pegawai.detail', ["akunuser" => $akunuser]);
     }
 }

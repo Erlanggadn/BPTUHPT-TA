@@ -31,14 +31,6 @@
                                 <div class="col-lg-9 col-md-8"> :
                                     {{ $jenisSapi->created_at->translatedFormat('d F Y') }}</div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-3 col-md-4 label">Dibuat Oleh</div>
-                                <div class="col-lg-9 col-md-8"> : {{ $jenisSapi->created_nama }}</div>
-                            </div>
-                            <div class="row mb-4">
-                                <div class="col-lg-3 col-md-4 label">Diupdate Oleh</div>
-                                <div class="col-lg-9 col-md-8"> : {{ $jenisSapi->updated_nama }}</div>
-                            </div>
 
                             <a href="{{ route('edit.jenis.sapi', ['sjenis_id' => $jenisSapi->sjenis_id]) }}"
                                 class="btn btn-outline-warning edit">

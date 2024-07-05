@@ -217,4 +217,10 @@ class PPIDController extends Controller
         $rumput->delete();
         return redirect()->route('index.ppid.rumput')->with('success', 'Data rumput berhasil dihapus');
     }
+    
+    //PENGAJUAN SAPI
+    public function indexpengajuansapi()
+    {
+
+    }
 }

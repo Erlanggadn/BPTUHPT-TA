@@ -19,11 +19,7 @@ class CreateMasterKandangJenisTable extends Migration
             $table->string('kandang_keterangan', 50);
             
             $table->timestamp('created_at')->useCurrent();
-            $table->string('created_id', 50);
-            $table->string('created_nama', 50);
             $table->timestamp('updated_at')->useCurrent();
-            $table->string('updated_id', 50);
-            $table->string('updated_nama', 50);
         });
     }
 

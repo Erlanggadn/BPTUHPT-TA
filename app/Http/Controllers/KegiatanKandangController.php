@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\ModKegiatanKandang;
 use Illuminate\Routing\Controller;
 use App\Models\ModDetailKandangSapi;
+use Illuminate\Foundation\Auth\User;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
@@ -23,6 +24,7 @@ class KegiatanKandangController extends Controller
     public function show()
     {
         $jenisKandang = ModKandang::all();
+        $user = User::all();
         $sapis = ModSapi::all();
         return view('backend.wasbitnak.kegiatan_kandang.create', compact('sapis', 'jenisKandang'));
     }
@@ -34,6 +36,7 @@ class KegiatanKandangController extends Controller
             'kegiatan_jenis_kandang' => 'required|string',
             'kegiatan_tanggal' => 'required|date',
             'kegiatan_jam_mulai' => 'required',
+            'kegiatan_orang' => 'required|string',
             'kegiatan_jam_selesai' => 'required',
             'kegiatan_keterangan' => 'nullable|string',
             'kegiatan_keterangan' => 'required|string',
@@ -49,16 +52,12 @@ class KegiatanKandangController extends Controller
             'kegiatan_id' => $newKode,
             'kegiatan_jenis_kandang' => $request->kegiatan_jenis_kandang,
             'kegiatan_tanggal' => $request->kegiatan_tanggal,
+            'kegiatan_orang' => auth()->user()->name,
             'kegiatan_jam_mulai' => $request->kegiatan_jam_mulai,
             'kegiatan_jam_selesai' => $request->kegiatan_jam_selesai,
             'kegiatan_keterangan' => $request->kegiatan_keterangan,
             'kegiatan_status' => $request->kegiatan_status,
             'kegiatan_foto' => $request->file('kegiatan_foto')->store('kegiatan_fotos', 'public'),
-
-            'created_id' => auth()->id(),
-            'created_nama' => auth()->user()->name,
-            'updated_id' => auth()->id(),
-            'updated_nama' => auth()->user()->name,
         ]);
 
 
@@ -69,11 +68,6 @@ class KegiatanKandangController extends Controller
                 'detail_id' => $newId,
                 'detail_kandang' => $kegiatan->kegiatan_id,
                 'detail_sapi' => $sapi_id,
-
-                'created_id' => auth()->id(),
-                'created_nama' => auth()->user()->name,
-                'updated_id' => auth()->id(),
-                'updated_nama' => auth()->user()->name,
             ]);
         }
 

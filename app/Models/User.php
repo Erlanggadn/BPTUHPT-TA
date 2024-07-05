@@ -15,11 +15,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
         'email',
-        'nohp',
         'role',
-        'alamat',
         'password',
     ];
 
@@ -44,5 +41,14 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function pembeli()
+    {
+        return $this->hasOne(ModPembeli::class, 'pembeli_detail', 'id');
+    }
+    public function pegawai()
+    {
+        return $this->hasOne(ModPegawai::class, 'pegawai_detail', 'id');
     }
 }

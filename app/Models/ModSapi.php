@@ -24,12 +24,6 @@ class ModSapi extends Model
         'sapi_kelamin',
         'sapi_umur',
         'sapi_status',
-
-        
-        'created_id',
-        'created_nama',
-        'updated_id',
-        'updated_nama',
     ];
     protected $dates = ['sapi_tanggal_lahir'];
 

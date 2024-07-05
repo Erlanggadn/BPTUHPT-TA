@@ -40,11 +40,6 @@ class KandangController extends Controller
             'kand_nama' => $request->kand_nama,
             'kand_keterangan' => $request->kand_keterangan,
             'kand_aktif' => $request->kand_aktif,
-
-            'created_id' => auth()->user()->id, // Assuming user authentication is implemented
-            'created_nama' => auth()->user()->name,
-            'updated_id' => auth()->user()->id,
-            'updated_nama' => auth()->user()->name,
         ]);
 
         return redirect()->route('index.kandang')->with('success', 'Kandang berhasil ditambahkan');
@@ -70,8 +65,6 @@ class KandangController extends Controller
             'kand_nama' => $request->kand_nama,
             'kan_keterangan' => $request->kand_keterangan,
             'kand_aktif' => $request->kand_aktif,
-            'updated_id' => auth()->user()->id,
-            'updated_nama' => auth()->user()->name,
         ]);
 
         return redirect()->route('index.kandang')->with('success', 'Kandang berhasil diubah');

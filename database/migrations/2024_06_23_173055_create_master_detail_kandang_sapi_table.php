@@ -19,11 +19,7 @@ class CreateMasterDetailKandangSapiTable extends Migration
             $table->string('detail_sapi');
 
             $table->timestamp('created_at')->useCurrent();
-            $table->string('created_id', 50);
-            $table->string('created_nama', 50);
             $table->timestamp('updated_at')->useCurrent();
-            $table->string('updated_id', 50);
-            $table->string('updated_nama', 50);
 
             $table->foreign('detail_kandang')->references('kegiatan_id')->on('master_kegiatan_kandang')->onDelete('cascade');
             $table->foreign('detail_sapi')->references('sapi_id')->on('master_sapi')->onDelete('cascade');

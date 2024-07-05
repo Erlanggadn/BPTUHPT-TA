@@ -10,7 +10,7 @@
                     class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
                     <h2 data-aos="fade-up">selamat Datang
                         @if(Auth::check() && Auth::user())
-                        <b style="color: #138220"><ins>{{ Auth::user()->name}}</ins></b>
+                        <b style="color: #138220"><ins>{{ Auth::user()->pembeli->pembeli_nama}}</ins></b>
                         @else
                         @endif<br>di BPTU HPT Padang
                         Mengatas<br></h2>

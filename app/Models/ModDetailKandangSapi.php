@@ -19,20 +19,8 @@ class ModDetailKandangSapi extends Model
         'detail_id',
         'detail_kandang',
         'detail_sapi',
-        'created_id',
-        'created_nama',
-        'updated_id',
-        'updated_nama',
     ];
 
-    // protected static function boot()
-    // {
-    //     parent::boot();
-
-    //     static::creating(function ($model) {
-    //         $model->{$model->getKeyName()} = (string) Str::uuid();
-    //     });
-    // }
 
     public function kegiatanKandang()
     {

@@ -21,10 +21,7 @@ class UsersTableSeeder extends Seeder
         foreach ($roles as $role) {
             DB::table('users')->insert([
                 'role' => $role,
-                'name' => ucfirst($role),
                 'email' => $role . '@gmail.com',
-                'alamat' => 'Alamat ' . ucfirst($role),
-                'nohp' => '1234567890',
                 'password' => $password,
                 'created_at' => now(),
                 'updated_at' => now(),

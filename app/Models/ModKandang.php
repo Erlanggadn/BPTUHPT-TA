@@ -20,11 +20,6 @@ class ModKandang extends Model
         'kand_jenis',
         'kand_keterangan',
         'kand_aktif',
-
-        'created_id',
-        'created_nama',
-        'updated_id',
-        'updated_nama',
     ];
     public function jenisKandang()
     {

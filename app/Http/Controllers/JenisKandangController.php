@@ -33,10 +33,6 @@ class JenisKandangController extends Controller
             'kandang_id' => $newKode,
             'kandang_tipe' => $request->kandang_tipe,   
             'kandang_keterangan' => $request->kandang_keterangan,
-            'created_id' => auth()->user()->id,
-            'created_nama' => auth()->user()->name,
-            'updated_id' => auth()->user()->id,
-            'updated_nama' => auth()->user()->name,
         ]);
 
         return redirect()->route('index.jenis.kandang')->with('success', 'Jenis Kandang berhasil ditambahkan');
@@ -65,8 +61,6 @@ class JenisKandangController extends Controller
         $jenisKandang->update([
             'kandang_tipe' => $request->kandang_tipe,
             'kandang_keterangan' => $request->kandang_keterangan,
-            'updated_id' => auth()->user()->id,
-            'updated_nama' => auth()->user()->name,
         ]);
 
         return redirect()->route('index.jenis.kandang')->with('success', 'Jenis Kandang berhasil diubah');

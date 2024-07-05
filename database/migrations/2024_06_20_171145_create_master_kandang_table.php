@@ -21,11 +21,7 @@ class CreateMasterKandangTable extends Migration
             $table->enum('kand_aktif', ['Aktif', 'NonAktif']);
             
             $table->timestamp('created_at')->useCurrent();
-            $table->string('created_id', 50);
-            $table->string('created_nama', 50);
             $table->timestamp('updated_at')->useCurrent();
-            $table->string('updated_id', 50);
-            $table->string('updated_nama', 50);
 
             $table->foreign('kand_jenis')->references('kandang_id')->on('master_kandang_jenis')->onDelete('cascade');
         });

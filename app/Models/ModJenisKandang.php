@@ -18,10 +18,6 @@ class ModJenisKandang extends Model
         'kandang_id',
         'kandang_tipe',
         'kandang_keterangan',
-        'created_id',
-        'created_nama',
-        'updated_id',
-        'updated_nama',
     ];
 
     public function jenisKandang()

@@ -18,11 +18,6 @@ class ModJenisSapi extends Model
         'sjenis_id',
         'sjenis_nama',
         'sjenis_keterangan',
-
-        'created_id',
-        'created_nama',
-        'updated_id',
-        'updated_nama',
     ];
 
     public function sapi()

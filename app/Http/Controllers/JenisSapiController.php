@@ -32,10 +32,6 @@ class JenisSapiController extends Controller
             'sjenis_id' => $newKode,
             'sjenis_nama' => $request->sjenis_nama,
             'sjenis_keterangan' => $request->sjenis_keterangan,
-            'created_id' => auth()->user()->id, 
-            'created_nama' => auth()->user()->name,
-            'updated_id' => auth()->user()->id,
-            'updated_nama' => auth()->user()->name,
         ]);
 
         return redirect()->route('index.jenis.sapi')->with('success', 'Jenis Sapi berhasil ditambahkan');
@@ -66,8 +62,6 @@ class JenisSapiController extends Controller
     $jenisSapi->update([
         'sjenis_nama' => $request->sjenis_nama,
         'sjenis_keterangan' => $request->sjenis_keterangan,
-        'updated_id' => auth()->user()->id,
-        'updated_nama' => auth()->user()->name,
     ]);
     return redirect()->route('index.jenis.sapi')->with('success', 'Jenis Sapi berhasil diperbarui.');
 }

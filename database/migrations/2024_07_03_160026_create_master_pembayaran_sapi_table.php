@@ -14,11 +14,11 @@ class CreateMasterPembayaranSapiTable extends Migration
     public function up()
     {
         Schema::create('master_pembayaran_sapi', function (Blueprint $table) {
-            $table->id();
+            $table->string('dbeli_id')->primary();
             $table->timestamps();
-            $table->string('detail_beli');
+            $table->string('dbeli_beli');
 
-            $table->foreign('detail_beli')->references('detail_id')->on('detail_pengajuan_sapi')->onDelete('cascade');
+            $table->foreign('dbeli_beli')->references('detail_id')->on('detail_pengajuan_sapi')->onDelete('cascade');
         });
     }
 

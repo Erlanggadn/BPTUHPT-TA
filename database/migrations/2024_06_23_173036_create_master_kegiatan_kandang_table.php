@@ -16,6 +16,7 @@ class CreateMasterKegiatanKandangTable extends Migration
         Schema::create('master_kegiatan_kandang', function (Blueprint $table) {
             $table->string('kegiatan_id')->primary();
             $table->string('kegiatan_jenis_kandang');
+            $table->string('kegiatan_orang');
             $table->date('kegiatan_tanggal');
             $table->time('kegiatan_jam_mulai');
             $table->time('kegiatan_jam_selesai');
@@ -24,11 +25,7 @@ class CreateMasterKegiatanKandangTable extends Migration
             $table->string('kegiatan_foto');
             
             $table->timestamp('created_at')->useCurrent();
-            $table->string('created_id', 50);
-            $table->string('created_nama', 50);
             $table->timestamp('updated_at')->useCurrent();
-            $table->string('updated_id', 50);
-            $table->string('updated_nama', 50);
 
             $table->foreign('kegiatan_jenis_kandang')->references('kand_id')->on('master_kandang')->onDelete('cascade');
         });

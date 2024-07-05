@@ -44,15 +44,23 @@
                                         <div class="col-12">
                                             <label for="yourUsername" class="form-label">Nama Pegawai</label>
                                             <div class="input-group has-validation">
-                                                <input type="text" name="name" class="form-control" id="yourUsername"
+                                                <input type="text" name="pegawai_nama" class="form-control" id="yourUsername"
                                                     required>
                                                 <div class="invalid-feedback">Masukkan Nama Pegawai dengan benar</div>
                                             </div>
                                         </div>
                                         <div class="col-12">
+                                            <label for="yourUsername" class="form-label">NIP</label>
+                                            <div class="input-group has-validation">
+                                                <input type="number" name="pegawai_nip" class="form-control" id="yourUsername"
+                                                    required>
+                                                <div class="invalid-feedback">Masukkan NIP Pegawai dengan benar</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
                                             <label for="yourUsername" class="form-label">No. Hp Pegawai</label>
                                             <div class="input-group has-validation">
-                                                <input type="number" name="nohp" class="form-control" id="yourUsername"
+                                                <input type="number" name="pegawai_nohp" class="form-control" id="yourUsername"
                                                     required>
                                                 <div class="invalid-feedback">Masukkan No.Hp Pegawai dengan benar</div>
                                             </div>
@@ -60,7 +68,7 @@
                                         <div class="col-12">
                                             <label for="yourUsername" class="form-label">Alamat Pegawai</label>
                                             <div class="input-group has-validation">
-                                                <input type="text" name="alamat" class="form-control" id="yourUsername"
+                                                <input type="text" name="pegawai_alamat" class="form-control" id="yourUsername"
                                                     required>
                                                 <div class="invalid-feedback">Masukkan Alamat Pegawai dengan benar</div>
                                             </div>

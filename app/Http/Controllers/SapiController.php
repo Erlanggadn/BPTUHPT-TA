@@ -36,7 +36,7 @@ class SapiController extends Controller
             'sapi_no_induk' => 'required|string|max:255',
             'sapi_keterangan' => 'required|string|max:255',
             'sapi_kelamin' => 'required|string|max:255',
-            'sapi_status' => 'required|string|max:255', 
+            'sapi_status' => 'required|string|max:255',
         ]);
 
         // Generate sapi_id
@@ -63,11 +63,7 @@ class SapiController extends Controller
         $sapi->sapi_keterangan = $request->sapi_keterangan;
         $sapi->sapi_kelamin = $request->sapi_kelamin;
         $sapi->sapi_status = $request->sapi_status; // Set status
-        $sapi->sapi_umur = Carbon::parse($request->sapi_tanggal_lahir)->diffInMonths(Carbon::now()); // Hitung umur
-        $sapi->created_id = auth()->user()->id;
-        $sapi->created_nama = auth()->user()->name;
-        $sapi->updated_id = auth()->user()->id;
-        $sapi->updated_nama = auth()->user()->name;
+        $sapi->sapi_umur = Carbon::parse($request->sapi_tanggal_lahir)->diffInMonths(Carbon::now());
         $sapi->save();
 
         return redirect()->route('index.sapi')->with('success', 'Data sapi berhasil disimpan');
@@ -84,17 +80,15 @@ class SapiController extends Controller
         $request->validate([
             'sapi_no_induk' => 'required|string|max:255',
             'sapi_keterangan' => 'required|string|max:255',
-            'sapi_status' => 'required|string|max:255', // Tambahkan validasi status
+            'sapi_status' => 'required|string|max:255', 
         ]);
 
         $sapi = ModSapi::findOrFail($id);
 
         $sapi->sapi_no_induk = $request->sapi_no_induk;
         $sapi->sapi_keterangan = $request->sapi_keterangan;
-        $sapi->sapi_status = $request->sapi_status; // Set status
-        $sapi->sapi_umur = Carbon::parse($sapi->sapi_tanggal_lahir)->diffInMonths(Carbon::now()); // Hitung ulang umur
-        $sapi->updated_id = auth()->user()->id;
-        $sapi->updated_nama = auth()->user()->name;
+        $sapi->sapi_status = $request->sapi_status; 
+        $sapi->sapi_umur = Carbon::parse($sapi->sapi_tanggal_lahir)->diffInMonths(Carbon::now());
         $sapi->save();
 
         return redirect()->route('detail.sapi', $id)->with('success', 'Data sapi berhasil diperbarui');

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\ModPegawai;
+use App\Models\ModPembeli;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -17,24 +20,38 @@ class AuthController extends Controller
 
     public function daftarsave(Request $request)
     {
-        Validator::make($request->all(), [
-            'name' => 'required',
+        $validator = Validator::make($request->all(), [
+            'pembeli_nama' => 'required',
             'email' => 'required|email|unique:users,email',
-            'nohp' => 'required',
-            'alamat' => 'required',
+            'pembeli_nohp' => 'required',
+            'pembeli_instansi' => 'required|string',
+            'pembeli_lahir' => 'required|date',
+            'pembeli_alamat' => 'required',
             'password' => 'required|confirmed',
-        ])->validate();
+        ]);
 
-        User::create([
-            'name' => $request->name,
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $user = User::create([
             'email' => $request->email,
-            'nohp' => $request->nohp,
-            'alamat' => $request->alamat,
             'password' => Hash::make($request->password),
             'role' => 'pembeli'
         ]);
+        $lastKode = ModPembeli::orderBy('pembeli_id', 'desc')->first();
+        $newKode = $lastKode ? 'PMB' . str_pad(((int) substr($lastKode->pembeli_id, 1)) + 1, 3, '0', STR_PAD_LEFT) : 'PMB001';
 
-        // Jika Anda ingin pengguna langsung login setelah mendaftar
+        ModPembeli::create([
+            'pembeli_id' => $newKode,
+            'pembeli_detail' => $user->id,
+            'pembeli_instansi' => $request->pembeli_instansi,
+            'pembeli_lahir' => $request->pembeli_lahir,
+            'pembeli_nama' => $request->pembeli_nama,
+            'pembeli_alamat' => $request->pembeli_alamat,
+            'pembeli_nohp' => $request->pembeli_nohp,
+        ]);
+
         Auth::attempt(['email' => $request->email, 'password' => $request->password]);
 
         return redirect()->route('loginpembeli');
@@ -148,10 +165,11 @@ class AuthController extends Controller
     public function pegawaidaftarsave(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
+            'pegawai_nama' => 'required',
+            'pegawai_nip' => 'required',
             'email' => 'required|email|unique:users,email',
-            'nohp' => 'required',
-            'alamat' => 'required',
+            'pegawai_nohp' => 'required',
+            'pegawai_alamat' => 'required',
             'password' => 'required',
             'role' => 'required|in:wasbitnak,wastukan,admin,keswan,bendahara,kepala,ppid'
         ]);
@@ -160,13 +178,22 @@ class AuthController extends Controller
             return redirect()->back()->withErrors($validator)->withInput()->with('error', 'Email yang didaftarkan sudah ada atau tidak valid.');
         }
 
-        User::create([
-            'name' => $request->name,
+        $user = User::create([
             'email' => $request->email,
-            'nohp' => $request->nohp,
-            'alamat' => $request->alamat,
             'password' => Hash::make($request->password),
-            'role' => $request->role
+            'role' => $request->role,
+        ]);
+        
+        $lastKode = ModPegawai::orderBy('pegawai_id', 'desc')->first();
+        $newKode = $lastKode ? 'PGW' . str_pad(((int) substr($lastKode->pegawai_id, 3)) + 1, 3, '0', STR_PAD_LEFT) : 'PGW001';
+
+        ModPegawai::create([
+            'pegawai_id' => $newKode,
+            'pegawai_detail' => $user->id,
+            'pegawai_nip' => $request->pegawai_nip,
+            'pegawai_nama' => $request->pegawai_nama,
+            'pegawai_alamat' => $request->pegawai_alamat,
+            'pegawai_nohp' => $request->pegawai_nohp,
         ]);
 
         return redirect()->route('akunadmin')->with('berhasil.pegawai', 'Akun berhasil didaftarkan.');

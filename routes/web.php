@@ -31,7 +31,7 @@ Route::post('login-post', [AuthController::class, 'loginPembeliAction'])->name('
 // PEMBELI
 Route::middleware(['auth', 'checkPembeli'])->group(function () {
     Route::prefix('pengajuan-sapi')->group(function () {
-        Route::get('/', [PengajuanSapiController::class, 'index'])->name('index.pengajuan.sapi');
+        Route::get('/show', [PengajuanSapiController::class, 'index'])->name('index.pengajuan.sapi');
         Route::get('/tambah', [PengajuanSapiController::class, 'show'])->name('show.pengajuan.sapi');
         Route::post('/store', [PengajuanSapiController::class, 'store'])->name('store.pengajuan.sapi');
     });
@@ -197,7 +197,9 @@ Route::middleware(['auth', 'checkPPID'])->group(function () {
         Route::put('/update/{id}', [PPIDController::class, 'updaterumputjual'])->name('update.ppid.rumput');
         Route::delete('/delete/{id}', [PPIDController::class, 'deleterumputjual'])->name('delete.ppid.rumput');
     });
-
+    // Route::prefix('pengajuan-sapi')->group(function () {
+    //     Route::get('/', [PPIDController::class, 'indexpengajuansapi'])->name('index.ppid.psapi');
+    // });
 });
 //BENDAHARA
 
