@@ -30,16 +30,18 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Nama</th>
+                                    <th>No hp</th>
                                     <th>Tgl Buat</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @isset($jumlahKeswan)
-                                @foreach ($jumlahKeswan as $item)
+                                @isset($akunuser)
+                                @foreach ($akunuser as $item)
                                 <tr>
-                                    <td><span class="badge bg-primary">{{ $item->id }}</span></td>
-                                    <td>{{ $item->name }}</td>
+                                    <td><span class="badge bg-primary">{{ $item->pegawai->pegawai_id }}</span></td>
+                                    <td>{{ $item->pegawai->pegawai_nama }}</td>
+                                    <td>{{ $item->pegawai->pegawai_nohp }}</td>
                                     <td>{{ $item->created_at->translatedFormat('d F Y') }}</td>
                                     <td><a class="btn btn-outline-success"
                                             href="{{ route('detail.pegawai.keswan', $item->id) }}"><i

@@ -15,7 +15,7 @@ class SapiController extends Controller
 {
     public function index()
     {
-        $Sapi = ModSapi::with('jenisSapi')->get();
+        $Sapi = ModSapi::with('jenisSapi')->whereNotIn('sapi_status', ['Siap Jual', 'terjual'])->get();
         $jenisList = ModJenisSapi::all(); // Mengambil daftar jenis sapi untuk dropdown filter
         return view('backend.keswan.sapi.index', compact('Sapi', 'jenisList'));
     }

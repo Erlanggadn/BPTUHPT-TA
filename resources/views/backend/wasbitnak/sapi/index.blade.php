@@ -23,7 +23,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                         @endif
-                        <a href="{{ route('export.sapi', ['jenis_sapi' => request('jenis_sapi')]) }}"
+                        <a href="{{ route('export.sapi.wasbitnak', ['jenis_sapi' => request('jenis_sapi')]) }}"
                             class="btn btn-success mb-4">
                             <i class="bi bi-file-earmark-excel"></i> Export to Excel
                         </a>
@@ -69,6 +69,7 @@
                             </div>
                         </form>
 
+
                         <!-- Table with stripped rows -->
                         <table class="table datatable">
                             <thead>
@@ -91,8 +92,9 @@
                                     <td> <a class="btn btn-outline-success"
                                             href="{{ route('detail.sapi.wasbitnak', $item->sapi_id) }}"><i
                                                 class="bi bi-info-lg"></i></a>
-                                        <form id="deleteForm" action="{{ route('destroy.sapi.wasbitnak', $item->sapi_id) }}"
-                                            method="POST" style="display: inline;">
+                                        <form id="deleteForm"
+                                            action="{{ route('destroy.sapi.wasbitnak', $item->sapi_id) }}" method="POST"
+                                            style="display: inline;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="button" class="btn btn-outline-danger"

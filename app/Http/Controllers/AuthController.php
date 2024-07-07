@@ -91,7 +91,7 @@ class AuthController extends Controller
 
             switch ($role) {
                 case 'admin':
-                    $route = '/admin/akun-pegawai';
+                    $route = 'akun-pegawai';
                     break;
                 case 'wasbitnak':
                     $route = 'wasbitnak';
@@ -183,7 +183,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
             'role' => $request->role,
         ]);
-        
+
         $lastKode = ModPegawai::orderBy('pegawai_id', 'desc')->first();
         $newKode = $lastKode ? 'PGW' . str_pad(((int) substr($lastKode->pegawai_id, 3)) + 1, 3, '0', STR_PAD_LEFT) : 'PGW001';
 
@@ -211,6 +211,7 @@ class AuthController extends Controller
 
     public function home()
     {
-        return view('index');
+        $akunuser = Auth::user();
+        return view('index', ['akunuser' => $akunuser]);
     }
 }

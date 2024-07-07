@@ -25,41 +25,36 @@
                                 <div class="col-lg-3 col-md-4 label">Email</div>
                                 <div class="col-lg-9 col-md-8">: {{ $akunuser->email }}</div>
                             </div>
-                            @isset($pembeli)
+                            @isset($pegawai)
                             <div class=" row mb-4">
-                                <div class="col-lg-3 col-md-4 label">Kode Pembeli </div>
-                                <div class="col-lg-9 col-md-8">: {{ $pembeli->pembeli_id }}</div>
+                                <div class="col-lg-3 col-md-4 label">Kode Pegawai </div>
+                                <div class="col-lg-9 col-md-8">: {{ $pegawai->pegawai_id }}</div>
                             </div>
                             <div class=" row mb-4">
                                 <div class="col-lg-3 col-md-4 label">Nama </div>
-                                <div class="col-lg-9 col-md-8">: {{ $pembeli->pembeli_nama }}</div>
+                                <div class="col-lg-9 col-md-8">: {{ $pegawai->pegawai_nama }}</div>
                             </div>
                             <div class=" row mb-4">
-                                <div class="col-lg-3 col-md-4 label">Tanggal Lahir </div>
-                                <div class="col-lg-9 col-md-8">: {{ $pembeli->pembeli_lahir }}</div>
-                            </div>
-                            <div class=" row mb-4">
-                                <div class="col-lg-3 col-md-4 label">Asal Instansi </div>
-                                <div class="col-lg-9 col-md-8">: {{ $pembeli->pembeli_instansi }}</div>
+                                <div class="col-lg-3 col-md-4 label">NIP </div>
+                                <div class="col-lg-9 col-md-8">: {{ $pegawai->pegawai_nip }}</div>
                             </div>
                             <div class=" row mb-4">
                                 <div class="col-lg-3 col-md-4 label">Alamat </div>
-                                <div class="col-lg-9 col-md-8">: {{ $pembeli->pembeli_alamat }}</div>
+                                <div class="col-lg-9 col-md-8">: {{ $pegawai->pegawai_alamat }}</div>
                             </div>
                             <div class=" row mb-4">
                                 <div class="col-lg-3 col-md-4 label">No.Hp </div>
-                                <div class="col-lg-9 col-md-8">: {{ $pembeli->pembeli_nohp }}</div>
+                                <div class="col-lg-9 col-md-8">: {{ $pegawai->pegawai_nohp }}</div>
                             </div>
-
+                            @endisset
 
                             <a class="btn btn-outline-success"
-                                href="https://wa.me/{{ $pembeli->pembeli_nohp }}?text=Kami%20dari%20BPTU%20HPT%20Padang%20Mengatas"
+                                href="https://wa.me/{{ $akunuser->nohp }}?text=Kami%20dari%20BPTU%20HPT%20Padang%20Mengatas"
                                 target="_blank">
                                 <i class="bi bi-whatsapp"></i> Whatsapp
                             </a>
-                            @endisset
 
-                            <a href="{{ route('pembeliadmin.edit', $akunuser->id) }}"
+                            <a href="{{ route('akunadmin.edit', $akunuser->id) }}"
                                 class="btn btn-outline-warning edit"><i class="bi bi-pencil-square"></i> Edit</a>
                         </div>
                     </div><!-- End Bordered Tabs -->

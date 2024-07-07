@@ -8,15 +8,18 @@ use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Symfony\Component\HttpFoundation\Response;
 
 
 class AdminController extends Controller
 {
     public function indexadmin()
     {
-        $akunuser = User::whereNotIn('role', ['admin', 'pembeli'])->get();
-        $jumlahPegawai = User::whereNotIn('role', ['admin', 'pembeli'])->count();
-        return view('backend.admin.index', ['akunuser' => $akunuser, 'jumlahPegawai' => $jumlahPegawai]);;
+        $akunuser = User::with('pegawai')
+            ->whereNotIn('role', ['admin', 'pembeli'])
+            ->get();
+        $jumlahPegawai = $akunuser->count();
+        return view('backend.admin.index', ['akunuser' => $akunuser, 'jumlahPegawai' => $jumlahPegawai]);
     }
 
     public function dashboard()
@@ -28,29 +31,33 @@ class AdminController extends Controller
 
     public function pegawaiKeswan()
     {
-        $jumlahKeswan = User::whereNotIn('role', ['admin', 'ppid', 'wastukan', 'wasbitnak', 'kepala', 'pembeli', 'bendahara'])->get();
-        $jumlahPkeswan = User::whereNotIn('role', ['admin', 'ppid', 'wastukan', 'wasbitnak', 'kepala', 'pembeli', 'bendahara'])->count();
-        return view('backend.keswan.list-pegawai.index', ['jumlahKeswan' => $jumlahKeswan, 'jumlahPKeswan' => $jumlahPkeswan]);;
+
+        $akunuser = User::with('pegawai')
+            ->whereNotIn('role', ['admin', 'ppid', 'wastukan', 'wasbitnak', 'kepala', 'pembeli', 'bendahara'])
+            ->get();
+        $jumlahPKeswan = $akunuser->count();
+        return view('backend.keswan.list-pegawai.index', ['akunuser' => $akunuser, 'jumlahPKeswan' => $jumlahPKeswan]);
     }
 
     public function detailPKeswan($id)
     {
-        $akunuser = User::where('id', $id)->get();
-        return view('backend.keswan.list-pegawai.detail', ["akunuser" => $akunuser]);
+        $akunuser = User::with('pegawai')->where('id', $id)->first();
+        return view('backend.keswan.list-pegawai.detail', ["akunuser" => $akunuser, "pegawai" => $akunuser->pegawai]);
     }
 
     public function pegawaiWasbitnak()
     {
-        $jumlahWasbitnak = User::whereNotIn('role', ['admin', 'ppid', 'wastukan', 'keswan', 'kepala', 'pembeli', 'bendahara'])->get();
-        $jumlahPwasbitnak = User::whereNotIn('role', ['admin', 'ppid', 'wastukan', 'keswan', 'kepala', 'pembeli', 'bendahara'])->count();
-        return view('backend.wasbitnak.pegawai.index', ['jumlahWasbitnak' => $jumlahWasbitnak, 'jumlahPWasbitnak' => $jumlahPwasbitnak]);;
+        $akunuser = User::with('pegawai')
+            ->whereNotIn('role', ['admin', 'ppid', 'wastukan', 'keswan', 'kepala', 'pembeli', 'bendahara'])
+            ->get();
+        $jumlahPWasbitnak = $akunuser->count();
+        return view('backend.wasbitnak.pegawai.index', ['akunuser' => $akunuser, 'jumlahPWasbitnak' => $jumlahPWasbitnak]);
     }
 
     public function detailPWasbitnak($id)
     {
-        $akunuser = User::where('id', $id)->get();
-        // $pegawai = $akunuser->pegawai
-        return view('backend.wasbitnak.pegawai.detail', ["akunuser" => $akunuser]);
+        $akunuser = User::with('pegawai')->where('id', $id)->first();
+        return view('backend.wasbitnak.pegawai.detail', ["akunuser" => $akunuser, "pegawai" => $akunuser->pegawai]);
     }
 
     public function pegawaiWastukan()

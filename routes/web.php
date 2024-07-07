@@ -35,21 +35,36 @@ Route::middleware(['auth', 'checkPembeli'])->group(function () {
         Route::get('/tambah', [PengajuanSapiController::class, 'show'])->name('show.pengajuan.sapi');
         Route::post('/store', [PengajuanSapiController::class, 'store'])->name('store.pengajuan.sapi');
     });
+    Route::prefix('profil-pembeli')->group(function () {
+        Route::get('/detail/{id}', [AkunController::class, 'profilpembeliakun'])->name('detail.profil.pembeli');
+        Route::get('Edit/{id}', [AkunController::class, 'editpembeliakun'])->name('edit.profil.pembeli');
+        Route::put('Update/{id}', [AkunController::class, 'updatepembeliakun'])->name('update.profil.pembeli');
+    });
 });
 // ADMIN 
 Route::middleware(['auth', 'checkAdmin'])->group(function () {
-    Route::get('/admin/akun-pegawai', [AdminController::class, 'indexadmin'])->name('akunadmin');
-    Route::get('/admin/akun-pegawai/{id}', [AkunController::class, 'detailakun'])->name('detailakun');
-    Route::get('/admin/akun-pembeli', [AkunController::class, 'indexpembeli'])->name('akunpembeli');
-    Route::get('/admin/akun-pembeli/{id}', [AkunController::class, 'detailakunpembeli'])->name('detailakunpembeli');
-    Route::get('/admin/profil-admin/{id}', [AkunController::class, 'profiladmin'])->name('profiladmin');
-    Route::get('/admin/akun/edit/{id}', [AkunController::class, 'edit'])->name('akunadmin.edit');
-    Route::put('/admin/akun/update/{id}', [AkunController::class, 'update'])->name('akunadmin.update');
-    Route::delete('/admin/akun/delete/{id}', [AkunController::class, 'delete'])->name('akunadmin.delete');
-    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('dashboard.admin');
-    //ADMIN - DAFTAR PEGAWAI
+    //AKUN PEGAWAI
+    Route::get('/akun-pegawai', [AdminController::class, 'indexadmin'])->name('akunadmin');
+    Route::prefix('akun-pegawai')->group(function () {
+        Route::get('/detail/{id}', [AkunController::class, 'detailakun'])->name('detailakun');
+        Route::get('/edit/{id}', [AkunController::class, 'edit'])->name('akunadmin.edit');
+        Route::put('/update/{id}', [AkunController::class, 'update'])->name('akunadmin.update');
+    });
+    //AKUN PEMBELI
+    Route::get('akun-pembeli/', [AkunController::class, 'indexpembeli'])->name('akunpembeli');
+    Route::get('akun-pembeli/detail/{id}', [AkunController::class, 'detailakunpembeli'])->name('detail.akun.pembeli');
+    Route::get('akun-pembeli/pembeli/edit/{id}', [AkunController::class, 'editpembeli'])->name('pembeliadmin.edit');
+    Route::put('akun-pembeli/pembeli/update/{id}', [AkunController::class, 'updatepembeli'])->name('pembeliadmin.update');
+    //AKUN PROFIL
+    Route::get('akun-profil/admin/', [AkunController::class, 'profil'])->name('profiladmin');
+    Route::get('akun-profil/edit/{id}', [AkunController::class, 'editprofil'])->name('admin.profil.edit');
+    Route::put('akun-profil/update/{id}', [AkunController::class, 'updateprofil'])->name('admin.profil.update');
+    //AKUN DAFTAR
     Route::get('/admin/pegawai/daftar', [AuthController::class, 'pegawaidaftar'])->name('pegawaidaftar');
     Route::post('/admin/pegawai/daftar', [AuthController::class, 'pegawaidaftarsave'])->name('pegawaidaftar.save');
+    //DELETE AKUN
+    Route::delete('/admin/akun/delete/{id}', [AkunController::class, 'delete'])->name('akunadmin.delete');
+    //ADMIN - DAFTAR PEGAWAI
 });
 // KESWAN
 Route::middleware(['auth', 'checkKeswan'])->group(function () {
@@ -63,11 +78,13 @@ Route::middleware(['auth', 'checkKeswan'])->group(function () {
     Route::get('/keswan/edit/{sapi_id}', [SapiController::class, 'edit'])->name('edit.sapi');
     Route::put('/keswan/update/{sapi_id}', [SapiController::class, 'update'])->name('update.sapi');
     Route::delete('/keswan/delete/{sapi_id}', [SapiController::class, 'destroy'])->name('destroy.sapi');
-
-    // KESWAN - DETAIL PROFIL
+    // KESWAN - PEGAWAI
     Route::get('/keswan/list-pegawai', [AdminController::class, 'pegawaiKeswan'])->name('pegawai.keswan');
     Route::get('/keswan/detail-pegawai/{id}', [AdminController::class, 'detailPKeswan'])->name('detail.pegawai.keswan');
+    // KESWAN - PROFIL
     Route::get('/keswan/profil/{id}', [AkunController::class, 'profilkeswan'])->name('profilkeswan');
+    Route::get('/keswan/profil/edit/{id}', [AkunController::class, 'editkeswan'])->name('edit.profil.keswan');
+    Route::put('keswan/profil/update/{id}', [AkunController::class, 'updatekeswan'])->name('update.profil.keswan');
 });
 //WASTUKAN 
 Route::middleware(['auth', 'checkWastukan'])->group(function () {
@@ -111,7 +128,10 @@ Route::middleware(['auth', 'checkWastukan'])->group(function () {
 });
 //WASBITNAK
 Route::middleware(['auth', 'checkWasbitnak'])->group(function () {
-    Route::get('/profil', [AkunController::class, 'profilwasbitnak'])->name('profilwasbitnak');
+    //WASBITNAK - PROFIL
+    Route::get('/waasbitnak/profil/{id}', [AkunController::class, 'profilwasbitnak'])->name('profilwasbitnak');
+    Route::get('/wasbitnak/profil/edit/{id}', [AkunController::class, 'editwasbitnak'])->name('edit.profil.wasbitnak');
+    Route::put('wasbitnak/profil/update/{id}', [AkunController::class, 'updatewasbitnak'])->name('update.profil.wasbitnak');
     //WASBITNAK - JENIS
     Route::get('/wasbitnak', [JenisSapiController::class, 'index'])->name('wasbitnak');
     //WASBITNAK - JENIS KANDANG
@@ -178,7 +198,7 @@ Route::middleware(['auth', 'checkWasbitnak'])->group(function () {
 //PPID
 Route::middleware(['auth', 'checkPPID'])->group(function () {
     Route::get('/daftar-pembeli', [PPIDController::class, 'daftarpembeli'])->name('index.daftar.pembeli');
-    Route::prefix('akun-pembeli')->group(function () {
+    Route::prefix('akun-pembeli-ppid')->group(function () {
         Route::get('/detail/{id}', [PPIDController::class, 'detailPembeli'])->name('detail.ppid.pembeli');
         Route::put('/update/{id}', [PPIDController::class, 'updatePembeli'])->name('update.ppid.pembeli');
         Route::delete('/delete/{id}', [PPIDController::class, 'deletepembeli'])->name('delete.ppid.pembeli');
@@ -197,9 +217,13 @@ Route::middleware(['auth', 'checkPPID'])->group(function () {
         Route::put('/update/{id}', [PPIDController::class, 'updaterumputjual'])->name('update.ppid.rumput');
         Route::delete('/delete/{id}', [PPIDController::class, 'deleterumputjual'])->name('delete.ppid.rumput');
     });
-    // Route::prefix('pengajuan-sapi')->group(function () {
-    //     Route::get('/', [PPIDController::class, 'indexpengajuansapi'])->name('index.ppid.psapi');
-    // });
+    Route::prefix('pengajuan-sapi-ppid')->group(function () {
+        Route::get('/', [PPIDController::class, 'indexpengajuansapi'])->name('index.ppid.psapi');
+    });
+    //PPID - PROFIL
+    Route::get('/PPID/Profil/{id}', [AkunController::class, 'profilppid'])->name('detail.profil.ppid');
+    Route::get('/PPID/Profil/Edit/{id}', [AkunController::class, 'editppid'])->name('edit.profil.ppid');
+    Route::put('/PPID/Profil/Update/{id}', [AkunController::class, 'updateppid'])->name('update.profil.ppid');
 });
 //BENDAHARA
 

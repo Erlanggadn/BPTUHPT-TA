@@ -24,6 +24,11 @@ class ModPegawai extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'pembeli_id', 'id');
+        return $this->belongsTo(User::class,);
+    }
+
+    public function kandang()
+    {
+        return $this->hasMany(User::class);
     }
 }

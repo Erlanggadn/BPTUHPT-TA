@@ -4,4 +4,6 @@
 
 @section('content')
 
-@include('backend.auth.detailprofil')
+@include('backend.admin.template.detail')
+
+<script src="{{ asset ('js/main.js') }}"></script>

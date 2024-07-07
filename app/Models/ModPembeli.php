@@ -27,4 +27,8 @@ class ModPembeli extends Model
     {
         return $this->belongsTo(User::class, 'pembeli_id', 'id');
     }
+    public function sapi()
+    {
+        return $this->hasMany(ModPengajuanSapi::class, 'belisapi_orang', 'pembeli_id');
+    }
 }

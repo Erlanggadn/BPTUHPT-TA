@@ -67,11 +67,11 @@
                                 <div class="col-lg-3 col-md-4 label">Status Sapi</div>
                                 <div class="col-lg-9 col-md-8">
                                     <select name="sapi_status" id="sapi_status" class="form-control" required>
-                                        <option value="">Pilih Status</option>
+                                        <option value="">{{ $sapi->sapi_status }}</option>
+                                        <option value="" disabled>-- Pilih Status --</option>
                                         <option value="Hamil">Hamil</option>
                                         <option value="Menyusui">Menyusui</option>
-                                        <option value="Dijual">Dijual</option>
-                                        <option value="Terjual">Terjual</option>
+                                        <option value="Siap Jual">Siap Jual</option>
                                         <option value="Produktif">Produktif</option>
                                         <option value="Pemeriksaan/Sakit">Pemeriksaan/Sakit</option>
                                         <option value="Karantina">Karantina</option>

@@ -25,6 +25,7 @@ class CreateMasterPengajuanSapiTable extends Migration
             // KEPALA BALAI
             $table->string('belisapi_status');
             $table->string('belisapi_keterangan');
+            $table->timestamps();
 
             $table->foreign('belisapi_orang')->references('pembeli_id')->on('pembeli')->onDelete('cascade');
         });

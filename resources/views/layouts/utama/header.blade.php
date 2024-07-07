@@ -19,8 +19,13 @@
                 <li class="dropdown"><a href="#"><span>Profil</span> <i
                             class="bi bi-chevron-down dropdown-indicator"></i></a>
                     <ul>
-                        <li><a href="{{ route('index.pengajuan.sapi') }}">Pengajuan Beli <i class="bi bi-cart-check-fill"></i></a></li>
-                        <li><a href="#rumput">Profil Saya <i class="bi bi-person-fill-gear"></i></a></li>
+                        <li><a href="{{ route('index.pengajuan.sapi') }}">Pengajuan Beli <i
+                                    class="bi bi-cart-check-fill"></i></a></li>
+                        @isset($akunuser)
+                        <li><a href="{{ route('detail.profil.pembeli', ['id' => $akunuser->id]) }}">Profil Saya <i
+                                    class="bi bi-person-fill-gear"></i></a></li>
+                        @endisset
+
                     </ul>
                 </li>
             </ul>

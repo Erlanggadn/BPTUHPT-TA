@@ -27,7 +27,7 @@
                             Tambah Sapi</a>
                         <a href="{{ route('export.sapi', ['jenis_sapi' => request('jenis_sapi')]) }}"
                             class="btn btn-success mb-4">
-                            <i class="bi bi-file-earmark-excel"></i> Export to Excel
+                            <i class="bi bi-file-earmark-excel"></i> Export ke Excel
                         </a>
                         <form action="{{ route('filter.sapi') }}" method="GET" class="mb-4">
                             <div class="row">

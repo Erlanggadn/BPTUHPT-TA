@@ -2,8 +2,9 @@
     <aside id="sidebar" class="sidebar">
         <ul class="sidebar-nav" id="sidebar-nav">
             <li class="nav-heading">Admin - PROFIL</li>
+
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('profiladmin', Auth::user()->id) }}">
+                <a class="nav-link collapsed" href="{{ route('profiladmin')}}">
                     <i class="bi bi-person-circle"></i>
                     <span>Profil Saya</span>
                 </a>

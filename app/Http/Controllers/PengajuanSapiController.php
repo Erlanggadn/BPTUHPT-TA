@@ -47,6 +47,7 @@ class PengajuanSapiController extends Controller
             'detail_kelamin' => 'required|array',
             'detail_kelamin.*' => 'required|string',
         ]);
+        // dd($request->all());
 
         DB::beginTransaction();
 
@@ -70,11 +71,6 @@ class PengajuanSapiController extends Controller
                 'belisapi_alasan' => $request->belisapi_alasan,
                 'belisapi_status' => 'Pending',
                 'belisapi_keterangan' => 'belum ada',
-
-                'created_id' => auth()->user()->id,
-                'created_nama' => auth()->user()->name,
-                'updated_id' => auth()->user()->id,
-                'updated_nama' => auth()->user()->name,
             ]);
 
             foreach ($validated['detail_jenis'] as $key => $jenis) {

@@ -18,10 +18,6 @@
                             Padang Mengatas
                         </p>
                         <p>Jumlah Pegawai Saat Ini : <b>{{ $jumlahPegawai }}</b></p>
-                        <a class="btn btn-outline-success mb-4" href=""><i class="bi bi-file-earmark-spreadsheet"></i>
-                            Cetak Excel</a>
-                        <a class="btn btn-outline-danger mb-4" href=""><i class="bi bi-file-earmark-pdf-fill"></i> Cetak
-                            PDF</a>
 
                         <!-- Table with stripped rows -->
                         <div class="table-responsive">
@@ -29,8 +25,8 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Email</th>
                                         <th>Nama</th>
+                                        <th>No Hp</th>
                                         <th>Jabatan</th>
                                         <th>Tgl Buat</th>
                                         <th>Action</th>
@@ -40,9 +36,9 @@
                                     @isset($akunuser)
                                     @foreach ($akunuser as $item)
                                     <tr>
-                                        <td>{{ $item->id }}</td>
-                                        <td>{{ $item->email }}</td>
-                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $item->pegawai->pegawai_id}}</td>
+                                        <td>{{ $item->pegawai->pegawai_nama}}</td>
+                                        <td>{{ $item->pegawai->pegawai_nohp }}</td>
                                         <td>{{ $item->role }}</td>
                                         <td>{{ $item->created_at->translatedFormat('d F Y') }}</td>
                                         <td><a class="btn btn-outline-success"

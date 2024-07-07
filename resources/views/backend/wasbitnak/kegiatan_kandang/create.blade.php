@@ -18,8 +18,14 @@
                         <form action="{{ route('store.kegiatan.kandang') }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
+                            <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">Pegawai</div>
+                                <div class="col-lg-9 col-md-10">
+                                    <input name="kegiatan_orang_display" class="form-control" value="{{ $user->pegawai ? $user->pegawai->pegawai_nama : $user->name }}" disabled>
+                                    <input type="hidden" name="kegiatan_orang" value="{{ $user->pegawai ? $user->pegawai->pegawai_id : '' }}">
+                                </div>
+                            </div>
                             <div class="row mb-4">
-
                                 <div class="col-lg-3 col-md-4 label">Tipe Kandang</div>
                                 <div class="col-lg-9 col-md-8">
                                     <select name="kegiatan_jenis_kandang" class="form-select">
@@ -59,6 +65,7 @@
                                     <textarea name="kegiatan_keterangan" class="form-control"></textarea>
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Upload Foto</div>
                                 <div class="col-lg-9 col-md-8">

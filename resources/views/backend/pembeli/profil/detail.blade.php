@@ -1,6 +1,6 @@
 @include('layouts.utama.main2')
-@include('layouts.ppid.navbar')
-@include('layouts.ppid.sidebar')
+@include('layouts.pembeli.navbar')
+@include('layouts.pembeli.sidebar')
 
 <main id="main" class="main">
     <section class="section profile">
@@ -10,7 +10,7 @@
                 <div class="card-body pt-3">
 
                     <div class="tab-content pt-2">
-                        <h5 class="card-title">Profil Pembeli</h5>
+                        <h5 class="card-title">Profil Anda</h5>
 
                         @if (session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -18,24 +18,29 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                         @endif
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
 
-                        <form action="{{ route('update.ppid.pembeli', $akunuser->id) }}" method="POST">
+                        <form action="{{ route('update.profil.pembeli', $akunuser->id) }}" method="POST">
                             @csrf
                             @method('PUT')
+
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Email</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input type="email" name="email" class="form-control" value="{{ $akunuser->email }}"
-                                        disabled>
+                                    <input type="email" name="email" class="form-control"
+                                        value="{{ $akunuser->email }}">
                                 </div>
                             </div>
+
                             @isset($pembeli)
-                            <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">ID Pembeli</div>
-                                <div class="col-lg-9 col-md-8">
-                                    <input type="text" class="form-control" value="{{ $pembeli->pembeli_id }}" disabled>
-                                </div>
-                            </div>
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Nama</div>
                                 <div class="col-lg-9 col-md-8">
@@ -73,7 +78,6 @@
                             </div>
                             @endisset
 
-
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Tanggal Buat</div>
                                 <div class="col-lg-9 col-md-8">
@@ -81,12 +85,41 @@
                                         value="{{ $akunuser->created_at->format('d-m-Y') }}" disabled>
                                 </div>
                             </div>
+
+                            <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">Ubah Password</div>
+                                <div class="col-lg-9 col-md-8">
+                                    <input type="checkbox" id="change_password" name="change_password">
+                                </div>
+                            </div>
+
+                            <div id="password_fields" style="display: none;">
+                                <div class="row mb-3">
+                                    <div class="col-lg-3 col-md-4 label">Password Saat Ini</div>
+                                    <div class="col-lg-9 col-md-8">
+                                        <input type="password" name="current_password" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-lg-3 col-md-4 label">Password Baru</div>
+                                    <div class="col-lg-9 col-md-8">
+                                        <input type="password" name="new_password" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-lg-3 col-md-4 label">Konfirmasi Password Baru</div>
+                                    <div class="col-lg-9 col-md-8">
+                                        <input type="password" name="new_password_confirmation" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="text-center">
                                 <button type="submit" class="btn btn-outline-success">Update</button>
-                                <a href="{{ route('index.daftar.pembeli') }}"
-                                    class="btn btn-outline-secondary">Kembali</a>
+                                <a href="{{ route('home') }}" class="btn btn-outline-secondary">Kembali</a>
                             </div>
                         </form>
+
 
                     </div>
 
@@ -125,4 +158,12 @@
         @endif
 
     </script>
+    <script>
+        document.getElementById('change_password').addEventListener('change', function () {
+            var passwordFields = document.getElementById('password_fields');
+            passwordFields.style.display = this.checked ? 'block' : 'none';
+        });
+
+    </script>
+
 </main>

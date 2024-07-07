@@ -22,10 +22,6 @@ class ModPengajuanSapi extends Model
         'belisapi_alasan',
         'belisapi_status',
         'belisapi_keterangan',
-        'created_id',
-        'created_nama',
-        'updated_id',
-        'updated_nama',
     ];
 
     public function details()
@@ -35,6 +31,6 @@ class ModPengajuanSapi extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'belisapi_orang', 'id');
+        return $this->belongsTo(ModPembeli::class, 'belisapi_orang', 'pembeli_id');
     }
 }

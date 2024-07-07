@@ -28,6 +28,8 @@ class CreateMasterKegiatanKandangTable extends Migration
             $table->timestamp('updated_at')->useCurrent();
 
             $table->foreign('kegiatan_jenis_kandang')->references('kand_id')->on('master_kandang')->onDelete('cascade');
+
+            $table->foreign('kegiatan_orang')->references('pegawai_id')->on('pegawai')->onDelete('cascade');
         });
     }
 

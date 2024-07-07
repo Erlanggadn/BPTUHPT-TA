@@ -90,8 +90,6 @@ class SapiJualController extends Controller
         $sapi->sapi_keterangan = $request->sapi_keterangan;
         $sapi->sapi_status = $request->sapi_status; // Set status
         $sapi->sapi_umur = Carbon::parse($sapi->sapi_tanggal_lahir)->diffInMonths(Carbon::now()); // Hitung ulang umur
-        $sapi->updated_id = auth()->user()->id;
-        $sapi->updated_nama = auth()->user()->name;
         $sapi->save();
 
         return redirect()->route('detail.sapi.wasbitnak', $id)->with('success', 'Data sapi berhasil diperbarui');
@@ -109,7 +107,7 @@ class SapiJualController extends Controller
     {
         $jenisSapi = $request->input('jenis_sapi');
         $bulanLahir = $request->input('bulan_lahir');
-        $tahunLahir = $request->input('tahun_lahir'); // Ambil input tahun lahir
+        $tahunLahir = $request->input('tahun_lahir');
 
         $Sapi = ModSapi::with('jenisSapi')
             ->when($jenisSapi, function ($query, $jenisSapi) {
@@ -120,14 +118,16 @@ class SapiJualController extends Controller
             ->when($bulanLahir, function ($query, $bulanLahir) {
                 return $query->whereMonth('sapi_tanggal_lahir', $bulanLahir);
             })
-            ->when($tahunLahir, function ($query, $tahunLahir) { // Tambahkan kondisi untuk tahun lahir
+            ->when($tahunLahir, function ($query, $tahunLahir) {
                 return $query->whereYear('sapi_tanggal_lahir', $tahunLahir);
             })
-            ->get();
 
+            ->get();
         $jenisList = ModJenisSapi::all();
+
         return view('backend.wasbitnak.sapi.index', compact('Sapi', 'jenisList'));
     }
+
 
     public function export(Request $request)
     {

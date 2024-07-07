@@ -3,7 +3,7 @@
         <ul class="sidebar-nav" id="sidebar-nav">
             <li class="nav-heading">ppid- PROFIL</li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="">
+                <a class="nav-link collapsed" href="{{ route('detail.profil.ppid', Auth::user()->id) }}">
                     <i class="bi bi-person-circle"></i>
                     <span>Profil Saya</span>
                 </a>
@@ -31,7 +31,7 @@
             </li>
             <li class="nav-heading">PPID - Pengajuan Beli</li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('index.daftar.pembeli') }}">
+                <a class="nav-link collapsed" href="{{ route('index.ppid.psapi') }}">
                     <i class="bi bi-list-nested"></i>
                     <span>Beli Sapi</span>
                 </a>

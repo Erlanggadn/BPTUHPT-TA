@@ -1,7 +1,6 @@
 @include('layouts.utama.main2')
-@include('layouts.keswan.navbar')
-@include('layouts.keswan.sidebar')
+@include('layouts.ppid.navbar')
+@include('layouts.ppid.sidebar')
 
 @section('content')
-
 @include('backend.admin.template.detail')

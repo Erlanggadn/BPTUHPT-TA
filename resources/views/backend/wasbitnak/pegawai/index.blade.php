@@ -22,7 +22,7 @@
                             Padang
                             Mengatas
                         </p>
-                        <p>Jumlah Pegawai Keswan Saat Ini : <b>{{ $jumlahPWasbitnak }}</b></p>
+                        <p>Jumlah Pegawai Wasbitnak Saat Ini : <b>{{ $jumlahPWasbitnak }}</b></p>
 
                         <!-- Table with stripped rows -->
                         <table class="table datatable">
@@ -30,16 +30,18 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Nama</th>
+                                    <th>No hp</th>
                                     <th>Tgl Buat</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @isset($jumlahWasbitnak)
-                                @foreach ($jumlahWasbitnak as $item)
+                                @isset($akunuser)
+                                @foreach ($akunuser as $item)
                                 <tr>
-                                    <td><span class="badge bg-primary">{{ $item->id }}</span></td>
-                                    <td>{{ $item->name }}</td>
+                                    <td><span class="badge bg-primary">{{ $item->pegawai->pegawai_id }}</span></td>
+                                    <td>{{ $item->pegawai->pegawai_nama }}</td>
+                                    <td>{{ $item->pegawai->pegawai_nohp }}</td>
                                     <td>{{ $item->created_at->translatedFormat('d F Y') }}</td>
                                     <td><a class="btn btn-outline-success"
                                             href="{{ route('detail.pegawai.wasbitnak', $item->id) }}"><i

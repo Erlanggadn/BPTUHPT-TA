@@ -8,6 +8,7 @@ use App\Models\ModRumput;
 use App\Models\ModJenisSapi;
 use Illuminate\Http\Request;
 use App\Models\ModJenisRumput;
+use App\Models\ModPengajuanSapi;
 use Illuminate\Support\Carbon;
 use PhpParser\Node\Expr\FuncCall;
 use Illuminate\Routing\Controller;
@@ -21,47 +22,34 @@ class PPIDController extends Controller
     //DAFTAR PEMBELI
     public function daftarpembeli()
     {
-        $jumlahPembeli = User::whereNotIn('role', ['admin', 'ppid', 'wasbitnak', 'keswan', 'kepala', 'wastukan', 'bendahara'])->get();
-        $jumlahPpembeli = User::whereNotIn('role', ['admin', 'ppid', 'wasbitnak', 'keswan', 'kepala', 'wastukan', 'bendahara'])->count();
-        return view('backend.ppid.daftar_pembeli.index', ['jumlahPembeli' => $jumlahPembeli, 'jumlahPpembeli' => $jumlahPpembeli]);;
+        $akunuser = User::with('pembeli')
+            ->whereNotIn('role', ['admin', 'ppid', 'wastukan', 'wasbitnak', 'kepala', 'keswan', 'bendahara'])
+            ->get();
+        $jumlahPembeli = $akunuser->count();
+        return view('backend.ppid.daftar_pembeli.index', ['akunuser' => $akunuser, 'jumlahPembeli' => $jumlahPembeli]);
     }
     public function detailPembeli($id)
     {
-        $akunuser = User::find($id);
-        if (!$akunuser) {
-            return redirect()->route('index.daftar.pembeli')->with('error', 'Pembeli tidak ditemukan');
-        }
-        return view('backend.ppid.daftar_pembeli.detail', ["akunuser" => $akunuser]);
+        $akunuser = User::with('pembeli')->where('id', $id)->first();
+        return view('backend.ppid.daftar_pembeli.detail', ["akunuser" => $akunuser, "pembeli" => $akunuser->pembeli]);
     }
     public function updatePembeli(Request $request, $id)
     {
-        $akunuser = User::findOrFail($id);
-        // dd($request->all());
+        $akunuser = User::with('pembeli')->findOrFail($id);
 
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'name' => 'required|string',
-            'nohp' => 'required|numeric',
-            'alamat' => 'required|string',
-            'current_password' => 'nullable|string',
-            'new_password' => 'nullable|string|confirmed',
+            'pembeli_instansi' => 'required|string',
+            'pembeli_nama' => 'required|string',
+            'pembeli_alamat' => 'required|string',
+            'pembeli_nohp' => 'required',
+            'pembeli_lahir' => 'required|date',
         ]);
+        // dd($request->all());
 
-        // Tambahkan pesan error custom 
-        $validator->after(function ($validator) use ($request, $akunuser) {
-            if ($request->filled('current_password') && !Hash::check($request->current_password, $akunuser->password)) {
-                $validator->errors()->add('current_password', 'Password tidak sesuai');
-            }
-        });
+        if ($akunuser->pembeli) {
+            $akunuser->pembeli->update($request->only('pembeli_instansi', 'pembeli_nama', 'pembeli_alamat', 'pembeli_nohp', 'pembeli_lahir'));
+        }
 
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
-        $data = $request->except('password', 'new_password', 'current_password', 'new_password_confirmation');
-        if ($request->filled('new_password')) {
-            $data['password'] = Hash::make($request->new_password);
-        }
-        $akunuser->update($data);
         return redirect()->route('detail.ppid.pembeli', $akunuser->id)->with('berhasil.edit', 'Akun berhasil diperbarui');
     }
     public function deletepembeli($id)
@@ -76,7 +64,7 @@ class PPIDController extends Controller
     public function indexsapijual()
     {
         $Sapi = ModSapi::with('jenisSapi')
-            ->whereIn('sapi_status', ['dijual', 'terjual'])
+            ->whereIn('sapi_status', ['Siap Jual', 'terjual'])
             ->get();
 
         $jenisList = ModJenisSapi::all();
@@ -217,10 +205,11 @@ class PPIDController extends Controller
         $rumput->delete();
         return redirect()->route('index.ppid.rumput')->with('success', 'Data rumput berhasil dihapus');
     }
-    
+
     //PENGAJUAN SAPI
     public function indexpengajuansapi()
     {
-
+        $PSapi = ModPengajuanSapi::with('user')->get();
+        return view('backend.ppid.pengajuan-sapi.index', compact('PSapi'));
     }
 }

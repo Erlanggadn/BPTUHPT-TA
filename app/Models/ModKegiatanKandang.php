@@ -40,4 +40,9 @@ class ModKegiatanKandang extends Model
     {
         return $this->hasMany(ModDetailKandangSapi::class, 'detail_kandang', 'kegiatan_id');
     }
+
+    public function pegawai()
+    {
+        return $this->belongsTo(ModPegawai::class, 'kegiatan_orang', 'pegawai_id');
+    }
 }

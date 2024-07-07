@@ -31,20 +31,22 @@
                                 <div class="col-lg-3 col-md-4 label">Nama Anda</div>
                                 <div class="col-lg-9 col-md-8">
                                     <input type="hidden" name="belisapi_orang" id="belisapi_orang"
-                                        value="{{ $currentUser->id }}">
-                                    <input type="text" class="form-control" value="{{ $currentUser->name }}" disabled>
+                                        value="{{ $currentUser->pembeli ? $currentUser->pembeli->pembeli_id : $currentUser->name }}">
+                                    <input type="text" class="form-control"
+                                        value="{{ $currentUser->pembeli ? $currentUser->pembeli->pembeli_nama : '' }}"
+                                        disabled>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Email</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input type="hidden" name="" id="belisapi_orang" value="">
+                                    <input type="hidden" name="" id="" value="">
                                     <input type="text" class="form-control" value="{{ $currentUser->email }}" disabled>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Nomor HP</div>
+                                <div class="col-lg-3 col-md-4 label">Nomor HP Perusahaan/Instansi</div>
                                 <div class="col-lg-9 col-md-8">
                                     <input type="text" name="belisapi_nohp" id="belisapi_nohp" class="form-control"
                                         required>
@@ -52,7 +54,7 @@
                             </div>
 
                             <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Alamat</div>
+                                <div class="col-lg-3 col-md-4 label">Alamat Perusahaan/Instansi</div>
                                 <div class="col-lg-9 col-md-8">
                                     <input type="text" name="belisapi_alamat" id="belisapi_alamat" class="form-control"
                                         required>
@@ -136,14 +138,16 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-center mb-4">
-                                <button type="button" class="btn btn-outline-primary" id="add-field">Tambah Jenis
+                            <p class="badge bg-danger">*jika membeli lebih dari satu jenis</p>
+                            <div class=" mb-4">
+                                <button type="button" class="btn btn-primary" id="add-field">Tambah Jenis
                                     Sapi</button>
+
                             </div>
 
                             <div class="text-center mb-4">
-                                <button type="submit" class="btn btn-outline-success">Ajukan Pembelian</button>
-                                <a href="{{ route('home') }}" class="btn btn-outline-secondary">Kembali</a>
+                                <button type="submit" class="btn btn-success">Ajukan Pembelian</button>
+                                <a href="{{ route('home') }}" class="btn btn-secondary">Kembali</a>
                             </div>
                         </form>
                     </div>
