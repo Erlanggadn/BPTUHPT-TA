@@ -25,10 +25,10 @@ class ModPembeli extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'pembeli_id', 'id');
+        return $this->belongsTo(User::class, 'pembeli_detail', 'id');
     }
     public function sapi()
-    {
+    { 
         return $this->hasMany(ModPengajuanSapi::class, 'belisapi_orang', 'pembeli_id');
     }
 }

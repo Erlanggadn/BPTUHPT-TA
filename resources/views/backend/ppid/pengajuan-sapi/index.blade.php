@@ -50,20 +50,20 @@ use Carbon\Carbon;
                                         <td>{{ Carbon::parse($item->belisapi_tanggal)->translatedFormat('j F Y') }}</td>
                                         <td>{{ $item->belisapi_keterangan }}</td>
                                         <td>{{ $item->belisapi_status}}</td>
-                                        {{-- <td> <a class="btn btn-outline-success"
-                                                href="{{ route('detail.ppid.rumput', $item->rumput_id) }}"><i
+                                        <td> <a class="btn btn-outline-success"
+                                                href="{{ route('detail.ppid.psapi', $item->belisapi_id) }}"><i
                                             class="bi bi-info-lg"></i></a>
                                         <form id="deleteForm"
-                                            action="{{ route('delete.ppid.rumput', $item->rumput_id) }}" method="POST"
+                                            action="{{ route('delete.ppid.psapi', $item->belisapi_id) }}" method="POST"
                                             style="display: inline;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="button" class="btn btn-outline-danger"
-                                                onclick="showDeleteModal('{{ route('delete.ppid.rumput', $item->rumput_id) }}')">
+                                                onclick="showDeleteModal('{{ route('delete.ppid.psapi', $item->belisapi_id) }}')">
                                                 <i class="bi bi-trash-fill"></i>
                                             </button>
                                         </form>
-                                        </td> --}}
+                                        </td>
                                     </tr>
                                     @endforeach
                                     @endisset
@@ -85,7 +85,7 @@ use Carbon\Carbon;
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Apakah Anda yakin ingin menghapus data Rumput ini?</p>
+                    <p>Apakah Anda yakin ingin menghapus data Pengajuan Pembelian Sapi ini?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>

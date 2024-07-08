@@ -61,6 +61,10 @@
                             <a href="{{ route('edit.profil.ppid', ['id' => $user->id]) }}"
                                 class="btn btn-outline-warning edit"><i class="bi bi-pencil-square"></i> Edit</a>
                             @endif
+                            @if(Auth::user()->role == 'kepala')
+                            <a href="{{ route('edit.profil.kepala', ['id' => $user->id]) }}"
+                                class="btn btn-outline-warning edit"><i class="bi bi-pencil-square"></i> Edit</a>
+                            @endif
                         </div>
                     </div><!-- End Bordered Tabs -->
                 </div>

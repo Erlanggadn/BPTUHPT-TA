@@ -1,6 +1,6 @@
 @include('layouts.utama.main2')
-@include('layouts.ppid.navbar')
-@include('layouts.ppid.sidebar')
+@include('layouts.kepala.navbar')
+@include('layouts.kepala.sidebar')
 
 <main id="main" class="main">
     <section class="section profile">
@@ -25,7 +25,7 @@
                             </ul>
                         </div>
                         @endif
-                        <form action="{{ route('update.pengajuan.sapi', $pengajuan->belisapi_id) }}" method="POST"
+                        <form action="{{ route('update.kepala.psapi', $pengajuan->belisapi_id) }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
@@ -33,8 +33,6 @@
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Nama </div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input type="hidden" name="belisapi_orang" id="belisapi_orang"
-                                        value="{{ $pengajuan->belisapi_orang }}">
                                     <input type="text" class="form-control"
                                         value="{{  $pengajuan->user->pembeli_nama }}" disabled>
                                 </div>
@@ -42,7 +40,6 @@
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Asal Instansi</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input type="hidden" name="belisapi_orang" id="belisapi_orang" value="">
                                     <input type="text" class="form-control"
                                         value="{{  $pengajuan->user->pembeli_instansi }}" disabled>
                                 </div>
@@ -51,23 +48,22 @@
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Nomor HP Perusahaan/Instansi</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input type="text" name="belisapi_nohp" id="belisapi_nohp" class="form-control"
-                                        value="{{ $pengajuan->belisapi_nohp }}" required>
+                                    <input type="text" class="form-control" value="{{ $pengajuan->belisapi_nohp }}"
+                                        disabled>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Alamat Perusahaan/Instansi</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input type="text" name="belisapi_alamat" id="belisapi_alamat" class="form-control"
-                                        value="{{ $pengajuan->belisapi_alamat }}" required>
+                                    <input type="text" class="form-control" value="{{ $pengajuan->belisapi_alamat }}"
+                                        disabled>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Surat Pengajuan</div>
                                 <div class="col-lg-9 col-md-8 ">
-                                    <input type="file" name="belisapi_surat" id="belisapi_surat" class="form-control">
                                     <a class="mb-4" href="{{ asset('uploads/' . $pengajuan->belisapi_surat) }}"
                                         target="_blank"><span class="badge bg-primary">Lihat Surat</span></a>
                                 </div>
@@ -76,16 +72,15 @@
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Tanggal Pengajuan</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input type="date" name="belisapi_tanggal" id="belisapi_tanggal"
-                                        class="form-control" value="{{ $pengajuan->belisapi_tanggal }}" required>
+                                    <input type="date" class="form-control" value="{{ $pengajuan->belisapi_tanggal }}"
+                                        disabled>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Alasan Pembelian</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <textarea name="belisapi_alasan" id="belisapi_alasan" class="form-control"
-                                        required>{{ $pengajuan->belisapi_alasan }}</textarea>
+                                    <textarea class="form-control" disabled>{{ $pengajuan->belisapi_alasan }}</textarea>
                                 </div>
                             </div>
 
@@ -95,7 +90,7 @@
                                 <div class="row mb-3">
                                     <div class="col-lg-3 col-md-4 label">Jenis Sapi</div>
                                     <div class="col-lg-9 col-md-8">
-                                        <select name="detail_jenis[]" id="detail_jenis" class="form-select" required>
+                                        <select class="form-select" disabled>
                                             @foreach($sapiJenis as $jenis)
                                             <option value="{{ $jenis->sjenis_id }}"
                                                 {{ $detail->detail_jenis == $jenis->sjenis_id ? 'selected' : '' }}>
@@ -108,8 +103,7 @@
                                 <div class="row mb-3">
                                     <div class="col-lg-3 col-md-4 label">Kategori Sapi</div>
                                     <div class="col-lg-9 col-md-8">
-                                        <select name="detail_kategori[]" id="detail_kategori" class="form-select"
-                                            required>
+                                        <select class="form-select" disabled>
                                             <option value="Bibit"
                                                 {{ $detail->detail_kategori == 'Bibit' ? 'selected' : '' }}>Bibit
                                             </option>
@@ -145,16 +139,15 @@
                                 <div class="row mb-3">
                                     <div class="col-lg-3 col-md-4 label">Jumlah Sapi</div>
                                     <div class="col-lg-9 col-md-8">
-                                        <input type="number" name="detail_jumlah[]" id="detail_jumlah"
-                                            class="form-control" value="{{ $detail->detail_jumlah }}" required>
+                                        <input type="number" class="form-control" value="{{ $detail->detail_jumlah }}"
+                                            disabled>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
                                     <div class="col-lg-3 col-md-4 label">Jenis Kelamin Sapi</div>
                                     <div class="col-lg-9 col-md-8">
-                                        <select name="detail_kelamin[]" id="detail_kelamin" class="form-select"
-                                            required>
+                                        <select class="form-select" disabled>
                                             <option value="Jantan"
                                                 {{ $detail->detail_kelamin == 'Jantan' ? 'selected' : '' }}>Jantan
                                             </option>
@@ -166,14 +159,36 @@
                                 </div>
                                 @endforeach
                             </div>
-                            <p class="badge bg-danger">*jika membeli lebih dari satu jenis</p>
-                            <div class=" mb-4">
-                                <button type="button" class="btn btn-primary" id="add-field">Tambah Jenis Sapi</button>
+
+                            <!-- Form untuk status dan keterangan -->
+                            <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">Status</div>
+                                <div class="col-lg-9 col-md-8">
+                                    <select name="belisapi_status" class="form-select" required>
+                                        <option value="Pending"
+                                            {{ $pengajuan->belisapi_status == 'Pending' ? 'selected' : '' }}>
+                                            Pending</option>
+                                        <option value="Approved"
+                                            {{ $pengajuan->belisapi_status == 'Approved' ? 'selected' : '' }}>Approved
+                                        </option>
+                                        <option value="Rejected"
+                                            {{ $pengajuan->belisapi_status == 'Rejected' ? 'selected' : '' }}>Rejected
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">Keterangan</div>
+                                <div class="col-lg-9 col-md-8">
+                                    <textarea name="belisapi_keterangan" class="form-control"
+                                        required>{{ $pengajuan->belisapi_keterangan }}</textarea>
+                                </div>
                             </div>
 
                             <div class="text-center mb-4">
                                 <button type="submit" class="btn btn-success">Update Pengajuan</button>
-                                <a href="{{ route('index.ppid.psapi') }}" class="btn btn-secondary">Kembali</a>
+                                <a href="{{ route('index.kepala.psapi') }}" class="btn btn-secondary">Kembali</a>
                             </div>
                         </form>
                     </div>
@@ -223,16 +238,3 @@
 
     </script>
 </main>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var dynamicField = document.getElementById('dynamic-field');
-        var addFieldButton = document.getElementById('add-field');
-
-        addFieldButton.addEventListener('click', function () {
-            var clone = dynamicField.cloneNode(true);
-            document.querySelector('form').insertBefore(clone, addFieldButton.parentElement);
-        });
-    });
-
-</script>

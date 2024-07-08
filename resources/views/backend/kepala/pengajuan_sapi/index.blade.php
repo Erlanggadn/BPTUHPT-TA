@@ -2,14 +2,13 @@
 use Carbon\Carbon;
 @endphp
 @include('layouts.utama.main2')
-@include('layouts.pembeli.navbar')
-@include('layouts.pembeli.sidebar')
-
+@include('layouts.kepala.navbar')
+@include('layouts.kepala.sidebar')
 
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Selamat Datang, <b>{{ Auth::user()->pembeli->pembeli_nama }} </b> </h1>
+        <h1>Selamat Datang, <b>{{ Auth::user()->name }} </b> sebagai {{ Auth::user()->role }}</h1>
     </div><!-- End Page Title -->
 
     <section class="section">
@@ -17,13 +16,9 @@ use Carbon\Carbon;
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title"></h5>
-                        <p>Silahkan Tunggu data anda sedang diverifikasi, anda akan dihubungi dan menerima notifikasi
-                            tentang
-                            status pengajuan pembelian sapi anda, Terima kasih telah mempercayai <b>BPTU HPT Padang
-                                Mengatas</b>. Jika mengalami masalah silahkan hubungi <a
-                                href="https://wa.me/082169402404?text=Halo%20BPTU%20HPT%20Padang%20Mengatas"><span
-                                    class="badge bg-success">admin</span></a>.
+                        <h5 class="card-title">Data Pengajuan Sapi</h5>
+                        <p>Berikut ini adalah data Pengajuan Sapi yang sepenuhnya dikelola oleh <b>Divisi PPID</b> BPTU
+                            HPT Padang Mengatas
                         </p>
                         @if (session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -39,7 +34,8 @@ use Carbon\Carbon;
                                         <th>ID Pengajuan</th>
                                         <th>Nama Pengirim</th>
                                         <th>Asal Instansi</th>
-                                        <th>Tanggal Kirim</th>
+                                        <th>Tanggal Masuk</th>
+                                        <th>Keterangan</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -52,9 +48,10 @@ use Carbon\Carbon;
                                         <td>{{ $item->user->pembeli_nama }}</td>
                                         <td>{{ $item->user->pembeli_instansi }}</td>
                                         <td>{{ Carbon::parse($item->belisapi_tanggal)->translatedFormat('j F Y') }}</td>
+                                        <td>{{ $item->belisapi_keterangan }}</td>
                                         <td>{{ $item->belisapi_status}}</td>
                                         <td> <a class="btn btn-outline-success"
-                                                href="{{ route('detail.pengajuan.sapi', $item->belisapi_id) }}"><i
+                                                href="{{ route('detail.kepala.psapi', $item->belisapi_id) }}"><i
                                                     class="bi bi-info-lg"></i></a>
                                         </td>
                                     </tr>

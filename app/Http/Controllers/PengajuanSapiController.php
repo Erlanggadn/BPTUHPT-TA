@@ -5,19 +5,30 @@ namespace App\Http\Controllers;
 use Dotenv\Util\Str;
 use App\Models\ModJenisSapi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Models\ModPengajuanSapi;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Auth;
 use App\Models\ModDetailPengajuanSapi;
-use Illuminate\Support\Facades\Validator;
 
 class PengajuanSapiController extends Controller
 {
     public function index()
     {
-        return view('backend.pembeli.pengajuan_sapi.index');
+        $userId = Auth::id();
+
+        // Ambil data pembeli terkait pengguna yang sedang login
+        $pembeli = Auth::user()->pembeli;
+
+        // Dapatkan data pengajuan sapi yang dimiliki oleh pengguna yang sedang login
+        $PSapi = ModPengajuanSapi::with('user')
+            ->where('belisapi_orang', $pembeli->pembeli_id)
+            ->get();
+
+        return view('backend.pembeli.pengajuan_sapi.index', compact('PSapi'));
     }
     public function show()
     {
@@ -47,7 +58,7 @@ class PengajuanSapiController extends Controller
             'detail_kelamin' => 'required|array',
             'detail_kelamin.*' => 'required|string',
         ]);
-        // dd($request->all());
+
 
         DB::beginTransaction();
 
@@ -69,8 +80,8 @@ class PengajuanSapiController extends Controller
                 'belisapi_surat' => $filename,
                 'belisapi_tanggal' => $request->belisapi_tanggal,
                 'belisapi_alasan' => $request->belisapi_alasan,
-                'belisapi_status' => 'Pending',
-                'belisapi_keterangan' => 'belum ada',
+                'belisapi_status' => 'Belum Verifikasi',
+                'belisapi_keterangan' => 'Belum Ada',
             ]);
 
             foreach ($validated['detail_jenis'] as $key => $jenis) {
@@ -94,5 +105,86 @@ class PengajuanSapiController extends Controller
             DB::rollBack();
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
+    }
+    public function detail($id)
+    {
+        $pengajuan = ModPengajuanSapi::with('details')->findOrFail($id);
+        $sapiJenis = ModJenisSapi::all();
+        $currentUser = auth()->user();
+
+        return view('backend.pembeli.pengajuan_sapi.detail', compact('pengajuan', 'sapiJenis', 'currentUser'));
+    }
+
+    // Function untuk mengupdate pengajuan
+    public function update(Request $request, $id)
+    {
+        $today = date('Y-m-d');
+        $validated = $request->validate([
+            'belisapi_orang' => 'required|string',
+            'belisapi_nohp' => 'required|string',
+            'belisapi_alamat' => 'required|string',
+            'belisapi_surat' => 'file|mimes:jpeg,png,jpg,pdf|max:2048',
+            'belisapi_tanggal' => 'required|date|after_or_equal:' . $today,
+            'belisapi_alasan' => 'required|string',
+
+            'detail_jenis' => 'required|array',
+            'detail_jenis.*' => 'required|string|exists:master_sapi_jenis,sjenis_id',
+            'detail_kategori' => 'required|array',
+            'detail_kategori.*' => 'required|string',
+            'detail_jumlah' => 'required|array',
+            'detail_jumlah.*' => 'required|integer',
+            'detail_kelamin' => 'required|array',
+            'detail_kelamin.*' => 'required|string',
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+            $pengajuan = ModPengajuanSapi::findOrFail($id);
+
+            // Update file jika ada file baru
+            if ($request->hasFile('belisapi_surat')) {
+                $file = $request->file('belisapi_surat');
+                $filename = time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('uploads'), $filename);
+                $pengajuan->belisapi_surat = $filename;
+            }
+
+            // Update data pengajuan
+            $pengajuan->belisapi_orang = $request->belisapi_orang;
+            $pengajuan->belisapi_nohp = $request->belisapi_nohp;
+            $pengajuan->belisapi_alamat = $request->belisapi_alamat;
+            $pengajuan->belisapi_tanggal = $request->belisapi_tanggal;
+            $pengajuan->belisapi_alasan = $request->belisapi_alasan;
+            $pengajuan->save();
+
+            // Hapus detail lama
+            ModDetailPengajuanSapi::where('detail_pengajuan', $id)->delete();
+
+            // Tambah detail baru
+            foreach ($validated['detail_jenis'] as $key => $jenis) {
+                $lastCode = ModDetailPengajuanSapi::orderBy('detail_id', 'desc')->first();
+                $newCode = $lastCode ? 'DPS' . str_pad(((int) substr($lastCode->detail_id, 3)) + 1, 3, '0', STR_PAD_LEFT) : 'DPS001';
+
+                ModDetailPengajuanSapi::create([
+                    'detail_id' => $newCode,
+                    'detail_pengajuan' => $id,
+                    'detail_jenis' => $jenis,
+                    'detail_kategori' => $validated['detail_kategori'][$key],
+                    'detail_jumlah' => $validated['detail_jumlah'][$key],
+                    'detail_kelamin' => $validated['detail_kelamin'][$key],
+                ]);
+            }
+
+            DB::commit();
+
+            return redirect()->route('index.pengajuan.sapi')->with('success', 'Pengajuan berhasil diupdate.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+    public function delete()
+    {
     }
 }

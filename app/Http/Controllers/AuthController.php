@@ -40,7 +40,7 @@ class AuthController extends Controller
             'role' => 'pembeli'
         ]);
         $lastKode = ModPembeli::orderBy('pembeli_id', 'desc')->first();
-        $newKode = $lastKode ? 'PMB' . str_pad(((int) substr($lastKode->pembeli_id, 1)) + 1, 3, '0', STR_PAD_LEFT) : 'PMB001';
+        $newKode = $lastKode ? 'PMB' . str_pad(((int) substr($lastKode->pembeli_id, 3)) + 1, 3, '0', STR_PAD_LEFT) : 'PMB001';
 
         ModPembeli::create([
             'pembeli_id' => $newKode,
@@ -106,10 +106,10 @@ class AuthController extends Controller
                     $route = '/daftar-pembeli';
                     break;
                 case 'kepala':
-                    $route = 'kepala';
+                    $route = '/dasboard/kepala';
                     break;
                 case 'bendahara':
-                    $route = 'bendahara';
+                    $route = '/dasboard/Bendahara';
                     break;
             }
 

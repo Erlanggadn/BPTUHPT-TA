@@ -10,13 +10,15 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RumputController;
 use App\Http\Controllers\KandangController;
 use App\Http\Controllers\SapiJualController;
+use App\Http\Controllers\BendaharaController;
 use App\Http\Controllers\JenisSapiController;
 use App\Http\Controllers\JenisLahanController;
 use App\Http\Controllers\JenisRumputController;
+use App\Http\Controllers\KepalaBalaiController;
 use App\Http\Controllers\JenisKandangController;
 use App\Http\Controllers\KegiatanLahanController;
-use App\Http\Controllers\KegiatanKandangController;
 use App\Http\Controllers\PengajuanSapiController;
+use App\Http\Controllers\KegiatanKandangController;
 
 // HOME
 Route::get('/', [AuthController::class, 'home'])->name('home');
@@ -34,6 +36,8 @@ Route::middleware(['auth', 'checkPembeli'])->group(function () {
         Route::get('/show', [PengajuanSapiController::class, 'index'])->name('index.pengajuan.sapi');
         Route::get('/tambah', [PengajuanSapiController::class, 'show'])->name('show.pengajuan.sapi');
         Route::post('/store', [PengajuanSapiController::class, 'store'])->name('store.pengajuan.sapi');
+        Route::get('/detail/{id}', [PengajuanSapiController::class, 'detail'])->name('detail.pengajuan.sapi');
+        Route::put('/update/{id}', [PengajuanSapiController::class, 'update'])->name('update.pengajuan.sapi');
     });
     Route::prefix('profil-pembeli')->group(function () {
         Route::get('/detail/{id}', [AkunController::class, 'profilpembeliakun'])->name('detail.profil.pembeli');
@@ -219,6 +223,9 @@ Route::middleware(['auth', 'checkPPID'])->group(function () {
     });
     Route::prefix('pengajuan-sapi-ppid')->group(function () {
         Route::get('/', [PPIDController::class, 'indexpengajuansapi'])->name('index.ppid.psapi');
+        Route::get('/detail/{id}', [PPIDController::class, 'detailpengajuansapi'])->name('detail.ppid.psapi');
+        Route::get('/update/{id}', [PPIDController::class, 'updatepengajuansapi'])->name('update.ppid.psapi');
+        Route::delete('/delete/{id}', [PPIDController::class, 'deletepengajuansapi'])->name('delete.ppid.psapi');
     });
     //PPID - PROFIL
     Route::get('/PPID/Profil/{id}', [AkunController::class, 'profilppid'])->name('detail.profil.ppid');
@@ -226,9 +233,22 @@ Route::middleware(['auth', 'checkPPID'])->group(function () {
     Route::put('/PPID/Profil/Update/{id}', [AkunController::class, 'updateppid'])->name('update.profil.ppid');
 });
 //BENDAHARA
+Route::middleware(['auth', 'checkBendahara'])->group(function () {
+    Route::get('/dasboard/Bendahara', [BendaharaController::class, 'dashboard'])->name('dashboard.bendahara');
+});
 
 //KEPALA
-
+Route::middleware(['auth', 'checkKepala'])->group(function () {
+    Route::get('/dasboard/kepala', [KepalaBalaiController::class, 'dashboard'])->name('dashboard.kepala');
+    Route::get('/Kepala/Profil/{id}', [AkunController::class, 'profilkepala'])->name('detail.profil.kepala');
+    Route::get('/Kepala/Profil/Edit/{id}', [AkunController::class, 'editkepala'])->name('edit.profil.kepala');
+    Route::put('/Kepala/Profil/Update/{id}', [AkunController::class, 'updatekepala'])->name('update.profil.kepala');
+    Route::prefix('pengajuan-sapi-kepala')->group(function () {
+        Route::get('/', [KepalaBalaiController::class, 'pengajuansapi'])->name('index.kepala.psapi');
+        Route::get('/detail/{id}', [KepalaBalaiController::class, 'detailpengajuansapi'])->name('detail.kepala.psapi');
+        Route::put('/update/{id}', [KepalaBalaiController::class, 'updatepengajuansapi'])->name('update.kepala.psapi');
+    });
+});
 // lOGOUT
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 //403

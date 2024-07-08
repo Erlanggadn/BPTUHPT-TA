@@ -1,6 +1,6 @@
 @include('layouts.utama.main2')
-@include('layouts.ppid.navbar')
-@include('layouts.ppid.sidebar')
+@include('layouts.pembeli.navbar')
+@include('layouts.pembeli.sidebar')
 
 <main id="main" class="main">
     <section class="section profile">
@@ -8,8 +8,7 @@
             <div class="card">
                 <div class="card-body pt-3">
                     <div class="tab-content pt-2">
-                        <h5 class="card-title">Detail Pengajuan Pembelian Sapi ({{  $pengajuan->user->pembeli_nama }})
-                        </h5>
+                        <h5 class="card-title">Detail Pengajuan Pembelian Sapi</h5>
                         @if (session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             {{ session('success') }}
@@ -31,12 +30,13 @@
                             @method('PUT')
                             <!-- Identitas Pembeli -->
                             <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Nama </div>
+                                <div class="col-lg-3 col-md-4 label">Nama Anda</div>
                                 <div class="col-lg-9 col-md-8">
                                     <input type="hidden" name="belisapi_orang" id="belisapi_orang"
                                         value="{{ $pengajuan->belisapi_orang }}">
                                     <input type="text" class="form-control"
-                                        value="{{  $pengajuan->user->pembeli_nama }}" disabled>
+                                        value="{{ $currentUser->pembeli ? $currentUser->pembeli->pembeli_nama : '' }}"
+                                        disabled>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -44,7 +44,15 @@
                                 <div class="col-lg-9 col-md-8">
                                     <input type="hidden" name="belisapi_orang" id="belisapi_orang" value="">
                                     <input type="text" class="form-control"
-                                        value="{{  $pengajuan->user->pembeli_instansi }}" disabled>
+                                        value="{{ $currentUser->pembeli ? $currentUser->pembeli->pembeli_instansi : '' }}"
+                                        disabled>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">Email</div>
+                                <div class="col-lg-9 col-md-8">
+                                    <input type="text" class="form-control"
+                                        value="{{ $currentUser->pembeli ? $currentUser->email : '' }}" disabled>
                                 </div>
                             </div>
 
@@ -173,7 +181,7 @@
 
                             <div class="text-center mb-4">
                                 <button type="submit" class="btn btn-success">Update Pengajuan</button>
-                                <a href="{{ route('index.ppid.psapi') }}" class="btn btn-secondary">Kembali</a>
+                                <a href="{{ route('index.pengajuan.sapi') }}" class="btn btn-secondary">Kembali</a>
                             </div>
                         </form>
                     </div>

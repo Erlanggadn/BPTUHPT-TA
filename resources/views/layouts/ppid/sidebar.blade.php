@@ -42,7 +42,7 @@
                     <span>Beli Rumput</span>
                 </a>
             </li>
-            <li class="nav-heading">Wastukan - Logout</li>
+            <li class="nav-heading">PPID - Logout</li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('logout') }}">
                     <i class="bi bi-box-arrow-left"></i>

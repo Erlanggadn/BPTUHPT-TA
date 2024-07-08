@@ -378,6 +378,57 @@ class AkunController extends Controller
         return redirect()->route('detail.profil.pembeli', $akunuser->id)->with('success', 'Akun berhasil diperbarui');
     }
 
+    //KEPALA BALAI - PROFIL
+    public function profilkepala()
+    {
+        $user = Auth::user();
+        $akunuser = $user->pegawai;
+        return view('backend.kepala.profil.detail', compact('user', 'akunuser'));
+    }
+
+    public function editkepala($id)
+    {
+        $akunuser = User::with('pegawai')->findOrFail($id);
+        return view('backend.kepala.profil.edit', compact('akunuser'));
+    }
+    public function updatekepala(Request $request, $id)
+    {
+        $akunuser = User::with('pegawai')->findOrFail($id);
+
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'pegawai_nip' => 'required|string',
+            'pegawai_nama' => 'required|string',
+            'pegawai_alamat' => 'required|string',
+            'pegawai_nohp' => 'required',
+            'current_password' => 'nullable|string',
+            'new_password' => 'nullable|string|confirmed',
+        ]);
+
+        // dd($request->all());
+
+        $validator->after(function ($validator) use ($request, $akunuser) {
+            if ($request->filled('current_password') && !Hash::check($request->current_password, $akunuser->password)) {
+                $validator->errors()->add('current_password', 'Password tidak sesuai');
+            }
+        });
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $data = $request->except('password', 'new_password', 'current_password', 'new_password_confirmation');
+        if ($request->filled('new_password')) {
+            $data['password'] = Hash::make($request->new_password);
+        }
+        $akunuser->update($data);
+        if ($akunuser->pegawai) {
+            $akunuser->pegawai->update($request->only('pegawai_nip', 'pegawai_nama', 'pegawai_alamat', 'pegawai_nohp'));
+        }
+
+        return redirect()->route('detail.profil.kepala', $akunuser->id)->with('berhasil.edit', 'Akun berhasil diperbarui');
+    }
+
 
 
 
