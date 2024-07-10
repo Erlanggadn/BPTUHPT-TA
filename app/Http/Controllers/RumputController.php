@@ -44,10 +44,6 @@ class RumputController extends Controller
             'rumput_masuk' => $request->rumput_masuk,
             'rumput_keterangan' => $request->rumput_keterangan,
             'rumput_status' => $request->rumput_status,
-            'created_id' => auth()->user()->id,
-            'created_nama' => auth()->user()->name,
-            'updated_id' => auth()->user()->id,
-            'updated_nama' => auth()->user()->name,
         ]);
 
         return redirect()->route('index.rumput')->with('success', 'Rumput berhasil ditambahkan');
@@ -75,9 +71,6 @@ class RumputController extends Controller
         $rumput->rumput_masuk = $request->rumput_masuk;
         $rumput->rumput_keterangan = $request->rumput_keterangan;
         $rumput->rumput_status = $request->rumput_status;
-
-        $rumput->updated_id = auth()->user()->id;
-        $rumput->updated_nama = auth()->user()->name;
         $rumput->save();
 
         return redirect()->route('detail.rumput', $id)->with('success', 'Data rumput berhasil diperbarui');

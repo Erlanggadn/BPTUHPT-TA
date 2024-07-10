@@ -1,6 +1,6 @@
 @include('layouts.utama.main2')
-@include('layouts.wasbitnak.navbar')
-@include('layouts.wasbitnak.sidebar')
+@include('layouts.wastukan.navbar')
+@include('layouts.wastukan.sidebar')
 
 <main id="main" class="main">
 

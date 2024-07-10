@@ -20,7 +20,6 @@ class PengajuanSapiController extends Controller
     {
         $userId = Auth::id();
 
-        // Ambil data pembeli terkait pengguna yang sedang login
         $pembeli = Auth::user()->pembeli;
 
         // Dapatkan data pengajuan sapi yang dimiliki oleh pengguna yang sedang login
@@ -115,7 +114,6 @@ class PengajuanSapiController extends Controller
         return view('backend.pembeli.pengajuan_sapi.detail', compact('pengajuan', 'sapiJenis', 'currentUser'));
     }
 
-    // Function untuk mengupdate pengajuan
     public function update(Request $request, $id)
     {
         $today = date('Y-m-d');

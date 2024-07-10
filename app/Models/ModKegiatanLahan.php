@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ModKegiatanLahan extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'master_kegiatan_lahan';
     protected $primaryKey = 'tanam_id';
     public $incrementing = false;
@@ -16,6 +16,7 @@ class ModKegiatanLahan extends Model
 
     protected $fillable = [
         'tanam_id',
+        'tanam_orang',
         'tanam_detail_rumput',
         'tanam_detail_lahan',
         'tanam_tanggal',
@@ -24,11 +25,6 @@ class ModKegiatanLahan extends Model
         'tanam_kegiatan',
         'tanam_status',
         'tanam_foto',
-
-        'created_id',
-        'created_nama',
-        'updated_id',
-        'updated_nama'
     ];
 
     public function rumput()
@@ -39,5 +35,9 @@ class ModKegiatanLahan extends Model
     public function lahan()
     {
         return $this->belongsTo(ModJenisLahan::class, 'tanam_detail_lahan', 'lahan_id');
+    }
+    public function pegawai()
+    {
+        return $this->belongsTo(ModPegawai::class, 'tanam_orang', 'pegawai_id');
     }
 }

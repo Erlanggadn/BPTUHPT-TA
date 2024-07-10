@@ -21,10 +21,5 @@ class ModJenisLahan extends Model
         'lahan_jenis_tanah',
         'lahan_ukuran',
         'lahan_aktif',
-
-        'created_id',
-        'created_nama',
-        'updated_id',
-        'updated_nama',
     ];
 }

@@ -15,6 +15,7 @@ class CreateMasterKegiatanLahanTable extends Migration
     {
         Schema::create('master_kegiatan_lahan', function (Blueprint $table) {
             $table->string('tanam_id')->primary();
+            $table->string('tanam_orang');
             $table->string('tanam_detail_rumput');
             $table->string('tanam_detail_lahan');
             $table->date('tanam_tanggal');
@@ -25,14 +26,11 @@ class CreateMasterKegiatanLahanTable extends Migration
             $table->string('tanam_foto');
             
             $table->timestamp('created_at')->useCurrent();
-            $table->string('created_id', 50);
-            $table->string('created_nama', 50);
             $table->timestamp('updated_at')->useCurrent();
-            $table->string('updated_id', 50);
-            $table->string('updated_nama', 50);
 
             $table->foreign('tanam_detail_rumput')->references('rumput_id')->on('master_rumput')->onDelete('cascade');
             $table->foreign('tanam_detail_lahan')->references('lahan_id')->on('master_lahan_jenis')->onDelete('cascade');
+            $table->foreign('tanam_orang')->references('pegawai_id')->on('pegawai')->onDelete('cascade');
         });
     }
 

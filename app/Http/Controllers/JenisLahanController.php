@@ -39,10 +39,6 @@ class JenisLahanController extends Controller
             'lahan_ukuran' => $request->lahan_ukuran,
             'lahan_keterangan' => $request->lahan_keterangan,
             'lahan_aktif' => $request->lahan_aktif,
-            'created_id' => auth()->user()->id,
-            'created_nama' => auth()->user()->name,
-            'updated_id' => auth()->user()->id,
-            'updated_nama' => auth()->user()->name,
         ]);
 
         return redirect()->route('index.jenis.lahan')->with('success', 'Jenis Lahan berhasil ditambahkan');
@@ -69,11 +65,6 @@ class JenisLahanController extends Controller
             'lahan_ukuran' => $request->lahan_ukuran,
             'lahan_keterangan' => $request->lahan_keterangan,
             'lahan_aktif' => $request->lahan_aktif,
-
-            'created_id' => auth()->user()->id,
-            'created_nama' => auth()->user()->name,
-            'updated_id' => auth()->user()->id,
-            'updated_nama' => auth()->user()->name,
         ]);
 
         return redirect()->route('detail.jenis.lahan', $lahan_id)->with('success', 'Jenis Lahan berhasil diubah');

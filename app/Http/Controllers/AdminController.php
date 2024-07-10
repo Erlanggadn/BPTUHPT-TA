@@ -62,14 +62,16 @@ class AdminController extends Controller
 
     public function pegawaiWastukan()
     {
-        $jumlahWastukan = User::whereNotIn('role', ['admin', 'ppid', 'wasbitnak', 'keswan', 'kepala', 'pembeli', 'bendahara'])->get();
-        $jumlahPwastukan = User::whereNotIn('role', ['admin', 'ppid', 'wasbitnak', 'keswan', 'kepala', 'pembeli', 'bendahara'])->count();
-        return view('backend.wastukan.pegawai.index', ['jumlahWastukan' => $jumlahWastukan, 'jumlahPWastukan' => $jumlahPwastukan]);;
+        $akunuser = User::with('pegawai')
+        ->whereNotIn('role', ['admin', 'ppid', 'wasbitnak', 'keswan', 'kepala', 'pembeli', 'bendahara'])
+        ->get();
+    $jumlahPWastukan = $akunuser->count();
+    return view('backend.wastukan.pegawai.index', ['akunuser' => $akunuser, 'jumlahPWastukan' => $jumlahPWastukan]);
     }
 
     public function detailPWastukan($id)
     {
-        $akunuser = User::where('id', $id)->get();
-        return view('backend.wastukan.pegawai.detail', ["akunuser" => $akunuser]);
+        $akunuser = User::with('pegawai')->where('id', $id)->first();
+        return view('backend.wastukan.pegawai.detail', ["akunuser" => $akunuser, "pegawai" => $akunuser->pegawai]);
     }
 }

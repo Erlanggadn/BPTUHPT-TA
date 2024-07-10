@@ -93,7 +93,9 @@ Route::middleware(['auth', 'checkKeswan'])->group(function () {
 //WASTUKAN 
 Route::middleware(['auth', 'checkWastukan'])->group(function () {
     //WASTUKAN - DETAIL PROFIL
-    Route::get('/wastukan/profil', [AkunController::class, 'profilwastukan'])->name('profilwastukan');
+    Route::get('/wastukan/profil/{id}', [AkunController::class, 'profilwastukan'])->name('profilwastukan');
+    Route::get('/wastukan/profil/edit/{id}', [AkunController::class, 'editwastukan'])->name('edit.profil.wastukan');
+    Route::put('wastukan/profil/update/{id}', [AkunController::class, 'updatewastukan'])->name('update.profil.wastukan');
     // WASTUKAN RUMPUT
     Route::get('/wastukan/rumput', [RumputController::class, 'index'])->name('index.rumput');
     Route::get('/wastukan/tambah/rumput', [RumputController::class, 'show'])->name('show.rumput');
@@ -235,8 +237,18 @@ Route::middleware(['auth', 'checkPPID'])->group(function () {
 //BENDAHARA
 Route::middleware(['auth', 'checkBendahara'])->group(function () {
     Route::get('/dasboard/Bendahara', [BendaharaController::class, 'dashboard'])->name('dashboard.bendahara');
+    //PROFIL
+    Route::get('/bendahara/profil/{id}', [AkunController::class, 'profilbendahara'])->name('profilbendahara');
+    Route::get('/bendahara/profil/edit/{id}', [AkunController::class, 'editbendahara'])->name('edit.profil.bendahara');
+    Route::put('bendahara/profil/update/{id}', [AkunController::class, 'updatebendahara'])->name('update.profil.bendahara');
+    //PENGAJUAN SAPI
+    Route::prefix('pengajuan-sapi-bendahara')->group(function () {
+        Route::get('/', [BendaharaController::class, 'indexsapi'])->name('index.bendahara.psapi');
+        Route::get('/detail/{belisapi_id}', [BendaharaController::class, 'detailsapi'])->name('detail.bendahara.psapi');
+        // Route::put('/update/{id}', [BendaharaController::class, 'updatesapi'])->name('update.bendahara.psapi');
+        Route::post('/{belisapi_id}/pembayaran', [BendaharaController::class, 'storesapi'])->name('store.bayar.sapi');
+    });
 });
-
 //KEPALA
 Route::middleware(['auth', 'checkKepala'])->group(function () {
     Route::get('/dasboard/kepala', [KepalaBalaiController::class, 'dashboard'])->name('dashboard.kepala');

@@ -24,7 +24,7 @@ class CreateMasterPembayaranSapiTable extends Migration
 
             $table->timestamps();
 
-            $table->foreign('dbeli_beli')->references('detail_id')->on('detail_pengajuan_sapi')->onDelete('cascade');
+            $table->foreign('dbeli_beli')->references('belisapi_id')->on('master_pengajuan_sapi')->onDelete('cascade');
         });
     }
 

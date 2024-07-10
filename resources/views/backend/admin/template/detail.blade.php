@@ -65,6 +65,14 @@
                             <a href="{{ route('edit.profil.kepala', ['id' => $user->id]) }}"
                                 class="btn btn-outline-warning edit"><i class="bi bi-pencil-square"></i> Edit</a>
                             @endif
+                            @if(Auth::user()->role == 'wastukan')
+                            <a href="{{ route('edit.profil.wastukan', ['id' => $user->id]) }}"
+                                class="btn btn-outline-warning edit"><i class="bi bi-pencil-square"></i> Edit</a>
+                            @endif
+                            @if(Auth::user()->role == 'bendahara')
+                            <a href="{{ route('edit.profil.bendahara', ['id' => $user->id]) }}"
+                                class="btn btn-outline-warning edit"><i class="bi bi-pencil-square"></i> Edit</a>
+                            @endif
                         </div>
                     </div><!-- End Bordered Tabs -->
                 </div>

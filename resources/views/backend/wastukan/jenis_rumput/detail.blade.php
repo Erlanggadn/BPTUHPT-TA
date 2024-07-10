@@ -53,17 +53,10 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-lg-3 col-md-4 label">Dibuat Oleh</div>
+                        <div class="col-lg-3 col-md-4 label">Di Update Pada</div>
                         <div class="col-lg-9 col-md-8">
                             <input name="rum_nama" type="text" class="form-control"
-                                value="{{ $jenisRumput->created_nama }}" disabled>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-lg-3 col-md-4 label">Di Update Oleh</div>
-                        <div class="col-lg-9 col-md-8">
-                            <input name="rum_nama" type="text" class="form-control"
-                                value="{{ $jenisRumput->updated_nama }}" disabled>
+                                value="{{ $jenisRumput->updated_at }}" disabled>
                         </div>
                     </div>
                 </div>

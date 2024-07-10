@@ -95,16 +95,15 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Dibuat Oleh</div>
+                                <div class="col-lg-3 col-md-4 label">Dibuat Pada</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input type="text" class="form-control" value="{{ $rumput->created_nama }}"
-                                        disabled>
+                                    <input type="text" class="form-control" value="{{ $rumput->created_at }}" disabled>
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Di Update Oleh</div>
+                                <div class="col-lg-3 col-md-4 label">Di Update Pada</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input type="text" class="form-control" value="{{ $rumput->updated_nama}}" disabled>
+                                    <input type="text" class="form-control" value="{{ $rumput->updated_at}}" disabled>
                                 </div>
                             </div>
                     </div>

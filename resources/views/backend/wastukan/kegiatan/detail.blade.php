@@ -19,6 +19,12 @@
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
+                            <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">Pegawai</div>
+                                <div class="col-lg-9 col-md-8">
+                                    <p name="" class="" disabled>{{ $kegiatan->pegawai->pegawai_nama }}</p>
+                                </div>
+                            </div>
                             <div class="row mb-4">
                                 <div class="col-lg-3 col-md-4 label">Rumput</div>
                                 <div class="col-lg-9 col-md-8">

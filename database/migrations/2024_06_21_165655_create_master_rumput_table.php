@@ -23,11 +23,7 @@ class CreateMasterRumputTable extends Migration
             $table->string('rumput_status');
 
             $table->timestamp('created_at')->useCurrent();
-            $table->string('created_id', 50);
-            $table->string('created_nama', 50);
             $table->timestamp('updated_at')->useCurrent();
-            $table->string('updated_id', 50);
-            $table->string('updated_nama', 50);
 
             $table->foreign('rumput_jenis')->references('rum_id')->on('master_rumput_jenis')->onDelete('cascade');
         });

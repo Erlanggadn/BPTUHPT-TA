@@ -19,10 +19,6 @@ class ModJenisRumput extends Model
         'rum_nama',
         'rum_keterangan',
         // 'rum_aktif',
-        'created_id',
-        'created_nama',
-        'updated_id',
-        'updated_nama',
     ];
 
     public function rumput()

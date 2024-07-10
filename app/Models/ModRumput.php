@@ -22,11 +22,6 @@ class ModRumput extends Model
         'rumput_masuk',
         'rumput_keterangan',
         'rumput_status',
-        
-        'created_id',
-        'created_nama',
-        'updated_id',
-        'updated_nama',
     ];
 
     public function jenisRumput()

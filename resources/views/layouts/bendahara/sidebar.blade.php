@@ -3,7 +3,7 @@
         <ul class="sidebar-nav" id="sidebar-nav">
             <li class="nav-heading">kepala- PROFIL</li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('detail.profil.kepala', Auth::user()->id) }}">
+                <a class="nav-link collapsed" href="{{ route('profilbendahara', Auth::user()->id) }}">
                     <i class="bi bi-person-circle"></i>
                     <span>Profil Saya</span>
                 </a>
@@ -17,7 +17,7 @@
             </li>
             <li class="nav-heading">KEPALA - Pengajuan Beli</li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="">
+                <a class="nav-link collapsed" href="{{ route('index.bendahara.psapi') }}">
                     <i class="bi bi-list-nested"></i>
                     <span>Pengajuan Sapi</span>
                 </a>

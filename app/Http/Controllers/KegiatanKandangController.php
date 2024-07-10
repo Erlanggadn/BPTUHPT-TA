@@ -45,6 +45,22 @@ class KegiatanKandangController extends Controller
             'kode_sapi.*' => 'required|string|exists:master_sapi,sapi_id',
         ]);
 
+        $conflict = ModKegiatanKandang::where('kegiatan_jenis_kandang', $request->kegiatan_jenis_kandang)
+            ->where('kegiatan_tanggal', $request->kegiatan_tanggal)
+            ->where(function ($query) use ($request) {
+                $query->whereBetween('kegiatan_jam_mulai', [$request->kegiatan_jam_mulai, $request->kegiatan_jam_selesai])
+                    ->orWhereBetween('kegiatan_jam_selesai', [$request->kegiatan_jam_mulai, $request->kegiatan_jam_selesai])
+                    ->orWhere(function ($query) use ($request) {
+                        $query->where('kegiatan_jam_mulai', '<', $request->kegiatan_jam_mulai)
+                            ->where('kegiatan_jam_selesai', '>', $request->kegiatan_jam_selesai);
+                    });
+            })
+            ->exists();
+
+        if ($conflict) {
+            return redirect()->back()->withErrors(['error' => 'Jadwal kegiatan yang sama dengan kegiatan lain di kandang yang sama pada hari dan jam tersebut.'])->withInput();
+        }
+
         $lastKode = ModKegiatanKandang::orderBy('kegiatan_id', 'desc')->first();
         $newKode = $lastKode ? 'A' . str_pad(((int) substr($lastKode->kegiatan_id, 2)) + 1, 3, '0', STR_PAD_LEFT) : 'A001';
 
@@ -94,13 +110,29 @@ class KegiatanKandangController extends Controller
             'kegiatan_tanggal' => 'required|date',
             'kegiatan_jam_mulai' => 'required',
             'kegiatan_jam_selesai' => 'required',
-            'kegiatan_keterangan' => 'nullable|string',
             'kegiatan_keterangan' => 'required|string',
             'kegiatan_foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'kegiatan_status' => 'required|string',
             'kode_sapi' => 'required|array',
             'kode_sapi.*' => 'required|string|exists:master_sapi,sapi_id',
         ]);
+
+        $conflict = ModKegiatanKandang::where('kegiatan_jenis_kandang', $request->kegiatan_jenis_kandang)
+            ->where('kegiatan_tanggal', $request->kegiatan_tanggal)
+            ->where('kegiatan_id', '!=', $kegiatan_id)
+            ->where(function ($query) use ($request) {
+                $query->whereBetween('kegiatan_jam_mulai', [$request->kegiatan_jam_mulai, $request->kegiatan_jam_selesai])
+                    ->orWhereBetween('kegiatan_jam_selesai', [$request->kegiatan_jam_mulai, $request->kegiatan_jam_selesai])
+                    ->orWhere(function ($query) use ($request) {
+                        $query->where('kegiatan_jam_mulai', '<', $request->kegiatan_jam_mulai)
+                            ->where('kegiatan_jam_selesai', '>', $request->kegiatan_jam_selesai);
+                    });
+            })
+            ->exists();
+
+        if ($conflict) {
+            return redirect()->back()->withErrors(['error' => 'Jadwal kegiatan konflik dengan kegiatan lain di kandang yang sama pada hari dan jam tersebut.'])->withInput();
+        }
 
         $kegiatan->update([
             'kegiatan_jenis_kandang' => $request->kegiatan_jenis_kandang,
@@ -121,10 +153,6 @@ class KegiatanKandangController extends Controller
                 'detail_id' => $newId,
                 'detail_kandang' => $kegiatan->kegiatan_id,
                 'detail_sapi' => $sapi_id,
-                'created_id' => auth()->id(),
-                'created_nama' => auth()->user()->name,
-                'updated_id' => auth()->id(),
-                'updated_nama' => auth()->user()->name,
             ]);
         }
 

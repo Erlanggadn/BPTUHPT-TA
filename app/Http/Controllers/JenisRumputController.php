@@ -34,11 +34,6 @@ class JenisRumputController extends Controller
             'rum_id' => $newKode,
             'rum_nama' => $request->rum_nama,
             'rum_keterangan' => $request->rum_keterangan,
-
-            'created_id' => auth()->user()->id,
-            'created_nama' => auth()->user()->name,
-            'updated_id' => auth()->user()->id,
-            'updated_nama' => auth()->user()->name,
         ]);
 
         return redirect()->route('index.jenis.rumput')->with('success', 'Jenis rumput berhasil ditambahkan.');
@@ -52,7 +47,7 @@ class JenisRumputController extends Controller
 
     public function update(Request $request, $rum_id)
     {
-        
+
         $request->validate([
             'rum_nama' => 'required|string|max:50',
             'rum_keterangan' => 'required|string|max:50',
@@ -62,8 +57,6 @@ class JenisRumputController extends Controller
         $jenisRumput->update([
             'rum_nama' => $request->rum_nama,
             'rum_keterangan' => $request->rum_keterangan,
-            'updated_id' => auth()->user()->id,
-            'updated_nama' => auth()->user()->name,
         ]);
 
         return redirect()->route('index.jenis.rumput')->with('success', 'Jenis rumput berhasil diperbarui.');

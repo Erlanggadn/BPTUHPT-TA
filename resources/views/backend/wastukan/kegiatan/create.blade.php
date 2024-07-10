@@ -24,6 +24,13 @@
                         <form action="{{ route('store.tanam') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">Pegawai</div>
+                                <div class="col-lg-9 col-md-10">
+                                    <input name="kegiatan_orang_display" class="form-control" value="{{ $user->pegawai ? $user->pegawai->pegawai_nama : $user->name }}" disabled>
+                                    <input type="hidden" name="kegiatan_orang" value="{{ $user->pegawai ? $user->pegawai->pegawai_id : '' }}">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Rumput</div>
                                 <div class="col-lg-9 col-md-8">
                                     <select name="tanam_detail_rumput" class="form-select" required>
