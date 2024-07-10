@@ -38,6 +38,9 @@ Route::middleware(['auth', 'checkPembeli'])->group(function () {
         Route::post('/store', [PengajuanSapiController::class, 'store'])->name('store.pengajuan.sapi');
         Route::get('/detail/{id}', [PengajuanSapiController::class, 'detail'])->name('detail.pengajuan.sapi');
         Route::put('/update/{id}', [PengajuanSapiController::class, 'update'])->name('update.pengajuan.sapi');
+        Route::put('/pembayaran/update/{id}', [PengajuanSapiController::class, 'updateBukti'])->name('update.bayar.pembeli');
+        Route::get('/pembayaran/update/show/{id}', [PengajuanSapiController::class, 'updateBuktiShow'])->name('update.bayar');
+        Route::put('/bukti/update/{id}', [PengajuanSapiController::class, 'updatebayarsapi'])->name('bukti.bayar.pembeli');
     });
     Route::prefix('profil-pembeli')->group(function () {
         Route::get('/detail/{id}', [AkunController::class, 'profilpembeliakun'])->name('detail.profil.pembeli');
@@ -226,7 +229,7 @@ Route::middleware(['auth', 'checkPPID'])->group(function () {
     Route::prefix('pengajuan-sapi-ppid')->group(function () {
         Route::get('/', [PPIDController::class, 'indexpengajuansapi'])->name('index.ppid.psapi');
         Route::get('/detail/{id}', [PPIDController::class, 'detailpengajuansapi'])->name('detail.ppid.psapi');
-        Route::get('/update/{id}', [PPIDController::class, 'updatepengajuansapi'])->name('update.ppid.psapi');
+        Route::put('/update/{id}', [PPIDController::class, 'updatepengajuansapi'])->name('update.ppid.psapi');
         Route::delete('/delete/{id}', [PPIDController::class, 'deletepengajuansapi'])->name('delete.ppid.psapi');
     });
     //PPID - PROFIL
@@ -245,8 +248,9 @@ Route::middleware(['auth', 'checkBendahara'])->group(function () {
     Route::prefix('pengajuan-sapi-bendahara')->group(function () {
         Route::get('/', [BendaharaController::class, 'indexsapi'])->name('index.bendahara.psapi');
         Route::get('/detail/{belisapi_id}', [BendaharaController::class, 'detailsapi'])->name('detail.bendahara.psapi');
-        // Route::put('/update/{id}', [BendaharaController::class, 'updatesapi'])->name('update.bendahara.psapi');
-        Route::post('/{belisapi_id}/pembayaran', [BendaharaController::class, 'storesapi'])->name('store.bayar.sapi');
+        Route::post('/storebayarsapi/{belisapi_id}', [BendaharaController::class, 'storebayarsapi'])->name('store.bayar.psapi');
+        Route::put('/update/{dbeli_id}', [BendaharaController::class, 'updatebayarsapi'])->name('update.bayar.psapi');
+        Route::delete('/bayar/psapi/{dbeli_id}', [BendaharaController::class, 'deletebayarsapi'])->name('delete.bayar.psapi');
     });
 });
 //KEPALA

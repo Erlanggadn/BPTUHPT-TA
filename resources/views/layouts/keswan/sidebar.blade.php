@@ -8,7 +8,7 @@
                     <span>Profil Saya</span>
                 </a>
             </li>
-            <li class="nav-heading">Pengelolaan - KESWAN</li>
+            <li class="nav-heading">Keswan - Sapi</li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('index.sapi') }}">
                     <i class="bi bi-list-nested"></i>

@@ -32,8 +32,5 @@ class ModDetailPengajuanSapi extends Model
         return $this->belongsTo(ModJenisSapi::class, 'detail_jenis', 'sjenis_id');
     }
 
-    public function pembayaranSapi()
-    {
-        return $this->hasMany(ModPembayaranSapi::class, 'dbeli_beli', 'detail_id');
-    }
+    
 }

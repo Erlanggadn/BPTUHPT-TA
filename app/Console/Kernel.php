@@ -10,6 +10,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('update:sapi_umur')->daily();
+        $schedule->command('payments:delete-old')->daily();
     }
 
     protected function commands()

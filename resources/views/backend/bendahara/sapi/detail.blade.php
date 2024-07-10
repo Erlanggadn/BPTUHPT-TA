@@ -85,7 +85,30 @@
                                         disabled>{{ $pengajuan->belisapi_alasan }}</textarea>
                                 </div>
                             </div>
-
+                            <h5 class="card-title">Status Pengajuan Pembelian
+                            </h5>
+                            <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">Status Pembelian</div>
+                                <div class="col-lg-9 col-md-8">
+                                    <select name="belisapi_status" id="belisapi_status" class="form-select" disabled>
+                                        <option value="{{ $pengajuan->belisapi_status }}"
+                                            {{ $pengajuan->belisapi_status ? 'selected' : '' }}>
+                                            {{ $pengajuan->belisapi_status }}</option>
+                                        <option value="" disabled>-- Status Pembelian --</option>
+                                        <option value="Diverifikasi">Diverifikasi</option>
+                                        <option value="Tidak verifikasi">Tidak verifikasi</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">Disposisi Kepala Balai</div>
+                                <div class="col-lg-9 col-md-8">
+                                    <textarea name="belisapi_keterangan" id="belisapi_keterangan" class="form-control"
+                                        disabled>{{ $pengajuan->belisapi_keterangan }}</textarea>
+                                </div>
+                            </div>
+                            <h5 class="card-title">Pengajuan Produk
+                            </h5>
                             <!-- Detail Pengajuan -->
                             <div id="dynamic-field">
                                 @foreach ($pengajuan->details as $detail)
@@ -166,59 +189,75 @@
                             </div>
                             <h5 class="card-title">Detail Pembayaran Pembelian Sapi
                             </h5>
+                            <!-- Form untuk input pembayaran -->
                             @if($pembayaran)
-                            <!-- If payment details exist, show them -->
-
+                            <!-- Jika detail pembayaran ada, tampilkan -->
+                            <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">Bukti Bayar</div>
+                                <div class="col-lg-9 col-md-8">
+                                    <a href="{{ asset('uploads/' . $pembayaran->dbeli_bukti) }}" target="_blank">
+                                        <span class="badge bg-success">Bukti Pembayaran</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">Status Bayar Pembeli</div>
+                                <div class="col-lg-9 col-md-8">
+                                    <input type="text" name="dbeli_status" id="dbeli_status" class="form-control"
+                                        value="{{ $pembayaran->dbeli_sudah }}" disabled>
+                                </div>
+                            </div>
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Invoice</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <a href="{{ asset('uploads/' . $pembayaran->dbeli_invoice) }}" target="_blank"><span
-                                            class="badge bg-primary">Lihat
-                                            Invoice</span></a>
+                                    <a href="{{ asset('uploads/' . $pembayaran->dbeli_invoice) }}" target="_blank">
+                                        <span class="badge bg-primary">Lihat Invoice</span>
+                                    </a>
                                 </div>
                             </div>
-                            <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Status Pembayaran</div>
-                                <div class="col-lg-9 col-md-8">
-                                    <input type="text" name="dbeli_status" id="dbeli_status" class="form-control"
-                                        value="{{ $pembayaran->dbeli_status }}" disabled>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Keterangan</div>
-                                <div class="col-lg-9 col-md-8">
-                                    <input type="text" name="dbeli_keterangan" id="dbeli_keterangan"
-                                        class="form-control" value="{{ $pembayaran->dbeli_keterangan }}" disabled>
-                                </div>
-                            </div>
-                            @else
-                            <!-- Pembayaran Sapi -->
-                            <<form action="{{ route('store.bayar.sapi', $detail->detail_id) }}" method="POST"
-                                enctype="multipart/form-data">
+                            <!-- Form untuk mengupdate pembayaran -->
+                            <form action="{{ route('update.bayar.psapi', $pembayaran->dbeli_id) }}" method="POST">
                                 @csrf
-                                <!-- Identitas Pembeli dan Detail Pengajuan -->
-
-                                <!-- Pembayaran Sapi -->
-
-                                <h5 class="card-title">Detail Pembayaran</h5>
+                                @method('PUT')
                                 <div class="row mb-3">
                                     <div class="col-lg-3 col-md-4 label">Status Pembayaran</div>
                                     <div class="col-lg-9 col-md-8">
-                                        <input type="text" name="dbeli_sudah" id="dbeli_sudah" class="form-control"
-                                            value="{{ old('dbeli_sudah', $pembayaran->dbeli_sudah ?? '') }}" disabled>
+                                        <select name="dbeli_status" id="dbeli_status" class="form-control">
+                                            <option value="">{{ $pembayaran->dbeli_status }}</option>
+                                            <option value="Diterima"
+                                                {{ $pembayaran->dbeli_status == 'Diterima' ? 'selected' : '' }}>
+                                                Diterima</option>
+                                            <option value="Belum Diterima"
+                                                {{ $pembayaran->dbeli_status == 'Belum Diterima' ? 'selected' : '' }}>
+                                                Belum Diterima</option>
+                                        </select>
                                     </div>
                                 </div>
-
+                                <div class="row mb-3">
+                                    <div class="col-lg-3 col-md-4 label">Ubah Keterangan</div>
+                                    <div class="col-lg-9 col-md-8">
+                                        <textarea name="dbeli_keterangan" id="dbeli_keterangan" class="form-control"
+                                            rows="3">{{ $pembayaran->dbeli_keterangan }}</textarea>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-success mb-4">Update Pembayaran</button>
+                            </form>
+                            <form action="{{ route('delete.bayar.psapi', $pembayaran->dbeli_id) }}" method="POST"
+                                class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Delete Pembayaran</button>
+                            </form>
+                            @else
+                            <!-- Jika detail pembayaran tidak ada, tampilkan form untuk input -->
+                            <form action="{{ route('store.bayar.psapi', $pengajuan->belisapi_id) }}" method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
                                 <div class="row mb-3">
                                     <div class="col-lg-3 col-md-4 label">Invoice</div>
                                     <div class="col-lg-9 col-md-8">
-                                        @if(isset($pembayaran) && $pembayaran->dbeli_invoice)
-                                        <a href="{{ Storage::url($pembayaran->dbeli_invoice) }}" target="_blank">Lihat
-                                            Invoice</a>
-                                        @else
                                         <input type="file" name="dbeli_invoice" id="dbeli_invoice" class="form-control"
                                             accept=".png,.jpg,.jpeg,.pdf" required>
-                                        @endif
                                     </div>
                                 </div>
 
@@ -226,15 +265,9 @@
                                     <div class="col-lg-3 col-md-4 label">Status Pembayaran</div>
                                     <div class="col-lg-9 col-md-8">
                                         <select name="dbeli_status" id="dbeli_status" class="form-select" required>
-                                            <option value="" disabled
-                                                {{ old('dbeli_status', $pembayaran->dbeli_status ?? '') == '' ? 'selected' : '' }}>
-                                                -- Status Pembayaran --</option>
-                                            <option value="diterima"
-                                                {{ old('dbeli_status', $pembayaran->dbeli_status ?? '') == 'diterima' ? 'selected' : '' }}>
-                                                Diterima</option>
-                                            <option value="Belum diterima"
-                                                {{ old('dbeli_status', $pembayaran->dbeli_status ?? '') == 'Belum diterima' ? 'selected' : '' }}>
-                                                Belum Diterima</option>
+                                            <option value="" disabled selected>-- Status Pembayaran --</option>
+                                            <option value="Diterima">Diterima</option>
+                                            <option value="Belum diterima">Belum Diterima</option>
                                         </select>
                                     </div>
                                 </div>
@@ -243,8 +276,7 @@
                                     <div class="col-lg-3 col-md-4 label">Keterangan</div>
                                     <div class="col-lg-9 col-md-8">
                                         <input type="text" name="dbeli_keterangan" id="dbeli_keterangan"
-                                            class="form-control"
-                                            value="{{ old('dbeli_keterangan', $pembayaran->dbeli_keterangan ?? '') }}">
+                                            class="form-control">
                                     </div>
                                 </div>
 
@@ -252,9 +284,9 @@
                                     <button type="submit" class="btn btn-success">Simpan Pembayaran</button>
                                     <a href="{{ route('index.bendahara.psapi') }}" class="btn btn-secondary">Kembali</a>
                                 </div>
-                                </form>
-                                @endif
+                            </form>
 
+                            @endif
                         </div><!-- End Bordered Tabs -->
                     </div>
                 </div>
@@ -263,3 +295,4 @@
     </main><!-- End #main -->
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>
+    <script src="{{ asset ('js/main.js') }}"></script>

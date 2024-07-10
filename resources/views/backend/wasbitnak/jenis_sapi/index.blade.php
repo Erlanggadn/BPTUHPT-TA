@@ -4,10 +4,6 @@
 
 <main id="main" class="main">
 
-    <div class="pagetitle">
-        <h1>Selamat Datang, <b>{{ Auth::user()->name }} </b> sebagai {{ Auth::user()->role }}</h1>
-    </div><!-- End Page Title -->
-
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
@@ -23,47 +19,47 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                         @endif
-
-
                         <a href="{{ route('show.jenis.sapi') }}" class="btn btn-primary mb-4"><i class="bi bi-plus"></i>
                             Tambah Jenis</a>
                         <!-- Table with stripped rows -->
-                        <table class="table datatable">
-                            <thead>
-                                <tr>
-                                    <th>Kode Sapi</th>
-                                    <th>Jenis Sapi</th>
-                                    <th>Keterangan</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @isset($JenisSapi)
-                                @foreach ($JenisSapi as $item)
-                                <tr>
-                                    <td><span class="badge bg-primary">{{ $item->sjenis_id }}</span></td>
-                                    <td>{{ $item->sjenis_nama }}</td>
-                                    <td>{{ $item->sjenis_keterangan }}</td>
-                                    <td> <a class="btn btn-outline-success"
-                                            href="{{ route('detail.jenis.sapi', $item->sjenis_id) }}"><i
-                                                class="bi bi-info-lg"></i></a>
-                                        <form id="deleteForm"
-                                            action="{{ route('destroy.jenis.sapi', $item->sjenis_id) }}" method="POST"
-                                            style="display: inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="button" class="btn btn-outline-danger"
-                                                onclick="showDeleteModal('{{ route('destroy.jenis.sapi', $item->sjenis_id) }}')">
-                                                <i class="bi bi-trash-fill"></i>
-                                            </button>
-                                        </form>
+                        <div class="table-responsive">
+                            <table class="table datatable">
+                                <thead>
+                                    <tr>
+                                        <th>ID/Kode Jenis</th>
+                                        <th>Jenis Sapi</th>
+                                        <th>Keterangan</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @isset($JenisSapi)
+                                    @foreach ($JenisSapi as $item)
+                                    <tr>
+                                        <td><span class="badge bg-primary">{{ $item->sjenis_id }}</span></td>
+                                        <td>{{ $item->sjenis_nama }}</td>
+                                        <td>{{ $item->sjenis_keterangan }}</td>
+                                        <td> <a class="btn btn-outline-success"
+                                                href="{{ route('detail.jenis.sapi', $item->sjenis_id) }}"><i
+                                                    class="bi bi-info-lg"></i></a>
+                                            <form id="deleteForm"
+                                                action="{{ route('destroy.jenis.sapi', $item->sjenis_id) }}"
+                                                method="POST" style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="btn btn-outline-danger"
+                                                    onclick="showDeleteModal('{{ route('destroy.jenis.sapi', $item->sjenis_id) }}')">
+                                                    <i class="bi bi-trash-fill"></i>
+                                                </button>
+                                            </form>
 
-                                    </td>
-                                </tr>
-                                @endforeach
-                                @endisset
-                            </tbody>
-                        </table>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    @endisset
+                                </tbody>
+                            </table>
+                        </div>
                         <!-- End Table with stripped rows -->
                     </div>
                 </div>

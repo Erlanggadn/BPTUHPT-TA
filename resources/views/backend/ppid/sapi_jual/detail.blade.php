@@ -67,7 +67,7 @@
                                 <div class="col-lg-3 col-md-4 label">Status Sapi</div>
                                 <div class="col-lg-9 col-md-8">
                                     <select name="sapi_status" id="sapi_status" class="form-control" required>
-                                        <option value="">Pilih Status</option>
+                                        <option value="" selected disabled>Pilih Status</option>
                                         <option value="Dijual">Dijual</option>
                                         <option value="Terjual">Terjual</option>
                                         <option value="Pemeriksaan/Sakit">Pemeriksaan/Sakit</option>

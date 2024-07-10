@@ -10,7 +10,7 @@
                 <div class="card-body pt-3">
 
                     <div class="tab-content pt-2">
-                        <h5 class="card-title">Profil Sapi</h5>
+                        <h5 class="card-title">Detail Profil Sapi</h5>
 
                         @if (session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -79,9 +79,8 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-outline-success">Update</button>
-                                <a href="{{ route('index.sapi.wasbitnak') }}"
-                                    class="btn btn-outline-secondary">Kembali</a>
+                                <button type="submit" class="btn btn-success">Ubah</button>
+                                <a href="{{ route('index.sapi.wasbitnak') }}" class="btn btn-secondary">Kembali</a>
                             </div>
                         </form>
 

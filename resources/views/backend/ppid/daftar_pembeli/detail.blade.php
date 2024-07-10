@@ -53,8 +53,8 @@
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Alamat</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input type="text" name="pembeli_alamat" class="form-control"
-                                        value="{{ $pembeli->pembeli_alamat }}">
+                                    <textarea type="text" name="pembeli_alamat" class="form-control"
+                                        value="{{ $pembeli->pembeli_alamat }}"></textarea>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -82,9 +82,8 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-outline-success">Update</button>
-                                <a href="{{ route('index.daftar.pembeli') }}"
-                                    class="btn btn-outline-secondary">Kembali</a>
+                                <button type="submit" class="btn btn-success">Ubah</button>
+                                <a href="{{ route('index.daftar.pembeli') }}" class="btn btn-secondary">Kembali</a>
                             </div>
                         </form>
 

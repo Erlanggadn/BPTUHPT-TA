@@ -10,7 +10,7 @@
                 <div class="card-body pt-3">
 
                     <div class="tab-content pt-2">
-                        <h5 class="card-title">Profil Sapi</h5>
+                        <h5 class="card-title">Detail Profil Sapi</h5>
 
                         @if (session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -84,24 +84,13 @@
                                     </select>
                                 </div>
                             </div>
-
-
-
                             <div class="text-center">
-                                <button type="submit" class="btn btn-outline-success">Update</button>
-                                <a href="{{ route('index.sapi') }}" class="btn btn-outline-secondary">Kembali</a>
+                                <button type="submit" class="btn btn-success">Ubah</button>
+                                <a href="{{ route('index.sapi') }}" class="btn btn-secondary">Kembali</a>
                             </div>
                         </form>
-
-                        {{-- <a class="btn btn-outline-warning mt-3" href="{{ route('editsapi', $sapi->id) }}"><i
-                            class="bi bi-pencil-fill"></i> Edit</a>
-                        <a class="btn btn-outline-primary mt-3" href="{{ route('printsapi', $sapi->id) }}"><i
-                                class="bi bi-upc"></i> Cetak Kode</a> --}}
-
                     </div>
-
                 </div><!-- End Bordered Tabs -->
-
             </div>
         </div>
         @endisset

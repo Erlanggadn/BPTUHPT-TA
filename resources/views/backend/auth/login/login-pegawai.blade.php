@@ -12,11 +12,11 @@
                                 <div class="d-flex justify-content-center py-4">
                                     <a href="" class="d-flex align-items-center justify-content-center">
                                         <img src="{{ asset('img/peternakan.png') }}" alt="" class="img-fluid mx-2"
-                                            style="max-height: 80px;">
+                                            style="max-height: 50px;">
                                         <img src="{{ asset('img/pkh.png') }}" alt="" class="img-fluid mx-2"
-                                            style="max-height: 80px;">
+                                            style="max-height: 50px;">
                                         <img src="{{ asset('img/bptu.png') }}" alt="" class="img-fluid mx-2"
-                                            style="max-height: 80px;">
+                                            style="max-height: 50px;">
                                     </a>
                                 </div>
                                 <div class="card mb-3">

@@ -33,4 +33,18 @@ class ModPengajuanSapi extends Model
     {
         return $this->belongsTo(ModPembeli::class, 'belisapi_orang', 'pembeli_id');
     }
+    public function pembayaranSapi()
+    {
+        return $this->hasMany(ModPembayaranSapi::class, 'dbeli_beli', 'belisapi_id');
+    }
+    public function getDisplayStatusAttribute()
+    {
+        $statuses = ['Diproses', 'Disetujui', 'Ditolak'];
+
+        if (in_array($this->belisapi_status, $statuses)) {
+            return $this->belisapi_status;
+        }
+
+        return 'Diproses';
+    }
 }

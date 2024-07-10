@@ -5,7 +5,7 @@
         <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-lg-4 col-md-6 flex-column align-items-center justify-content-center">
+                    <div class="col-lg-6 col-md-6 flex-column align-items-center justify-content-center">
                         <div class="d-flex justify-content-center py-4">
                         </div>
                         <form action="{{ route('store.jenis.kandang') }}" method="POST">
@@ -35,7 +35,7 @@
                                         <div class="col-12">
                                             <label for="kandangNama" class="form-label">Jenis Kandang</label>
                                             <div class="input-group has-validation">
-                                                <input type="text" name="kandang_tipe" class="form-control"
+                                                <input type="text" name="kandang_tipe" class="form-control mb-4"
                                                     id="kandangNama" required>
                                                 <div class="invalid-feedback">Masukkan Jenis Kandang dengan benar</div>
                                             </div>
@@ -43,21 +43,19 @@
                                         <div class="col-12">
                                             <label for="kandangKeterangan" class="form-label">Keterangan</label>
                                             <div class="input-group has-validation">
-                                                <input type="text" name="kandang_keterangan" class="form-control"
-                                                    id="kandangKeterangan" required>
+                                                <textarea type="text" name="kandang_keterangan" class="form-control"
+                                                    id="kandangKeterangan" required></textarea>
                                                 <div class="invalid-feedback">Masukkan Keterangan dengan benar</div>
                                             </div>
                                         </div>
                                         <br>
                                         <div class="col-12">
-                                            <button class="btn btn-outline-success w-100" type="submit"><i
-                                                    class="bi bi-box-arrow-in-right"></i> Tambah</button>
+                                            <button class="btn btn-success w-100" type="submit">Tambah Jenis</button>
                                         </div>
                                         <br>
                                         <div class="col-12">
                                             <a href="{{ route('index.jenis.kandang') }}"
-                                                class="btn btn-outline-secondary w-100"><i
-                                                    class="bi bi-house-door-fill"></i> Kembali</a>
+                                                class="btn btn-secondary w-100">Kembali</a>
                                         </div>
                                         <br>
                                     </form>

@@ -52,7 +52,15 @@ use Carbon\Carbon;
                                         <td>{{ $item->user->pembeli_nama }}</td>
                                         <td>{{ $item->user->pembeli_instansi }}</td>
                                         <td>{{ Carbon::parse($item->belisapi_tanggal)->translatedFormat('j F Y') }}</td>
-                                        <td>{{ $item->belisapi_status}}</td>
+                                        <td>@if ($item->display_status == 'Diproses')
+                                            <span class="badge bg-warning">Diproses</span>
+                                            @elseif ($item->display_status == 'Disetujui')
+                                            <span class="badge bg-success">Disetujui</span>
+                                            @elseif ($item->display_status == 'Ditolak')
+                                            <span class="badge bg-danger">Ditolak</span>
+                                            @else
+                                            <span class="badge bg-warning">Diproses</span>
+                                            @endif</td>
                                         <td> <a class="btn btn-outline-success"
                                                 href="{{ route('detail.pengajuan.sapi', $item->belisapi_id) }}"><i
                                                     class="bi bi-info-lg"></i></a>

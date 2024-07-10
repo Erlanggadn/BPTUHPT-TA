@@ -19,17 +19,20 @@
                             enctype="multipart/form-data">
                             @csrf
                             <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Pegawai</div>
+                                <div class="col-lg-3 col-md-4 label">Petugas Lapangan</div>
                                 <div class="col-lg-9 col-md-10">
-                                    <input name="kegiatan_orang_display" class="form-control" value="{{ $user->pegawai ? $user->pegawai->pegawai_nama : $user->name }}" disabled>
-                                    <input type="hidden" name="kegiatan_orang" value="{{ $user->pegawai ? $user->pegawai->pegawai_id : '' }}">
+                                    <input name="kegiatan_orang_display" class="form-control"
+                                        value="{{ $user->pegawai ? $user->pegawai->pegawai_nama : $user->name }}"
+                                        disabled>
+                                    <input type="hidden" name="kegiatan_orang"
+                                        value="{{ $user->pegawai ? $user->pegawai->pegawai_id : '' }}">
                                 </div>
                             </div>
                             <div class="row mb-4">
                                 <div class="col-lg-3 col-md-4 label">Tipe Kandang</div>
                                 <div class="col-lg-9 col-md-8">
                                     <select name="kegiatan_jenis_kandang" class="form-select">
-                                        <option value="">Pilih Tipe Kandang</option>
+                                        <option value="" selected disabled>Pilih Tipe Kandang</option>
                                         @foreach($jenisKandang as $jenis)
                                         <option value="{{ $jenis->kand_id }}">
                                             {{ $jenis->kand_id}} -
@@ -41,7 +44,7 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Tanggal</div>
+                                <div class="col-lg-3 col-md-4 label">Tanggal Pelaksanaan</div>
                                 <div class="col-lg-9 col-md-8">
                                     <input type="date" name="kegiatan_tanggal" id="kegiatan_tanggal"
                                         class="form-control" required>
@@ -69,14 +72,16 @@
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Upload Foto</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input type="file" name="kegiatan_foto" class="form-control">
+                                    <input type="file" name="kegiatan_foto" class="form-control" id="kegiatan_foto">
+                                    <img id="foto-preview" src="" alt="Foto Pratinjau" class="img-thumbnail mt-3"
+                                        style="display: none; max-width: 200px;">
                                 </div>
                             </div>
                             <div class="row mb-4">
                                 <div class="col-lg-3 col-md-4 label">Status Kandang</div>
                                 <div class="col-lg-9 col-md-8">
                                     <select name="kegiatan_status" class="form-select">
-                                        <option value="">Pilih Status Kandang</option>
+                                        <option value="" selected disabled>Pilih Status Kandang</option>
                                         <option value="Selesai">Selesai</option>
                                         <option value="Proses">Proses</option>
                                         <option value="Belum Selesai">Belum Selesai</option>
@@ -100,9 +105,8 @@
                                 </div>
                             </div>
                             <div class="text-center mb-4">
-                                <button type="submit" class="btn btn-outline-success">Tambah Kegiatan</button>
-                                <a href="{{ route('index.kegiatan.kandang') }}"
-                                    class="btn btn-outline-secondary">Kembali</a>
+                                <button type="submit" class="btn btn-success">Tambah Kegiatan</button>
+                                <a href="{{ route('index.kegiatan.kandang') }}" class="btn btn-secondary">Kembali</a>
                             </div>
                         </form>
                     </div>
@@ -165,6 +169,16 @@
         var successModal = new bootstrap.Modal(document.getElementById('successModal'));
         successModal.show();
         @endif
+
+        // Preview uploaded image
+        document.getElementById('kegiatan_foto').addEventListener('change', function () {
+            const [file] = this.files;
+            if (file) {
+                const preview = document.getElementById('foto-preview');
+                preview.src = URL.createObjectURL(file);
+                preview.style.display = 'block';
+            }
+        });
 
     </script>
 </main>

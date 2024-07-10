@@ -24,8 +24,7 @@
                             </ul>
                         </div>
                         @endif
-                        <form action="{{ route('update.pengajuan.sapi', $pengajuan->belisapi_id) }}" method="POST"
-                            enctype="multipart/form-data">
+                        <form action="" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <!-- Identitas Pembeli -->
@@ -60,7 +59,7 @@
                                 <div class="col-lg-3 col-md-4 label">Nomor HP Perusahaan/Instansi</div>
                                 <div class="col-lg-9 col-md-8">
                                     <input type="text" name="belisapi_nohp" id="belisapi_nohp" class="form-control"
-                                        value="{{ $pengajuan->belisapi_nohp }}" required>
+                                        value="{{ $pengajuan->belisapi_nohp }}" disabled>
                                 </div>
                             </div>
 
@@ -68,14 +67,14 @@
                                 <div class="col-lg-3 col-md-4 label">Alamat Perusahaan/Instansi</div>
                                 <div class="col-lg-9 col-md-8">
                                     <input type="text" name="belisapi_alamat" id="belisapi_alamat" class="form-control"
-                                        value="{{ $pengajuan->belisapi_alamat }}" required>
+                                        value="{{ $pengajuan->belisapi_alamat }}" disabled>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Surat Pengajuan</div>
                                 <div class="col-lg-9 col-md-8 ">
-                                    <input type="file" name="belisapi_surat" id="belisapi_surat" class="form-control">
+
                                     <a class="mb-4" href="{{ asset('uploads/' . $pengajuan->belisapi_surat) }}"
                                         target="_blank"><span class="badge bg-primary">Lihat Surat</span></a>
                                 </div>
@@ -85,15 +84,15 @@
                                 <div class="col-lg-3 col-md-4 label">Tanggal Pengajuan</div>
                                 <div class="col-lg-9 col-md-8">
                                     <input type="date" name="belisapi_tanggal" id="belisapi_tanggal"
-                                        class="form-control" value="{{ $pengajuan->belisapi_tanggal }}" required>
+                                        class="form-control" value="{{ $pengajuan->belisapi_tanggal }}" disabled>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Alasan Pembelian</div>
+                                <div class="col-lg-3 col-md-4 label">Alasan Pembelian/Keterangan</div>
                                 <div class="col-lg-9 col-md-8">
                                     <textarea name="belisapi_alasan" id="belisapi_alasan" class="form-control"
-                                        required>{{ $pengajuan->belisapi_alasan }}</textarea>
+                                        disabled>{{ $pengajuan->belisapi_alasan }}</textarea>
                                 </div>
                             </div>
 
@@ -103,7 +102,7 @@
                                 <div class="row mb-3">
                                     <div class="col-lg-3 col-md-4 label">Jenis Sapi</div>
                                     <div class="col-lg-9 col-md-8">
-                                        <select name="detail_jenis[]" id="detail_jenis" class="form-select" required>
+                                        <select name="detail_jenis[]" id="detail_jenis" class="form-select" disabled>
                                             @foreach($sapiJenis as $jenis)
                                             <option value="{{ $jenis->sjenis_id }}"
                                                 {{ $detail->detail_jenis == $jenis->sjenis_id ? 'selected' : '' }}>
@@ -117,7 +116,7 @@
                                     <div class="col-lg-3 col-md-4 label">Kategori Sapi</div>
                                     <div class="col-lg-9 col-md-8">
                                         <select name="detail_kategori[]" id="detail_kategori" class="form-select"
-                                            required>
+                                            disabled>
                                             <option value="Bibit"
                                                 {{ $detail->detail_kategori == 'Bibit' ? 'selected' : '' }}>Bibit
                                             </option>
@@ -154,7 +153,7 @@
                                     <div class="col-lg-3 col-md-4 label">Jumlah Sapi</div>
                                     <div class="col-lg-9 col-md-8">
                                         <input type="number" name="detail_jumlah[]" id="detail_jumlah"
-                                            class="form-control" value="{{ $detail->detail_jumlah }}" required>
+                                            class="form-control" value="{{ $detail->detail_jumlah }}" disabled>
                                     </div>
                                 </div>
 
@@ -162,7 +161,7 @@
                                     <div class="col-lg-3 col-md-4 label">Jenis Kelamin Sapi</div>
                                     <div class="col-lg-9 col-md-8">
                                         <select name="detail_kelamin[]" id="detail_kelamin" class="form-select"
-                                            required>
+                                            disabled>
                                             <option value="Jantan"
                                                 {{ $detail->detail_kelamin == 'Jantan' ? 'selected' : '' }}>Jantan
                                             </option>
@@ -174,16 +173,68 @@
                                 </div>
                                 @endforeach
                             </div>
-                            <p class="badge bg-danger">*jika membeli lebih dari satu jenis</p>
-                            <div class=" mb-4">
-                                <button type="button" class="btn btn-primary" id="add-field">Tambah Jenis Sapi</button>
+                            <h5 class="card-title">Detail Pembayaran Pembelian Sapi
+                            </h5>
+                            @if($pembayaran)
+                            <!-- Jika detail pembayaran ada, tampilkan -->
+                            <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">Invoice</div>
+                                <div class="col-lg-9 col-md-8">
+                                    <a href="{{ asset('uploads/' . $pembayaran->dbeli_invoice) }}" target="_blank">
+                                        <span class="badge bg-primary">Lihat Invoice</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">Ubah Keterangan</div>
+                                <div class="col-lg-9 col-md-8">
+                                    <textarea name="dbeli_keterangan" id="dbeli_keterangan" class="form-control"
+                                        rows="3" disabled>{{ $pembayaran->dbeli_keterangan }}</textarea>
+                                </div>
                             </div>
 
+
+                            @else
+                            @endif
                             <div class="text-center mb-4">
-                                <button type="submit" class="btn btn-success">Update Pengajuan</button>
-                                <a href="{{ route('index.pengajuan.sapi') }}" class="btn btn-secondary">Kembali</a>
+                                {{-- <a class="btn btn-success" href="{{ route('update.bayar' $belisapi_id) }}">Update
+                                Pengajuan</a> --}}
+
                             </div>
                         </form>
+
+                        <!-- Form untuk mengupdate pembayaran -->
+                        <form action="{{ route('bukti.bayar.pembeli', $pembayaran->dbeli_id) }}" method="POST"
+                            enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+                            <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">Upload Bukti Pembayaran</div>
+                                <div class="col-lg-9 col-md-8">
+                                    <input type="file" name="dbeli_bukti" id="dbeli_bukti" class="form-control"
+                                        accept=".png,.jpg,.jpeg,.pdf" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">Ubah Status</div>
+                                <div class="col-lg-9 col-md-8">
+                                    <select name="dbeli_sudah" id="dbeli_sudah" class="form-control">
+                                        <option value="">{{ $pembayaran->dbeli_sudah }}</option>
+                                        <option value="Saya Sudah Membayar"
+                                            {{ $pembayaran->dbeli_sudah == 'Saya Sudah Membayar' ? 'selected' : '' }}>
+                                            Saya Sudah Membayar</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success mb-4">Kirim Bukti Pembayaran</button>
+                            </div>
+
+                        </form>
+                        <div class="text-center">
+                            <a href="{{ route('index.pengajuan.sapi') }}" class="btn btn-secondary">Kembali</a>
+                        </div>
                     </div>
                 </div>
             </div>

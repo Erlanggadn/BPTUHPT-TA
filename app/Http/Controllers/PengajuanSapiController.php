@@ -7,6 +7,7 @@ use App\Models\ModJenisSapi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Models\ModPengajuanSapi;
+use App\Models\ModPembayaranSapi;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -19,10 +20,7 @@ class PengajuanSapiController extends Controller
     public function index()
     {
         $userId = Auth::id();
-
         $pembeli = Auth::user()->pembeli;
-
-        // Dapatkan data pengajuan sapi yang dimiliki oleh pengguna yang sedang login
         $PSapi = ModPengajuanSapi::with('user')
             ->where('belisapi_orang', $pembeli->pembeli_id)
             ->get();
@@ -38,7 +36,6 @@ class PengajuanSapiController extends Controller
     }
     public function store(Request $request)
     {
-        // dd($request->all());
         $today = date('Y-m-d');
         $validated = $request->validate([
             'belisapi_orang' => 'required|string',
@@ -58,6 +55,14 @@ class PengajuanSapiController extends Controller
             'detail_kelamin.*' => 'required|string',
         ]);
 
+        // Periksa apakah ada pengajuan yang belum diverifikasi oleh pengguna ini
+        $existingPengajuan = ModPengajuanSapi::where('belisapi_orang', $request->belisapi_orang)
+            ->where('belisapi_status', 'Belum Verifikasi')
+            ->exists();
+
+        if ($existingPengajuan) {
+            return redirect()->back()->with('error', 'Anda sudah memiliki pengajuan yang belum diverifikasi oleh PPID. Harap tunggu keputusan sebelum mengajukan kembali.')->withInput();
+        }
 
         DB::beginTransaction();
 
@@ -79,7 +84,7 @@ class PengajuanSapiController extends Controller
                 'belisapi_surat' => $filename,
                 'belisapi_tanggal' => $request->belisapi_tanggal,
                 'belisapi_alasan' => $request->belisapi_alasan,
-                'belisapi_status' => 'Belum Verifikasi',
+                'belisapi_status' => 'Sedang Diproses',
                 'belisapi_keterangan' => 'Belum Ada',
             ]);
 
@@ -99,19 +104,21 @@ class PengajuanSapiController extends Controller
 
             DB::commit();
 
-            return redirect()->route('home')->with('success', 'Pengajuan berhasil diajukan.');
+            return redirect()->route('index.pengajuan.sapi')->with('success', 'Pengajuan berhasil diajukan.');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
+
     public function detail($id)
     {
         $pengajuan = ModPengajuanSapi::with('details')->findOrFail($id);
         $sapiJenis = ModJenisSapi::all();
         $currentUser = auth()->user();
+        $pembayaran = ModPembayaranSapi::where('dbeli_beli', $id)->first();
 
-        return view('backend.pembeli.pengajuan_sapi.detail', compact('pengajuan', 'sapiJenis', 'currentUser'));
+        return view('backend.pembeli.pengajuan_sapi.detail', compact('pengajuan', 'sapiJenis', 'currentUser', 'pembayaran'));
     }
 
     public function update(Request $request, $id)
@@ -184,5 +191,27 @@ class PengajuanSapiController extends Controller
     }
     public function delete()
     {
+    }
+
+    public function updatebayarsapi(Request $request, $dbeli_id)
+    {
+        $request->validate([
+            'dbeli_sudah' => 'required|string',
+            'dbeli_bukti' => 'required|file|mimes:png,jpg,jpeg,pdf',
+        ]);
+
+        $pembayaran = ModPembayaranSapi::findOrFail($dbeli_id);
+        $file = $request->file('dbeli_bukti');
+        $filename = time() . '.' . $file->getClientOriginalExtension();
+        $file->move(public_path('uploads'), $filename);
+
+
+        // Update data pembayaran
+        $pembayaran->update([
+            'dbeli_sudah' => $request->dbeli_sudah,
+            'dbeli_bukti' => $filename,
+        ]);
+
+        return redirect()->route('index.pengajuan.sapi')->with('success', 'Terima Kasih telah melakukan pembayaran, silahkan mendatangi kantor BPTU HPT Padang Mengatas untuk melakukan pengambilan Ternak');
     }
 }

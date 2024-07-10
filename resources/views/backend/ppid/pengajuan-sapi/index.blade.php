@@ -7,10 +7,6 @@ use Carbon\Carbon;
 
 <main id="main" class="main">
 
-    <div class="pagetitle">
-        <h1>Selamat Datang, <b>{{ Auth::user()->name }} </b> sebagai {{ Auth::user()->role }}</h1>
-    </div><!-- End Page Title -->
-
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
@@ -52,17 +48,17 @@ use Carbon\Carbon;
                                         <td>{{ $item->belisapi_status}}</td>
                                         <td> <a class="btn btn-outline-success"
                                                 href="{{ route('detail.ppid.psapi', $item->belisapi_id) }}"><i
-                                            class="bi bi-info-lg"></i></a>
-                                        <form id="deleteForm"
-                                            action="{{ route('delete.ppid.psapi', $item->belisapi_id) }}" method="POST"
-                                            style="display: inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="button" class="btn btn-outline-danger"
-                                                onclick="showDeleteModal('{{ route('delete.ppid.psapi', $item->belisapi_id) }}')">
-                                                <i class="bi bi-trash-fill"></i>
-                                            </button>
-                                        </form>
+                                                    class="bi bi-info-lg"></i></a>
+                                            <form id="deleteForm"
+                                                action="{{ route('delete.ppid.psapi', $item->belisapi_id) }}"
+                                                method="POST" style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="btn btn-outline-danger"
+                                                    onclick="showDeleteModal('{{ route('delete.ppid.psapi', $item->belisapi_id) }}')">
+                                                    <i class="bi bi-trash-fill"></i>
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                     @endforeach

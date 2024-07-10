@@ -10,7 +10,7 @@
                 <div class="card-body pt-3">
 
                     <div class="tab-content pt-2">
-                        <h5 class="card-title">Profil Kandang</h5>
+                        <h5 class="card-title">Detail Kandang</h5>
 
                         @if (session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -58,6 +58,7 @@
                         <div class="col-lg-3 col-md-4 label">Status Kandang</div>
                         <div class="col-lg-9 col-md-8">
                             <select name="kand_aktif" class="form-select">
+                                <option selected disabled>Status Kandang</option>
                                 <option value="Aktif" {{ $Kandang->kand_aktif == 'Aktif' ? 'selected' : '' }}>Aktif
                                 </option>
                                 <option value="NonAktif" {{ $Kandang->kand_aktif == 'NonAktif' ? 'selected' : '' }}>Non
@@ -67,33 +68,27 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-lg-3 col-md-4 label">Dibuat Oleh</div>
+                        <div class="col-lg-3 col-md-4 label">Dibuat Pada</div>
                         <div class="col-lg-9 col-md-8">
                             <textarea name="kand_keterangan" class="form-control"
-                                disabled>{{ $Kandang->created_nama }}</textarea>
+                                disabled>{{ $Kandang->created_at }}</textarea>
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-lg-3 col-md-4 label">Diupdate Oleh</div>
+                        <div class="col-lg-3 col-md-4 label">Diupdate Pada</div>
                         <div class="col-lg-9 col-md-8">
                             <textarea name="kand_keterangan" class="form-control"
-                                disabled>{{ $Kandang->updated_nama }}</textarea>
+                                disabled>{{ $Kandang->updated_at }}</textarea>
                         </div>
                     </div>
                 </div>
 
 
                 <div class="text-center mb-4">
-                    <button type="submit" class="btn btn-outline-success">Update</button>
-                    <a href="{{ route('index.kandang') }}" class="btn btn-outline-secondary">Kembali</a>
+                    <button type="submit" class="btn btn-success">Ubah</button>
+                    <a href="{{ route('index.kandang') }}" class="btn btn-secondary">Kembali</a>
                 </div>
                 </form>
-
-                {{-- <a class="btn btn-outline-warning mt-3" href="{{ route('editsapi', $sapi->id) }}"><i
-                    class="bi bi-pencil-fill"></i> Edit</a>
-                <a class="btn btn-outline-primary mt-3" href="{{ route('printsapi', $sapi->id) }}"><i
-                        class="bi bi-upc"></i> Cetak Kode</a> --}}
-
             </div>
 
         </div><!-- End Bordered Tabs -->

@@ -4,7 +4,7 @@
         <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-lg-4 col-md-6 flex-column align-items-center justify-content-center">
+                    <div class="col-lg-6 col-md-6 flex-column align-items-center justify-content-center">
                         <div class="d-flex justify-content-center py-4"></div><!-- End Logo -->
                         <form action="{{ route('update.profil.keswan', $akunuser->id) }}" method="POST">
                             @csrf
@@ -130,14 +130,12 @@
                                         </div>
                                         <br>
                                         <div class="col-12">
-                                            <button class="btn btn-outline-success w-100" type="submit"><i
-                                                    class="bi bi-box-arrow-in-right"></i> Simpan</button>
+                                            <button class="btn btn-success w-100" type="submit">Simpan</button>
                                         </div>
                                         <br>
                                         <div class="col-12">
-                                            <a href="{{ route('profiladmin', $akunuser->id) }}"
-                                                class="btn btn-outline-danger w-100"><i
-                                                    class="bi bi-house-door-fill"></i> Beranda</a>
+                                            <a href="{{ route('profilkeswan', $akunuser->id) }}"
+                                                class="btn btn-secondary w-100">Kembali</a>
                                         </div>
                                         <br>
                                     </div>

@@ -218,7 +218,7 @@ class PPIDController extends Controller
 
     public function detailpengajuansapi($id)
     {
-        $pengajuan = ModPengajuanSapi::with('details')->findOrFail($id);
+        $pengajuan = ModPengajuanSapi::with('details', 'pembayaranSapi')->findOrFail($id);
         $sapiJenis = ModJenisSapi::all();
         $currentUser = ModPembeli::all();
 
@@ -228,12 +228,13 @@ class PPIDController extends Controller
     {
         $today = date('Y-m-d');
         $validated = $request->validate([
-            'belisapi_orang' => 'required|string',
             'belisapi_nohp' => 'required|string',
             'belisapi_alamat' => 'required|string',
             'belisapi_surat' => 'file|mimes:jpeg,png,jpg,pdf|max:2048',
             'belisapi_tanggal' => 'required|date|after_or_equal:' . $today,
             'belisapi_alasan' => 'required|string',
+            'belisapi_status' => 'required|string',
+            'belisapi_keterangan' => 'required|string',
 
             'detail_jenis' => 'required|array',
             'detail_jenis.*' => 'required|string|exists:master_sapi_jenis,sjenis_id',
@@ -259,11 +260,12 @@ class PPIDController extends Controller
             }
 
             // Update data pengajuan
-            $pengajuan->belisapi_orang = $request->belisapi_orang;
             $pengajuan->belisapi_nohp = $request->belisapi_nohp;
             $pengajuan->belisapi_alamat = $request->belisapi_alamat;
             $pengajuan->belisapi_tanggal = $request->belisapi_tanggal;
             $pengajuan->belisapi_alasan = $request->belisapi_alasan;
+            $pengajuan->belisapi_status = $request->belisapi_status;
+            $pengajuan->belisapi_keterangan = $request->belisapi_keterangan;
             $pengajuan->save();
 
             // Hapus detail lama
@@ -286,7 +288,7 @@ class PPIDController extends Controller
 
             DB::commit();
 
-            return redirect()->route('index.pengajuan.sapi')->with('success', 'Pengajuan berhasil diupdate.');
+            return redirect()->route('index.ppid.psapi')->with('success', 'Pengajuan berhasil diupdate.');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);

@@ -25,7 +25,7 @@
                             </ul>
                         </div>
                         @endif
-                        <form action="{{ route('update.pengajuan.sapi', $pengajuan->belisapi_id) }}" method="POST"
+                        <form action="{{ route('update.ppid.psapi', $pengajuan->belisapi_id) }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
@@ -88,6 +88,30 @@
                                         required>{{ $pengajuan->belisapi_alasan }}</textarea>
                                 </div>
                             </div>
+                            <h5 class="card-title">Status Pengajuan Pembelian
+                            </h5>
+                            <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">Status Pembelian</div>
+                                <div class="col-lg-9 col-md-8">
+                                    <select name="belisapi_status" id="belisapi_status" class="form-select" required>
+                                        <option value="{{ $pengajuan->belisapi_status }}"
+                                            {{ $pengajuan->belisapi_status ? 'selected' : '' }}>
+                                            {{ $pengajuan->belisapi_status }}</option>
+                                        <option value="" disabled>-- Status Pembelian --</option>
+                                        <option value="Disetujui">Disetujui</option>
+                                        <option value="Ditolak">Ditolak</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">Disposisi Kepala Balai</div>
+                                <div class="col-lg-9 col-md-8">
+                                    <textarea name="belisapi_keterangan" id="belisapi_keterangan" class="form-control"
+                                        required>{{ $pengajuan->belisapi_keterangan }}</textarea>
+                                </div>
+                            </div>
+                            <h5 class="card-title">Pengajuan Produk
+                            </h5>
 
                             <!-- Detail Pengajuan -->
                             <div id="dynamic-field">
@@ -172,7 +196,7 @@
                             </div>
 
                             <div class="text-center mb-4">
-                                <button type="submit" class="btn btn-success">Update Pengajuan</button>
+                                <button type="submit" class="btn btn-success">Ubah Pengajuan</button>
                                 <a href="{{ route('index.ppid.psapi') }}" class="btn btn-secondary">Kembali</a>
                             </div>
                         </form>

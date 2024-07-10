@@ -4,7 +4,7 @@
         <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-lg-4 col-md-6 flex-column align-items-center justify-content-center">
+                    <div class="col-lg-6 col-md-6 flex-column align-items-center justify-content-center">
                         <div class="d-flex justify-content-center py-4">
                         </div><!-- End Logo -->
                         @if (session('success'))
@@ -56,8 +56,8 @@
                                         <div class="row-12 ">
                                             <label for="yourUsername" class="form-label">Keterangan</label>
                                             <div class="input-group has-validation">
-                                                <input type="text" name="kand_keterangan" class="form-control"
-                                                    id="yourUsername" required>
+                                                <textarea type="text" name="kand_keterangan" class="form-control"
+                                                    id="yourUsername" required></textarea>
                                                 <div class="invalid-feedback">Masukkan Data dengan benar</div>
                                             </div>
                                         </div>
@@ -72,14 +72,12 @@
                                         </div>
                                         <br>
                                         <div class="col-12">
-                                            <button class="btn btn-outline-success w-100" type="submit"><i
-                                                    class="bi bi-box-arrow-in-right"></i> Submit</button>
+                                            <button class="btn btn-success w-100" type="submit">Tambah Kandang</button>
                                         </div>
                                         <br>
                                         <div class="col-12">
                                             <a href="{{ route('index.kandang') }}"
-                                                class="btn btn-outline-secondary w-100"><i
-                                                    class="bi bi-house-door-fill"></i> Beranda</a>
+                                                class="btn btn-secondary w-100">Kembali</a>
                                         </div>
                                         <br>
                                     </div>

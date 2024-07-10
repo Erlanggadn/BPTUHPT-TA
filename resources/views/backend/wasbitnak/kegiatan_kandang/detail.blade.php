@@ -111,9 +111,9 @@
                                 </div>
                             </div>
                             <div class="text-center mb-4">
-                                <button type="submit" class="btn btn-outline-success">Update Kegiatan</button>
+                                <button type="submit" class="btn btn-success">Ubah Kegiatan</button>
                                 <a href="{{ route('index.kegiatan.kandang') }}"
-                                    class="btn btn-outline-secondary">Kembali</a>
+                                    class="btn btn-secondary">Kembali</a>
                             </div>
                         </form>
                     </div>

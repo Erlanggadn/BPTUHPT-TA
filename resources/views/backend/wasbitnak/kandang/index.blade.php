@@ -2,11 +2,6 @@
 @include('layouts.wasbitnak.navbar')
 @include('layouts.wasbitnak.sidebar')
 <main id="main" class="main">
-
-    <div class="pagetitle">
-        <h1>Selamat Datang, <b>{{ Auth::user()->name }} </b> sebagai {{ Auth::user()->role }}</h1>
-    </div><!-- End Page Title -->
-
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
@@ -43,49 +38,52 @@
                             </div>
                         </form>
                         <!-- Table with stripped rows -->
-                        <table class="table datatable">
-                            <thead>
-                                <tr>
-                                    <th>ID/Kode Kandang</th>
-                                    <th>Tipe Kandang</th>
-                                    <th>Jenis Kandang</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @isset($Kandang)
-                                @foreach ($Kandang as $item)
-                                <tr>
-                                    <td>{{ $item->kand_id }}</td>
-                                    <td>{{ $item->jenisKandang->kandang_tipe }}</td>
-                                    <td>{{ $item->kand_nama }}</td>
-                                    <td>
-                                        @if ($item->kand_aktif === 'Aktif')
-                                        <span class="badge bg-success">{{ $item->kand_aktif }}</span>
-                                        @else
-                                        <span class="badge bg-danger">{{ $item->kand_aktif }}</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-outline-success"
-                                            href="{{ route('detail.kandang', $item->kand_id) }}"><i
-                                                class="bi bi-info-lg"></i></a>
-                                        <form id="deleteForm" action="{{ route('destroy.kandang', $item->kand_id) }}"
-                                            method="POST" style="display: inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="button" class="btn btn-outline-danger"
-                                                onclick="showDeleteModal('{{ route('destroy.kandang', $item->kand_id) }}')">
-                                                <i class="bi bi-trash-fill"></i>
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                @endforeach
-                                @endisset
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table datatable">
+                                <thead>
+                                    <tr>
+                                        <th>ID/Kode Kandang</th>
+                                        <th>Tipe Kandang</th>
+                                        <th>Jenis Kandang</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @isset($Kandang)
+                                    @foreach ($Kandang as $item)
+                                    <tr>
+                                        <td><span class="badge bg-primary">{{ $item->kand_id }}</span></td>
+                                        <td>{{ $item->jenisKandang->kandang_tipe }}</td>
+                                        <td>{{ $item->kand_nama }}</td>
+                                        <td>
+                                            @if ($item->kand_aktif === 'Aktif')
+                                            <span class="badge bg-success">{{ $item->kand_aktif }}</span>
+                                            @else
+                                            <span class="badge bg-danger">{{ $item->kand_aktif }}</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-outline-success"
+                                                href="{{ route('detail.kandang', $item->kand_id) }}"><i
+                                                    class="bi bi-info-lg"></i></a>
+                                            <form id="deleteForm"
+                                                action="{{ route('destroy.kandang', $item->kand_id) }}" method="POST"
+                                                style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="btn btn-outline-danger"
+                                                    onclick="showDeleteModal('{{ route('destroy.kandang', $item->kand_id) }}')">
+                                                    <i class="bi bi-trash-fill"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    @endisset
+                                </tbody>
+                            </table>
+                        </div>
                         <!-- End Table with stripped rows -->
                     </div>
                 </div>

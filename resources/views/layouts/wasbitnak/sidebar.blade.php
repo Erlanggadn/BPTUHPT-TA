@@ -48,7 +48,7 @@
                     <span>Daftar Pegawai</span>
                 </a>
             </li>
-            <li class="nav-heading">Admin - Logout</li>
+            <li class="nav-heading">wasbitnak - Logout</li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('logout') }}">
                     <i class="bi bi-box-arrow-left"></i>

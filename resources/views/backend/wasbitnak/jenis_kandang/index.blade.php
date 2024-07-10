@@ -4,10 +4,6 @@
 
 <main id="main" class="main">
 
-    <div class="pagetitle">
-        <h1>Selamat Datang, <b>{{ Auth::user()->name }} </b> sebagai {{ Auth::user()->role }}</h1>
-    </div><!-- End Page Title -->
-
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
@@ -29,42 +25,44 @@
                                 class="bi bi-plus"></i>
                             Tambah Jenis</a>
                         <!-- Table with stripped rows -->
-                        <table class="table datatable">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Tipe Kandang</th>
-                                    <th>Keterangan</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @isset($JenisKandang)
-                                @foreach ($JenisKandang as $item)
-                                <tr>
-                                    <td>{{ $item->kandang_id }}</td>
-                                    <td><span class="badge bg-info">{{ $item->kandang_tipe }}</span></td>
-                                    <td>{{ $item->kandang_keterangan }}</td>
-                                    <td> <a class="btn btn-outline-success"
-                                            href="{{ route('detail.jenis.kandang', $item->kandang_id) }}"><i
-                                                class="bi bi-info-lg"></i></a>
-                                        <form id="deleteForm"
-                                            action="{{ route('destroy.jenis.kandang', $item->kandang_id) }}"
-                                            method="POST" style="display: inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="button" class="btn btn-outline-danger"
-                                                onclick="showDeleteModal('{{ route('destroy.jenis.kandang', $item->kandang_id) }}')">
-                                                <i class="bi bi-trash-fill"></i>
-                                            </button>
-                                        </form>
+                        <div class="table-responsive">
+                            <table class="table datatable">
+                                <thead>
+                                    <tr>
+                                        <th>ID/Kode Jenis</th>
+                                        <th>Tipe Kandang</th>
+                                        <th>Keterangan</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @isset($JenisKandang)
+                                    @foreach ($JenisKandang as $item)
+                                    <tr>
+                                        <td>{{ $item->kandang_id }}</td>
+                                        <td><span class="badge bg-info">{{ $item->kandang_tipe }}</span></td>
+                                        <td>{{ $item->kandang_keterangan }}</td>
+                                        <td> <a class="btn btn-outline-success"
+                                                href="{{ route('detail.jenis.kandang', $item->kandang_id) }}"><i
+                                                    class="bi bi-info-lg"></i></a>
+                                            <form id="deleteForm"
+                                                action="{{ route('destroy.jenis.kandang', $item->kandang_id) }}"
+                                                method="POST" style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="btn btn-outline-danger"
+                                                    onclick="showDeleteModal('{{ route('destroy.jenis.kandang', $item->kandang_id) }}')">
+                                                    <i class="bi bi-trash-fill"></i>
+                                                </button>
+                                            </form>
 
-                                    </td>
-                                </tr>
-                                @endforeach
-                                @endisset
-                            </tbody>
-                        </table>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    @endisset
+                                </tbody>
+                            </table>
+                        </div>
                         <!-- End Table with stripped rows -->
                     </div>
                 </div>

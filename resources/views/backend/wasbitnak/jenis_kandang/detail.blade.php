@@ -13,48 +13,30 @@
                         <div class="tab-content pt-2">
                             <h5 class="card-title">Detail Jenis Kandang</h5>
 
-                            <div class="row">
+                            <div class="row mb-4">
                                 <div class="col-lg-3 col-md-4 label">ID Jenis Kandang</div>
                                 <div class="col-lg-9 col-md-8"> : {{ $jenisKandang->kandang_id }}</div>
                             </div>
-                            <div class="row">
+                            <div class="row mb-4">
                                 <div class="col-lg-3 col-md-4 label">Tipe Kandang</div>
                                 <div class="col-lg-9 col-md-8"> : <span
                                         class="badge bg-secondary">{{ $jenisKandang->kandang_tipe }}</span></div>
                             </div>
-                            <div class="row">
+                            <div class="row mb-4">
                                 <div class="col-lg-3 col-md-4 label">Keterangan</div>
                                 <div class="col-lg-9 col-md-8"> : {{ $jenisKandang->kandang_keterangan }}</div>
                             </div>
 
-                            <div class="row mb-4">
+                            <div class="row  mb-4">
                                 <div class="col-lg-3 col-md-4 label">Dibuat Pada</div>
                                 <div class="col-lg-9 col-md-8"> :
                                     {{ $jenisKandang->created_at->translatedFormat('d F Y') }}</div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-3 col-md-4 label">Dibuat Oleh</div>
-                                <div class="col-lg-9 col-md-8"> : {{ $jenisKandang->created_nama }}</div>
-                            </div>
-                            <div class="row mb-4">
-                                <div class="col-lg-3 col-md-4 label">Diupdate Oleh</div>
-                                <div class="col-lg-9 col-md-8"> : {{ $jenisKandang->updated_nama }}</div>
-                            </div>
 
                             <a href="{{ route('edit.jenis.kandang', ['kandang_id' => $jenisKandang->kandang_id]) }}"
-                                class="btn btn-outline-warning edit">
-                                <i class="bi bi-pencil-square"></i> Edit
+                                class="btn btn-warning edit">
+                                <i class="bi bi-pencil-square"></i> Ubah
                             </a>
-
-                            {{-- <form action="{{ route('rumput_jenis.delete', $jenisRumput->rum_id) }}" method="POST"
-                            style="display: inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-outline-danger"
-                                onclick="return confirm('Apakah Anda yakin ingin menghapus jenis rumput ini?')">
-                                <i class="bi bi-trash"></i> Hapus
-                            </button>
-                            </form> --}}
 
                         </div>
 

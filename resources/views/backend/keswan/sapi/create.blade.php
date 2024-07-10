@@ -4,7 +4,7 @@
         <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-lg-4 col-md-6 flex-column align-items-center justify-content-center">
+                    <div class="col-lg-6 col-md-6 flex-column align-items-center justify-content-center">
                         <div class="d-flex justify-content-center py-4">
                         </div><!-- End Logo -->
                         @if (session('success'))
@@ -91,7 +91,7 @@
                                         <div class="form-group mb-3">
                                             <label for="sapi_kelamin">Jenis Kelamin</label>
                                             <select name="sapi_kelamin" id="sapi_kelamin" class="form-control" required>
-                                                <option value="">Pilih Jenis</option>
+                                                <option value="" selected disabled>Pilih Jenis Kelamin</option>
                                                 <option value="Jantan">Jantan</option>
                                                 <option value="Betina">Betina</option>
                                             </select>
@@ -99,7 +99,7 @@
                                         <div class="form-group mb-3">
                                             <label for="sapi_status">Status Sapi</label>
                                             <select name="sapi_status" id="sapi_status" class="form-control" required>
-                                                <option value="">Pilih Status</option>
+                                                <option value="" selected disabled>Pilih Status</option>
                                                 <option value="Baru Lahir">Baru Lahir</option>
                                                 <option value="Produktif">Produktif</option>
                                                 <option value="Pemeriksaan">Pemeriksaan</option>
@@ -108,14 +108,13 @@
                                         </div>
                                         <br>
                                         <div class="col-12">
-                                            <button class="btn btn-outline-success w-100" type="submit"><i
-                                                    class="bi bi-box-arrow-in-right"></i> Daftarkan Identitas</button>
+                                            <button class="btn btn-success w-100" type="submit"> Daftarkan
+                                                Identitas</button>
                                         </div>
                                         <br>
                                         <div class="col-12">
                                             <a href="{{ route('index.sapi') }}"
-                                                class="btn btn-outline-secondary w-100"><i
-                                                    class="bi bi-house-door-fill"></i> Beranda</a>
+                                                class="btn btn-secondary w-100">Kembali</a>
                                         </div>
                                         <br>
                                     </div>

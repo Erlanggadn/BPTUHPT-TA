@@ -3,10 +3,6 @@
 @extends('layouts.wasbitnak.sidebar')
 
 <main id="main" class="main">
-    <div class="pagetitle">
-        <h1>Selamat Datang, <b>{{ Auth::user()->name }} </b> sebagai {{ Auth::user()->role }}</h1>
-    </div><!-- End Page Title -->
-
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
@@ -23,64 +19,67 @@
                         </div>
                         @endif
 
-                        <a href="{{ route('show.kegiatan.kandang') }}" class="btn btn-primary "><i
+                        <a href="{{ route('show.kegiatan.kandang') }}" class="btn btn-primary"><i
                                 class="bi bi-plus"></i> Tambah Kegiatan </a>
-                        <a href="{{ route('export.kegiatan.kandang', request()->query()) }}" class="btn btn-success"><i class="bi bi-file-earmark-excel"></i> Export to
+                        <a href="{{ route('export.kegiatan.kandang', request()->query()) }}" class="btn btn-success"><i
+                                class="bi bi-file-earmark-excel"></i> Export to
                             Excel</a>
                     </div>
 
 
                     <!-- Table with stripped rows -->
-                    <table class="table datatable">
-                        <thead>
-                            <tr>
-                                <th>ID/Kode Kegiatan</th>
-                                <th>Kode Kandang</th>
-                                <th>Tanggal Kegiatan</th>
-                                <th>Keterangan</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @isset($Kegiatan)
-                            @foreach ($Kegiatan as $item)
-                            <tr>
-                                <td>{{ $item->kegiatan_id }}</td>
-                                <td>{{ $item->kegiatan_jenis_kandang }} - [
-                                    {{ $item->kandang->jenisKandang->kandang_tipe }}
-                                    - {{ $item->kandang->kand_nama }} ]</td>
-                                <td>{{ $item->kegiatan_tanggal }}</td>
-                                <td>{{ $item->kegiatan_keterangan }}</td>
-                                <td>
-                                    @if ($item->kegiatan_status == 'Selesai')
-                                    <span class="badge bg-success">Selesai</span>
-                                    @elseif ($item->kegiatan_status == 'Proses')
-                                    <span class="badge bg-warning">Proses</span>
-                                    @else
-                                    <span class="badge bg-danger">Belum Selesai</span>
-                                    @endif
-                                </td>
-                                <td>
-                                    <a class="btn btn-outline-success"
-                                        href="{{ route('detail.kegiatan.kandang', $item->kegiatan_id) }}"><i
-                                            class="bi bi-info-lg"></i></a>
-                                    <form id="deleteForm"
-                                        action="{{ route('destroy.kegiatan.kandang', $item->kegiatan_id) }}"
-                                        method="POST" style="display: inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="button" class="btn btn-outline-danger"
-                                            onclick="showDeleteModal('{{ route('destroy.kegiatan.kandang', $item->kegiatan_id) }}')">
-                                            <i class="bi bi-trash-fill"></i>
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                            @endforeach
-                            @endisset
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table datatable">
+                            <thead>
+                                <tr>
+                                    <th>ID/Kode Kegiatan</th>
+                                    <th>Kode Kandang</th>
+                                    <th>Tanggal Kegiatan</th>
+                                    <th>Keterangan</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @isset($Kegiatan)
+                                @foreach ($Kegiatan as $item)
+                                <tr>
+                                    <td>{{ $item->kegiatan_id }}</td>
+                                    <td>{{ $item->kegiatan_jenis_kandang }} - [
+                                        {{ $item->kandang->jenisKandang->kandang_tipe }}
+                                        - {{ $item->kandang->kand_nama }} ]</td>
+                                    <td>{{ $item->kegiatan_tanggal }}</td>
+                                    <td>{{ $item->kegiatan_keterangan }}</td>
+                                    <td>
+                                        @if ($item->kegiatan_status == 'Selesai')
+                                        <span class="badge bg-success">Selesai</span>
+                                        @elseif ($item->kegiatan_status == 'Proses')
+                                        <span class="badge bg-warning">Proses</span>
+                                        @else
+                                        <span class="badge bg-danger">Belum Selesai</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-outline-success"
+                                            href="{{ route('detail.kegiatan.kandang', $item->kegiatan_id) }}"><i
+                                                class="bi bi-info-lg"></i></a>
+                                        <form id="deleteForm"
+                                            action="{{ route('destroy.kegiatan.kandang', $item->kegiatan_id) }}"
+                                            method="POST" style="display: inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="button" class="btn btn-outline-danger"
+                                                onclick="showDeleteModal('{{ route('destroy.kegiatan.kandang', $item->kegiatan_id) }}')">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                @endforeach
+                                @endisset
+                            </tbody>
+                        </table>
+                    </div>
                     <!-- End Table with stripped rows -->
                 </div>
             </div>

@@ -3,11 +3,6 @@
 @include('layouts.ppid.sidebar')
 
 <main id="main" class="main">
-
-    <div class="pagetitle">
-        <h1>Selamat Datang, {{ Auth::user()->name }} sebagai {{ Auth::user()->role }}</h1>
-    </div><!-- End Page Title -->
-
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
@@ -18,10 +13,10 @@
                         <p>Berikut ini adalah data hak akses akun yang sepenuhnya dikelola oleh <b>Admin dan Divisi
                                 PPID</b> BPTU HPT Padang Mengatas</p>
                         <p>Jumlah Pembeli Saat Ini : <b>{{ $jumlahPembeli }}</b></p>
-                        <a class="btn btn-outline-success mb-4" href=""><i class="bi bi-file-earmark-spreadsheet"></i>
+                        {{-- <a class="btn btn-outline-success mb-4" href=""><i class="bi bi-file-earmark-spreadsheet"></i>
                             Cetak Excel</a>
                         <a class="btn btn-outline-danger mb-4" href="" target="_blank"><i
-                                class="bi bi-file-earmark-pdf-fill"></i> Cetak PDF</a>
+                                class="bi bi-file-earmark-pdf-fill"></i> Cetak PDF</a> --}}
 
                         <!-- Table with stripped rows -->
                         <div class="table-responsive">
@@ -40,7 +35,7 @@
                                     @isset($akunuser)
                                     @foreach ($akunuser as $item)
                                     <tr>
-                                        <td>{{ $item->pembeli->pembeli_id }}</td>
+                                        <td><span class="badge bg-primary">{{ $item->pembeli->pembeli_id }}</span></td>
                                         <td>{{ $item->email }}</td>
                                         <td>{{ $item->pembeli->pembeli_nama ?? 'N/A' }}</td>
                                         <td>{{ $item->pembeli->pembeli_nohp ?? 'N/A' }}</td>
