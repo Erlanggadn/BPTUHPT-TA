@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\ModPembeli;
 use App\Models\ModJenisSapi;
 use Illuminate\Http\Request;
+use App\Models\ModJenisRumput;
 use App\Models\ModPengajuanSapi;
 use App\Models\ModPembayaranSapi;
+use App\Models\ModPengajuanRumput;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use App\Models\ModPembayaranRumput;
 use App\Models\ModDetailPengajuanSapi;
+use App\Models\ModDetailPengajuanRumput;
 
 class BendaharaController extends Controller
 {
@@ -45,8 +49,8 @@ class BendaharaController extends Controller
 
         // Simpan file invoice
         $file = $request->file('dbeli_invoice');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads'), $filename);
+        $filename = time() . '.' . $file->getClientOriginalExtension();
+        $file->move(public_path('uploads'), $filename);
 
 
         // Buat kode baru untuk dbeli_id
@@ -92,5 +96,82 @@ class BendaharaController extends Controller
         $pembayaran = ModPembayaranSapi::findOrFail($dbeli_id);
         $pembayaran->delete();
         return redirect()->route('index.bendahara.psapi')->with('success', 'Pembayaran berhasil dihapus.');
+    }
+
+    //BAYAR RUMPUT
+    public function indexrumput()
+    {
+        $PRumput = ModPengajuanRumput::with('pembeli')->where('belirum_status', 'Disetujui')->get();
+        return view('backend.bendahara.rumput.index', compact('PRumput'));
+    }
+
+    public function detailrumput($belirum_id)
+    {
+        $pengajuan = ModPengajuanRumput::where('belirum_id', $belirum_id)->firstOrFail();
+        $detail = ModDetailPengajuanRumput::where('drumput_pengajuan', $belirum_id)->first();
+        $rumputJenis = ModJenisRumput::all();
+        $currentUser = ModPembeli::all();
+        $pembayaran = ModPembayaranRumput::where('bayarrum_beli', $belirum_id)->first(); // Pastikan variabel pembayaran diambil
+
+        return view('backend.bendahara.rumput.detail', compact('pengajuan', 'rumputJenis', 'currentUser', 'pembayaran'));
+    }
+
+    public function storebayarrumput(Request $request, $belirum_id)
+    {
+        $request->validate([
+            'bayarrum_invoice' => 'required|file|mimes:jpg,png,jpeg,pdf',
+            'bayarrum_status' => 'required|string',
+            'bayarrum_keterangan' => 'nullable|string',
+        ]);
+
+        // Simpan file invoice
+        $file = $request->file('bayarrum_invoice');
+        $filename = time() . '.' . $file->getClientOriginalExtension();
+        $file->move(public_path('uploads'), $filename);
+
+
+        // Buat kode baru untuk dbeli_id
+        $lastKode = ModPembayaranRumput::orderBy('bayarrum_id', 'desc')->first();
+        $newKode = $lastKode ? 'BR' . str_pad(((int) substr($lastKode->bayarrum_id, 2)) + 1, 3, '0', STR_PAD_LEFT) : 'BR001';
+
+        // Simpan data pembayaran sapi
+        ModPembayaranRumput::create([
+            'bayarrum_id' => $newKode,
+            'bayarrum_beli' => $belirum_id,
+            'bayarrum_invoice' => $filename,
+            'bayarrum_status' => $request->bayarrum_status,
+            'bayarrum_keterangan' => $request->bayarrum_keterangan,
+            'bayarrum_bukti' => null,
+            'bayarrum_sudah' => 'Saya Belum membayar',
+        ]);
+
+        // Redirect dengan pesan sukses
+        return redirect()->route('index.bendahara.prumput')->with('success', 'Pembayaran berhasil disimpan.');
+    }
+
+    public function updatebayarrumput(Request $request, $bayarrum_id)
+    {
+        $request->validate([
+            'bayarrum_status' => 'required|string',
+            'bayarrum_keterangan' => 'nullable|string',
+        ]);
+
+        // Cari data pembayaran berdasarkan bayarrum_id
+        $pembayaran = ModPembayaranRumput::findOrFail($bayarrum_id);
+
+        // Update data pembayaran
+        $pembayaran->update([
+            'bayarrum_status' => $request->bayarrum_status,
+            'bayarrum_keterangan' => $request->bayarrum_keterangan,
+        ]);
+
+        return redirect()->route('index.bendahara.prumput')->with('success', 'Pembayaran berhasil diperbarui.');
+    }
+
+    public function deletebayarrumput($bayarrum_id)
+    {
+        $pembayaran = ModPembayaranRumput::findOrFail($bayarrum_id);
+        $pembayaran->forceDelete();
+        return redirect()->route('index.bendahara.prumput')->with('success', 'Pembayaran berhasil dihapus.');
     }
 }

@@ -37,6 +37,17 @@
     <!-- ======= Chefs Section ======= -->
     <section id="beli" class="chefs section-bg">
         <div class="container py-4  " data-aos="fade-up">
+            <div class="section-header">
+                <h2>Video Kami</h2>
+                <p>Cerita Kami<span> disini</span></p>
+            </div>
+            <div class="text-center mb-4">
+                <iframe width="679" height="382" src="https://www.youtube.com/embed/WdxHTJk7_Rg?autoplay=1"
+                    title="BPTU-HPT Padang Mengatas Ramah Untuk Semua" frameborder="0"
+                    allow="accelerometer;  clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+
 
             <div class="section-header">
                 <p><span>-Layanan</span>Kami-</p>
@@ -180,8 +191,6 @@
                     width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
-
-
         </div>
     </section><!-- End About Section -->
     <br>
@@ -486,7 +495,7 @@
             <div class="section-header">
                 <h2>Menu</h2>
                 <p>Check Harga <span>Rumput</span></p>
-                <a href="" class="btn btn-success"><i class="bi bi-envelope-paper-fill"></i> Ajukan Pembelian
+                <a href="{{ route('show.pengajuan.rumput') }}" class="btn btn-success"><i class="bi bi-envelope-paper-fill"></i> Ajukan Pembelian
                     Rumput</a>
             </div>
 

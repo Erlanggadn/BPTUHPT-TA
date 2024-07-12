@@ -110,7 +110,6 @@ class PengajuanSapiController extends Controller
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
-
     public function detail($id)
     {
         $pengajuan = ModPengajuanSapi::with('details')->findOrFail($id);
@@ -192,7 +191,6 @@ class PengajuanSapiController extends Controller
     public function delete()
     {
     }
-
     public function updatebayarsapi(Request $request, $dbeli_id)
     {
         $request->validate([

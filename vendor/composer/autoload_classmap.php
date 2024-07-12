@@ -6,6 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Console\\Commands\\DeleteOldPayments' => $baseDir . '/app/Console/Commands/DeleteOldPayments.php',
     'App\\Console\\Commands\\UpdateSapiUmur' => $baseDir . '/app/Console/Commands/UpdateSapiUmur.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
@@ -24,6 +25,7 @@ return array(
     'App\\Http\\Controllers\\KegiatanLahanController' => $baseDir . '/app/Http/Controllers/KegiatanLahanController.php',
     'App\\Http\\Controllers\\KepalaBalaiController' => $baseDir . '/app/Http/Controllers/KepalaBalaiController.php',
     'App\\Http\\Controllers\\PPIDController' => $baseDir . '/app/Http/Controllers/PPIDController.php',
+    'App\\Http\\Controllers\\PembayaranSapiController' => $baseDir . '/app/Http/Controllers/PembayaranSapiController.php',
     'App\\Http\\Controllers\\PengajuanSapiController' => $baseDir . '/app/Http/Controllers/PengajuanSapiController.php',
     'App\\Http\\Controllers\\RumputController' => $baseDir . '/app/Http/Controllers/RumputController.php',
     'App\\Http\\Controllers\\SapiController' => $baseDir . '/app/Http/Controllers/SapiController.php',
@@ -56,6 +58,7 @@ return array(
     'App\\Models\\ModKegiatanKandang' => $baseDir . '/app/Models/ModKegiatanKandang.php',
     'App\\Models\\ModKegiatanLahan' => $baseDir . '/app/Models/ModKegiatanLahan.php',
     'App\\Models\\ModPegawai' => $baseDir . '/app/Models/ModPegawai.php',
+    'App\\Models\\ModPembayaranSapi' => $baseDir . '/app/Models/ModPembayaranSapi.php',
     'App\\Models\\ModPembeli' => $baseDir . '/app/Models/ModPembeli.php',
     'App\\Models\\ModPengajuanSapi' => $baseDir . '/app/Models/ModPengajuanSapi.php',
     'App\\Models\\ModRumput' => $baseDir . '/app/Models/ModRumput.php',

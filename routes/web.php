@@ -19,6 +19,7 @@ use App\Http\Controllers\JenisKandangController;
 use App\Http\Controllers\KegiatanLahanController;
 use App\Http\Controllers\PengajuanSapiController;
 use App\Http\Controllers\KegiatanKandangController;
+use App\Http\Controllers\PengajuanRumputController;
 
 // HOME
 Route::get('/', [AuthController::class, 'home'])->name('home');
@@ -30,6 +31,7 @@ Route::get('daftar', [AuthController::class, 'daftar'])->name('daftar');
 Route::post('daftar', [AuthController::class, 'daftarsave'])->name('daftar.save');
 Route::get('login-pembeli', [AuthController::class, 'loginpembeli'])->name('loginpembeli');
 Route::post('login-post', [AuthController::class, 'loginPembeliAction'])->name('login.pembeli.action');
+
 // PEMBELI
 Route::middleware(['auth', 'checkPembeli'])->group(function () {
     Route::prefix('pengajuan-sapi')->group(function () {
@@ -46,6 +48,14 @@ Route::middleware(['auth', 'checkPembeli'])->group(function () {
         Route::get('/detail/{id}', [AkunController::class, 'profilpembeliakun'])->name('detail.profil.pembeli');
         Route::get('Edit/{id}', [AkunController::class, 'editpembeliakun'])->name('edit.profil.pembeli');
         Route::put('Update/{id}', [AkunController::class, 'updatepembeliakun'])->name('update.profil.pembeli');
+    });
+    Route::prefix('pengajuan-rumput')->group(function () {
+        Route::get('/show', [PengajuanRumputController::class, 'index'])->name('index.pengajuan.rumput');
+        Route::get('/tambah', [PengajuanRumputController::class, 'show'])->name('show.pengajuan.rumput');
+        Route::post('/store', [PengajuanRumputController::class, 'store'])->name('store.pengajuan.rumput');
+        Route::get('/detail/{id}', [PengajuanRumputController::class, 'detail'])->name('detail.pengajuan.rumput');
+        Route::put('/update/{id}', [PengajuanRumputController::class, 'update'])->name('update.pengajuan.rumput');
+        Route::put('/bukti/update/{id}', [PengajuanRumputController::class, 'updatebayarrumput'])->name('bukti.bayar.rumput');
     });
 });
 // ADMIN 
@@ -232,6 +242,12 @@ Route::middleware(['auth', 'checkPPID'])->group(function () {
         Route::put('/update/{id}', [PPIDController::class, 'updatepengajuansapi'])->name('update.ppid.psapi');
         Route::delete('/delete/{id}', [PPIDController::class, 'deletepengajuansapi'])->name('delete.ppid.psapi');
     });
+    Route::prefix('pengajuan-rumput-ppid')->group(function () {
+        Route::get('/', [PPIDController::class, 'indexpengajuanrumput'])->name('index.ppid.prumput');
+        Route::get('/detail/{id}', [PPIDController::class, 'detailpengajuanrumput'])->name('detail.ppid.prumput');
+        Route::put('/update/{id}', [PPIDController::class, 'updatepengajuanrumput'])->name('update.ppid.prumput');
+        Route::delete('/delete/{id}', [PPIDController::class, 'deletepengajuanrumput'])->name('delete.ppid.prumput');
+    });
     //PPID - PROFIL
     Route::get('/PPID/Profil/{id}', [AkunController::class, 'profilppid'])->name('detail.profil.ppid');
     Route::get('/PPID/Profil/Edit/{id}', [AkunController::class, 'editppid'])->name('edit.profil.ppid');
@@ -252,6 +268,13 @@ Route::middleware(['auth', 'checkBendahara'])->group(function () {
         Route::put('/update/{dbeli_id}', [BendaharaController::class, 'updatebayarsapi'])->name('update.bayar.psapi');
         Route::delete('/bayar/psapi/{dbeli_id}', [BendaharaController::class, 'deletebayarsapi'])->name('delete.bayar.psapi');
     });
+    Route::prefix('pengajuan-rumput-bendahara')->group(function () {
+        Route::get('/', [BendaharaController::class, 'indexrumput'])->name('index.bendahara.prumput');
+        Route::get('/detail/{belirum_id}', [BendaharaController::class, 'detailrumput'])->name('detail.bendahara.prumput');
+        Route::post('/storebayarrumput/{belirum_id}', [BendaharaController::class, 'storebayarrumput'])->name('store.bayar.prumput');
+        Route::put('/update/{bayarrum_id}', [BendaharaController::class, 'updatebayarrumput'])->name('update.bayar.prumput');
+        Route::delete('/bayar/prumput/{bayarrum_id}', [BendaharaController::class, 'deletebayarrumput'])->name('delete.bayar.prumput');
+    });
 });
 //KEPALA
 Route::middleware(['auth', 'checkKepala'])->group(function () {
@@ -264,11 +287,17 @@ Route::middleware(['auth', 'checkKepala'])->group(function () {
         Route::get('/detail/{id}', [KepalaBalaiController::class, 'detailpengajuansapi'])->name('detail.kepala.psapi');
         Route::put('/update/{id}', [KepalaBalaiController::class, 'updatepengajuansapi'])->name('update.kepala.psapi');
     });
+    Route::prefix('pengajuan-rumput-kepala')->group(function () {
+        Route::get('/', [KepalaBalaiController::class, 'pengajuanrumput'])->name('index.kepala.prumput');
+        Route::get('/detail/{id}', [KepalaBalaiController::class, 'detailpengajuanrumput'])->name('detail.kepala.prumput');
+        Route::put('/update/{id}', [KepalaBalaiController::class, 'updatepengajuanrumput'])->name('update.kepala.prumput');
+    });
 });
+
+
 // lOGOUT
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 //403
 Route::get('/unauthorized', [AuthController::class, 'unauthorized'])->name('unauthorized');
 // PENDING
-
 Route::get('/export', [AkunController::class, 'export']);

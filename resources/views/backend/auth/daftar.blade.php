@@ -4,7 +4,7 @@
         <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-lg-4 col-md-6 flex-column align-items-center justify-content-center">
+                    <div class="col-lg-6 col-md-6 flex-column align-items-center justify-content-center">
                         <div class="d-flex justify-content-center py-4">
                         </div>
                         @if ($errors->any())
@@ -36,37 +36,44 @@
                                         </div>
                                         <div class="col-12">
                                             <label for="yourName" class="form-label">Nama Anda</label>
-                                            <input type="text" name="pembeli_nama" class="form-control" id="yourName" required>
+                                            <input type="text" name="pembeli_nama" class="form-control" id="yourName"
+                                                required>
                                             <div class="invalid-feedback">Masukkan Nama anda dengan benar</div>
                                         </div>
                                         <div class="col-12">
                                             <label for="yourInstansi" class="form-label">Asal Instansi</label>
-                                            <input type="text" name="pembeli_instansi" class="form-control" id="yourInstansi" required>
+                                            <input type="text" name="pembeli_instansi" class="form-control"
+                                                id="yourInstansi" required>
                                             <div class="invalid-feedback">Masukkan Instansi anda dengan benar</div>
                                         </div>
                                         <div class="col-12">
                                             <label for="yourLahir" class="form-label">Tanggal Lahir</label>
-                                            <input type="date" name="pembeli_lahir" class="form-control" id="yourTanggal Lahir" required>
+                                            <input type="date" name="pembeli_lahir" class="form-control"
+                                                id="yourTanggal Lahir" required>
                                             <div class="invalid-feedback">Masukkan Tanggal Lahir anda dengan benar</div>
                                         </div>
                                         <div class="col-12">
                                             <label for="yourNohp" class="form-label">No. Hp</label>
-                                            <input type="number" name="pembeli_nohp" class="form-control" id="yourNohp" required>
+                                            <input type="number" name="pembeli_nohp" class="form-control" id="yourNohp"
+                                                required>
                                             <div class="invalid-feedback">Masukkan No.Hp anda dengan benar</div>
                                         </div>
                                         <div class="col-12">
                                             <label for="yourAlamat" class="form-label">Alamat</label>
-                                            <input type="text" name="pembeli_alamat" class="form-control" id="yourAlamat" required>
+                                            <textarea type="text" name="pembeli_alamat" class="form-control"
+                                                id="yourAlamat" required></textarea>
                                             <div class="invalid-feedback">Masukkan Alamat anda dengan benar</div>
                                         </div>
                                         <div class="col-12">
                                             <label for="yourPassword" class="form-label">Password</label>
-                                            <input type="password" name="password" class="form-control" id="yourPassword" required>
+                                            <input type="password" name="password" class="form-control"
+                                                id="yourPassword" required>
                                             <div class="invalid-feedback">Masukkan Password anda</div>
                                         </div>
                                         <div class="col-12 mb-4">
                                             <label for="confirmPassword" class="form-label">Konfirmasi Password</label>
-                                            <input type="password" name="password_confirmation" class="form-control" id="confirmPassword" required>
+                                            <input type="password" name="password_confirmation" class="form-control"
+                                                id="confirmPassword" required>
                                             <div class="invalid-feedback">Konfirmasi Password anda</div>
                                         </div>
                                         <div class="col-12">
@@ -75,15 +82,18 @@
                                         </div>
                                         <br>
                                         <div class="col-12">
-                                            <button class="btn btn-outline-success w-100" type="submit"><i class="bi bi-box-arrow-in-right"></i> Daftar</button>
+                                            <button class="btn btn-outline-success w-100" type="submit"><i
+                                                    class="bi bi-box-arrow-in-right"></i> Daftar</button>
                                         </div>
                                         <br>
                                         <div class="col-12">
-                                            <a href="/" class="btn btn-outline-secondary w-100"><i class="bi bi-house-door-fill"></i> Beranda</a>
+                                            <a href="/" class="btn btn-outline-secondary w-100"><i
+                                                    class="bi bi-house-door-fill"></i> Beranda</a>
                                         </div>
                                         <br>
                                         <div class="col-12">
-                                            <p class="small mb-0">Sudah Punya Akun? <a href="{{ route('loginpembeli') }}">Login</a></p>
+                                            <p class="small mb-0">Sudah Punya Akun? <a
+                                                    href="{{ route('loginpembeli') }}">Login</a></p>
                                         </div>
                                     </div>
                                 </div>
@@ -96,7 +106,8 @@
     </div>
 </main>
 
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+        class="bi bi-arrow-up-short"></i></a>
 
 <!-- Vendor JS Files -->
 <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
@@ -123,4 +134,5 @@
             confirmPasswordField.type = 'password';
         }
     });
+
 </script>

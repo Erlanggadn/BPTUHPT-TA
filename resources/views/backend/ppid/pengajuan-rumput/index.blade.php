@@ -2,17 +2,19 @@
 use Carbon\Carbon;
 @endphp
 @include('layouts.utama.main2')
-@include('layouts.bendahara.navbar')
-@include('layouts.bendahara.sidebar')
+@include('layouts.ppid.navbar')
+@include('layouts.ppid.sidebar')
 
 <main id="main" class="main">
+
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Data Pengajuan Sapi</h5>
-                        <p>Berikut ini adalah data Pengajuan Sapi yang sepenuhnya dikelola oleh <b>Divisi PPID</b> BPTU
+                        <h5 class="card-title">Data Pengajuan Rumput</h5>
+                        <p>Berikut ini adalah data Pengajuan Rumput yang sepenuhnya dikelola oleh <b>Divisi PPID</b>
+                            BPTU
                             HPT Padang Mengatas
                         </p>
                         @if (session('success'))
@@ -36,18 +38,28 @@ use Carbon\Carbon;
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @isset($PSapi)
-                                    @foreach ($PSapi as $item)
+                                    @isset($PRumput)
+                                    @foreach ($PRumput as $item)
                                     <tr>
-                                        <td><span class="badge bg-primary">{{ $item->belisapi_id}}</span></td>
-                                        <td>{{ $item->user->pembeli_nama }}</td>
-                                        <td>{{ $item->user->pembeli_instansi }}</td>
-                                        <td>{{ Carbon::parse($item->belisapi_tanggal)->translatedFormat('j F Y') }}</td>
-                                        <td>{{ $item->belisapi_keterangan }}</td>
-                                        <td>{{ $item->belisapi_status}}</td>
+                                        <td><span class="badge bg-primary">{{ $item->belirum_id}}</span></td>
+                                        <td>{{ $item->pembeli->pembeli_nama }}</td>
+                                        <td>{{ $item->pembeli->pembeli_instansi }}</td>
+                                        <td>{{ Carbon::parse($item->belirum_tanggal)->translatedFormat('j F Y') }}</td>
+                                        <td>{{ $item->belirum_keterangan }}</td>
+                                        <td>{{ $item->belirum_status}}</td>
                                         <td> <a class="btn btn-outline-success"
-                                                href="{{ route('detail.bendahara.psapi', $item->belisapi_id) }}"><i
+                                                href="{{ route('detail.ppid.prumput', $item->belirum_id) }}"><i
                                                     class="bi bi-info-lg"></i></a>
+                                            <form id="deleteForm"
+                                                action="{{ route('delete.ppid.prumput', $item->belirum_id) }}"
+                                                method="POST" style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="btn btn-outline-danger"
+                                                    onclick="showDeleteModal('{{ route('delete.ppid.prumput', $item->belirum_id) }}')">
+                                                    <i class="bi bi-trash-fill"></i>
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -70,7 +82,7 @@ use Carbon\Carbon;
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Apakah Anda yakin ingin menghapus data Pengajuan Pembelian Sapi ini?</p>
+                    <p>Apakah Anda yakin ingin menghapus data Pengajuan Pembelian rumput ini?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>

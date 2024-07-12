@@ -36,7 +36,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="">
+                <a class="nav-link collapsed" href="{{ route('index.bendahara.prumput') }}">
                     <i class="bi bi-list-nested"></i>
                     <span>Bayar Rumput</span>
                 </a>

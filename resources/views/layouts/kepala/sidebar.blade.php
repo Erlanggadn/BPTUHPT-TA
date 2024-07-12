@@ -23,7 +23,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="">
+                <a class="nav-link collapsed" href="{{ route('index.kepala.prumput') }}">
                     <i class="bi bi-list-nested"></i>
                     <span>Pengajuan Rumput</span>
                 </a>

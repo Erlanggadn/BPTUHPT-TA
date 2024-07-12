@@ -8,7 +8,7 @@
             <div class="card">
                 <div class="card-body pt-3">
                     <div class="tab-content pt-2">
-                        <h5 class="card-title">Detail Pengajuan Pembelian Sapi</h5>
+                        <h5 class="card-title">Detail Pengajuan Pembelian Rumput</h5>
                         @if (session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             {{ session('success') }}
@@ -31,8 +31,8 @@
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Nama Anda</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input type="hidden" name="belisapi_orang" id="belisapi_orang"
-                                        value="{{ $pengajuan->belisapi_orang }}">
+                                    <input type="hidden" name="belirum_orang" id="belirum_orang"
+                                        value="{{ $pengajuan->belirum_orang }}">
                                     <input type="text" class="form-control"
                                         value="{{ $currentUser->pembeli ? $currentUser->pembeli->pembeli_nama : '' }}"
                                         disabled>
@@ -41,7 +41,7 @@
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Asal Instansi</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input type="hidden" name="belisapi_orang" id="belisapi_orang" value="">
+                                    <input type="hidden" name="belirum_instansi" id="belirum_instansi" value="">
                                     <input type="text" class="form-control"
                                         value="{{ $currentUser->pembeli ? $currentUser->pembeli->pembeli_instansi : '' }}"
                                         disabled>
@@ -58,24 +58,23 @@
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Nomor HP Perusahaan/Instansi</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input type="text" name="belisapi_nohp" id="belisapi_nohp" class="form-control"
-                                        value="{{ $pengajuan->belisapi_nohp }}" disabled>
+                                    <input type="text" name="belirum_nohp" id="belirum_nohp" class="form-control"
+                                        value="{{ $pengajuan->belirum_nohp }}" disabled>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Alamat Perusahaan/Instansi</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input type="text" name="belisapi_alamat" id="belisapi_alamat" class="form-control"
-                                        value="{{ $pengajuan->belisapi_alamat }}" disabled>
+                                    <input type="text" name="belirum_alamat" id="belirum_alamat" class="form-control"
+                                        value="{{ $pengajuan->belirum_alamat }}" disabled>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Surat Pengajuan</div>
                                 <div class="col-lg-9 col-md-8 ">
-
-                                    <a class="mb-4" href="{{ asset('uploads/' . $pengajuan->belisapi_surat) }}"
+                                    <a class="mb-4" href="{{ asset('uploads/' . $pengajuan->belirum_surat) }}"
                                         target="_blank"><span class="badge bg-primary">Lihat Surat</span></a>
                                 </div>
                             </div>
@@ -83,113 +82,85 @@
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Tanggal Pengajuan</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input type="date" name="belisapi_tanggal" id="belisapi_tanggal"
-                                        class="form-control" value="{{ $pengajuan->belisapi_tanggal }}" disabled>
+                                    <input type="date" name="belirum_tanggal" id="belirum_tanggal" class="form-control"
+                                        value="{{ $pengajuan->belirum_tanggal }}" disabled>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Alasan Pembelian/Keterangan</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <textarea name="belisapi_alasan" id="belisapi_alasan" class="form-control"
-                                        disabled>{{ $pengajuan->belisapi_alasan }}</textarea>
+                                    <textarea name="belirum_alasan" id="belirum_alasan" class="form-control"
+                                        disabled>{{ $pengajuan->belirum_alasan }}</textarea>
                                 </div>
                             </div>
 
                             <!-- Detail Pengajuan -->
                             <div id="dynamic-field">
-                                @foreach ($pengajuan->details as $detail)
+                                @foreach ($pengajuan->detailPengajuanRumput as $detail)
                                 <div class="row mb-3">
-                                    <div class="col-lg-3 col-md-4 label">Jenis Sapi</div>
+                                    <div class="col-lg-3 col-md-4 label">Kategori Rumput</div>
                                     <div class="col-lg-9 col-md-8">
-                                        <select name="detail_jenis[]" id="detail_jenis" class="form-select" disabled>
-                                            @foreach($sapiJenis as $jenis)
-                                            <option value="{{ $jenis->sjenis_id }}"
-                                                {{ $detail->detail_jenis == $jenis->sjenis_id ? 'selected' : '' }}>
-                                                {{ $jenis->sjenis_nama }}</option>
+                                        <select name="drumput_kategori[]" id="drumput_kategori" class="form-select"
+                                            disabled>
+                                            <option value="Bibit" {{ $detail->drumput_kategori }}>
+                                                {{ $detail->drumput_kategori }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-lg-3 col-md-4 label">Jenis Rumput</div>
+                                    <div class="col-lg-9 col-md-8">
+                                        <select name="drumput_jenis[]" id="drumput_jenis" class="form-select" disabled>
+                                            @foreach($rumputJenis as $jenis)
+                                            <option value="{{ $jenis->rum_id }}"
+                                                {{ $detail->detail_jenis == $jenis->rum_id ? 'selected' : '' }}>
+                                                {{ $jenis->rum_nama }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
 
+
+
                                 <div class="row mb-3">
-                                    <div class="col-lg-3 col-md-4 label">Kategori Sapi</div>
+                                    <div class="col-lg-3 col-md-4 label">Berat Rumput (KG)</div>
                                     <div class="col-lg-9 col-md-8">
-                                        <select name="detail_kategori[]" id="detail_kategori" class="form-select"
-                                            disabled>
-                                            <option value="Bibit"
-                                                {{ $detail->detail_kategori == 'Bibit' ? 'selected' : '' }}>Bibit
-                                            </option>
-                                            <optgroup label="Bibit">
-                                                <option value="Bibit  6-9 Bulan"
-                                                    {{ $detail->detail_kategori == 'Bibit  6-9 Bulan' ? 'selected' : '' }}>
-                                                    Bibit 6-9 Bulan</option>
-                                                <option value="Bibit 9-12 Bulan"
-                                                    {{ $detail->detail_kategori == 'Bibit 9-12 Bulan' ? 'selected' : '' }}>
-                                                    Bibit 9-12 Bulan</option>
-                                                <option value="Bibit 12-15 Bulan"
-                                                    {{ $detail->detail_kategori == 'Bibit 12-15 Bulan' ? 'selected' : '' }}>
-                                                    Bibit 12-15 Bulan</option>
-                                                <option value="Bibit 15-18 Bulan"
-                                                    {{ $detail->detail_kategori == 'Bibit 15-18 Bulan' ? 'selected' : '' }}>
-                                                    Bibit 15-18 Bulan</option>
-                                                <option value="Bibit 18-24 Bulan"
-                                                    {{ $detail->detail_kategori == 'Bibit 18-24 Bulan' ? 'selected' : '' }}>
-                                                    Bibit 18-24 Bulan</option>
-                                                <option value="Bibit 24-36 Bulan"
-                                                    {{ $detail->detail_kategori == 'Bibit 24-36 Bulan' ? 'selected' : '' }}>
-                                                    Bibit 24-36 Bulan</option>
-                                            </optgroup>
-                                            <optgroup label="Calon Bul(Pejantan)">
-                                                <option value="Calon Bul(Pejantan) 18-24 Bulan"
-                                                    {{ $detail->detail_kategori == 'Calon Bul(Pejantan) 18-24 Bulan' ? 'selected' : '' }}>
-                                                    18-24 Bulan</option>
-                                            </optgroup>
-                                        </select>
+                                        <input type="number" name="drumput_berat[]" id="drumput_berat"
+                                            class="form-control" value="{{ $detail->drumput_berat }}" disabled>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <div class="col-lg-3 col-md-4 label">Jumlah Sapi</div>
+                                    <div class="col-lg-3 col-md-4 label">Satuan Per</div>
                                     <div class="col-lg-9 col-md-8">
-                                        <input type="number" name="detail_jumlah[]" id="detail_jumlah"
-                                            class="form-control" value="{{ $detail->detail_jumlah }}" disabled>
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <div class="col-lg-3 col-md-4 label">Jenis Kelamin Sapi</div>
-                                    <div class="col-lg-9 col-md-8">
-                                        <select name="detail_kelamin[]" id="detail_kelamin" class="form-select"
+                                        <select name="drumput_satuan[]" id="drumput_satuan" class="form-select"
                                             disabled>
-                                            <option value="Jantan"
-                                                {{ $detail->detail_kelamin == 'Jantan' ? 'selected' : '' }}>Jantan
-                                            </option>
-                                            <option value="Betina"
-                                                {{ $detail->detail_kelamin == 'Betina' ? 'selected' : '' }}>Betina
+                                            <option value="" {{ $detail->drumput_satuan}}>{{ $detail->drumput_satuan}}
                                             </option>
                                         </select>
                                     </div>
                                 </div>
                                 @endforeach
                             </div>
-                            <h5 class="card-title">Detail Pembayaran Pembelian Sapi
+                            <h5 class="card-title">Detail Pembayaran Pembelian Rumput
                             </h5>
                             @if($pembayaran)
                             <!-- Jika detail pembayaran ada, tampilkan -->
                             <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Tagihan Pembayaran Anda</div>
+                                <div class="col-lg-3 col-md-4 label">Invoice</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <a href="{{ asset('uploads/' . $pembayaran->dbeli_invoice) }}" target="_blank">
+                                    <a href="{{ asset('uploads/' . $pembayaran->bayarrum_invoice) }}" target="_blank">
                                         <span class="badge bg-primary">Lihat Invoice</span>
                                     </a>
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Keterangan</div>
+                                <div class="col-lg-3 col-md-4 label">Ubah Keterangan</div>
                                 <div class="col-lg-9 col-md-8">
                                     <textarea name="dbeli_keterangan" id="dbeli_keterangan" class="form-control"
-                                        rows="3" disabled>{{ $pembayaran->dbeli_keterangan }}</textarea>
+                                        rows="3" disabled>{{ $pembayaran->bayarrum_keterangan }}</textarea>
                                 </div>
                             </div>
 
@@ -199,32 +170,29 @@
                             <div class="text-center mb-4">
                                 {{-- <a class="btn btn-success" href="{{ route('update.bayar' $belisapi_id) }}">Update
                                 Pengajuan</a> --}}
-
                             </div>
                         </form>
-
                         <!-- Form untuk mengupdate pembayaran -->
                         @if($pembayaran)
                         <!-- Form untuk mengupdate pembayaran -->
-                        <form action="{{ route('bukti.bayar.pembeli', $pembayaran->dbeli_id) }}" method="POST"
+                        <form action="{{ route('bukti.bayar.rumput', $pembayaran->bayarrum_id) }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Upload Bukti Pembayaran</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input type="file" name="dbeli_bukti" id="dbeli_bukti" class="form-control"
+                                    <input type="file" name="bayarrum_bukti" id="bayarrum_bukti" class="form-control"
                                         accept=".png,.jpg,.jpeg,.pdf" required>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Ubah Status</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <select name="dbeli_sudah" id="dbeli_sudah" class="form-control">
-                                        <option value="">{{ $pembayaran->dbeli_sudah }}</option>
-                                        <option value="" disabled>-- Pilih Status --</option>
+                                    <select name="bayarrum_sudah" id="bayarrum_sudah" class="form-control">
+                                        <option value="">{{ $pembayaran->bayarrum_sudah }}</option>
                                         <option value="Saya Sudah Membayar"
-                                            {{ $pembayaran->dbeli_sudah == 'Saya Sudah Membayar' ? 'selected' : '' }}>
+                                            {{ $pembayaran->bayarrum_sudah == 'Saya Sudah Membayar' ? 'selected' : '' }}>
                                             Saya Sudah Membayar
                                         </option>
                                     </select>
@@ -239,7 +207,7 @@
                             disetujui.</p>
                         @endif
                         <div class="text-center">
-                            <a href="{{ route('index.pengajuan.sapi') }}" class="btn btn-secondary">Kembali</a>
+                            <a href="{{ route('index.pengajuan.rumput') }}" class="btn btn-secondary">Kembali</a>
                         </div>
                     </div>
                 </div>

@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ModPengajuanSapi;
+use App\Models\ModPengajuanRumput;
 use Illuminate\Routing\Controller;
 use App\Models\ModJenisSapi;
+use App\Models\ModJenisRumput;
 
 class KepalaBalaiController extends Controller
 {
@@ -26,7 +28,6 @@ class KepalaBalaiController extends Controller
         $PSapi = ModPengajuanSapi::with('user')->get();
         return view('backend.kepala.pengajuan_sapi.index', compact('PSapi'));
     }
-
     public function detailpengajuansapi($id)
     {
         $sapiJenis = ModJenisSapi::all();
@@ -54,5 +55,39 @@ class KepalaBalaiController extends Controller
         $pengajuan->save();
 
         return redirect()->route('detail.kepala.psapi', $id)->with('success', 'Pengajuan berhasil diupdate');
+    }
+
+    public function pengajuanrumput()
+    {
+        $PRumput = ModPengajuanRumput::with('pembeli')->get();
+        return view('backend.kepala.pengajuan_rumput.index', compact('PRumput'));
+    }
+    public function detailpengajuanrumput($id)
+    {
+        $rumputJenis = ModJenisRumput::all();
+        $pengajuan = ModPengajuanRumput::with('detailPengajuanRumput', 'pembeli')->find($id);
+        if (!$pengajuan) {
+            return redirect()->back()->withErrors(['Pengajuan tidak ditemukan']);
+        }
+
+        return view('backend.kepala.pengajuan_rumput.detail', compact('pengajuan', 'rumputJenis'));
+    }
+    public function updatepengajuanrumput(Request $request, $id)
+    {
+        $request->validate([
+            'belirum_status' => 'required|string',
+            'belirum_keterangan' => 'required|string',
+        ]);
+
+        $pengajuan = ModPengajuanRumput::find($id);
+        if (!$pengajuan) {
+            return redirect()->back()->withErrors(['Pengajuan tidak ditemukan']);
+        }
+
+        $pengajuan->belirum_status = $request->belirum_status;
+        $pengajuan->belirum_keterangan = $request->belirum_keterangan;
+        $pengajuan->save();
+
+        return redirect()->route('detail.kepala.prumput', $id)->with('success', 'Pengajuan berhasil diupdate');
     }
 }

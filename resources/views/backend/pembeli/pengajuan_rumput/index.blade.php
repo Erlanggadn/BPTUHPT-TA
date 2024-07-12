@@ -2,18 +2,28 @@
 use Carbon\Carbon;
 @endphp
 @include('layouts.utama.main2')
-@include('layouts.bendahara.navbar')
-@include('layouts.bendahara.sidebar')
+@include('layouts.pembeli.navbar')
+@include('layouts.pembeli.sidebar')
+
 
 <main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Selamat Datang, <b>{{ Auth::user()->pembeli->pembeli_nama }} </b> </h1>
+    </div><!-- End Page Title -->
+
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Data Pengajuan Sapi</h5>
-                        <p>Berikut ini adalah data Pengajuan Sapi yang sepenuhnya dikelola oleh <b>Divisi PPID</b> BPTU
-                            HPT Padang Mengatas
+                        <h5 class="card-title"></h5>
+                        <p>Silahkan Tunggu data anda sedang diverifikasi, anda akan dihubungi dan menerima notifikasi
+                            tentang
+                            status pengajuan pembelian sapi anda, Terima kasih telah mempercayai <b>BPTU HPT Padang
+                                Mengatas</b>. Jika mengalami masalah silahkan hubungi <a
+                                href="https://wa.me/082169402404?text=Halo%20BPTU%20HPT%20Padang%20Mengatas"><span
+                                    class="badge bg-success">admin</span></a>.
                         </p>
                         @if (session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -29,24 +39,30 @@ use Carbon\Carbon;
                                         <th>ID Pengajuan</th>
                                         <th>Nama Pengirim</th>
                                         <th>Asal Instansi</th>
-                                        <th>Tanggal Masuk</th>
-                                        <th>Keterangan</th>
+                                        <th>Tanggal Kirim</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @isset($PSapi)
-                                    @foreach ($PSapi as $item)
+                                    @isset($PRumput)
+                                    @foreach ($PRumput as $item)
                                     <tr>
-                                        <td><span class="badge bg-primary">{{ $item->belisapi_id}}</span></td>
-                                        <td>{{ $item->user->pembeli_nama }}</td>
-                                        <td>{{ $item->user->pembeli_instansi }}</td>
-                                        <td>{{ Carbon::parse($item->belisapi_tanggal)->translatedFormat('j F Y') }}</td>
-                                        <td>{{ $item->belisapi_keterangan }}</td>
-                                        <td>{{ $item->belisapi_status}}</td>
+                                        <td><span class="badge bg-primary">{{ $item->belirum_id}}</span></td>
+                                        <td>{{ $item->pembeli->pembeli_nama }}</td>
+                                        <td>{{ $item->pembeli->pembeli_instansi }}</td>
+                                        <td>{{ Carbon::parse($item->belirum_tanggal)->translatedFormat('j F Y') }}</td>
+                                        <td>@if ($item->display_status == 'Diproses')
+                                            <span class="badge bg-warning">Diproses</span>
+                                            @elseif ($item->display_status == 'Disetujui')
+                                            <span class="badge bg-success">Disetujui</span>
+                                            @elseif ($item->display_status == 'Ditolak')
+                                            <span class="badge bg-danger">Ditolak</span>
+                                            @else
+                                            <span class="badge bg-warning">Diproses</span>
+                                            @endif</td>
                                         <td> <a class="btn btn-outline-success"
-                                                href="{{ route('detail.bendahara.psapi', $item->belisapi_id) }}"><i
+                                                href="{{ route('detail.pengajuan.rumput', $item->belirum_id) }}"><i
                                                     class="bi bi-info-lg"></i></a>
                                         </td>
                                     </tr>

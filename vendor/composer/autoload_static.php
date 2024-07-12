@@ -543,6 +543,7 @@ class ComposerStaticInit7b56bfb5d21eaae286e532c3ed2f8941
     );
 
     public static $classMap = array (
+        'App\\Console\\Commands\\DeleteOldPayments' => __DIR__ . '/../..' . '/app/Console/Commands/DeleteOldPayments.php',
         'App\\Console\\Commands\\UpdateSapiUmur' => __DIR__ . '/../..' . '/app/Console/Commands/UpdateSapiUmur.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
@@ -561,6 +562,7 @@ class ComposerStaticInit7b56bfb5d21eaae286e532c3ed2f8941
         'App\\Http\\Controllers\\KegiatanLahanController' => __DIR__ . '/../..' . '/app/Http/Controllers/KegiatanLahanController.php',
         'App\\Http\\Controllers\\KepalaBalaiController' => __DIR__ . '/../..' . '/app/Http/Controllers/KepalaBalaiController.php',
         'App\\Http\\Controllers\\PPIDController' => __DIR__ . '/../..' . '/app/Http/Controllers/PPIDController.php',
+        'App\\Http\\Controllers\\PembayaranSapiController' => __DIR__ . '/../..' . '/app/Http/Controllers/PembayaranSapiController.php',
         'App\\Http\\Controllers\\PengajuanSapiController' => __DIR__ . '/../..' . '/app/Http/Controllers/PengajuanSapiController.php',
         'App\\Http\\Controllers\\RumputController' => __DIR__ . '/../..' . '/app/Http/Controllers/RumputController.php',
         'App\\Http\\Controllers\\SapiController' => __DIR__ . '/../..' . '/app/Http/Controllers/SapiController.php',
@@ -593,6 +595,7 @@ class ComposerStaticInit7b56bfb5d21eaae286e532c3ed2f8941
         'App\\Models\\ModKegiatanKandang' => __DIR__ . '/../..' . '/app/Models/ModKegiatanKandang.php',
         'App\\Models\\ModKegiatanLahan' => __DIR__ . '/../..' . '/app/Models/ModKegiatanLahan.php',
         'App\\Models\\ModPegawai' => __DIR__ . '/../..' . '/app/Models/ModPegawai.php',
+        'App\\Models\\ModPembayaranSapi' => __DIR__ . '/../..' . '/app/Models/ModPembayaranSapi.php',
         'App\\Models\\ModPembeli' => __DIR__ . '/../..' . '/app/Models/ModPembeli.php',
         'App\\Models\\ModPengajuanSapi' => __DIR__ . '/../..' . '/app/Models/ModPengajuanSapi.php',
         'App\\Models\\ModRumput' => __DIR__ . '/../..' . '/app/Models/ModRumput.php',

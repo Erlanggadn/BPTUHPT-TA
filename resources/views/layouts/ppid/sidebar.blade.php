@@ -37,7 +37,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('index.daftar.pembeli') }}">
+                <a class="nav-link collapsed" href="{{ route('index.ppid.prumput') }}">
                     <i class="bi bi-list-nested"></i>
                     <span>Beli Rumput</span>
                 </a>
