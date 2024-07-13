@@ -24,17 +24,20 @@
                         <form action="{{ route('store.tanam') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Pegawai</div>
+                                <div class="col-lg-3 col-md-4 label">Pegawai Lapangan</div>
                                 <div class="col-lg-9 col-md-10">
-                                    <input name="kegiatan_orang_display" class="form-control" value="{{ $user->pegawai ? $user->pegawai->pegawai_nama : $user->name }}" disabled>
-                                    <input type="hidden" name="kegiatan_orang" value="{{ $user->pegawai ? $user->pegawai->pegawai_id : '' }}">
+                                    <input name="kegiatan_orang_display" class="form-control"
+                                        value="{{ $user->pegawai ? $user->pegawai->pegawai_nama : $user->name }}"
+                                        disabled>
+                                    <input type="hidden" name="kegiatan_orang"
+                                        value="{{ $user->pegawai ? $user->pegawai->pegawai_id : '' }}">
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Rumput</div>
+                                <div class="col-lg-3 col-md-4 label">Nama Rumput</div>
                                 <div class="col-lg-9 col-md-8">
                                     <select name="tanam_detail_rumput" class="form-select" required>
-                                        <option value="">Pilih Rumput</option>
+                                        <option value="" selected disabled>-- Pilih Rumput --</option>
                                         @foreach($jenisRumput as $rumput)
                                         <option value="{{ $rumput->rumput_id }}">{{ $rumput->rumput_id }} -
                                             {{ $rumput->jenisRumput->rum_nama }} [{{ $rumput->rumput_berat_awal }} KG]
@@ -44,10 +47,10 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Lahan</div>
+                                <div class="col-lg-3 col-md-4 label">Nama Lahan</div>
                                 <div class="col-lg-9 col-md-8">
                                     <select name="tanam_detail_lahan" class="form-select" required>
-                                        <option value="">Pilih Lahan</option>
+                                        <option value="" selected disabled>-- Pilih Lahan --</option>
                                         @foreach($jenisLahan as $lahan)
                                         <option value="{{ $lahan->lahan_id }}">{{ $lahan->lahan_nama }} -
                                             {{ $lahan->lahan_jenis_tanah }}</option>
@@ -56,7 +59,7 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Tanggal</div>
+                                <div class="col-lg-3 col-md-4 label">Tanggal Kegiatan</div>
                                 <div class="col-lg-9 col-md-8">
                                     <input type="date" name="tanam_tanggal" id="tanam_tanggal" class="form-control"
                                         required>
@@ -75,13 +78,13 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Kegiatan</div>
+                                <div class="col-lg-3 col-md-4 label">Rincian Kegiatan</div>
                                 <div class="col-lg-9 col-md-8">
                                     <textarea name="tanam_kegiatan" class="form-control" required></textarea>
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Upload Foto</div>
+                                <div class="col-lg-3 col-md-4 label">Upload Foto Kegiatan</div>
                                 <div class="col-lg-9 col-md-8">
                                     <input type="file" name="tanam_foto" class="form-control" required
                                         onchange="previewImage(event)">
@@ -90,10 +93,10 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Status</div>
+                                <div class="col-lg-3 col-md-4 label">Status Kegiatan</div>
                                 <div class="col-lg-9 col-md-8">
                                     <select name="tanam_status" class="form-select" required>
-                                        <option value="">Pilih Status</option>
+                                        <option value="" selected disabled>-- Pilih Status --</option>
                                         <option value="Selesai">Selesai</option>
                                         <option value="Proses">Proses</option>
                                         <option value="Belum Selesai">Belum Selesai</option>
@@ -101,8 +104,8 @@
                                 </div>
                             </div>
                             <div class="text-center mb-4">
-                                <button type="submit" class="btn btn-outline-success">Tambah Kegiatan</button>
-                                <a href="{{ route('index.tanam') }}" class="btn btn-outline-secondary">Kembali</a>
+                                <button type="submit" class="btn btn-success">Tambah Kegiatan</button>
+                                <a href="{{ route('index.tanam') }}" class="btn btn-secondary">Kembali</a>
                             </div>
                         </form>
                     </div>

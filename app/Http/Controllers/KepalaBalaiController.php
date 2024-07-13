@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ModSapi;
+use App\Models\ModRumput;
+use App\Models\ModKandang;
+use App\Models\ModJenisSapi;
 use Illuminate\Http\Request;
+use App\Models\ModJenisLahan;
+use App\Models\ModJenisRumput;
 use App\Models\ModPengajuanSapi;
 use App\Models\ModPengajuanRumput;
 use Illuminate\Routing\Controller;
-use App\Models\ModJenisSapi;
-use App\Models\ModJenisRumput;
 
 class KepalaBalaiController extends Controller
 {
@@ -15,13 +19,20 @@ class KepalaBalaiController extends Controller
     {
         // Ambil jumlah pengajuan sapi
         $jumlahPengajuanSapi = ModPengajuanSapi::count();
-        $jumlahPengajuan = ModPengajuanSapi::count();
+        $jumlahPengajuanRumput = ModPengajuanRumput::count();
 
-        // // Tambahkan data lain yang dibutuhkan
+        // Ambil jumlah sapi dan rumput
+        $jumlahSapi = ModSapi::count();
+        $jumlahRumput = ModRumput::count();
+        // Kandang dan Lahna
+        $jumlahKandangSapi = ModKandang::count();
+        $jumlahLahanRumput = ModJenisLahan::count();
+        // Tambahkan data lain yang dibutuhkan
         // $jumlahAnotherModel = AnotherModel::count(); // Ganti AnotherModel dengan model lain yang Anda gunakan
 
-        return view('backend.kepala.index', compact('jumlahPengajuanSapi'));
+        return view('backend.kepala.index', compact('jumlahPengajuanSapi', 'jumlahSapi', 'jumlahRumput', 'jumlahPengajuanRumput', 'jumlahKandangSapi', 'jumlahLahanRumput'));
     }
+
 
     public function pengajuansapi()
     {

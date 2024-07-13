@@ -61,7 +61,12 @@
                                             Kembali</a>
                                     </div>
                                     <div class="col-12">
-                                        <p class="small mb-0">Tidak punya akun?<a href="/daftar"> Daftar</a></p>
+                                        <p class="small mb-0">Tidak punya akun?<a href="/daftar"> <span
+                                                    class="badge bg-success">Daftar</span></a></p>
+                                    </div>
+                                    <div class="col-12">
+                                        <p class="small mb-0">Lupa Password?<a href="{{ route('password.request') }}">
+                                                <span class="badge bg-success">Reset</span></a></p>
                                     </div>
                                 </form>
                             </div>

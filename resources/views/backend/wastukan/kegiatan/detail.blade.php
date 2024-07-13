@@ -20,13 +20,13 @@
                             @csrf
                             @method('PUT')
                             <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Pegawai</div>
+                                <div class="col-lg-3 col-md-4 label">Pegawai Lapangan</div>
                                 <div class="col-lg-9 col-md-8">
                                     <p name="" class="" disabled>{{ $kegiatan->pegawai->pegawai_nama }}</p>
                                 </div>
                             </div>
                             <div class="row mb-4">
-                                <div class="col-lg-3 col-md-4 label">Rumput</div>
+                                <div class="col-lg-3 col-md-4 label">Nama Rumput</div>
                                 <div class="col-lg-9 col-md-8">
                                     <select name="tanam_detail_rumput" class="form-select" disabled>
                                         <option value="">Pilih Rumput</option>
@@ -41,7 +41,7 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Lahan</div>
+                                <div class="col-lg-3 col-md-4 label">Nama Lahan</div>
                                 <div class="col-lg-9 col-md-8">
                                     <select name="tanam_detail_lahan" class="form-select" disabled>
                                         <option value="">Pilih Lahan</option>
@@ -55,7 +55,7 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Tanggal</div>
+                                <div class="col-lg-3 col-md-4 label">Tanggal Kegiatan</div>
                                 <div class="col-lg-9 col-md-8">
                                     <input type="date" name="tanam_tanggal" class="form-control"
                                         value="{{ $kegiatan->tanam_tanggal }}" disabled>
@@ -76,14 +76,14 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Kegiatan</div>
+                                <div class="col-lg-3 col-md-4 label">Rincian Kegiatan</div>
                                 <div class="col-lg-9 col-md-8">
                                     <input type="text" name="tanam_kegiatan" class="form-control"
                                         value="{{ $kegiatan->tanam_kegiatan }}" required>
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Upload Foto</div>
+                                <div class="col-lg-3 col-md-4 label">Upload Foto Kegiatan</div>
                                 <div class="col-lg-9 col-md-8">
                                     <input type="file" name="tanam_foto" class="form-control">
                                     @if($kegiatan->tanam_foto)
@@ -96,7 +96,7 @@
                                 </div>
                             </div>
                             <div class="row mb-4">
-                                <div class="col-lg-3 col-md-4 label">Status</div>
+                                <div class="col-lg-3 col-md-4 label">Status Kegiatan</div>
                                 <div class="col-lg-9 col-md-8">
                                     <select name="tanam_status" class="form-select">
                                         <option value="Selesai"
@@ -111,7 +111,7 @@
                                 </div>
                             </div>
                             <div class="text-center mb-4">
-                                <button type="submit" class="btn btn-outline-success">Update Kegiatan</button>
+                                <button type="submit" class="btn btn-outline-success">Ubah</button>
                                 <a href="{{ route('index.tanam') }}" class="btn btn-outline-secondary">Kembali</a>
                             </div>
                         </form>

@@ -67,22 +67,8 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Dibuat Pada</div>
-                                <div class="col-lg-9 col-md-8">
-                                    <input type="text" class="form-control" value="{{ $jenisLahan->created_at }}"
-                                        disabled>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Di Update Pada</div>
-                                <div class="col-lg-9 col-md-8">
-                                    <input type="text" class="form-control" value="{{ $jenisLahan->updated_at }}"
-                                        disabled>
-                                </div>
-                            </div>
                             <div class="text-center mb-4">
-                                <button type="submit" class="btn btn-outline-success">Update</button>
+                                <button type="submit" class="btn btn-outline-success">Ubah</button>
                                 <a href="{{ route('index.jenis.lahan') }}" class="btn btn-outline-secondary">Kembali</a>
                             </div>
                         </form>

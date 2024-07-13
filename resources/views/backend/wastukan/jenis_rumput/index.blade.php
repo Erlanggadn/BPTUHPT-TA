@@ -3,11 +3,6 @@
 @include('layouts.wastukan.sidebar')
 
 <main id="main" class="main">
-
-    <div class="pagetitle">
-        <h1>Selamat Datang, <b>{{ Auth::user()->name }} </b> sebagai {{ Auth::user()->role }}</h1>
-    </div><!-- End Page Title -->
-
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
@@ -42,10 +37,10 @@
                                     @isset($JenisRumput)
                                     @foreach ($JenisRumput as $item)
                                     <tr>
-                                        <td><span class="badge bg-success">{{ $item->rum_id }}</span></td>
+                                        <td><span class="badge bg-primary">{{ $item->rum_id }}</span></td>
                                         <td>{{ $item->rum_nama }}</td>
                                         <td>{{ $item->rum_keterangan }}</td>
-                                        <td> <a class="btn btn-outline-success"
+                                        <td> <a class="btn btn-outline-warning"
                                                 href="{{ route('detail.jenis.rumput', $item->rum_id) }}"><i
                                                     class="bi bi-info-lg"></i></a>
                                             <form id="deleteForm"

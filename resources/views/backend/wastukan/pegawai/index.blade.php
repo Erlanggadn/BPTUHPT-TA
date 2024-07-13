@@ -25,33 +25,35 @@
                         <p>Jumlah Pegawai Wastukan Saat Ini : <b>{{ $jumlahPWastukan }}</b></p>
 
                         <!-- Table with stripped rows -->
-                        <table class="table datatable">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nama</th>
-                                    <th>No hp</th>
-                                    <th>Tgl Buat</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @isset($akunuser)
-                                @foreach ($akunuser as $item)
-                                <tr>
-                                    <td><span class="badge bg-primary">{{ $item->pegawai->pegawai_id }}</span></td>
-                                    <td>{{ $item->pegawai->pegawai_nama }}</td>
-                                    <td>{{ $item->pegawai->pegawai_nohp }}</td>
-                                    <td>{{ $item->created_at->translatedFormat('d F Y') }}</td>
-                                    <td><a class="btn btn-outline-success"
-                                            href="{{ route('detail.pegawai.wastukan', $item->id) }}"><i
-                                                class="bi bi-info-lg"></i></a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                                @endisset
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table datatable">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nama</th>
+                                        <th>No hp</th>
+                                        <th>Tgl Buat</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @isset($akunuser)
+                                    @foreach ($akunuser as $item)
+                                    <tr>
+                                        <td><span class="badge bg-primary">{{ $item->pegawai->pegawai_id }}</span></td>
+                                        <td>{{ $item->pegawai->pegawai_nama }}</td>
+                                        <td>{{ $item->pegawai->pegawai_nohp }}</td>
+                                        <td>{{ $item->created_at->translatedFormat('d F Y') }}</td>
+                                        <td><a class="btn btn-outline-success"
+                                                href="{{ route('detail.pegawai.wastukan', $item->id) }}"><i
+                                                    class="bi bi-info-lg"></i></a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    @endisset
+                                </tbody>
+                            </table>
+                        </div>
                         <!-- End Table with stripped rows -->
 
                     </div>

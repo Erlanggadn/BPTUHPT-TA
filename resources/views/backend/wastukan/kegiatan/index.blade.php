@@ -4,9 +4,6 @@
 
 <main id="main" class="main">
 
-    <div class="pagetitle">
-        <h1>Selamat Datang, <b>{{ Auth::user()->name }} </b> sebagai {{ Auth::user()->role }}</h1>
-    </div><!-- End Page Title -->
 
     <section class="section">
         <div class="row">
@@ -43,7 +40,7 @@
                                     @isset($kegiatanLahan)
                                     @foreach ($kegiatanLahan as $kegiatan)
                                     <tr>
-                                        <td>{{ $kegiatan->tanam_id }}</td>
+                                        <td><span class="badge bg-primary">{{ $kegiatan->tanam_id }}</span></td>
                                         <td>{{ $kegiatan->lahan->lahan_nama}}</td>
                                         <td>{{ $kegiatan->rumput->rumput_id }}
                                             [{{ $kegiatan->rumput->jenisRumput->rum_nama }} -
@@ -63,7 +60,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a class="btn btn-outline-success"
+                                            <a class="btn btn-outline-warning"
                                                 href="{{ route('detail.tanam', $kegiatan->tanam_id) }}"><i
                                                     class="bi bi-info-lg"></i></a>
                                             <form id="deleteForm-{{ $kegiatan->tanam_id }}"

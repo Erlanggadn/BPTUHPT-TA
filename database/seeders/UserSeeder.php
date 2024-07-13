@@ -13,9 +13,9 @@ class UserSeeder extends Seeder
         // Buat 5 user dengan role pembeli
         for ($i = 1; $i <= 5; $i++) {
             User::create([
-                'email' => "pembeli{$i}@example.com",
+                'email' => "pembeli{$i}@gmail.com",
                 'role' => 'pembeli',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('12345'),
             ]);
         }
 
@@ -23,9 +23,9 @@ class UserSeeder extends Seeder
         $roles = ['admin', 'wasbitnak', 'keswan', 'ppid', 'kepala', 'bendahara', 'wastukan'];
         foreach ($roles as $index => $role) {
             User::create([
-                'email' => "{$role}@example.com",
+                'email' => "{$role}@gmail.com",
                 'role' => $role,
-                'password' => Hash::make('password'),
+                'password' => Hash::make('12345'),
             ]);
         }
     }

@@ -10,7 +10,7 @@
                 <div class="card-body pt-3">
 
                     <div class="tab-content pt-2">
-                        <h5 class="card-title">Profil Rumput</h5>
+                        <h5 class="card-title">Detail Rumput</h5>
 
                         @if (session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -30,7 +30,7 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Jenis Kandang</div>
+                                <div class="col-lg-3 col-md-4 label">Nama Rumput</div>
                                 <div class="col-lg-9 col-md-8">
                                     <input name="rum_nama" type="text" class="form-control"
                                         value="{{ $jenisRumput->rum_nama }}">
@@ -45,35 +45,12 @@
                                 class="form-control">{{ $jenisRumput->rum_keterangan }}</textarea>
                         </div>
                     </div>
-                    <div class="row mb-4">
-                        <div class="col-lg-3 col-md-4 label">Dibuat Pada</div>
-                        <div class="col-lg-9 col-md-8">
-                            <input name="kand_created_time" type="text" class="form-control"
-                                value="{{ $jenisRumput->created_at }}" disabled>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-lg-3 col-md-4 label">Di Update Pada</div>
-                        <div class="col-lg-9 col-md-8">
-                            <input name="rum_nama" type="text" class="form-control"
-                                value="{{ $jenisRumput->updated_at }}" disabled>
-                        </div>
-                    </div>
                 </div>
-
-
                 <div class="text-center mb-4">
-                    <button type="submit" class="btn btn-outline-success">Update</button>
-                    <a href="{{ route('index.jenis.rumput') }}" class="btn btn-outline-secondary">Kembali</a>
+                    <button type="submit" class="btn btn-success">Ubah</button>
+                    <a href="{{ route('index.jenis.rumput') }}" class="btn btn-secondary">Kembali</a>
                 </div>
                 </form>
-
-                {{-- <a class="btn btn-outline-warning mt-3" href="{{ route('editsapi', $sapi->id) }}"><i
-                    class="bi bi-pencil-fill"></i> Edit</a>
-                <a class="btn btn-outline-primary mt-3" href="{{ route('printsapi', $sapi->id) }}"><i
-                        class="bi bi-upc"></i>
-                    Cetak Kode</a> --}}
-
             </div>
 
         </div><!-- End Bordered Tabs -->

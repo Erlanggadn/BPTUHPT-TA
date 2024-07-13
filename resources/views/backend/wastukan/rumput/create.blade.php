@@ -6,14 +6,14 @@
         <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-lg-4 col-md-6 flex-column align-items-center justify-content-center">
+                    <div class="col-lg-6 col-md-6 flex-column align-items-center justify-content-center">
                         <div class="d-flex justify-content-center py-4"></div>
                         <form action="{{ route('store.rumput') }}" method="POST">
                             @csrf
                             <div class="card mb-3">
                                 <div class="card-body">
                                     <div class="pt-4 pb-2">
-                                        <h5 class="card-title text-center pb-0 fs-4">Tambah Rumput</h5>
+                                        <h5 class="card-title text-center pb-0 fs-4">Tambah Ketersediaan Rumput</h5>
                                         <p class="text-center small">Pastikan Data Benar!</p>
                                     </div>
                                     @if (session('success'))
@@ -37,7 +37,7 @@
                                             <div class="">
                                                 <select name="rumput_jenis" class="form-select"
                                                     aria-label="Default select example">
-                                                    <option selected disabled>Pilih Jenis</option>
+                                                    <option selected disabled>-- Pilih Jenis --</option>
                                                     @foreach($jenisRumput as $jenis)
                                                     <option value="{{ $jenis->rum_id }}">{{ $jenis->rum_nama }}</option>
                                                     @endforeach
@@ -69,15 +69,15 @@
                                         <div class="col-12 mb-3">
                                             <label for="rumputKeterangan" class="form-label">Keterangan</label>
                                             <div class="input-group has-validation">
-                                                <input type="text" name="rumput_keterangan" class="form-control"
-                                                    id="rumputKeterangan" required>
+                                                <textarea type="text" name="rumput_keterangan" class="form-control"
+                                                    id="rumputKeterangan" required></textarea>
                                                 <div class="invalid-feedback">Masukkan Keterangan dengan benar</div>
                                             </div>
                                         </div>
                                         <div class="col-12 mb-3">
                                             <label for="rumputStatus" class="form-label">Status Rumput</label>
                                             <select name="rumput_status" class="form-select" id="rumputStatus" required>
-                                                <option selected disabled>Pilih Status</option>
+                                                <option selected disabled>-- Pilih Status --</option>
                                                 <option value="Bibit">Bibit</option>
                                                 <option value="Baru Ditanam">Baru Ditanam</option>
                                                 <option value="Siap Panen">Siap Panen</option>
@@ -90,14 +90,12 @@
                                         </div>
                                         <br>
                                         <div class="col-12">
-                                            <button class="btn btn-outline-success w-100" type="submit"><i
-                                                    class="bi bi-box-arrow-in-right"></i> Tambah</button>
+                                            <button class="btn btn-success w-100" type="submit">Tambah</button>
                                         </div>
                                         <br>
                                         <div class="col-12">
                                             <a href="{{ route('index.rumput') }}"
-                                                class="btn btn-outline-secondary w-100"><i
-                                                    class="bi bi-house-door-fill"></i> Kembali</a>
+                                                class="btn btn-secondary w-100">Kembali</a>
                                         </div>
                                         <br>
                                     </form>

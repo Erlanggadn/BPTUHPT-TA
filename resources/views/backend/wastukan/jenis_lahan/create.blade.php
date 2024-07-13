@@ -5,7 +5,7 @@
         <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-lg-4 col-md-6 flex-column align-items-center justify-content-center">
+                    <div class="col-lg-6 col-md-6 flex-column align-items-center justify-content-center">
                         <div class="d-flex justify-content-center py-4">
                         </div>
                         <form action="{{ route('store.jenis.lahan') }}" method="POST">
@@ -33,7 +33,7 @@
                                     @endif
                                     <div class="row g-3 needs-validation" novalidate>
                                         <div class="col-12">
-                                            <label for="lahanNama" class="form-label">Jenis Lahan</label>
+                                            <label for="lahanNama" class="form-label">Nama Lahan</label>
                                             <div class="input-group has-validation">
                                                 <input type="text" name="lahan_nama" class="form-control" id="lahanNama"
                                                     required>
@@ -59,15 +59,15 @@
                                         <div class="col-12">
                                             <label for="lahanKeterangan" class="form-label">Keterangan Lahan</label>
                                             <div class="input-group has-validation">
-                                                <input type="text" name="lahan_keterangan" class="form-control"
-                                                    id="lahanKeterangan" required>
+                                                <textarea type="text" name="lahan_keterangan" class="form-control"
+                                                    id="lahanKeterangan" required></textarea>
                                                 <div class="invalid-feedback">Masukkan Keterangan dengan benar</div>
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <label for="lahanAktif" class="form-label">Aktif</label>
+                                            <label for="lahanAktif" class="form-label">Status Lahan</label>
                                             <select name="lahan_aktif" class="form-select" id="lahanAktif" required>
-                                                <option selected disabled>Pilih Status</option>
+                                                <option selected disabled>-- Pilih Status --</option>
                                                 <option value="Aktif">Aktif</option>
                                                 <option value="NonAktif">Non Aktif</option>
                                             </select>
@@ -75,14 +75,12 @@
                                         </div>
                                         <br>
                                         <div class="col-12">
-                                            <button class="btn btn-outline-success w-100" type="submit"><i
-                                                    class="bi bi-box-arrow-in-right"></i> Tambah</button>
+                                            <button class="btn btn-success w-100" type="submit">Tambah</button>
                                         </div>
                                         <br>
                                         <div class="col-12">
                                             <a href="{{ route('index.jenis.lahan') }}"
-                                                class="btn btn-outline-secondary w-100"><i
-                                                    class="bi bi-house-door-fill"></i> Kembali</a>
+                                                class="btn btn-secondary w-100">Kembali</a>
                                         </div>
                                         <br>
                                     </div>

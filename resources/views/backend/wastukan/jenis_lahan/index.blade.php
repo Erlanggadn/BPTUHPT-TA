@@ -4,10 +4,6 @@
 
 <main id="main" class="main">
 
-    <div class="pagetitle">
-        <h1>Selamat Datang, <b>{{ Auth::user()->name }} </b> sebagai {{ Auth::user()->role }}</h1>
-    </div><!-- End Page Title -->
-
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
@@ -43,7 +39,7 @@
                                     @isset($JenisLahan)
                                     @foreach ($JenisLahan as $item)
                                     <tr>
-                                        <td><span class="badge bg-success">{{ $item->lahan_id }}</span></td>
+                                        <td><span class="badge bg-primary">{{ $item->lahan_id }}</span></td>
                                         <td>{{ $item->lahan_nama }}</td>
                                         <td>{{ $item->lahan_jenis_tanah }}</td>
                                         <td>@if ($item->lahan_aktif === 'Aktif')
@@ -51,7 +47,7 @@
                                             @else
                                             <span class="badge bg-danger">{{ $item->lahan_aktif }}</span>
                                             @endif</span></td>
-                                        <td> <a class="btn btn-outline-success"
+                                        <td> <a class="btn btn-outline-warning"
                                                 href="{{ route('detail.jenis.lahan', $item->lahan_id) }}"><i
                                                     class="bi bi-info-lg"></i></a>
                                             <form id="deleteForm"

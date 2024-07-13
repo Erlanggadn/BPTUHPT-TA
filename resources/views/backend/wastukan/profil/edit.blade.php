@@ -4,7 +4,7 @@
         <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-lg-4 col-md-6 flex-column align-items-center justify-content-center">
+                    <div class="col-lg-6 col-md-6 flex-column align-items-center justify-content-center">
                         <div class="d-flex justify-content-center py-4"></div><!-- End Logo -->
                         <form action="{{ route('update.profil.wastukan', $akunuser->id) }}" method="POST">
                             @csrf
@@ -71,11 +71,11 @@
                                         <div class="col-12">
                                             <label for="yourUsername" class="form-label">Alamat Pegawai</label>
                                             <div class="input-group has-validation">
-                                                <input type="text"
+                                                <textarea type="text"
                                                     value="{{ old('pegawai_alamat', $akunuser->pegawai->pegawai_alamat ?? '') }}"
                                                     name="pegawai_alamat"
                                                     class="form-control @error('alamat') is-invalid @enderror"
-                                                    id="yourUsername">
+                                                    id="yourUsername"></textarea>
                                                 @error('alamat')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
@@ -130,14 +130,12 @@
                                         </div>
                                         <br>
                                         <div class="col-12">
-                                            <button class="btn btn-outline-success w-100" type="submit"><i
-                                                    class="bi bi-box-arrow-in-right"></i> Simpan</button>
+                                            <button class="btn btn-outline-success w-100" type="submit">Simpan</button>
                                         </div>
                                         <br>
                                         <div class="col-12">
                                             <a href="{{ route('profilwastukan', $akunuser->id) }}"
-                                                class="btn btn-outline-danger w-100"><i
-                                                    class="bi bi-house-door-fill"></i> Beranda</a>
+                                                class="btn btn-outline-secondary w-100">Kembali</a>
                                         </div>
                                         <br>
                                     </div>

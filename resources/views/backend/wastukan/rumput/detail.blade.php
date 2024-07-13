@@ -29,7 +29,7 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Jenis</div>
+                                <div class="col-lg-3 col-md-4 label">Nama Rumput</div>
                                 <div class="col-lg-9 col-md-8">
                                     <input type="text" class="form-control" value="{{ $rumput->jenisRumput->rum_nama }}"
                                         disabled>
@@ -65,7 +65,7 @@
                                 </div>
                             </div>
                             <div class="row mb-4">
-                                <div class="col-lg-3 col-md-4 label">Status Kandang</div>
+                                <div class="col-lg-3 col-md-4 label">Status Rumput</div>
                                 <div class="col-lg-9 col-md-8">
                                     <select name="rumput_status" class="form-select">
                                         <option value="Bibit" {{ $rumput->rumput_status == 'Bibit' ? 'selected' : '' }}>
@@ -94,32 +94,14 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Dibuat Pada</div>
-                                <div class="col-lg-9 col-md-8">
-                                    <input type="text" class="form-control" value="{{ $rumput->created_at }}" disabled>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Di Update Pada</div>
-                                <div class="col-lg-9 col-md-8">
-                                    <input type="text" class="form-control" value="{{ $rumput->updated_at}}" disabled>
-                                </div>
-                            </div>
                     </div>
                 </div>
 
                 <div class="text-center mb-4">
-                    <button type="submit" class="btn btn-outline-success">Update</button>
+                    <button type="submit" class="btn btn-outline-success">Ubah</button>
                     <a href="{{ route('index.rumput') }}" class="btn btn-outline-secondary">Kembali</a>
                 </div>
                 </form>
-
-                {{-- <a class="btn btn-outline-warning mt-3" href="{{ route('editsapi', $sapi->id) }}"><i
-                    class="bi bi-pencil-fill"></i> Edit</a>
-                <a class="btn btn-outline-primary mt-3" href="{{ route('printsapi', $sapi->id) }}"><i
-                        class="bi bi-upc"></i> Cetak Kode</a> --}}
-
             </div>
 
         </div><!-- End Bordered Tabs -->

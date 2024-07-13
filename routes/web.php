@@ -20,6 +20,7 @@ use App\Http\Controllers\KegiatanLahanController;
 use App\Http\Controllers\PengajuanSapiController;
 use App\Http\Controllers\KegiatanKandangController;
 use App\Http\Controllers\PengajuanRumputController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 
 // HOME
 Route::get('/', [AuthController::class, 'home'])->name('home');
@@ -31,6 +32,11 @@ Route::get('daftar', [AuthController::class, 'daftar'])->name('daftar');
 Route::post('daftar', [AuthController::class, 'daftarsave'])->name('daftar.save');
 Route::get('login-pembeli', [AuthController::class, 'loginpembeli'])->name('loginpembeli');
 Route::post('login-post', [AuthController::class, 'loginPembeliAction'])->name('login.pembeli.action');
+//Reset Password
+Route::get('password/reset', [ResetPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('password/email', [ResetPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 // PEMBELI
 Route::middleware(['auth', 'checkPembeli'])->group(function () {

@@ -8,13 +8,6 @@
                     <span>Profil Saya</span>
                 </a>
             </li>
-            <li class="nav-heading">Bendahara - HOME</li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="">
-                    <i class="bi bi-list-nested"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
             <li class="nav-heading">Bendahara - Pengajuan Beli</li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('index.bendahara.psapi') }}">
@@ -23,22 +16,9 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="">
-                    <i class="bi bi-list-nested"></i>
-                    <span>Pengajuan Rumput</span>
-                </a>
-            </li>
-            <li class="nav-heading">Bendahara - Pembayaran</li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('index.bendahara.psapi') }}">
-                    <i class="bi bi-list-nested"></i>
-                    <span>Bayar Sapi</span>
-                </a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('index.bendahara.prumput') }}">
                     <i class="bi bi-list-nested"></i>
-                    <span>Bayar Rumput</span>
+                    <span>Pengajuan Rumput</span>
                 </a>
             </li>
             <li class="nav-heading">Kepala - Logout</li>

@@ -5,7 +5,7 @@
         <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-lg-4 col-md-6 flex-column align-items-center justify-content-center">
+                    <div class="col-lg-6 col-md-6 flex-column align-items-center justify-content-center">
                         <div class="d-flex justify-content-center py-4">
                         </div>
                         <form action="{{ route('store.jenis.rumput') }}" method="POST">
@@ -43,30 +43,19 @@
                                         <div class="col-12">
                                             <label for="rumKeterangan" class="form-label">Keterangan</label>
                                             <div class="input-group has-validation">
-                                                <input type="text" name="rum_keterangan" class="form-control"
-                                                    id="rumKeterangan" required>
+                                                <textarea type="text" name="rum_keterangan" class="form-control"
+                                                    id="rumKeterangan" required></textarea>
                                                 <div class="invalid-feedback">Masukkan Keterangan dengan benar</div>
                                             </div>
                                         </div>
-                                        {{-- <div class="col-12">
-                                            <label for="rumAktif" class="form-label">Aktif</label>
-                                            <select name="rum_aktif" class="form-select" id="rumAktif" required>
-                                                <option selected disabled>Pilih Status</option>
-                                                <option value="Aktif">Aktif</option>
-                                                <option value="NonAktif">Non Aktif</option>
-                                            </select>
-                                            <div class="invalid-feedback">Pilih Status Rumput</div>
-                                        </div> --}}
                                         <br>
                                         <div class="col-12">
-                                            <button class="btn btn-outline-success w-100" type="submit"><i
-                                                    class="bi bi-box-arrow-in-right"></i> Tambah</button>
+                                            <button class="btn btn-success w-100" type="submit">Tambah</button>
                                         </div>
                                         <br>
                                         <div class="col-12">
                                             <a href="{{ route('index.jenis.rumput') }}"
-                                                class="btn btn-outline-secondary w-100"><i
-                                                    class="bi bi-house-door-fill"></i> Kembali</a>
+                                                class="btn btn-secondary w-100">Kembali</a>
                                         </div>
                                         <br>
                                     </form>
