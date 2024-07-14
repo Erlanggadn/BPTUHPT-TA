@@ -20,7 +20,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                         @endif
-
+                        <p>MENCETAK LAPORANNYA BELUM</p>
                         <a href="{{ route('show.tanam') }}" class="btn btn-primary mb-4"><i class="bi bi-plus"></i>
                             Tambah Kegiatan</a>
                         <!-- Table with stripped rows -->

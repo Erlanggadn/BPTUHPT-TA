@@ -5,14 +5,32 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Sapi;
 use App\Models\ModSapi;
+use App\Models\ModRumput;
 use App\Models\ModJenisSapi;
 use Illuminate\Http\Request;
+use App\Models\ModJenisRumput;
 use Illuminate\Routing\Controller;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class SapiController extends Controller
 {
+
+    public function indexrumput()
+    {
+        $Rumput = ModRumput::with('jenisRumput')
+            ->where('rumput_status', 'Siap Pakan')
+            ->get();
+        $jenisList = ModJenisRumput::all(); // Mengambil daftar jenis rumput untuk dropdown filter
+        return view('backend.wasbitnak.rumput.index', compact('Rumput', 'jenisList'));
+    }
+
+    public function detailrumput($id)
+    {
+        $rumput = ModRumput::with('jenisRumput')->findOrFail($id);
+        return view('backend.wasbitnak.rumput.detail', compact('rumput'));
+    }
+
     public function index()
     {
         $Sapi = ModSapi::with('jenisSapi')->whereNotIn('sapi_status', ['Siap Jual', 'terjual'])->get();
@@ -80,14 +98,14 @@ class SapiController extends Controller
         $request->validate([
             'sapi_no_induk' => 'required|string|max:255',
             'sapi_keterangan' => 'required|string|max:255',
-            'sapi_status' => 'required|string|max:255', 
+            'sapi_status' => 'required|string|max:255',
         ]);
 
         $sapi = ModSapi::findOrFail($id);
 
         $sapi->sapi_no_induk = $request->sapi_no_induk;
         $sapi->sapi_keterangan = $request->sapi_keterangan;
-        $sapi->sapi_status = $request->sapi_status; 
+        $sapi->sapi_status = $request->sapi_status;
         $sapi->sapi_umur = Carbon::parse($sapi->sapi_tanggal_lahir)->diffInMonths(Carbon::now());
         $sapi->save();
 

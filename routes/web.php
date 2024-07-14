@@ -219,6 +219,10 @@ Route::middleware(['auth', 'checkWasbitnak'])->group(function () {
         Route::get('/', [AdminController::class, 'pegawaiWasbitnak'])->name('index.pegawai.wasbitnak');
         Route::get('/detail/{id}', [AdminController::class, 'detailPWasbitnak'])->name('detail.pegawai.wasbitnak');
     });
+    Route::prefix('rumput')->group(function () {
+        Route::get('/', [SapiController::class, 'indexrumput'])->name('index.rumput.wasbitnak');
+        Route::get('/detail/{id}', [SapiController::class, 'detailrumput'])->name('detail.rumput.wasbitnak');
+    });
 });
 //PPID
 Route::middleware(['auth', 'checkPPID'])->group(function () {

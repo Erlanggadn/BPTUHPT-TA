@@ -34,6 +34,13 @@
                     <span>Kandang</span>
                 </a>
             </li>
+            <li class="nav-heading">Wasbitnak - Rumput</li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('index.rumput.wasbitnak') }}">
+                    <i class="bi bi-list-nested"></i>
+                    <span>Rumput</span>
+                </a>
+            </li>
             <li class="nav-heading">Wasbitnak - Kegiatan Kandang</li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('index.kegiatan.kandang') }}">

@@ -109,7 +109,7 @@ class AuthController extends Controller
                     $route = '/dasboard/kepala';
                     break;
                 case 'bendahara':
-                    $route = '/dasboard/Bendahara';
+                    $route = '/pengajuan-sapi-bendahara';
                     break;
             }
 
