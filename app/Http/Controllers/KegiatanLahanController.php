@@ -9,13 +9,27 @@ use App\Models\ModKegiatanLahan;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class KegiatanLahanController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $kegiatanLahan = ModKegiatanLahan::all();
-        return view('backend.wastukan.kegiatan.index', compact('kegiatanLahan'));
+        $startDate = $request->query('start_date');
+        $endDate = $request->query('end_date');
+        $lahan = $request->query('lahan');
+
+        $kegiatanLahan = ModKegiatanLahan::when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
+            return $query->whereBetween('created_at', [$startDate, $endDate]);
+        })->when($lahan, function ($query) use ($lahan) {
+            return $query->where('tanam_detail_lahan', $lahan);
+        })->get();
+
+        $jenisLahan = ModJenisLahan::all();
+
+        return view('backend.wastukan.kegiatan.index', compact('kegiatanLahan', 'jenisLahan'));
     }
 
     public function show()
@@ -152,4 +166,45 @@ class KegiatanLahanController extends Controller
     
         return redirect()->route('index.tanam')->with('success', 'Kegiatan lahan berhasil diperbarui.');
     }
+
+    public function export(Request $request)
+    {
+        $startDate = $request->query('start_date');
+        $endDate = $request->query('end_date');
+    
+        $kegiatanLahan = ModKegiatanLahan::when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
+            return $query->whereBetween('created_at', [$startDate, $endDate]);
+        })->get();
+    
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+    
+        // Set header
+        $sheet->setCellValue('A1', 'ID');
+        $sheet->setCellValue('B1', 'Lahan');
+        $sheet->setCellValue('C1', 'Rumput');
+        $sheet->setCellValue('D1', 'Tanggal');
+        $sheet->setCellValue('E1', 'Status');
+    
+        // Isi data
+        $row = 2;
+        foreach ($kegiatanLahan as $kegiatan) {
+            $sheet->setCellValue('A' . $row, $kegiatan->tanam_id);
+            $sheet->setCellValue('B' . $row, $kegiatan->lahan->lahan_nama);
+            $sheet->setCellValue('C' . $row, $kegiatan->rumput->rumput_id . ' [' . $kegiatan->rumput->jenisRumput->rum_nama . ' - ' . $kegiatan->rumput->rumput_berat_awal . ' KG]');
+            $sheet->setCellValue('D' . $row, \Carbon\Carbon::parse($kegiatan->tanam_tanggal)->translatedFormat('d F Y') . ' [' . $kegiatan->tanam_jam_mulai . ' - ' . $kegiatan->tanam_jam_selesai . ']');
+            $sheet->setCellValue('E' . $row, $kegiatan->tanam_status);
+            $row++;
+        }
+    
+        $writer = new Xlsx($spreadsheet);
+        $fileName = 'Data_Kegiatan_Lahan_' . date('Ymd_His') . '.xlsx';
+        $filePath = storage_path('app/public/exports/' . $fileName);
+    
+        Storage::makeDirectory('public/exports');
+        $writer->save($filePath);
+    
+        return response()->download($filePath)->deleteFileAfterSend(true);
+    }
+
 }

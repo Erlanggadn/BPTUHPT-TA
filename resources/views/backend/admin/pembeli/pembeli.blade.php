@@ -4,10 +4,6 @@
 
 <main id="main" class="main">
 
-    <div class="pagetitle">
-        <h1>Selamat Datang, {{ Auth::user()->name }} sebagai {{ Auth::user()->role }}</h1>
-    </div><!-- End Page Title -->
-
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
@@ -17,12 +13,29 @@
                         <h5 class="card-title">Data Hak Akses Akun Pembeli</h5>
                         <p>Berikut ini adalah data hak akses akun yang sepenuhnya dikelola oleh <b>Admin dan Divisi
                                 PPID</b> BPTU HPT Padang Mengatas</p>
-                        <p>Jumlah Pembeli Saat Ini : <b>{{ $jumlahPembeli }}</b></p>
-                        <a class="btn btn-outline-success mb-4" href=""><i class="bi bi-file-earmark-spreadsheet"></i>
-                            Cetak Excel</a>
-                        <a class="btn btn-outline-danger mb-4" href="" target="_blank"><i
-                                class="bi bi-file-earmark-pdf-fill"></i> Cetak PDF</a>
+                        <form method="GET" action="{{ route('akunpembeli') }}" class="row mb-4">
+                            <div class="col-md-2">
+                                <label for="start_date" class="form-label">Tanggal Mulai</label>
+                                <input type="date" id="start_date" name="start_date" class="form-control"
+                                    value="{{ $startDate ?? '' }}">
+                            </div>
+                            <div class="col-md-2">
+                                <label for="end_date" class="form-label">Tanggal Akhir</label>
+                                <input type="date" id="end_date" name="end_date" class="form-control"
+                                    value="{{ $endDate ?? '' }}">
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">&nbsp;</label>
+                                <button type="submit" class="btn btn-primary form-control"><i class="bi bi-funnel"></i>
+                                    Filter</button>
+                            </div>
+                        </form>
 
+                        <!-- Link Export ke Excel -->
+                        <a href="{{ route('pembeli.export', ['start_date' => request('start_date'), 'end_date' => request('end_date')]) }}"
+                            class="btn btn-success mb-4">
+                            <i class="bi bi-file-earmark-excel"></i> Export ke Excel
+                        </a>
                         <!-- Table with stripped rows -->
                         <div class="table-responsive">
                             <table class="table datatable">

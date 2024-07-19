@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ModPegawai;
 use App\Models\User;
+use App\Models\ModPegawai;
+use App\Models\ModPembeli;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class AkunController extends Controller
 {
@@ -62,13 +65,75 @@ class AkunController extends Controller
     }
 
     //PEMBELI
-    public function indexpembeli()
+    public function indexpembeli(Request $request)
     {
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
         $akunuser = User::with('pembeli')
             ->whereNotIn('role', ['admin', 'ppid', 'wastukan', 'wasbitnak', 'kepala', 'keswan', 'bendahara'])
+            ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
+                return $query->whereBetween('created_at', [$startDate, $endDate]);
+            })
             ->get();
-        $jumlahPembeli = $akunuser->count();
-        return view('backend.admin.pembeli.pembeli', ['akunuser' => $akunuser, 'jumlahPembeli' => $jumlahPembeli]);
+
+        $jumlahPegawai = $akunuser->count();
+        $pegawai = ModPembeli::all();
+
+        return view('backend.admin.pembeli.pembeli', [
+            'akunuser' => $akunuser,
+            'jumlahPegawai' => $jumlahPegawai,
+            'pegawai' => $pegawai,
+            'startDate' => $startDate,
+            'endDate' => $endDate
+        ]);
+    }
+    public function exportpembeli(Request $request)
+    {
+        // Ambil input tanggal dari form
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        // Query untuk mengambil data akun user dengan filter tanggal
+        $akunuser = User::with('pembeli')
+            ->whereNotIn('role', ['admin', 'ppid', 'wastukan', 'wasbitnak', 'kepala', 'keswan', 'bendahara'])
+            ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
+                return $query->whereBetween('created_at', [$startDate, $endDate]);
+            })
+            ->get();
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Set header
+        $sheet->setCellValue('A1', 'ID');
+        $sheet->setCellValue('B1', 'Nama');
+        $sheet->setCellValue('C1', 'Email');
+        $sheet->setCellValue('D1', 'Tanggal Lahir');
+        $sheet->setCellValue('E1', 'No Hp');
+        $sheet->setCellValue('F1', 'Instansi');
+        $sheet->setCellValue('G1', 'Alamat');
+        $sheet->setCellValue('H1', 'Tgl Buat');
+
+        // Isi data
+        $row = 2;
+        foreach ($akunuser as $item) {
+            $sheet->setCellValue('A' . $row, $item->pembeli->pembeli_id);
+            $sheet->setCellValue('B' . $row, $item->pembeli->pembeli_nama);
+            $sheet->setCellValue('C' . $row, $item->email);
+            $sheet->setCellValue('D' . $row, (string)$item->pembeli->pembeli_lahir);
+            $sheet->setCellValue('E' . $row, (string)$item->pembeli->pembeli_nohp);
+            $sheet->setCellValue('F' . $row, $item->pembeli->pembeli_instansi);
+            $sheet->setCellValue('G' . $row, $item->pembeli->pembeli_alamat);
+            $sheet->setCellValue('H' . $row, $item->created_at->translatedFormat('d F Y'));
+            $row++;
+        }
+
+        $writer = new Xlsx($spreadsheet);
+        $fileName = 'data_pembeli.xlsx';
+        $filePath = public_path($fileName);
+        $writer->save($filePath);
+
+        return response()->download($filePath)->deleteFileAfterSend(true);
     }
     public function detailakunpembeli($id)
     {

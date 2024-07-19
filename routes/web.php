@@ -72,12 +72,14 @@ Route::middleware(['auth', 'checkAdmin'])->group(function () {
         Route::get('/detail/{id}', [AkunController::class, 'detailakun'])->name('detailakun');
         Route::get('/edit/{id}', [AkunController::class, 'edit'])->name('akunadmin.edit');
         Route::put('/update/{id}', [AkunController::class, 'update'])->name('akunadmin.update');
+        Route::get('/admin/export', [AdminController::class, 'export'])->name('pegawai.export');
     });
     //AKUN PEMBELI
     Route::get('akun-pembeli/', [AkunController::class, 'indexpembeli'])->name('akunpembeli');
     Route::get('akun-pembeli/detail/{id}', [AkunController::class, 'detailakunpembeli'])->name('detail.akun.pembeli');
     Route::get('akun-pembeli/pembeli/edit/{id}', [AkunController::class, 'editpembeli'])->name('pembeliadmin.edit');
     Route::put('akun-pembeli/pembeli/update/{id}', [AkunController::class, 'updatepembeli'])->name('pembeliadmin.update');
+    Route::get('akun-pembeli/pembeli/export', [AkunController::class, 'exportpembeli'])->name('pembeli.export');
     //AKUN PROFIL
     Route::get('akun-profil/admin/', [AkunController::class, 'profil'])->name('profiladmin');
     Route::get('akun-profil/edit/{id}', [AkunController::class, 'editprofil'])->name('admin.profil.edit');
@@ -145,7 +147,8 @@ Route::middleware(['auth', 'checkWastukan'])->group(function () {
         Route::get('/detail/{id}', [KegiatanLahanController::class, 'detail'])->name('detail.tanam');
         Route::put('/update/{tanam_id}', [KegiatanLahanController::class, 'update'])->name('update.tanam');
         Route::delete('/delete/{tanam_id}', [KegiatanLahanController::class, 'destroy'])->name('destroy.tanam');
-    });
+        Route::get('/export', [KegiatanLahanController::class, 'export'])->name('export.tanam');
+    }); 
     Route::prefix('pegawai-wastukan')->group(function () {
         Route::get('/', [AdminController::class, 'pegawaiWastukan'])->name('index.pegawai.wastukan');
         Route::get('/detail/{id}', [AdminController::class, 'detailPwastukan'])->name('detail.pegawai.wastukan');
