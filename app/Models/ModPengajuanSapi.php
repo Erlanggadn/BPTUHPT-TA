@@ -22,13 +22,12 @@ class ModPengajuanSapi extends Model
         'belisapi_alasan',
         'belisapi_status',
         'belisapi_keterangan',
-    ];
+    ]; 
 
     public function details()
     {
         return $this->hasMany(ModDetailPengajuanSapi::class, 'detail_pengajuan', 'belisapi_id');
     }
-
     public function user()
     {
         return $this->belongsTo(ModPembeli::class, 'belisapi_orang', 'pembeli_id');

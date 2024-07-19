@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use App\Models\ModKegiatanKandang;
 use Illuminate\Routing\Controller;
 use App\Models\ModDetailKandangSapi;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -91,6 +90,7 @@ class KegiatanKandangController extends Controller
 
         return redirect()->route('index.kegiatan.kandang')->with('success', 'Kegiatan berhasil ditambahkan!');
     }
+
     public function detail($kegiatan_id)
     {
         $kegiatan = ModKegiatanKandang::findOrFail($kegiatan_id);
@@ -159,7 +159,6 @@ class KegiatanKandangController extends Controller
         return redirect()->route('index.kegiatan.kandang')->with('success', 'Kegiatan berhasil diperbarui!');
     }
 
-
     public function destroy($id)
     {
         $kegiatanKandang = ModKegiatanKandang::findOrFail($id);
@@ -167,6 +166,7 @@ class KegiatanKandangController extends Controller
 
         return redirect()->route('index.kegiatan.kandang')->with('success', 'Data berhasil dihapus');
     }
+
     public function export(Request $request)
     {
         $startDate = $request->input('start_date');

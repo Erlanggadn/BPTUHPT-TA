@@ -9,12 +9,10 @@ use Illuminate\Support\Str;
 class ModKegiatanKandang extends Model
 {
     use HasFactory;
-
     protected $table = 'master_kegiatan_kandang';
     protected $primaryKey = 'kegiatan_id';
     public $incrementing = false;
     protected $keyType = 'string';
-
     protected $fillable = [
         'kegiatan_id',
         'kegiatan_jenis_kandang',
@@ -25,11 +23,6 @@ class ModKegiatanKandang extends Model
         'kegiatan_keterangan',
         'kegiatan_status',
         'kegiatan_foto',
-
-        'created_id',
-        'created_nama',
-        'updated_id',
-        'updated_nama'
     ];
     public function kandang()
     {

@@ -10,7 +10,6 @@ use App\Models\ModPengajuanSapi;
 use App\Models\ModPembayaranSapi;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ModDetailPengajuanSapi;
@@ -188,9 +187,7 @@ class PengajuanSapiController extends Controller
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
-    public function delete()
-    {
-    }
+    
     public function updatebayarsapi(Request $request, $dbeli_id)
     {
         $request->validate([

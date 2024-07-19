@@ -44,6 +44,7 @@ class KandangController extends Controller
 
         return redirect()->route('index.kandang')->with('success', 'Kandang berhasil ditambahkan');
     }
+    
     public function detail($id)
     {
         $Kandang = ModKandang::with('jenisKandang')->findOrFail($id);

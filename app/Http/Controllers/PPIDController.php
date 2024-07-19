@@ -15,7 +15,6 @@ use PhpParser\Node\Expr\FuncCall;
 use App\Models\ModPengajuanRumput;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use App\Models\ModDetailPengajuanSapi;
 use App\Models\ModDetailPengajuanRumput;
 use Illuminate\Support\Facades\Validator;
@@ -171,7 +170,7 @@ class PPIDController extends Controller
         return view('backend.ppid.sapi_jual.index', compact('Sapi', 'jenisList'));
     }
 
-    //RUMPUT SIAP JUAL
+    //RUMPUT RUMPUT JUAL
     public function indexrumputjual()
     {
         $Rumput = ModRumput::with('jenisRumput')

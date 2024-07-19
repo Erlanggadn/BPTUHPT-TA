@@ -17,28 +17,22 @@ class KepalaBalaiController extends Controller
 {
     public function dashboard()
     {
-        // Ambil jumlah pengajuan sapi
         $jumlahPengajuanSapi = ModPengajuanSapi::count();
         $jumlahPengajuanRumput = ModPengajuanRumput::count();
-
-        // Ambil jumlah sapi dan rumput
         $jumlahSapi = ModSapi::count();
         $jumlahRumput = ModRumput::count();
-        // Kandang dan Lahna
         $jumlahKandangSapi = ModKandang::count();
         $jumlahLahanRumput = ModJenisLahan::count();
-        // Tambahkan data lain yang dibutuhkan
-        // $jumlahAnotherModel = AnotherModel::count(); // Ganti AnotherModel dengan model lain yang Anda gunakan
 
         return view('backend.kepala.index', compact('jumlahPengajuanSapi', 'jumlahSapi', 'jumlahRumput', 'jumlahPengajuanRumput', 'jumlahKandangSapi', 'jumlahLahanRumput'));
     }
-
 
     public function pengajuansapi()
     {
         $PSapi = ModPengajuanSapi::with('user')->get();
         return view('backend.kepala.pengajuan_sapi.index', compact('PSapi'));
     }
+
     public function detailpengajuansapi($id)
     {
         $sapiJenis = ModJenisSapi::all();
@@ -49,6 +43,7 @@ class KepalaBalaiController extends Controller
 
         return view('backend.kepala.pengajuan_sapi.detail', compact('pengajuan', 'sapiJenis'));
     }
+
     public function updatepengajuansapi(Request $request, $id)
     {
         $request->validate([
@@ -73,6 +68,7 @@ class KepalaBalaiController extends Controller
         $PRumput = ModPengajuanRumput::with('pembeli')->get();
         return view('backend.kepala.pengajuan_rumput.index', compact('PRumput'));
     }
+
     public function detailpengajuanrumput($id)
     {
         $rumputJenis = ModJenisRumput::all();
@@ -83,6 +79,7 @@ class KepalaBalaiController extends Controller
 
         return view('backend.kepala.pengajuan_rumput.detail', compact('pengajuan', 'rumputJenis'));
     }
+    
     public function updatepengajuanrumput(Request $request, $id)
     {
         $request->validate([

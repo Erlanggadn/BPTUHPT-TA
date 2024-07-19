@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class ModPembayaranSapi extends Model
 {
     use HasFactory;
-
     protected $table = 'master_pembayaran_sapi';
     protected $primaryKey = 'dbeli_id';
     protected $keyType = 'string';

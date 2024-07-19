@@ -8,12 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class ModKegiatanLahan extends Model
 {
     use HasFactory;
-
     protected $table = 'master_kegiatan_lahan';
     protected $primaryKey = 'tanam_id';
     public $incrementing = false;
-    protected $keyType = 'string';
-
+    protected $keyType = 'string';  
     protected $fillable = [
         'tanam_id',
         'tanam_orang',

@@ -9,13 +9,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ModPembayaranRumput extends Model
 {
     use HasFactory, SoftDeletes;
-
     protected $table = 'master_pembayaran_rumput';
     protected $primaryKey = 'bayarrum_id';
     public $incrementing = false;
     protected $keyType = 'string';
     use SoftDeletes;
-
     protected $fillable = [
         'bayarrum_id',
         'bayarrum_beli',

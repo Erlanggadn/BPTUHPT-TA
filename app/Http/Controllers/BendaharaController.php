@@ -27,7 +27,6 @@ class BendaharaController extends Controller
         $PSapi = ModPengajuanSapi::with('user')->where('belisapi_status', 'Disetujui')->get();
         return view('backend.bendahara.sapi.index', compact('PSapi'));
     }
-
     public function detailsapi($belisapi_id)
     {
         $pengajuan = ModPengajuanSapi::where('belisapi_id', $belisapi_id)->firstOrFail();
@@ -38,7 +37,6 @@ class BendaharaController extends Controller
 
         return view('backend.bendahara.sapi.detail', compact('pengajuan', 'sapiJenis', 'currentUser', 'pembayaran'));
     }
-
     public function storebayarsapi(Request $request, $belisapi_id)
     {
         $request->validate([
@@ -71,7 +69,6 @@ class BendaharaController extends Controller
         // Redirect dengan pesan sukses
         return redirect()->route('index.bendahara.psapi')->with('success', 'Pembayaran berhasil disimpan.');
     }
-
     public function updatebayarsapi(Request $request, $dbeli_id)
     {
         $request->validate([
@@ -90,7 +87,6 @@ class BendaharaController extends Controller
 
         return redirect()->route('index.bendahara.psapi')->with('success', 'Pembayaran berhasil diperbarui.');
     }
-
     public function deletebayarsapi($dbeli_id)
     {
         $pembayaran = ModPembayaranSapi::findOrFail($dbeli_id);
@@ -104,7 +100,6 @@ class BendaharaController extends Controller
         $PRumput = ModPengajuanRumput::with('pembeli')->where('belirum_status', 'Disetujui')->get();
         return view('backend.bendahara.rumput.index', compact('PRumput'));
     }
-
     public function detailrumput($belirum_id)
     {
         $pengajuan = ModPengajuanRumput::where('belirum_id', $belirum_id)->firstOrFail();
@@ -115,7 +110,6 @@ class BendaharaController extends Controller
 
         return view('backend.bendahara.rumput.detail', compact('pengajuan', 'rumputJenis', 'currentUser', 'pembayaran'));
     }
-
     public function storebayarrumput(Request $request, $belirum_id)
     {
         $request->validate([
@@ -148,7 +142,6 @@ class BendaharaController extends Controller
         // Redirect dengan pesan sukses
         return redirect()->route('index.bendahara.prumput')->with('success', 'Pembayaran berhasil disimpan.');
     }
-
     public function updatebayarrumput(Request $request, $bayarrum_id)
     {
         $request->validate([
@@ -167,7 +160,6 @@ class BendaharaController extends Controller
 
         return redirect()->route('index.bendahara.prumput')->with('success', 'Pembayaran berhasil diperbarui.');
     }
-
     public function deletebayarrumput($bayarrum_id)
     {
         $pembayaran = ModPembayaranRumput::findOrFail($bayarrum_id);

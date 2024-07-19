@@ -13,11 +13,18 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+    //INDEX
+    public function home()
+    {
+        $akunuser = Auth::user();
+        return view('index', ['akunuser' => $akunuser]);
+    }
+
+    //REGIS - PEMBELI
     public function daftar()
     {
         return view('backend/auth/daftar');
     }
-
     public function daftarsave(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -57,16 +64,11 @@ class AuthController extends Controller
         return redirect()->route('loginpembeli');
     }
 
+    //LOGIN - PEGAWAI
     public function login()
     {
         return view('backend.auth.login.login-pegawai'); // Untuk semua role kecuali pembeli
     }
-
-    public function loginPembeli()
-    {
-        return view('backend.auth.login.login-pembeli'); // Khusus pembeli
-    }
-
     public function loginAction(Request $request)
     {
         $request->validate(
@@ -123,6 +125,11 @@ class AuthController extends Controller
         }
     }
 
+    //LOGIN - PEMBELI
+    public function loginPembeli()
+    {
+        return view('backend.auth.login.login-pembeli'); // Khusus pembeli
+    }
     public function loginPembeliAction(Request $request)
     {
         $request->validate(
@@ -155,13 +162,11 @@ class AuthController extends Controller
         }
     }
 
-
-
+    //REGIS - PEGAWAI
     public function pegawaidaftar()
     {
         return view('backend/admin/daftar');
     }
-
     public function pegawaidaftarsave(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -199,19 +204,17 @@ class AuthController extends Controller
         return redirect()->route('akunadmin')->with('berhasil.pegawai', 'Akun berhasil didaftarkan.');
     }
 
+    //LOGOUT
     public function logout()
     {
         Auth::logout();
         return redirect('/');
     }
+
+    //403
     public function unauthorized()
     {
         return view('backend.auth.unauthorized');
     }
-
-    public function home()
-    {
-        $akunuser = Auth::user();
-        return view('index', ['akunuser' => $akunuser]);
-    }
+    
 }

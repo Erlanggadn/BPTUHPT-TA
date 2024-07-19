@@ -12,7 +12,6 @@ class ModPegawai extends Model
     protected $primaryKey = 'pegawai_id';
     protected $keyType = 'string';
     public $incrementing = false;
-
     protected $fillable = [
         'pegawai_id',
         'pegawai_detail',

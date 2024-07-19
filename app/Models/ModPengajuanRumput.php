@@ -8,12 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class ModPengajuanRumput extends Model
 {
     use HasFactory;
-
     protected $table = 'master_pengajuan_rumput';
     protected $primaryKey = 'belirum_id';
     public $incrementing = false;
     protected $keyType = 'string';
-
     protected $fillable = [
         'belirum_id',
         'belirum_orang',
@@ -30,12 +28,10 @@ class ModPengajuanRumput extends Model
     {
         return $this->belongsTo(ModPembeli::class, 'belirum_orang', 'pembeli_id');
     }
-
     public function detailPengajuanRumput()
     {
         return $this->hasMany(ModDetailPengajuanRumput::class, 'drumput_pengajuan', 'belirum_id');
     }
-
     public function pembayaranRumput()
     {
         return $this->hasMany(ModPembayaranRumput::class, 'bayarrum_beli', 'belirum_id');

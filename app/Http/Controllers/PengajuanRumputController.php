@@ -117,7 +117,6 @@ class PengajuanRumputController extends Controller
 
         return view('backend.pembeli.pengajuan_rumput.detail', compact('pengajuan', 'rumputJenis', 'currentUser', 'pembayaran'));
     }
-
     public function updatebayarrumput(Request $request, $bayarrum_id)
     {
         $request->validate([

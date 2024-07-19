@@ -12,7 +12,6 @@ class ModPembeli extends Model
     protected $primaryKey = 'pembeli_id';
     protected $keyType = 'string';
     public $incrementing = false;
-
     protected $fillable = [
         'pembeli_id',
         'pembeli_detail',
@@ -27,6 +26,7 @@ class ModPembeli extends Model
     {
         return $this->belongsTo(User::class, 'pembeli_detail', 'id');
     }
+    
     public function sapi()
     { 
         return $this->hasMany(ModPengajuanSapi::class, 'belisapi_orang', 'pembeli_id');

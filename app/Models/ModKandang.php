@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class ModKandang extends Model
 {
     use HasFactory;
-
     protected $table = 'master_kandang';
     protected $primaryKey = 'kand_id';
     protected $keyType = 'string';
@@ -21,11 +20,11 @@ class ModKandang extends Model
         'kand_keterangan',
         'kand_aktif',
     ];
+    
     public function jenisKandang()
     {
         return $this->belongsTo(ModJenisKandang::class, 'kand_jenis', 'kandang_id');
     }
-
     public function kegiatanKandangs()
     {
         return $this->hasMany(ModKegiatanKandang::class, 'kegiatan_jenis_kandang', 'kand_id');

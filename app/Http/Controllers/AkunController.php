@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\ModPegawai;
 use App\Models\ModPembeli;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -244,7 +243,6 @@ class AkunController extends Controller
     }
 
 
-
     //PROFIL - KESWAN
     public function profilkeswan()
     {
@@ -450,7 +448,6 @@ class AkunController extends Controller
         $akunuser = $user->pegawai;
         return view('backend.kepala.profil.detail', compact('user', 'akunuser'));
     }
-
     public function editkepala($id)
     {
         $akunuser = User::with('pegawai')->findOrFail($id);
@@ -501,7 +498,6 @@ class AkunController extends Controller
         $akunuser = $user->pegawai;
         return view('backend.wastukan.profil.detailprofil', compact('user', 'akunuser'));
     }
-
     public function editwastukan($id)
     {
         $akunuser = User::with('pegawai')->findOrFail($id);
@@ -552,7 +548,6 @@ class AkunController extends Controller
         $akunuser = $user->pegawai;
         return view('backend.bendahara.profil.detail', compact('user', 'akunuser'));
     }
-
     public function editbendahara($id)
     {
         $akunuser = User::with('pegawai')->findOrFail($id);

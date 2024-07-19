@@ -166,6 +166,13 @@ class KegiatanLahanController extends Controller
     
         return redirect()->route('index.tanam')->with('success', 'Kegiatan lahan berhasil diperbarui.');
     }
+    public function destroy($id)
+    {
+        $kegiatanKandang = ModKegiatanLahan::findOrFail($id);
+        $kegiatanKandang->delete();
+
+        return redirect()->route('index.tanam')->with('success', 'Data berhasil dihapus');
+    }
 
     public function export(Request $request)
     {
@@ -206,5 +213,6 @@ class KegiatanLahanController extends Controller
     
         return response()->download($filePath)->deleteFileAfterSend(true);
     }
+
 
 }

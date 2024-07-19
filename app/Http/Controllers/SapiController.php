@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use App\Models\Sapi;
 use App\Models\ModSapi;
 use App\Models\ModRumput;
 use App\Models\ModJenisSapi;

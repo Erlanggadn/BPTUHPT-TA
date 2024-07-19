@@ -95,7 +95,6 @@ class SapiJualController extends Controller
         return redirect()->route('detail.sapi.wasbitnak', $id)->with('success', 'Data sapi berhasil diperbarui');
     }
 
-
     public function destroy($id)
     {
         $sapi = ModSapi::findOrFail($id);
@@ -127,7 +126,6 @@ class SapiJualController extends Controller
 
         return view('backend.wasbitnak.sapi.index', compact('Sapi', 'jenisList'));
     }
-
 
     public function export(Request $request)
     {

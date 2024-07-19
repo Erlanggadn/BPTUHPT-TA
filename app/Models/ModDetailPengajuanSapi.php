@@ -26,7 +26,6 @@ class ModDetailPengajuanSapi extends Model
     {
         return $this->belongsTo(ModPengajuanSapi::class, 'detail_pengajuan', 'belisapi_id');
     }
-
     public function sapiJenis()
     {
         return $this->belongsTo(ModJenisSapi::class, 'detail_jenis', 'sjenis_id');

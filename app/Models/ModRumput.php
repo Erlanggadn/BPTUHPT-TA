@@ -8,12 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class ModRumput extends Model
 {
     use HasFactory;
-
     protected $table = 'master_rumput';
     protected $primaryKey = 'rumput_id';
     protected $keyType = 'string';
     public $incrementing = false;
-
     protected $fillable = [
         'rumput_id',
         'rumput_jenis',
