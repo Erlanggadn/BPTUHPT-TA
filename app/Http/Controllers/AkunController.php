@@ -239,7 +239,7 @@ class AkunController extends Controller
         $akunuser = User::findOrFail($id);
         $akunuser->delete();
 
-        return redirect()->route('akunadmin')->with('berhasil.hapus', 'Akun berhasil dihapus');
+        return redirect()->back()->with('berhasil.hapus', 'Akun berhasil dihapus');
     }
 
 

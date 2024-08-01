@@ -21,10 +21,11 @@ class BendaharaController extends Controller
     {
         return view('backend.bendahara.index');
     }
-
     public function indexsapi()
     {
-        $PSapi = ModPengajuanSapi::with('user')->where('belisapi_status', 'Disetujui')->get();
+        $PSapi = ModPengajuanSapi::with(['user', 'pembayaranSapi' => function ($query) {
+            $query->orderBy('created_at', 'desc');
+        }])->where('belisapi_status', 'Disetujui')->get();
         return view('backend.bendahara.sapi.index', compact('PSapi'));
     }
     public function detailsapi($belisapi_id)
@@ -97,7 +98,9 @@ class BendaharaController extends Controller
     //BAYAR RUMPUT
     public function indexrumput()
     {
-        $PRumput = ModPengajuanRumput::with('pembeli')->where('belirum_status', 'Disetujui')->get();
+        $PRumput = ModPengajuanRumput::with(['pembeli', 'pembayaranRumput' => function ($query) {
+            $query->orderBy('created_at', 'desc');
+        }])->where('belirum_status', 'Disetujui')->get();
         return view('backend.bendahara.rumput.index', compact('PRumput'));
     }
     public function detailrumput($belirum_id)

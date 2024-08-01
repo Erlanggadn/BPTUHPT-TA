@@ -13,7 +13,8 @@ use Carbon\Carbon;
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Data Pengajuan Rumput</h5>
-                        <p>Berikut ini adalah data Pengajuan Rumput yang sepenuhnya dikelola oleh <b>Divisi PPID</b> BPTU
+                        <p>Berikut ini adalah data Pengajuan Rumput yang sepenuhnya dikelola oleh <b>Divisi PPID</b>
+                            BPTU
                             HPT Padang Mengatas
                         </p>
                         @if (session('success'))
@@ -32,6 +33,7 @@ use Carbon\Carbon;
                                         <th>Asal Instansi</th>
                                         <th>Tanggal Masuk</th>
                                         <th>Keterangan</th>
+                                        <th>Status Bayar</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -45,15 +47,24 @@ use Carbon\Carbon;
                                         <td>{{ $item->pembeli->pembeli_instansi }}</td>
                                         <td>{{ Carbon::parse($item->belirum_tanggal)->translatedFormat('j F Y') }}</td>
                                         <td>{{ $item->belirum_keterangan }}</td>
+                                        <td>
+                                            @if($item->pembayaranRumput->isNotEmpty())
+                                                {{ $item->pembayaranRumput->first()->bayarrum_status }}
+                                            @else
+                                                Tidak ada pembayaran
+                                            @endif
+                                        </td>
                                         <td>{{ $item->belirum_status}}</td>
-                                        <td> <a class="btn btn-outline-success"
-                                                href="{{ route('detail.bendahara.prumput', $item->belirum_id) }}"><i
-                                                    class="bi bi-info-lg"></i></a>
+                                        <td>
+                                            <a class="btn btn-outline-success" href="{{ route('detail.bendahara.prumput', $item->belirum_id) }}">
+                                                <i class="bi bi-info-lg"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                     @endforeach
                                     @endisset
                                 </tbody>
+                                
                             </table>
                         </div>
                         <!-- End Table with stripped rows -->

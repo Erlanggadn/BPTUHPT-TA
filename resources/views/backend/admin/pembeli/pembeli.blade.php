@@ -1,13 +1,10 @@
 @include('layouts.utama.main2')
 @include('layouts.admin.main')
 @include('layouts.admin.sidebar')
-
 <main id="main" class="main">
-
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
-
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Data Hak Akses Akun Pembeli</h5>
@@ -15,12 +12,12 @@
                                 PPID</b> BPTU HPT Padang Mengatas</p>
                         <form method="GET" action="{{ route('akunpembeli') }}" class="row mb-4">
                             <div class="col-md-2">
-                                <label for="start_date" class="form-label">Tanggal Mulai</label>
+                                <label for="start_date" class="form-label">Tanggal Buat Awal</label>
                                 <input type="date" id="start_date" name="start_date" class="form-control"
                                     value="{{ $startDate ?? '' }}">
                             </div>
                             <div class="col-md-2">
-                                <label for="end_date" class="form-label">Tanggal Akhir</label>
+                                <label for="end_date" class="form-label">Tanggal Buat Akhir</label>
                                 <input type="date" id="end_date" name="end_date" class="form-control"
                                     value="{{ $endDate ?? '' }}">
                             </div>
@@ -30,13 +27,10 @@
                                     Filter</button>
                             </div>
                         </form>
-
-                        <!-- Link Export ke Excel -->
                         <a href="{{ route('pembeli.export', ['start_date' => request('start_date'), 'end_date' => request('end_date')]) }}"
                             class="btn btn-success mb-4">
                             <i class="bi bi-file-earmark-excel"></i> Export ke Excel
                         </a>
-                        <!-- Table with stripped rows -->
                         <div class="table-responsive">
                             <table class="table datatable">
                                 <thead>
@@ -67,8 +61,9 @@
                                                 method="POST" style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-outline-danger"
-                                                    onclick="return confirm('Apakah Anda yakin ingin menghapus akun ini?')">
+                                                <button type="button" class="btn btn-outline-danger"
+                                                    data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                    data-action="{{ route('akunadmin.delete', $item->id) }}">
                                                     <i class="bi bi-person-x-fill"></i>
                                                 </button>
                                             </form>
@@ -79,14 +74,45 @@
                                 </tbody>
                             </table>
                         </div>
-                        <!-- End Table with stripped rows -->
-
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
-
-</main><!-- End #main -->
+</main>
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Penghapusan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Apakah Anda yakin ingin menghapus akun ini?
+            </div>
+            <div class="modal-footer">
+                <form id="deleteForm" action="" method="POST" style="display: inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Hapus</button>
+                </form>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="{{ asset('js/main.js') }}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var deleteModal = document.getElementById('deleteModal');
+        deleteModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget; // Tombol yang mengaktifkan modal
+            var actionUrl = button.getAttribute('data-action'); // Ambil URL dari atribut data-action
+
+            var form = deleteModal.querySelector('#deleteForm');
+            form.setAttribute('action', actionUrl);
+        });
+    });
+
+</script>

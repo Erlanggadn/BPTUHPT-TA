@@ -18,8 +18,6 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                         @endif
-
-
                         <a href="{{ route('show.rumput') }}" class="btn btn-primary mb-4"><i class="bi bi-plus"></i>
                             Tambah Rumput</a>
                         <!-- Table with stripped rows -->

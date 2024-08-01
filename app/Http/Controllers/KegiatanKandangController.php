@@ -23,7 +23,7 @@ class KegiatanKandangController extends Controller
 
     public function show()
     {
-        $jenisKandang = ModKandang::all();
+        $jenisKandang = ModKandang::whereNotIn('kand_aktif', ['NonAktif'])->get();
         $sapis = ModSapi::all();
         $user = Auth::user();
 

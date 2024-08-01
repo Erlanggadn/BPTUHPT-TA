@@ -75,7 +75,7 @@
                                                     value="{{ old('pegawai_alamat', $akunuser->pegawai->pegawai_alamat ?? '') }}"
                                                     name="pegawai_alamat"
                                                     class="form-control @error('alamat') is-invalid @enderror"
-                                                    id="yourUsername"></textarea>
+                                                    id="yourUsername">{{ $akunuser->pegawai->pegawai_alamat }}</textarea>
                                                 @error('alamat')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror

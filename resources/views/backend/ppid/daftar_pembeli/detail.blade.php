@@ -8,17 +8,14 @@
         <div class="">
             <div class="card">
                 <div class="card-body pt-3">
-
                     <div class="tab-content pt-2">
                         <h5 class="card-title">Profil Pembeli</h5>
-
                         @if (session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             {{ session('success') }}
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                         @endif
-
                         <form action="{{ route('update.ppid.pembeli', $akunuser->id) }}" method="POST">
                             @csrf
                             @method('PUT')
@@ -54,7 +51,7 @@
                                 <div class="col-lg-3 col-md-4 label">Alamat</div>
                                 <div class="col-lg-9 col-md-8">
                                     <textarea type="text" name="pembeli_alamat" class="form-control"
-                                        value="{{ $pembeli->pembeli_alamat }}"></textarea>
+                                        value="{{ $pembeli->pembeli_alamat }}">{{ $pembeli->pembeli_alamat }}</textarea>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -72,8 +69,6 @@
                                 </div>
                             </div>
                             @endisset
-
-
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Tanggal Buat</div>
                                 <div class="col-lg-9 col-md-8">

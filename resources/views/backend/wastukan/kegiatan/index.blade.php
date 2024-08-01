@@ -17,7 +17,8 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                         @endif
-
+                        <a href="{{ route('show.tanam') }}" class="btn btn-primary mb-4"><i class="bi bi-plus"></i>
+                            Tambah Kegiatan</a>
                         <form action="{{ route('index.tanam') }}" method="GET" class="mb-4">
                             <div class="row">
                                 <div class="col-md-4">
@@ -30,21 +31,20 @@
                                     <input type="date" name="end_date" id="end_date" class="form-control"
                                         value="{{ request('end_date') }}">
                                 </div>
-
                             </div>
                             <div class="row mt-3">
                                 <div class="col-md-4">
                                     <button type="submit" class="btn btn-primary"><i class="bi bi-funnel"></i>
                                         Filter</button>
-                                    <a href="{{ route('index.tanam') }}" class="btn btn-secondary"><i class="bi bi-x"></i> Reset</a>
+                                    <a href="{{ route('index.tanam') }}" class="btn btn-secondary"><i
+                                            class="bi bi-x"></i> Reset</a>
                                     <a href="{{ route('export.tanam', ['start_date' => request('start_date'), 'end_date' => request('end_date'), 'lahan' => request('lahan')]) }}"
                                         class="btn btn-success"><i class="bi bi-file-earmark-excel"></i> Export to
                                         Excel</a>
+
                                 </div>
                             </div>
                         </form>
-
-                        <!-- Table with stripped rows -->
                         <div class="table-responsive">
                             <table class="table datatable">
                                 <thead>

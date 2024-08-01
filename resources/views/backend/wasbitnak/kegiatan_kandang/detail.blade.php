@@ -29,7 +29,7 @@
                                 <div class="col-lg-3 col-md-4 label">Tipe Kandang</div>
                                 <div class="col-lg-9 col-md-8">
                                     <select name="kegiatan_jenis_kandang" class="form-select">
-                                        <option value="">Pilih Tipe Kandang</option>
+                                        <option value="" disabled>Pilih Tipe Kandang</option>
                                         @foreach($jenisKandang as $jenis)
                                         <option value="{{ $jenis->kand_id }}"
                                             {{ $jenis->kand_id == $kegiatan->kegiatan_jenis_kandang ? 'selected' : '' }}>
@@ -112,8 +112,7 @@
                             </div>
                             <div class="text-center mb-4">
                                 <button type="submit" class="btn btn-success">Ubah Kegiatan</button>
-                                <a href="{{ route('index.kegiatan.kandang') }}"
-                                    class="btn btn-secondary">Kembali</a>
+                                <a href="{{ route('index.kegiatan.kandang') }}" class="btn btn-secondary">Kembali</a>
                             </div>
                         </form>
                     </div>

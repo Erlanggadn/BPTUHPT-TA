@@ -38,7 +38,7 @@
                                             <label for="kandangtipe" class="form-label">Tipe Kandang</label>
                                             <div class="input-group has-validation">
                                                 <input type="text" name="kandang_tipe" class="form-control"
-                                                    id="kandangtipe" value="{{ $jenisKandang->kandang_tipe }}" required>
+                                                    id="kandangtipe" value="{{ $jenisKandang->kandang_tipe }}" >
                                                 <div class="invalid-feedback">Masukkan Tipe Kandang dengan benar</div>
                                             </div>
                                         </div>
@@ -47,7 +47,7 @@
                                             <div class="input-group has-validation">
                                                 <textarea type="text" name="kandang_keterangan" class="form-control"
                                                     id="kandangKeterangan"
-                                                    value="{{ $jenisKandang->kandang_keterangan }}" required></textarea>
+                                                    value="{{ $jenisKandang->kandang_keterangan }}" >{{ $jenisKandang->kandang_keterangan }}</textarea>
                                                 <div class="invalid-feedback">Masukkan Keterangan dengan benar</div>
                                             </div>
                                         </div>

@@ -20,7 +20,6 @@
                         @endif
                         <a href="{{ route('show.kandang') }}" class="btn btn-primary mb-4"><i class="bi bi-plus"></i>
                             Tambah Kandang</a>
-
                         <form action="{{ route('filter.kandang') }}" method="GET" class="mb-4">
                             <div class="row">
                                 <div class="col-md-2">
@@ -37,7 +36,6 @@
                                 </div>
                             </div>
                         </form>
-                        <!-- Table with stripped rows -->
                         <div class="table-responsive">
                             <table class="table datatable">
                                 <thead>
@@ -84,7 +82,6 @@
                                 </tbody>
                             </table>
                         </div>
-                        <!-- End Table with stripped rows -->
                     </div>
                 </div>
             </div>
@@ -99,7 +96,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Apakah Anda yakin ingin menghapus data Kegiatan Kandang ini?</p>
+                    <p>Apakah Anda yakin ingin menghapus data Kandang ini?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>

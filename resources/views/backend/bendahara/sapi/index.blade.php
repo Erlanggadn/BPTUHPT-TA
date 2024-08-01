@@ -31,6 +31,7 @@ use Carbon\Carbon;
                                         <th>Asal Instansi</th>
                                         <th>Tanggal Masuk</th>
                                         <th>Keterangan</th>
+                                        <th>Status Bayar</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -44,15 +45,25 @@ use Carbon\Carbon;
                                         <td>{{ $item->user->pembeli_instansi }}</td>
                                         <td>{{ Carbon::parse($item->belisapi_tanggal)->translatedFormat('j F Y') }}</td>
                                         <td>{{ $item->belisapi_keterangan }}</td>
+                                        <td>
+                                            @if($item->pembayaranSapi->isNotEmpty())
+                                            {{ $item->pembayaranSapi->first()->dbeli_status }}
+                                            @else
+                                            Tidak ada pembayaran
+                                            @endif
+                                        </td>
                                         <td>{{ $item->belisapi_status}}</td>
-                                        <td> <a class="btn btn-outline-success"
-                                                href="{{ route('detail.bendahara.psapi', $item->belisapi_id) }}"><i
-                                                    class="bi bi-info-lg"></i></a>
+                                        <td>
+                                            <a class="btn btn-outline-success"
+                                                href="{{ route('detail.bendahara.psapi', $item->belisapi_id) }}">
+                                                <i class="bi bi-info-lg"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                     @endforeach
                                     @endisset
                                 </tbody>
+
                             </table>
                         </div>
                         <!-- End Table with stripped rows -->

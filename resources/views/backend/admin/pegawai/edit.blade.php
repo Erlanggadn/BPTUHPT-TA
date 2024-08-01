@@ -164,8 +164,7 @@
                                         </div>
                                         <br>
                                         <div class="col-12">
-                                            <a href="{{ url()->previous() }}" class="btn btn-outline-danger w-100"><i
-                                                    class="bi bi-house-door-fill"></i> Beranda</a>
+                                            <a href="{{ url()->previous() }}" class="btn btn-outline-secondary w-100">Kembali</a>
                                         </div>
                                         <br>
                                     </div>

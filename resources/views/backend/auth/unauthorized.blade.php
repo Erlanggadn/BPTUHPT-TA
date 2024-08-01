@@ -4,67 +4,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unauthorized Access</title>
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <title>403 Error</title>
+    <link href="https://fonts.googleapis.com/css?family=Bungee" rel="stylesheet">
     <style>
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-
-            font-family: Arial, sans-serif;
-        }
-
-        .unauthorized-container {
-            text-align: center;
-            max-width: 600px;
-            width: 100%;
-            padding: 20px;
-
-            border-radius: 8px;
-        }
-
-        .unauthorized-container h1 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #000000;
-        }
-
-        .unauthorized-container img {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 1rem;
-            width: 200px;
-            /* Adjust the width as needed */
-        }
-
-        .unauthorized-container button {
-            text-decoration: none;
+            background: #1b1b1b;
             color: white;
-            font-weight: bold;
-            background-color: #dc3545;
-            padding: 10px 20px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-            border: none;
+            font-family: "Bungee", cursive;
+            margin-top: 50px;
+            text-align: center;
         }
 
-        .unauthorized-container button:hover {
-            background-color: #bb2d3b;
+        a {
+            color: #2aa7cc;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: white;
+        }
+
+        svg {
+            width: 50vw;
+        }
+
+        .lightblue {
+            fill: #444;
+        }
+
+        .eye {
+            cx: calc(115px + 30px * var(--mouse-x));
+            cy: calc(50px + 30px * var(--mouse-y));
+        }
+
+        #eye-wrap {
+            overflow: hidden;
+        }
+
+        .error-text {
+            font-size: 120px;
+        }
+
+        .alarm {
+            animation: alarmOn 0.5s infinite;
+        }
+
+        @keyframes alarmOn {
+            to {
+                fill: darkred;
+            }
         }
 
     </style>
 </head>
 
 <body>
-    <div class="unauthorized-container">
-        <h1><B>403</B></h1>
-        {{-- <img src="{{ asset('img/403.gif') }}" alt="Unauthorized Access"> --}}
-        <h1 class="text-center"><b>Ups.., Anda tidak dapat mengakses halaman ini</b></h1>
-        <button onclick="history.back()" class="btn btn-danger">Kembali</button>
-    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" id="robot-error" viewBox="0 0 260 118.9" role="img">
+        <title xml:lang="en">403 Error</title>
+        <defs>
+            <clipPath id="white-clip">
+                <circle id="white-eye" fill="#cacaca" cx="130" cy="65" r="20" />
+            </clipPath>
+            <text id="text-s" class="error-text" y="106"> 403 </text>
+        </defs>
+        <path class="alarm" fill="#e62326" d="M120.9 19.6V9.1c0-5 4.1-9.1 9.1-9.1h0c5 0 9.1 4.1 9.1 9.1v10.6" />
+        <use xlink:href="#text-s" x="-0.5px" y="-1px" fill="black"></use>
+        <use xlink:href="#text-s" fill="#2b2b2b"></use>
+        <g id="robot">
+            <g id="eye-wrap">
+                <use xlink:href="#white-eye"></use>
+                <circle id="eyef" class="eye" clip-path="url(#white-clip)" fill="#000" stroke="#2aa7cc" stroke-width="2"
+                    stroke-miterlimit="10" cx="130" cy="65" r="11" />
+                <ellipse id="white-eye" fill="#2b2b2b" cx="130" cy="40" rx="18" ry="12" />
+            </g>
+            <circle class="lightblue" cx="105" cy="32" r="2.5" id="tornillo" />
+            <use xlink:href="#tornillo" x="50"></use>
+            <use xlink:href="#tornillo" x="50" y="60"></use>
+            <use xlink:href="#tornillo" y="60"></use>
+        </g>
+    </svg>
+    <h1>Eits, Anda tidak diberikan akses</h1>
+    <h2>Ayo <a href="javascript:history.back()">Kembali!</a></h2>
+    <script>
+        var root = document.documentElement;
+        var eyef = document.getElementById('eyef');
+        var cx = document.getElementById("eyef").getAttribute("cx");
+        var cy = document.getElementById("eyef").getAttribute("cy");
+
+        document.addEventListener("mousemove", evt => {
+            let x = evt.clientX / innerWidth;
+            let y = evt.clientY / innerHeight;
+
+            root.style.setProperty("--mouse-x", x);
+            root.style.setProperty("--mouse-y", y);
+
+            cx = 115 + 30 * x;
+            cy = 50 + 30 * y;
+            eyef.setAttribute("cx", cx);
+            eyef.setAttribute("cy", cy);
+        });
+
+        document.addEventListener("touchmove", touchHandler => {
+            let x = touchHandler.touches[0].clientX / innerWidth;
+            let y = touchHandler.touches[0].clientY / innerHeight;
+
+            root.style.setProperty("--mouse-x", x);
+            root.style.setProperty("--mouse-y", y);
+        });
+
+    </script>
 </body>
 
 </html>

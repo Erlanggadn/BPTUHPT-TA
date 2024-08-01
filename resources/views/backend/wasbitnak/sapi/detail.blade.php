@@ -66,8 +66,8 @@
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Status Sapi</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <select name="sapi_status" id="sapi_status" class="form-control" required>
-                                        <option value="">{{ $sapi->sapi_status }}</option>
+                                    <select name="sapi_status" id="sapi_status" class="form-control">
+                                        <option value="{{ $sapi->sapi_status }}">{{ $sapi->sapi_status }}</option>
                                         <option value="" disabled>-- Pilih Status --</option>
                                         <option value="Hamil">Hamil</option>
                                         <option value="Menyusui">Menyusui</option>

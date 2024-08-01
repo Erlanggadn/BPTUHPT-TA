@@ -63,14 +63,7 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Keterangan</div>
-                                <div class="col-lg-9 col-md-8">
-                                    <textarea name="sapi_keterangan"
-                                        class="form-control">{{ $sapi->sapi_keterangan }}</textarea>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Tanggal Lahir</div>
+                                <div class="col-lg-3 col-md-4 label">Status Sapi</div>
                                 <div class="col-lg-9 col-md-8">
                                     <select name="sapi_status" id="sapi_status" class="form-control" required>
                                         <option value="">{{ $sapi->sapi_status }}</option>
@@ -83,7 +76,15 @@
                                         <option value="Karantina">Karantina</option>
                                     </select>
                                 </div>
+                            </div>  
+                            <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">Keterangan</div>
+                                <div class="col-lg-9 col-md-8">
+                                    <textarea name="sapi_keterangan"
+                                        class="form-control">{{ $sapi->sapi_keterangan }}</textarea>
+                                </div>
                             </div>
+                           
                             <div class="text-center">
                                 <button type="submit" class="btn btn-success">Ubah</button>
                                 <a href="{{ route('index.sapi') }}" class="btn btn-secondary">Kembali</a>

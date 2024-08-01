@@ -158,8 +158,7 @@
                                         <br>
                                         <div class="col-12">
                                             <a href="{{ route('detail.akun.pembeli', $akunuser->id) }}"
-                                                class="btn btn-outline-danger w-100"><i
-                                                    class="bi bi-house-door-fill"></i> Beranda</a>
+                                                class="btn btn-outline-secondary w-100">Kembali</a>
                                         </div>
                                         <br>
                                     </div>
