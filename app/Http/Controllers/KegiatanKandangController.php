@@ -15,9 +15,19 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class KegiatanKandangController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $Kegiatan = ModKegiatanKandang::all();
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        $Kegiatan = ModKegiatanKandang::when($startDate, function ($query, $startDate) {
+            return $query->whereDate('kegiatan_tanggal', '>=', $startDate);
+        })
+            ->when($endDate, function ($query, $endDate) {
+                return $query->whereDate('kegiatan_tanggal', '<=', $endDate);
+            })
+            ->get();
+
         return view('backend.wasbitnak.kegiatan_kandang.index', compact('Kegiatan'));
     }
 
@@ -206,13 +216,15 @@ class KegiatanKandangController extends Controller
             $row++;
         }
 
+        $filename = 'kegiatan_kandang_' . date('Ymd_His') . '.xlsx';
         $writer = new Xlsx($spreadsheet);
-        $fileName = 'data_kegiatan_kandang.xlsx';
-        $filePath = public_path($fileName);
-        $writer->save($filePath);
 
-        return response()->download($filePath)->deleteFileAfterSend(true);
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="' . $filename . '"');
+        $writer->save('php://output');
+        exit;
     }
+
 
     public function filter(Request $request)
     {
@@ -231,3 +243,4 @@ class KegiatanKandangController extends Controller
         return view('backend.wasbitnak.kegiatan_kandang.index', compact('kegiatan'));
     }
 }
+    

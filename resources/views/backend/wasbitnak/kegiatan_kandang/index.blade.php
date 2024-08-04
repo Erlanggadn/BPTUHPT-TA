@@ -22,10 +22,29 @@
                         <a href="{{ route('show.kegiatan.kandang') }}" class="btn btn-primary"><i
                                 class="bi bi-plus"></i> Tambah Kegiatan </a>
                         <a href="{{ route('export.kegiatan.kandang', request()->query()) }}" class="btn btn-success"><i
-                                class="bi bi-file-earmark-excel"></i> Export to
-                            Excel</a>
-                    </div>
+                                class="bi bi-file-earmark-excel"></i> Export to Excel</a>
 
+                        <!-- Filter Form -->
+                        <form method="GET" action="{{ route('index.kegiatan.kandang') }}" class="row g-3 my-3">
+                            <div class="col-md-5">
+                                <label for="start_date" class="form-label">Start Date</label>
+                                <input type="date" class="form-control" id="start_date" name="start_date"
+                                    value="{{ request('start_date') }}">
+                            </div>
+                            <div class="col-md-5">
+                                <label for="end_date" class="form-label">End Date</label>
+                                <input type="date" class="form-control" id="end_date" name="end_date"
+                                    value="{{ request('end_date') }}">
+                            </div>
+                            <div class="col-md-2 d-flex align-items-end">
+                                <button type="submit" class="btn btn-primary w-100"><i class="bi bi-funnel"></i>
+                                    Filter</button>
+                            </div>
+                        </form>
+
+                        <a href="{{ route('index.kegiatan.kandang') }}" class="btn btn-secondary"><i
+                                class="bi bi-arrow-clockwise"></i> Reset Filter</a>
+                    </div>
 
                     <!-- Table with stripped rows -->
                     <div class="table-responsive">
