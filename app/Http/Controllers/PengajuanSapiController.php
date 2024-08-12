@@ -54,13 +54,11 @@ class PengajuanSapiController extends Controller
             'detail_kelamin.*' => 'required|string',
         ]);
 
-        // Periksa apakah ada pengajuan yang belum diverifikasi oleh pengguna ini
-        $existingPengajuan = ModPengajuanSapi::where('belisapi_orang', $request->belisapi_orang)
-            ->where('belisapi_status', 'Belum Verifikasi')
-            ->exists();
+        // Periksa apakah ada pengajuan oleh pengguna ini
+        $existingPengajuan = ModPengajuanSapi::where('belisapi_orang', $request->belisapi_orang)->exists();
 
         if ($existingPengajuan) {
-            return redirect()->back()->with('error', 'Anda sudah memiliki pengajuan yang belum diverifikasi oleh PPID. Harap tunggu keputusan sebelum mengajukan kembali.')->withInput();
+            return redirect()->back()->with('error', 'Anda sudah pernah melakukan pengajuan. Harap tunggu keputusan sebelum mengajukan kembali.')->withInput();
         }
 
         DB::beginTransaction();
@@ -109,6 +107,7 @@ class PengajuanSapiController extends Controller
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
+
     public function detail($id)
     {
         $pengajuan = ModPengajuanSapi::with('details')->findOrFail($id);
@@ -187,12 +186,17 @@ class PengajuanSapiController extends Controller
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
-    
+
     public function updatebayarsapi(Request $request, $dbeli_id)
     {
         $request->validate([
             'dbeli_sudah' => 'required|string',
-            'dbeli_bukti' => 'required|file|mimes:png,jpg,jpeg,pdf',
+            'dbeli_bukti' => 'required|file|mimes:png,jpg,jpeg,pdf|max:2048',
+        ], [
+            'dbeli_sudah.required' => 'Status pembayaran belum anda pilih.',
+            'dbeli_bukti.required' => 'File bukti pembayaran belum anda masukkan.',
+            'dbeli_bukti.mimes' => 'Format file yang diizinkan adalah PNG, JPG, JPEG, dan PDF.',
+            'dbeli_bukti.max' => 'Ukuran file maksimal adalah 2MB.',
         ]);
 
         $pembayaran = ModPembayaranSapi::findOrFail($dbeli_id);

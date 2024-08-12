@@ -192,17 +192,13 @@
                                         rows="3" disabled>{{ $pembayaran->dbeli_keterangan }}</textarea>
                                 </div>
                             </div>
-
-
                             @else
                             @endif
                             <div class="text-center mb-4">
                                 {{-- <a class="btn btn-success" href="{{ route('update.bayar' $belisapi_id) }}">Update
                                 Pengajuan</a> --}}
-
                             </div>
                         </form>
-
                         <!-- Form untuk mengupdate pembayaran -->
                         @if($pembayaran)
                         <!-- Form untuk mengupdate pembayaran -->
@@ -214,20 +210,25 @@
                                 <div class="col-lg-3 col-md-4 label">Upload Bukti Pembayaran</div>
                                 <div class="col-lg-9 col-md-8">
                                     <input type="file" name="dbeli_bukti" id="dbeli_bukti" class="form-control"
-                                        accept=".png,.jpg,.jpeg,.pdf" required>
+                                        accept=".png,.jpg,.jpeg,.pdf">
+                                    @error('dbeli_bukti')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Ubah Status</div>
                                 <div class="col-lg-9 col-md-8">
                                     <select name="dbeli_sudah" id="dbeli_sudah" class="form-control">
-                                        <option value="">{{ $pembayaran->dbeli_sudah }}</option>
-                                        <option value="" disabled>-- Pilih Status --</option>
+                                        <option value="" disabled selected>-- Pilih Status --</option>
                                         <option value="Saya Sudah Membayar"
                                             {{ $pembayaran->dbeli_sudah == 'Saya Sudah Membayar' ? 'selected' : '' }}>
                                             Saya Sudah Membayar
                                         </option>
                                     </select>
+                                    @error('dbeli_sudah')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="text-center">
@@ -235,6 +236,7 @@
                             </div>
                         </form>
                         @else
+                        <div class="text-danger text-center">Data pembayaran tidak ditemukan atau belum diisi.</div>
                         <p class="">*Anda Belum memiliki tagihan pembayaran, Mohon menunggu sampai pengajuan anda
                             disetujui.</p>
                         @endif
@@ -246,7 +248,6 @@
             </div>
         </div>
     </section>
-
     <!-- Modal Success -->
     <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -264,10 +265,8 @@
             </div>
         </div>
     </div>
-
     <!-- Template Main JS File -->
     <script src="{{ asset('js/main.js') }}"></script>
-
     <!-- Custom Scripts -->
     <script>
         // Set minimum date to today

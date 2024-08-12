@@ -189,13 +189,11 @@
                                 <div class="col-lg-3 col-md-4 label">Status Pembayaran</div>
                                 <div class="col-lg-9 col-md-8">
                                     <select name="bayarrum_status" id="bayarrum_status" class="form-control">
-                                        <option value=" {{ $pembayaran->bayarrum_status}}">{{ $pembayaran->bayarrum_status }}</option>
+                                        <option value="" selected disabled>-- Pilih Status --</option>
+                                        <option value="" disabled>{{ $pembayaran->dbeli_status }}</option>
                                         <option value="Diterima"
-                                            {{ $pembayaran->bayarrum_status == 'Diterima' ? 'selected' : '' }}>
+                                            {{ $pembayaran->dbeli_status == 'Diterima' ? 'selected' : '' }}>
                                             Diterima</option>
-                                        <option value="Belum Diterima"
-                                            {{ $pembayaran->bayarrum_status == 'Belum Diterima' ? 'selected' : '' }}>
-                                            Belum Diterima</option>
                                     </select>
                                 </div>
                             </div>

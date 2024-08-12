@@ -48,7 +48,7 @@
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Nomor HP Perusahaan/Instansi</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input type="text" name="belisapi_nohp" id="belisapi_nohp" class="form-control"
+                                    <input type="number" name="belisapi_nohp" id="belisapi_nohp" class="form-control"
                                         required>
                                 </div>
                             </div>
@@ -155,41 +155,41 @@
             </div>
         </div>
     </section>
-<!-- Success Modal -->
-<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="successModalLabel">Success</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Terima kasih telah melakukan pengajuan, silahkan tunggu konfirmasi dari PPID.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Success</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Terima kasih telah melakukan pengajuan, silahkan tunggu konfirmasi dari PPID.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Error Modal -->
-<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="errorModalLabel">Error</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Maaf pengajuan gagal/ anda sudah melakukan pengajuan sebelumnya.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    <!-- Error Modal -->
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Maaf pengajuan gagal/ anda sudah melakukan pengajuan sebelumnya.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
     <!-- Template Main JS File -->
     <script src="{{ asset('js/main.js') }}"></script>
@@ -239,4 +239,5 @@
         errorModal.show();
         @endif
     });
+
 </script>

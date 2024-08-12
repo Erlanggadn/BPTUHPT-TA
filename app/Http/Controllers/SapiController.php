@@ -68,7 +68,7 @@ class SapiController extends Controller
 
         // Validasi unique sapi_id
         if (ModSapi::where('sapi_id', $sapi_id)->exists()) {
-            return redirect()->back()->withErrors(['sapi_id' => 'ID sapi sudah digunakan.']);
+            return redirect()->back()->withErrors(['sapi_id' => 'Kode Sapi sudah ada, Coba lagi']);
         }
 
         $sapi = new ModSapi;

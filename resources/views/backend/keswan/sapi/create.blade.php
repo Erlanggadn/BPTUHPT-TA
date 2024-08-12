@@ -44,71 +44,82 @@
                                                     @endforeach
                                                 </select>
                                                 @error('sapi_jenis')
-                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                <div class="invalid-feedback" style="display: block;">{{ $message }}
+                                                </div>
                                                 @enderror
                                             </div>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="yourUsername" class="form-label">Urutan Lahir</label>
+                                            <label for="sapi_urutan_lahir" class="form-label">Urutan Lahir</label>
                                             <div class="input-group has-validation">
                                                 <input type="number" name="sapi_urutan_lahir" class="form-control"
-                                                    id="yourUsername" required>
+                                                    id="sapi_urutan_lahir">
                                                 @error('sapi_urutan_lahir')
-                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                <div class="invalid-feedback" style="display: block;">{{ $message }}
+                                                </div>
                                                 @enderror
                                             </div>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="yourUsername" class="form-label">Tanggal Lahir</label>
+                                            <label for="sapi_tanggal_lahir" class="form-label">Tanggal Lahir</label>
                                             <div class="input-group has-validation">
                                                 <input type="date" name="sapi_tanggal_lahir" class="form-control"
-                                                    id="yourUsername" required>
+                                                    id="sapi_tanggal_lahir">
                                                 @error('sapi_tanggal_lahir')
-                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                <div class="invalid-feedback" style="display: block;">{{ $message }}
+                                                </div>
                                                 @enderror
                                             </div>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="yourUsername" class="form-label">No.ID Induk</label>
+                                            <label for="sapi_no_induk" class="form-label">No.ID Induk</label>
                                             <div class="input-group has-validation">
                                                 <input type="text" name="sapi_no_induk" class="form-control"
-                                                    id="yourUsername" required>
+                                                    id="sapi_no_induk">
                                                 @error('sapi_no_induk')
-                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                <div class="invalid-feedback" style="display: block;">{{ $message }}
+                                                </div>
                                                 @enderror
                                             </div>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="yourUsername" class="form-label">Keterangan</label>
+                                            <label for="sapi_keterangan" class="form-label">Keterangan</label>
                                             <div class="input-group has-validation">
                                                 <input type="text" name="sapi_keterangan" class="form-control"
-                                                    id="yourUsername" required>
+                                                    id="sapi_keterangan">
                                                 @error('sapi_keterangan')
-                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                <div class="invalid-feedback" style="display: block;">{{ $message }}
+                                                </div>
                                                 @enderror
                                             </div>
                                         </div>
                                         <div class="form-group mb-3">
                                             <label for="sapi_kelamin">Jenis Kelamin</label>
-                                            <select name="sapi_kelamin" id="sapi_kelamin" class="form-control" required>
+                                            <select name="sapi_kelamin" id="sapi_kelamin" class="form-control">
                                                 <option value="" selected disabled>Pilih Jenis Kelamin</option>
                                                 <option value="Jantan">Jantan</option>
                                                 <option value="Betina">Betina</option>
                                             </select>
+                                            @error('sapi_kelamin')
+                                            <div class="invalid-feedback" style="display: block;">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="form-group mb-3">
                                             <label for="sapi_status">Status Sapi</label>
-                                            <select name="sapi_status" id="sapi_status" class="form-control" required>
+                                            <select name="sapi_status" id="sapi_status" class="form-control">
                                                 <option value="" selected disabled>Pilih Status</option>
                                                 <option value="Baru Lahir">Baru Lahir</option>
                                                 <option value="Produktif">Produktif</option>
                                                 <option value="Pemeriksaan">Pemeriksaan</option>
                                                 <option value="Karantina">Karantina</option>
                                             </select>
+                                            @error('sapi_status')
+                                            <div class="invalid-feedback" style="display: block;">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <br>
                                         <div class="col-12">
-                                            <button class="btn btn-success w-100" type="submit"> Daftarkan
+                                            <button class="btn btn-success w-100" type="submit">Daftarkan
                                                 Identitas</button>
                                         </div>
                                         <br>
