@@ -242,7 +242,6 @@ class AkunController extends Controller
         return redirect()->back()->with('berhasil.hapus', 'Akun berhasil dihapus');
     }
 
-
     //PROFIL - KESWAN
     public function profilkeswan()
     {

@@ -14,10 +14,10 @@ class CreateMasterKandangTable extends Migration
     public function up()
     {
         Schema::create('master_kandang', function (Blueprint $table) {
-            $table->string('kand_id')->primary();
-            $table->string('kand_jenis');
-            $table->string('kand_nama');
-            $table->string('kand_keterangan');
+            $table->string('kand_id', 30)->primary();
+            $table->string('kand_jenis', 50);
+            $table->string('kand_nama', 50);
+            $table->string('kand_keterangan', 255);
             $table->enum('kand_aktif', ['Aktif', 'NonAktif']);
             
             $table->timestamp('created_at')->useCurrent();

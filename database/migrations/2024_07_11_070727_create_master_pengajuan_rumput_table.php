@@ -14,17 +14,17 @@ class CreateMasterPengajuanRumputTable extends Migration
     public function up()
     {
         Schema::create('master_pengajuan_rumput', function (Blueprint $table) {
-            $table->string('belirum_id')->primary();
+            $table->string('belirum_id', 30)->primary();
             // IDENTITAS PEMBELI
-            $table->string('belirum_orang');
+            $table->string('belirum_orang', 30);
             $table->bigInteger('belirum_nohp');
-            $table->string('belirum_alamat');
+            $table->string('belirum_alamat', 255);
             $table->string('belirum_surat');
             $table->date('belirum_tanggal');
-            $table->string('belirum_alasan');
+            $table->string('belirum_alasan', 255);
             // KEPALA BALAI
-            $table->string('belirum_status');
-            $table->string('belirum_keterangan');
+            $table->string('belirum_status', 30);
+            $table->string('belirum_keterangan', 255);
 
             $table->foreign('belirum_orang')->references('pembeli_id')->on('pembeli')->onDelete('cascade');
             $table->timestamps();

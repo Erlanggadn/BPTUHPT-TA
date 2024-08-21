@@ -8,17 +8,17 @@
                     <span>Profil Saya</span>
                 </a>
             </li>
-            <li class="nav-heading">Bendahara - Pengajuan Beli</li>
+            <li class="nav-heading">Bendahara - Pembelian Produk</li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('index.bendahara.psapi') }}">
                     <i class="bi bi-list-nested"></i>
-                    <span>Pengajuan Sapi</span>
+                    <span>Pembelian Sapi</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('index.bendahara.prumput') }}">
                     <i class="bi bi-list-nested"></i>
-                    <span>Pengajuan Rumput</span>
+                    <span>Pembelian Rumput</span>
                 </a>
             </li>
             <li class="nav-heading">Kepala - Logout</li>

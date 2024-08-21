@@ -11,9 +11,9 @@ class ModSapi extends Model
 {
     use HasFactory;
     protected $table = 'master_sapi';
-    protected $primaryKey = 'sapi_id'; 
-    protected $keyType = 'string'; 
-    public $incrementing = false; 
+    protected $primaryKey = 'sapi_id';
+    protected $keyType = 'string';
+    public $incrementing = false;
     protected $fillable = [
         'sapi_jenis',
         'sapi_urutan_lahir',

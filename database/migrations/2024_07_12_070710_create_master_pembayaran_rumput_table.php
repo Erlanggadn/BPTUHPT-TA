@@ -14,13 +14,13 @@ class CreateMasterPembayaranRumputTable extends Migration
     public function up()
     {
         Schema::create('master_pembayaran_rumput', function (Blueprint $table) {
-            $table->string('bayarrum_id')->primary();
-            $table->string('bayarrum_beli');
-            $table->string('bayarrum_invoice');
+            $table->string('bayarrum_id', 30)->primary();
+            $table->string('bayarrum_beli', 30);
+            $table->string('bayarrum_invoice',);
             $table->string('bayarrum_bukti');
-            $table->string('bayarrum_sudah');
-            $table->string('bayarrum_status');
-            $table->string('bayarrum_keterangan');
+            $table->string('bayarrum_sudah', 30);
+            $table->string('bayarrum_status', 30);
+            $table->string('bayarrum_keterangan', 255);
 
             $table->timestamps();
             $table->softDeletes();

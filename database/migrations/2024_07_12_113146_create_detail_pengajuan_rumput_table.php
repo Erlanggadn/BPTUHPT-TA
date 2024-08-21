@@ -14,12 +14,12 @@ class CreateDetailPengajuanRumputTable extends Migration
     public function up()
     {
         Schema::create('detail_pengajuan_rumput', function (Blueprint $table) {
-            $table->string('drumput_id')->primary();
-            $table->string('drumput_pengajuan');
-            $table->string('drumput_jenis');
-            $table->string('drumput_kategori');
+            $table->string('drumput_id', 30)->primary();
+            $table->string('drumput_pengajuan', 30);
+            $table->string('drumput_jenis', 30);
+            $table->string('drumput_kategori', 30);
             $table->integer('drumput_berat');
-            $table->string('drumput_satuan');
+            $table->string('drumput_satuan', 30);
             $table->timestamps();
 
             $table->foreign('drumput_pengajuan')->references('belirum_id')->on('master_pengajuan_rumput')->onDelete('cascade');

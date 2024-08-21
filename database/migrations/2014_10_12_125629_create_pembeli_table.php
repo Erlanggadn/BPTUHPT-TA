@@ -14,12 +14,12 @@ class CreatePembeliTable extends Migration
     public function up()
     {
         Schema::create('pembeli', function (Blueprint $table) {
-            $table->string('pembeli_id')->primary();
-            $table->unsignedBigInteger('pembeli_detail');
-            $table->string('pembeli_instansi');
+            $table->string('pembeli_id', 30)->primary();
+            $table->unsignedBigInteger('pembeli_detail',);
+            $table->string('pembeli_instansi', 50);
             $table->date('pembeli_lahir');
-            $table->string('pembeli_nama');
-            $table->string('pembeli_alamat');
+            $table->string('pembeli_nama', 50);
+            $table->string('pembeli_alamat', 255);
             $table->bigInteger('pembeli_nohp');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();

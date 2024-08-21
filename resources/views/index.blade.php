@@ -72,9 +72,14 @@
                                 <p>Dengan kualitas daging yang tinggi, pertumbuhan yang cepat, serta ketahanan yang
                                     handal.Jangan lewatkan kesempatan untuk memiliki sapi-sapi berkualitas ini.</p>
                                 @if(Auth::check() && Auth::user()->role == 'pembeli')
-                                <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
+                                <div class="d-flex mb-4" data-aos="fade-up" data-aos-delay="200">
                                     <a href="{{ route('show.pengajuan.sapi') }}" class="btn-book-a-table ">Ajukan
                                         Pembelian
+                                        <i class="bi bi-arrow-right-circle"></i></a>
+                                </div>
+                                <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
+                                    <a href="{{ route('cetak.template.sapi') }}" class="btn-book-a-table ">Cetak
+                                        Template Surat
                                         <i class="bi bi-arrow-right-circle"></i></a>
                                 </div>
                                 @else
@@ -101,9 +106,14 @@
                                     Anda.
                                 </p>
                                 @if(Auth::check() && Auth::user()->role == 'pembeli')
-                                <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
+                                <div class="d-flex mb-4" data-aos="fade-up" data-aos-delay="200">
                                     <a href="{{ route('show.pengajuan.rumput') }}" class="btn-book-a-table ">Ajukan
                                         Pembelian <i class="bi bi-arrow-right-circle"></i></a>
+                                </div>
+                                <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
+                                    <a href="{{ route('cetak.template.rumput') }}" class="btn-book-a-table ">Cetak
+                                        Template Surat
+                                        <i class="bi bi-arrow-right-circle"></i></a>
                                 </div>
                                 @else
                                 <div class="d-flex" data-aos="fade-up" data-aos-delay="200">

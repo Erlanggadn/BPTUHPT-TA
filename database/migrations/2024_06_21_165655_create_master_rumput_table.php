@@ -14,13 +14,13 @@ class CreateMasterRumputTable extends Migration
     public function up()
     {
         Schema::create('master_rumput', function (Blueprint $table) {
-            $table->string('rumput_id')->primary();
-            $table->string('rumput_jenis');
+            $table->string('rumput_id', 30)->primary();
+            $table->string('rumput_jenis', 50);
             $table->integer('rumput_berat_awal');
             $table->integer('rumput_berat_hasil')->default(0);
             $table->date('rumput_masuk');
-            $table->string('rumput_keterangan');
-            $table->string('rumput_status');
+            $table->string('rumput_keterangan', 255);
+            $table->string('rumput_status', 30);
 
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();

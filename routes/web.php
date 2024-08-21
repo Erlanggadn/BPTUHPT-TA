@@ -63,6 +63,10 @@ Route::middleware(['auth', 'checkPembeli'])->group(function () {
         Route::put('/update/{id}', [PengajuanRumputController::class, 'update'])->name('update.pengajuan.rumput');
         Route::put('/bukti/update/{id}', [PengajuanRumputController::class, 'updatebayarrumput'])->name('bukti.bayar.rumput');
     });
+    Route::prefix('cetak-template')->group(function () {
+        Route::get('/sapi', [PengajuanSapiController::class, 'cetaksurat'])->name('cetak.template.sapi');
+        Route::get('/rumput', [PengajuanRumputController::class, 'cetaksurat'])->name('cetak.template.rumput');
+    });
 });
 // ADMIN 
 Route::middleware(['auth', 'checkAdmin'])->group(function () {

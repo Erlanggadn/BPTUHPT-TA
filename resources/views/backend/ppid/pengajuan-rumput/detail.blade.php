@@ -48,7 +48,6 @@
                                         value="{{  $pengajuan->pembeli->pembeli_instansi }}" disabled>
                                 </div>
                             </div>
-
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Nomor HP Perusahaan/Instansi</div>
                                 <div class="col-lg-9 col-md-8">
@@ -56,7 +55,6 @@
                                         value="{{ $pengajuan->belirum_nohp }}" required>
                                 </div>
                             </div>
-
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Alamat Perusahaan/Instansi</div>
                                 <div class="col-lg-9 col-md-8">
@@ -64,7 +62,6 @@
                                         value="{{ $pengajuan->belirum_alamat }}" required>
                                 </div>
                             </div>
-
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Surat Pengajuan</div>
                                 <div class="col-lg-9 col-md-8 ">
@@ -74,7 +71,6 @@
                                         target="_blank"><span class="badge bg-primary">Lihat Surat</span></a>
                                 </div>
                             </div>
-
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Tanggal Pengajuan</div>
                                 <div class="col-lg-9 col-md-8">
@@ -82,7 +78,6 @@
                                         value="{{ $pengajuan->belirum_tanggal }}" disabled>
                                 </div>
                             </div>
-
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Alasan Pembelian</div>
                                 <div class="col-lg-9 col-md-8">
@@ -114,7 +109,6 @@
                             </div>
                             <h5 class="card-title">Pengajuan Produk
                             </h5>
-
                             <!-- Detail Pengajuan -->
                             <div id="dynamic-field">
                                 @foreach ($pengajuan->detailPengajuanRumput as $detail)
@@ -123,14 +117,11 @@
                                     <div class="col-lg-9 col-md-8">
                                         <select name="drumput_jenis[]" id="drumput_jenis" class="form-select" required>
                                             @foreach($rumputJenis as $jenis)
-                                            <option value="{{ $jenis->rum_id }}"
-                                                {{ $detail->detail_jenis == $jenis->rum_id ? 'selected' : '' }}>
-                                                {{ $jenis->rum_nama }}</option>
+                                            <option value="{{ $jenis->rum_id }}"{{ $detail->detail_jenis == $jenis->rum_id ? 'selected' : '' }}>{{ $jenis->rum_nama }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
-
                                 <div class="row mb-3">
                                     <div class="col-lg-3 col-md-4 label">Kategori Rumput</div>
                                     <div class="col-lg-9 col-md-8">
@@ -185,7 +176,6 @@
                                 <button type="button" class="btn btn-primary" id="add-field">Tambah Jenis
                                     Rumput</button>
                             </div>
-
                             <div class="text-center mb-4">
                                 <button type="submit" class="btn btn-success">Ubah Pengajuan</button>
                                 <a href="{{ route('index.ppid.psapi') }}" class="btn btn-secondary">Kembali</a>
@@ -196,7 +186,6 @@
             </div>
         </div>
     </section>
-
     <!-- Modal Success -->
     <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
         <div class="modal-dialog">

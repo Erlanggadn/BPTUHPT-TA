@@ -14,15 +14,15 @@ class CreateMasterSapiTable extends Migration
     public function up()
     {
         Schema::create('master_sapi', function (Blueprint $table) {
-            $table->string('sapi_id')->primary();
-            $table->string('sapi_jenis');
+            $table->string('sapi_id', 30)->primary();
+            $table->string('sapi_jenis', 50);
             $table->integer('sapi_urutan_lahir');
             $table->date('sapi_tanggal_lahir');
-            $table->string('sapi_no_induk');
-            $table->string('sapi_keterangan');
-            $table->string('sapi_kelamin');
+            $table->string('sapi_no_induk', 30);
+            $table->string('sapi_keterangan', 255);
+            $table->string('sapi_kelamin', 30);
             $table->integer('sapi_umur')->nullable(); 
-            $table->string('sapi_status')->nullable(); 
+            $table->string('sapi_status', 30)->nullable(); 
             
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();

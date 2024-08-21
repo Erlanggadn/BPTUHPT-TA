@@ -14,14 +14,14 @@ class CreateMasterKegiatanKandangTable extends Migration
     public function up()
     {
         Schema::create('master_kegiatan_kandang', function (Blueprint $table) {
-            $table->string('kegiatan_id')->primary();
-            $table->string('kegiatan_jenis_kandang');
-            $table->string('kegiatan_orang');
+            $table->string('kegiatan_id', 30)->primary();
+            $table->string('kegiatan_jenis_kandang', 30);
+            $table->string('kegiatan_orang', 30);
             $table->date('kegiatan_tanggal');
             $table->time('kegiatan_jam_mulai');
             $table->time('kegiatan_jam_selesai');
-            $table->string('kegiatan_keterangan');
-            $table->string('kegiatan_status'); 
+            $table->string('kegiatan_keterangan', 255);
+            $table->string('kegiatan_status', 30); 
             $table->string('kegiatan_foto');
             
             $table->timestamp('created_at')->useCurrent();

@@ -213,4 +213,9 @@ class PengajuanSapiController extends Controller
 
         return redirect()->route('index.pengajuan.sapi')->with('success', 'Terima Kasih telah melakukan pembayaran, silahkan mendatangi kantor BPTU HPT Padang Mengatas untuk melakukan pengambilan Ternak');
     }
+
+    public function cetaksurat()
+    {
+        return view('backend.pembeli.surat.sapi');
+    }
 }

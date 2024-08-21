@@ -14,9 +14,9 @@ class CreateMasterDetailKandangSapiTable extends Migration
     public function up()
     {
         Schema::create('master_detail_kandang_sapi', function (Blueprint $table) {
-            $table->string('detail_id')->primary();
-            $table->string('detail_kandang');
-            $table->string('detail_sapi');
+            $table->string('detail_id', 30)->primary();
+            $table->string('detail_kandang', 30);
+            $table->string('detail_sapi', 30);
 
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();

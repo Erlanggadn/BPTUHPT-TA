@@ -14,9 +14,9 @@ class CreateMasterKandangJenisTable extends Migration
     public function up()
     {
         Schema::create('master_kandang_jenis', function (Blueprint $table) {
-            $table->string('kandang_id')->primary();
+            $table->string('kandang_id', 30)->primary();
             $table->string('kandang_tipe', 50);
-            $table->string('kandang_keterangan', 50);
+            $table->string('kandang_keterangan', 255);
             
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();

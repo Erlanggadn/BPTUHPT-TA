@@ -49,7 +49,7 @@
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Nomor HP Perusahaan/Instansi</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input type="text" name="belirum_nohp" id="belirum_nohp" class="form-control"
+                                    <input type="number" name="belirum_nohp" id="belirum_nohp" class="form-control"
                                         required>
                                 </div>
                             </div>
@@ -87,44 +87,46 @@
                             </div>
 
                             <!-- Detail Pengajuan -->
-                            <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Kategori Rumput</div>
-                                <div class="col-lg-9 col-md-8">
-                                    <select name="drumput_kategori[]" id="drumput_kategori" class="form-select"
-                                        required>
-                                        <option value="" selected disabled>-- Pilih Kategori --</option>
-                                        <optgroup label="Benih dan HPT">
-                                            <option value="Rumput Padang Pengembaalaan">Rumput Padang Pengembalaan
-                                            </option>
-                                            <option value="Rumput Potong">Rumput Potong</option>
-                                            <option value="Rumput">Rumput</option>
-                                            <option value="Leguminosa Pohon">Leguminosa Pohon</option>
-                                            <option value="Leguminosa Menjalar">Leguminosa Menjalar</option>
-                                        </optgroup>
-                                        <optgroup label="Hasil Ikutan">
-                                            <option value="Kompos">Kompos</option>
-                                            <option value="Rumput Pakan Ternak">Rumput Pakan Ternak</option>
-                                            <option value="Silase">Silase</option>
-                                            <option value="Mineral Block">Mineral Block</option>
-                                        </optgroup>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-lg-3 col-md-4 label">Satuan Per</div>
-                                <div class="col-lg-9 col-md-8">
-                                    <select name="drumput_satuan[]" id="drumput_satuan" class="form-select" required>
-                                        <option value="" selected disabled>-- Pilih Satuan --</option>
-                                        <option value="Per Pools">Per Pools</option>
-                                        <option value="Per Stek">Per Stek</option>
-                                        <option value="Per Biji">Per Biji</option>
-                                        <option value="Per Batang">Per Batang</option>
-                                        <option value="Per Kilogram">Per Kilogram</option>
-                                        <option value="Per Stolon">Per Stolon</option>
-                                    </select>
-                                </div>
-                            </div>
                             <div id="dynamic-field">
+                                <div class="row mb-3">
+                                    <div class="col-lg-3 col-md-4 label">Kategori Rumput</div>
+                                    <div class="col-lg-9 col-md-8">
+                                        <select name="drumput_kategori[]" id="drumput_kategori" class="form-select"
+                                            required>
+                                            <option value="" selected disabled>-- Pilih Kategori --</option>
+                                            <optgroup label="Benih dan HPT">
+                                                <option value="Rumput Padang Pengembaalaan">Rumput Padang Pengembalaan
+                                                </option>
+                                                <option value="Rumput Potong">Rumput Potong</option>
+                                                <option value="Rumput">Rumput</option>
+                                                <option value="Leguminosa Pohon">Leguminosa Pohon</option>
+                                                <option value="Leguminosa Menjalar">Leguminosa Menjalar</option>
+                                            </optgroup>
+                                            <optgroup label="Hasil Ikutan">
+                                                <option value="Kompos">Kompos</option>
+                                                <option value="Rumput Pakan Ternak">Rumput Pakan Ternak</option>
+                                                <option value="Silase">Silase</option>
+                                                <option value="Mineral Block">Mineral Block</option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-lg-3 col-md-4 label">Satuan Per</div>
+                                    <div class="col-lg-9 col-md-8">
+                                        <select name="drumput_satuan[]" id="drumput_satuan" class="form-select"
+                                            required>
+                                            <option value="" selected disabled>-- Pilih Satuan --</option>
+                                            <option value="Per Pools">Per Pools</option>
+                                            <option value="Per Stek">Per Stek</option>
+                                            <option value="Per Biji">Per Biji</option>
+                                            <option value="Per Batang">Per Batang</option>
+                                            <option value="Per Kilogram">Per Kilogram</option>
+                                            <option value="Per Stolon">Per Stolon</option>
+                                        </select>
+                                    </div>
+                                </div>
+
                                 <div class="row mb-3">
                                     <div class="col-lg-3 col-md-4 label">Jenis Rumput</div>
                                     <div class="col-lg-9 col-md-8">
@@ -148,9 +150,7 @@
                             <div class=" mb-4">
                                 <button type="button" class="btn btn-primary" id="add-field">Tambah Jenis
                                     Rumput</button>
-
                             </div>
-
                             <div class="text-center mb-4">
                                 <button type="submit" class="btn btn-success">Ajukan Pembelian</button>
                                 <a href="{{ route('home') }}" class="btn btn-secondary">Kembali</a>
@@ -188,7 +188,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Maaf pengajuan gagal/ anda sudah melakukan pengajuan sebelumnya.
+                    Maaf pengajuan gagal, anda sudah melakukan pengajuan sebelumnya.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

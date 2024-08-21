@@ -14,11 +14,11 @@ class CreatePegawaiTable extends Migration
     public function up()
     {
         Schema::create('pegawai', function (Blueprint $table) {
-            $table->string('pegawai_id')->primary();
+            $table->string('pegawai_id', 30)->primary();
             $table->unsignedBigInteger('pegawai_detail');
             $table->bigInteger('pegawai_nip');
-            $table->string('pegawai_nama');
-            $table->string('pegawai_alamat');
+            $table->string('pegawai_nama', 50);
+            $table->string('pegawai_alamat', 255);
             $table->bigInteger('pegawai_nohp');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();

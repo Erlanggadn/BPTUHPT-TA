@@ -14,13 +14,13 @@ class CreateMasterPembayaranSapiTable extends Migration
     public function up()
     {
         Schema::create('master_pembayaran_sapi', function (Blueprint $table) {
-            $table->string('dbeli_id')->primary();
-            $table->string('dbeli_beli');
+            $table->string('dbeli_id', 30)->primary();
+            $table->string('dbeli_beli', 30);
             $table->string('dbeli_invoice');
             $table->string('dbeli_bukti');
-            $table->string('dbeli_sudah');
-            $table->string('dbeli_status');
-            $table->string('dbeli_keterangan');
+            $table->string('dbeli_sudah', 30);
+            $table->string('dbeli_status', 30);
+            $table->string('dbeli_keterangan', 255);
 
             $table->timestamps();
             $table->softDeletes();

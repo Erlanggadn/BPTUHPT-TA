@@ -103,7 +103,7 @@
                                     <div class="col-lg-9 col-md-8">
                                         <select name="drumput_kategori[]" id="drumput_kategori" class="form-select"
                                             disabled>
-                                            <option value="Bibit" {{ $detail->drumput_kategori }}>
+                                            <option value="" {{ $detail->drumput_kategori }}>
                                                 {{ $detail->drumput_kategori }}
                                             </option>
                                         </select>
@@ -121,9 +121,6 @@
                                         </select>
                                     </div>
                                 </div>
-
-
-
                                 <div class="row mb-3">
                                     <div class="col-lg-3 col-md-4 label">Berat Rumput (KG)</div>
                                     <div class="col-lg-9 col-md-8">

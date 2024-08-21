@@ -14,17 +14,17 @@ class CreateMasterPengajuanSapiTable extends Migration
     public function up()
     {
         Schema::create('master_pengajuan_sapi', function (Blueprint $table) {
-            $table->string('belisapi_id')->primary();
+            $table->string('belisapi_id', 30)->primary();
             // IDENTITAS PEMBELI
-            $table->string('belisapi_orang');
+            $table->string('belisapi_orang', 30);
             $table->bigInteger('belisapi_nohp');
-            $table->string('belisapi_alamat');
+            $table->string('belisapi_alamat', 255);
             $table->string('belisapi_surat');
             $table->date('belisapi_tanggal');
-            $table->string('belisapi_alasan');
+            $table->string('belisapi_alasan', 255);
             // KEPALA BALAI
-            $table->string('belisapi_status');
-            $table->string('belisapi_keterangan');
+            $table->string('belisapi_status', 30);
+            $table->string('belisapi_keterangan', 255);
             $table->timestamps();
 
             $table->foreign('belisapi_orang')->references('pembeli_id')->on('pembeli')->onDelete('cascade');

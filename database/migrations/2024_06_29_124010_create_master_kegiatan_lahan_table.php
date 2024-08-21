@@ -14,15 +14,15 @@ class CreateMasterKegiatanLahanTable extends Migration
     public function up()
     {
         Schema::create('master_kegiatan_lahan', function (Blueprint $table) {
-            $table->string('tanam_id')->primary();
-            $table->string('tanam_orang');
-            $table->string('tanam_detail_rumput');
-            $table->string('tanam_detail_lahan');
+            $table->string('tanam_id', 30)->primary();
+            $table->string('tanam_orang', 30);
+            $table->string('tanam_detail_rumput', 30);
+            $table->string('tanam_detail_lahan', 30);
             $table->date('tanam_tanggal');
             $table->time('tanam_jam_mulai');
             $table->time('tanam_jam_selesai');
-            $table->string('tanam_kegiatan');
-            $table->string('tanam_status'); 
+            $table->string('tanam_kegiatan', 255);
+            $table->string('tanam_status', 30); 
             $table->string('tanam_foto');
             
             $table->timestamp('created_at')->useCurrent();
