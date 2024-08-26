@@ -42,19 +42,19 @@
                     <span>Pengajuan Rumput</span>
                 </a>
             </li>
-            <li class="nav-heading">PPID - Pembeliani</li>
+            {{-- <li class="nav-heading">PPID - Pembelian</li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('index.ppid.psapi') }}">
-                    <i class="bi bi-list-nested"></i>
-                    <span>Pembelian Sapi</span>
-                </a>
+            <i class="bi bi-list-nested"></i>
+            <span>Pembelian Sapi</span>
+            </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('index.ppid.prumput') }}">
                     <i class="bi bi-list-nested"></i>
                     <span>Pembelian Rumput</span>
                 </a>
-            </li>
+            </li> --}}
             <li class="nav-heading">PPID - Logout</li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('logout') }}">

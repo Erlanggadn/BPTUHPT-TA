@@ -17,10 +17,13 @@ use App\Models\ModDetailPengajuanRumput;
 
 class BendaharaController extends Controller
 {
+    //INDEX BENDAHARA
     public function dashboard()
     {
         return view('backend.bendahara.index');
     }
+
+    //BAYAR SAPI
     public function indexsapi()
     {
         $PSapi = ModPengajuanSapi::with(['user', 'pembayaranSapi' => function ($query) {

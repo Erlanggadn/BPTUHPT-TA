@@ -117,7 +117,10 @@
                                     <div class="col-lg-9 col-md-8">
                                         <select name="drumput_jenis[]" id="drumput_jenis" class="form-select" required>
                                             @foreach($rumputJenis as $jenis)
-                                            <option value="{{ $jenis->rum_id }}"{{ $detail->detail_jenis == $jenis->rum_id ? 'selected' : '' }}>{{ $jenis->rum_nama }}</option>
+                                            <option value="{{ $jenis->rum_id }}"
+                                                {{ $detail->drumput_jenis == $jenis->rum_id ? 'selected' : '' }}>
+                                                {{ $jenis->rum_nama }}
+                                            </option>
                                             @endforeach
                                         </select>
                                     </div>

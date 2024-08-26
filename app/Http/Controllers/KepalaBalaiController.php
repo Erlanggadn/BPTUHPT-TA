@@ -27,6 +27,7 @@ class KepalaBalaiController extends Controller
         return view('backend.kepala.index', compact('jumlahPengajuanSapi', 'jumlahSapi', 'jumlahRumput', 'jumlahPengajuanRumput', 'jumlahKandangSapi', 'jumlahLahanRumput'));
     }
 
+    //SAPI
     public function pengajuansapi()
     {
         $PSapi = ModPengajuanSapi::with('user')->get();
@@ -63,6 +64,8 @@ class KepalaBalaiController extends Controller
         return redirect()->route('detail.kepala.psapi', $id)->with('success', 'Pengajuan berhasil diupdate');
     }
 
+
+    //RUMPUT
     public function pengajuanrumput()
     {
         $PRumput = ModPengajuanRumput::with('pembeli')->get();

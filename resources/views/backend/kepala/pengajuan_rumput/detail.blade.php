@@ -131,6 +131,7 @@
                             </div>
 
                             <!-- Form untuk status dan keterangan -->
+                            <h5 class="card-title">Persetujuan dan Disposisi Kepala Balai</h5>
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Status</div>
                                 <div class="col-lg-9 col-md-8">
