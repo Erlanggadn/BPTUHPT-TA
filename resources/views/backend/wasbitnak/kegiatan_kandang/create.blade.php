@@ -20,11 +20,6 @@
                             {{ session('error') }}
                         </div>
                         @endif
-                        @if ($errors->any())
-                        <div class="alert alert-danger" role="alert">
-                            {{ $errors->first() }}
-                        </div>
-                        @endif
                         <form action="{{ route('store.kegiatan.kandang') }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
@@ -38,6 +33,7 @@
                                         value="{{ $user->pegawai ? $user->pegawai->pegawai_id : '' }}">
                                 </div>
                             </div>
+
                             <div class="row mb-4">
                                 <div class="col-lg-3 col-md-4 label">Tipe Kandang</div>
                                 <div class="col-lg-9 col-md-8">
@@ -53,32 +49,51 @@
                                     </select>
                                 </div>
                             </div>
+                            @error('kegiatan_jenis_kandang')
+                            <div class="invalid-feedback" style="display: block;">{{ $message }}
+                            </div>
+                            @enderror
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Tanggal Pelaksanaan</div>
                                 <div class="col-lg-9 col-md-8">
                                     <input type="date" name="kegiatan_tanggal" id="kegiatan_tanggal"
-                                        class="form-control" required>
+                                        class="form-control">
                                 </div>
                             </div>
+                            @error('kegiatan_tanggal')
+                            <div class="invalid-feedback" style="display: block;">{{ $message }}
+                            </div>
+                            @enderror
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Waktu Mulai</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input type="time" name="kegiatan_jam_mulai" class="form-control" required>
+                                    <input type="time" name="kegiatan_jam_mulai" class="form-control" >
                                 </div>
                             </div>
+                            @error('kegiatan_jam_mulai')
+                            <div class="invalid-feedback" style="display: block;">{{ $message }}
+                            </div>
+                            @enderror
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Waktu Selesai</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input type="time" name="kegiatan_jam_selesai" class="form-control" required>
+                                    <input type="time" name="kegiatan_jam_selesai" class="form-control" >
                                 </div>
                             </div>
+                            @error('kegiatan_jam_selesai')
+                            <div class="invalid-feedback" style="display: block;">{{ $message }}
+                            </div>
+                            @enderror
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Kegiatan Kandang</div>
                                 <div class="col-lg-9 col-md-8">
                                     <textarea name="kegiatan_keterangan" class="form-control"></textarea>
                                 </div>
                             </div>
-
+                            @error('kegiatan_keterangan')
+                            <div class="invalid-feedback" style="display: block;">{{ $message }}
+                            </div>
+                            @enderror
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Upload Foto</div>
                                 <div class="col-lg-9 col-md-8">
@@ -87,6 +102,10 @@
                                         style="display: none; max-width: 200px;">
                                 </div>
                             </div>
+                            @error('kegiatan_foto')
+                            <div class="invalid-feedback" style="display: block;">{{ $message }}
+                            </div>
+                            @enderror
                             <div class="row mb-4">
                                 <div class="col-lg-3 col-md-4 label">Status Kandang</div>
                                 <div class="col-lg-9 col-md-8">
@@ -98,6 +117,10 @@
                                     </select>
                                 </div>
                             </div>
+                            @error('kegiatan_status')
+                            <div class="invalid-feedback" style="display: block;">{{ $message }}
+                            </div>
+                            @enderror
                             <div class="col-12 mb-4">
                                 <label for="kode_sapi" class="form-label">Daftar Sapi</label>
                                 <input type="text" id="search-sapi" class="form-control" placeholder="Cari Sapi...">
@@ -114,6 +137,10 @@
                                     @endforeach
                                 </div>
                             </div>
+                            @error('kode_sapi[]')
+                            <div class="invalid-feedback" style="display: block;">{{ $message }}
+                            </div>
+                            @enderror
                             <div class="text-center mb-4">
                                 <button type="submit" class="btn btn-success">Tambah Kegiatan</button>
                                 <a href="{{ route('index.kegiatan.kandang') }}" class="btn btn-secondary">Kembali</a>

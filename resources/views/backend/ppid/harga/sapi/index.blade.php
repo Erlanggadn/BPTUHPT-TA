@@ -1,6 +1,9 @@
+@php
+use Carbon\Carbon;
+@endphp
 @include('layouts.utama.main2')
-@include('layouts.wasbitnak.navbar')
-@include('layouts.wasbitnak.sidebar')
+@include('layouts.ppid.navbar')
+@include('layouts.ppid.sidebar')
 
 <main id="main" class="main">
     <section class="section">
@@ -8,51 +11,56 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Data Jenis Sapi</h5>
-                        <p>Berikut ini adalah data Jenis Sapi yang sepenuhnya dikelola oleh <b>Divisi Pengawas Bibit
-                                Ternak</b> BPTU HPT Padang Mengatas
+                        <h5 class="card-title">Data Harga Sapi</h5>
+                        <p>Berikut ini adalah data harga sapi yang sepenuhnya dikelola oleh <b>Divisi PPID</b> BPTU
+                            HPT Padang Mengatas
                         </p>
+                        <a href="{{ route('show.harga.sapi') }}" class="btn btn-primary mb-4"><i class="bi bi-plus"></i>
+                            Tambah Harga</a>
                         @if (session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             {{ session('success') }}
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                         @endif
-                        <a href="{{ route('show.jenis.sapi') }}" class="btn btn-primary mb-4"><i class="bi bi-plus"></i>
-                            Tambah Jenis</a>
+
                         <!-- Table with stripped rows -->
                         <div class="table-responsive">
                             <table class="table datatable">
                                 <thead>
                                     <tr>
-                                        <th>ID/Kode Jenis</th>
+                                        <th>ID Harga</th>
                                         <th>Jenis Sapi</th>
-                                        <th>Keterangan</th>
-                                        <th>Action</th>
+                                        <th>Gender</th>
+                                        <th>Kategori</th>
+                                        <th>Harga</th>
+                                        {{-- <th>Action</th> --}}
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @isset($JenisSapi)
-                                    @foreach ($JenisSapi as $item)
+                                    @isset($hargasapi)
+                                    @foreach ($hargasapi as $item)
                                     <tr>
-                                        <td><span class="badge bg-primary">{{ $item->sjenis_id }}</span></td>
-                                        <td>{{ $item->sjenis_nama }}</td>
-                                        <td>{{ $item->sjenis_keterangan }}</td>
-                                        <td> <a class="btn btn-outline-success"
-                                                href="{{ route('detail.jenis.sapi', $item->sjenis_id) }}"><i
-                                                    class="bi bi-info-lg"></i></a>
-                                            <form id="deleteForm"
-                                                action="{{ route('destroy.jenis.sapi', $item->sjenis_id) }}"
-                                                method="POST" style="display: inline;">
+                                        <td><span class="badge bg-primary">{{ $item->hs_id }}</span></td>
+                                        <td>{{ $item->jenis->sjenis_nama }}</td>
+                                        <td>{{ $item->hs_kelamin }}</td>
+                                        <td>{{ $item->hs_kategori }}</td>
+                                        <td>Rp. {{ number_format($item->hs_harga, 0, ',', '.') }}</td>
+                                        {{-- <td>
+                                            <a class="btn btn-outline-success"
+                                                href="{{ route('edit.harga.sapi', $item->hs_id) }}"><i
+                                                    class="bi bi-pencil-square"></i></a>
+                                            <form id="deleteForm{{ $item->hs_id }}"
+                                                action="{{ route('delete.harga.sapi', $item->hs_id) }}" method="POST"
+                                                style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="button" class="btn btn-outline-danger"
-                                                    onclick="showDeleteModal('{{ route('destroy.jenis.sapi', $item->sjenis_id) }}')">
+                                                    onclick="showDeleteModal('{{ route('delete.harga.sapi', $item->hs_id) }}', '{{ $item->hs_id }}')">
                                                     <i class="bi bi-trash-fill"></i>
                                                 </button>
                                             </form>
-
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                     @endforeach
                                     @endisset
@@ -74,7 +82,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Apakah Anda yakin ingin menghapus data jenis Sapi ini?</p>
+                    <p>Apakah Anda yakin ingin menghapus data Harga Sapi ini?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -91,8 +99,8 @@
 <!-- Template Main JS File -->
 <script src="{{ asset ('js/main.js') }}"></script>
 <script>
-    function showDeleteModal(action) {
-        var deleteForm = document.getElementById('deleteForm');
+    function showDeleteModal(action, id) {
+        var deleteForm = document.getElementById('deleteForm' + id);
         deleteForm.action = action;
         var deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
         deleteModal.show();
@@ -101,5 +109,4 @@
     document.getElementById('confirmDelete').addEventListener('click', function () {
         document.getElementById('deleteForm').submit();
     });
-
 </script>

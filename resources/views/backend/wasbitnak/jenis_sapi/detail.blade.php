@@ -10,6 +10,11 @@
                 <div class="card">
                     <div class="card-body pt-3">
                         <!-- Bordered Tabs -->
+                        @if (session('success'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('success') }}
+                        </div>
+                        @endif
                         <div class="tab-content pt-2">
                             <h5 class="card-title">Detail Jenis Sapi</h5>
 
@@ -38,13 +43,13 @@
                             </a>
 
                             {{-- <form action="{{ route('rumput_jenis.delete', $jenisRumput->rum_id) }}" method="POST"
-                            style="display: inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-outline-danger"
-                                onclick="return confirm('Apakah Anda yakin ingin menghapus jenis rumput ini?')">
-                                <i class="bi bi-trash"></i> Hapus
-                            </button>
+                                style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-outline-danger"
+                                    onclick="return confirm('Apakah Anda yakin ingin menghapus jenis rumput ini?')">
+                                    <i class="bi bi-trash"></i> Hapus
+                                </button>
                             </form> --}}
 
                         </div>

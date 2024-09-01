@@ -152,7 +152,7 @@ Route::middleware(['auth', 'checkWastukan'])->group(function () {
         Route::put('/update/{tanam_id}', [KegiatanLahanController::class, 'update'])->name('update.tanam');
         Route::delete('/delete/{tanam_id}', [KegiatanLahanController::class, 'destroy'])->name('destroy.tanam');
         Route::get('/export', [KegiatanLahanController::class, 'export'])->name('export.tanam');
-    }); 
+    });
     Route::prefix('pegawai-wastukan')->group(function () {
         Route::get('/', [AdminController::class, 'pegawaiWastukan'])->name('index.pegawai.wastukan');
         Route::get('/detail/{id}', [AdminController::class, 'detailPwastukan'])->name('detail.pegawai.wastukan');
@@ -264,6 +264,14 @@ Route::middleware(['auth', 'checkPPID'])->group(function () {
         Route::get('/detail/{id}', [PPIDController::class, 'detailpengajuanrumput'])->name('detail.ppid.prumput');
         Route::put('/update/{id}', [PPIDController::class, 'updatepengajuanrumput'])->name('update.ppid.prumput');
         Route::delete('/delete/{id}', [PPIDController::class, 'deletepengajuanrumput'])->name('delete.ppid.prumput');
+    });
+    Route::prefix('harga-sapi')->group(function () {
+        Route::get('/', [PPIDController::class, 'indexhargasapi'])->name('index.harga.sapi');
+        Route::get('/tambah', [PPIDController::class, 'showhargasapi'])->name('show.harga.sapi');
+        Route::post('/store', [PPIDController::class, 'storehargasapi'])->name('store.harga.sapi');
+        Route::get('/detail/{id}', [PPIDController::class, 'detailhargasapi'])->name('detail.harga.sapi');
+        Route::put('/update/{id}', [PPIDController::class, 'updatehargasapi'])->name('update.harga.sapi');
+        Route::delete('/delete/{id}', [PPIDController::class, 'deletehargasapi'])->name('delete.harga.sapi');
     });
     //PPID - PROFIL
     Route::get('/PPID/Profil/{id}', [AkunController::class, 'profilppid'])->name('detail.profil.ppid');

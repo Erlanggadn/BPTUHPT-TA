@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\ModSapi;
 use App\Models\ModRumput;
 use App\Models\ModPembeli;
+use App\Models\ModHargaSapi;
 use App\Models\ModJenisSapi;
 use Illuminate\Http\Request;
 use App\Models\ModJenisRumput;
@@ -417,4 +418,47 @@ class PPIDController extends Controller
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
+
+    //HARGA PRODUK
+    public function indexhargasapi()
+    {
+        $hargasapi = ModHargaSapi::all();
+        return view('backend.ppid.harga.sapi.index', compact('hargasapi'));
+    }
+    public function showhargasapi()
+    {
+        $jenisSapi = ModJenisSapi::all();
+        return view('backend.ppid.harga.sapi.create', compact('jenisSapi'));
+    }
+
+    public function storehargasapi(Request $request)
+    {
+        // Validate the request data
+        $request->validate([
+            'hs_jenis' => 'required|string|max:30|exists:master_sapi_jenis,sjenis_id',
+            'hs_kategori' => 'required|string|max:100',
+            'hs_kelamin' => 'required|string|max:30',
+            'hs_harga' => 'required|integer',
+        ]);
+
+        // Generate a new hs_id
+        $lastHarga = ModHargaSapi::orderBy('hs_id', 'desc')->first();
+        $newKode = $lastHarga ? 'HS' . str_pad(((int) substr($lastHarga->hs_id, 2)) + 1, 3, '0', STR_PAD_LEFT) : 'HS001';
+
+        // Create a new record in the database
+        ModHargaSapi::create([
+            'hs_id' => $newKode,
+            'hs_jenis' => $request->hs_jenis,
+            'hs_kelamin' => $request->hs_kelamin,
+            'hs_kategori' => $request->hs_kategori,
+            'hs_harga' => $request->hs_harga,
+        ]);
+
+        // Redirect or return success response
+        return redirect()->route('index.harga.sapi')->with('success', 'Harga sapi berhasil ditambahkan.');
+    }
+
+    public function detailhargasapi() {}
+    public function updatehargasapi() {}
+    public function deletehargasapi() {}
 }

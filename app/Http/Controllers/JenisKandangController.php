@@ -31,7 +31,7 @@ class JenisKandangController extends Controller
 
         ModJenisKandang::create([
             'kandang_id' => $newKode,
-            'kandang_tipe' => $request->kandang_tipe,   
+            'kandang_tipe' => $request->kandang_tipe,
             'kandang_keterangan' => $request->kandang_keterangan,
         ]);
 
@@ -53,7 +53,7 @@ class JenisKandangController extends Controller
     public function update(Request $request, $kandang_id)
     {
         $request->validate([
-            'kandang_tipe' => 'required|string|max:50|unique:master_kandang_jenis,kandang_tipe',
+            'kandang_tipe' => 'required|string|max:50|unique:master_kandang_jenis,kandang_tipe,' . $kandang_id . ',kandang_id',
             'kandang_keterangan' => 'required|string|max:50',
         ]);
 

@@ -26,53 +26,68 @@
                                         {{ session('error') }}
                                     </div>
                                     @endif
-                                    @if ($errors->any())
-                                    <div class="alert alert-danger" role="alert">
-                                        {{ $errors->first() }}
-                                    </div>
-                                    @endif
                                     <div class="row g-3 needs-validation" novalidate>
                                         <div class="col-12">
                                             <label for="lahanNama" class="form-label">Nama Lahan</label>
                                             <div class="input-group has-validation">
-                                                <input type="text" name="lahan_nama" class="form-control" id="lahanNama"
-                                                    required>
+                                                <input type="text" name="lahan_nama" class="form-control"
+                                                    id="lahanNama">
                                                 <div class="invalid-feedback">Masukkan Nama lahan dengan benar</div>
                                             </div>
                                         </div>
+                                        @error('lahan_nama')
+                                        <div class="invalid-feedback" style="display: block;">{{ $message }}
+                                        </div>
+                                        @enderror
                                         <div class="col-12">
                                             <label for="lahanJenisTanah" class="form-label">Jenis Tanah</label>
                                             <div class="input-group has-validation">
                                                 <input type="text" name="lahan_jenis_tanah" class="form-control"
-                                                    id="lahanJenisTanah" required>
+                                                    id="lahanJenisTanah">
                                                 <div class="invalid-feedback">Masukkan Jenis Tanah dengan benar</div>
                                             </div>
                                         </div>
+                                        @error('lahan_jenis_tanah')
+                                        <div class="invalid-feedback" style="display: block;">{{ $message }}
+                                        </div>
+                                        @enderror
                                         <div class="col-12">
                                             <label for="lahanUkuran" class="form-label">Ukuran Lahan (m2)</label>
                                             <div class="input-group has-validation">
                                                 <input type="number" name="lahan_ukuran" class="form-control"
-                                                    id="lahanUkuran" required>
+                                                    id="lahanUkuran">
                                                 <div class="invalid-feedback">Masukkan Ukuran dengan benar</div>
                                             </div>
                                         </div>
+                                        @error('lahan_ukuran')
+                                        <div class="invalid-feedback" style="display: block;">{{ $message }}
+                                        </div>
+                                        @enderror
                                         <div class="col-12">
                                             <label for="lahanKeterangan" class="form-label">Keterangan Lahan</label>
                                             <div class="input-group has-validation">
                                                 <textarea type="text" name="lahan_keterangan" class="form-control"
-                                                    id="lahanKeterangan" required></textarea>
+                                                    id="lahanKeterangan"></textarea>
                                                 <div class="invalid-feedback">Masukkan Keterangan dengan benar</div>
                                             </div>
                                         </div>
+                                        @error('lahan_keterangan')
+                                        <div class="invalid-feedback" style="display: block;">{{ $message }}
+                                        </div>
+                                        @enderror
                                         <div class="col-12">
                                             <label for="lahanAktif" class="form-label">Status Lahan</label>
-                                            <select name="lahan_aktif" class="form-select" id="lahanAktif" required>
+                                            <select name="lahan_aktif" class="form-select" id="lahanAktif">
                                                 <option selected disabled>-- Pilih Status --</option>
                                                 <option value="Aktif">Aktif</option>
                                                 <option value="NonAktif">Non Aktif</option>
                                             </select>
                                             <div class="invalid-feedback">Pilih Status Lahan</div>
                                         </div>
+                                        @error('lahan_aktif')
+                                        <div class="invalid-feedback" style="display: block;">{{ $message }}
+                                        </div>
+                                        @enderror
                                         <br>
                                         <div class="col-12">
                                             <button class="btn btn-success w-100" type="submit">Tambah</button>

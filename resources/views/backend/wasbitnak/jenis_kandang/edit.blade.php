@@ -28,18 +28,12 @@
                                         {{ session('error') }}
                                     </div>
                                     @endif
-                                    @if ($errors->any())
-                                    <div class="alert alert-danger" role="alert">
-                                        {{ $errors->first() }}
-                                    </div>
-                                    @endif
                                     <form class="row g-3 needs-validation" novalidate>
                                         <div class="col-12 mb-4">
                                             <label for="kandangtipe" class="form-label">Tipe Kandang</label>
                                             <div class="input-group has-validation">
                                                 <input type="text" name="kandang_tipe" class="form-control"
-                                                    id="kandangtipe" value="{{ $jenisKandang->kandang_tipe }}" >
-                                                <div class="invalid-feedback">Masukkan Tipe Kandang dengan benar</div>
+                                                    id="kandangtipe" value="{{ $jenisKandang->kandang_tipe }}">
                                             </div>
                                         </div>
                                         <div class="col-12 mb-4">
@@ -47,8 +41,7 @@
                                             <div class="input-group has-validation">
                                                 <textarea type="text" name="kandang_keterangan" class="form-control"
                                                     id="kandangKeterangan"
-                                                    value="{{ $jenisKandang->kandang_keterangan }}" >{{ $jenisKandang->kandang_keterangan }}</textarea>
-                                                <div class="invalid-feedback">Masukkan Keterangan dengan benar</div>
+                                                    value="{{ $jenisKandang->kandang_keterangan }}">{{ $jenisKandang->kandang_keterangan }}</textarea>
                                             </div>
                                         </div>
                                         <br>

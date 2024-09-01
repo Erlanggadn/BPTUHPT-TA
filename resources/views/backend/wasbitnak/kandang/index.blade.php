@@ -65,16 +65,6 @@
                                             <a class="btn btn-outline-success"
                                                 href="{{ route('detail.kandang', $item->kand_id) }}"><i
                                                     class="bi bi-info-lg"></i></a>
-                                            <form id="deleteForm"
-                                                action="{{ route('destroy.kandang', $item->kand_id) }}" method="POST"
-                                                style="display: inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="button" class="btn btn-outline-danger"
-                                                    onclick="showDeleteModal('{{ route('destroy.kandang', $item->kand_id) }}')">
-                                                    <i class="bi bi-trash-fill"></i>
-                                                </button>
-                                            </form>
                                         </td>
                                     </tr>
                                     @endforeach

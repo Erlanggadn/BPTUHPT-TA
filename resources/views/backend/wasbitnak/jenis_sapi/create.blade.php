@@ -26,29 +26,32 @@
                                         {{ session('error') }}
                                     </div>
                                     @endif
-                                    @if ($errors->any())
-                                    <div class="alert alert-danger" role="alert">
-                                        {{ $errors->first() }}
-                                    </div>
-                                    @endif
+
                                     <form class="row g-3 needs-validation" novalidate>
                                         <div class="col-12">
                                             <label for="sjenisNama" class="form-label">Jenis Sapi</label>
                                             <div class="input-group has-validation">
                                                 <input type="text" name="sjenis_nama" class="form-control"
-                                                    id="sjenisNama" required>
+                                                    id="sjenisNama">
                                                 <div class="invalid-feedback">Masukkan Nama Sapi dengan benar</div>
                                             </div>
                                         </div>
+                                        @error('sjenis_nama')
+                                        <div class="invalid-feedback" style="display: block;">{{ $message }}
+                                        </div>
+                                        @enderror
                                         <div class="col-12">
                                             <label for="sjenisKeterangan" class="form-label">Keterangan</label>
                                             <div class="input-group has-validation">
                                                 <textarea name="sjenis_keterangan" class="form-control"
-                                                    id="sjenisKeterangan" required></textarea>
+                                                    id="sjenisKeterangan"></textarea>
                                                 <div class="invalid-feedback">Masukkan Keterangan dengan benar</div>
                                             </div>
                                         </div>
-
+                                        @error('sjenis_keterangan')
+                                        <div class="invalid-feedback" style="display: block;">{{ $message }}
+                                        </div>
+                                        @enderror
                                         <br>
                                         <div class="col-12">
                                             <button class="btn btn-success w-100" type="submit">Tambah Jenis</button>

@@ -17,12 +17,6 @@
                             {{ session('error') }}
                         </div>
                         @endif
-                        @if ($errors->any())
-                        <div class="alert alert-danger" role="alert">
-                            {{ $errors->first() }}
-                        </div>
-                        @endif
-
                         <form action="{{ route('store.kandang') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="card mb-3">
@@ -45,22 +39,33 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        @error('kand_jenis')
+                                        <div class="invalid-feedback" style="display: block;">{{ $message }}
+                                        </div>
+                                        @enderror
                                         <div class="row-12 ">
                                             <label for="yourUsername" class="form-label">Nama Kandang</label>
                                             <div class="input-group has-validation">
                                                 <input type="text" name="kand_nama" class="form-control"
-                                                    id="yourUsername" required>
-                                                <div class="invalid-feedback">Masukkan Nama Kandang dengan benar</div>
+                                                    id="yourUsername">
                                             </div>
                                         </div>
+                                        @error('kand_nama')
+                                        <div class="invalid-feedback" style="display: block;">{{ $message }}
+                                        </div>
+                                        @enderror
                                         <div class="row-12 ">
                                             <label for="yourUsername" class="form-label">Keterangan</label>
                                             <div class="input-group has-validation">
                                                 <textarea type="text" name="kand_keterangan" class="form-control"
-                                                    id="yourUsername" required></textarea>
+                                                    id="yourUsername"></textarea>
                                                 <div class="invalid-feedback">Masukkan Data dengan benar</div>
                                             </div>
                                         </div>
+                                        @error('kand_keterangan')
+                                        <div class="invalid-feedback" style="display: block;">{{ $message }}
+                                        </div>
+                                        @enderror
                                         <div class="col-12">
                                             <label for="kandAktif" class="form-label">Status Kandang</label>
                                             <select name="kand_aktif" class="form-select" id="kandAktif" required>
@@ -70,6 +75,10 @@
                                             </select>
                                             <div class="invalid-feedback">Pilih Status Rumput</div>
                                         </div>
+                                        @error('kand_aktif')
+                                        <div class="invalid-feedback" style="display: block;">{{ $message }}
+                                        </div>
+                                        @enderror
                                         <br>
                                         <div class="col-12">
                                             <button class="btn btn-success w-100" type="submit">Tambah Kandang</button>

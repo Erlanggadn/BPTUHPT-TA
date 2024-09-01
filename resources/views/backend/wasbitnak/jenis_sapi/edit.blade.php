@@ -33,29 +33,35 @@
                                             <label for="sjenisNama" class="form-label">Nama Sapi</label>
                                             <div class="input-group has-validation">
                                                 <input type="text" name="sjenis_nama" class="form-control"
-                                                    id="sjenisNama" value="{{ $jenisSapi->sjenis_nama }}" required>
+                                                    id="sjenisNama" value="{{ $jenisSapi->sjenis_nama }}">
                                                 <div class="invalid-feedback">Masukkan Nama Sapi dengan benar</div>
                                             </div>
                                         </div>
+                                        @error('sjenis_nama')
+                                        <div class="invalid-feedback" style="display: block;">{{ $message }}
+                                        </div>
+                                        @enderror
                                         <div class="col-12 mb-4">
                                             <label for="sjenisKeterangan" class="form-label">Keterangan</label>
                                             <div class="input-group has-validation">
                                                 <input type="text" name="sjenis_keterangan" class="form-control"
-                                                    id="sjenisKeterangan" value="{{ $jenisSapi->sjenis_keterangan }}"
-                                                    required>
+                                                    id="sjenisKeterangan" value="{{ $jenisSapi->sjenis_keterangan }}">
                                                 <div class="invalid-feedback">Masukkan Keterangan dengan benar</div>
                                             </div>
                                         </div>
+                                        @error('sjenis_keterangan')
+                                        <div class="invalid-feedback" style="display: block;">{{ $message }}
+                                        </div>
+                                        @enderror
                                         <br>
                                         <div class="col-12">
-                                            <button class="btn btn-outline-success w-100" type="submit"><i
-                                                    class="bi bi-box-arrow-in-right"></i> Simpan</button>
+                                            <button class="btn btn-outline-success w-100" type="submit">Ubah Jenis
+                                                Sapi</button>
                                         </div>
                                         <br>
                                         <div class="col-12">
                                             <a href="{{ route('index.jenis.sapi') }}"
-                                                class="btn btn-outline-secondary w-100"><i
-                                                    class="bi bi-house-door-fill"></i> Kembali</a>
+                                                class="btn btn-outline-secondary w-100">Kembali</a>
                                         </div>
                                         <br>
                                     </form>
@@ -72,7 +78,8 @@
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
         class="bi bi-arrow-up-short"></i></a>
 
-{{-- <!-- Vendor JS Files -->
+{{--
+<!-- Vendor JS Files -->
 <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="assets/vendor/chart.js/chart.umd.js"></script>

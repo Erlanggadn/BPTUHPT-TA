@@ -5,7 +5,7 @@
         <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-lg-4 col-md-6  flex-column align-items-center justify-content-center">
+                    <div class="col-md-6  flex-column align-items-center justify-content-center">
                         <div class="d-flex justify-content-center py-4">
                         </div><!-- End Logo -->
                         <form action="{{ route('pegawaidaftar.save') }}" method="POST">
@@ -26,53 +26,67 @@
                                         {{ session('error') }}
                                     </div>
                                     @endif
-                                    @if ($errors->any())
-                                    <div class="alert alert-danger" role="alert">
-                                        {{ $errors->first() }}
-                                    </div>
-                                    @endif
                                     <form class="row g-3 needs-validation" novalidate>
                                         <div class="col-12">
                                             <label for="yourUsername" class="form-label">Email</label>
                                             <div class="input-group has-validation">
                                                 <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                                <input type="email" name="email" class="form-control" id="yourUsername"
-                                                    required>
+                                                <input type="email" name="email" class="form-control" id="yourUsername">
                                                 <div class="invalid-feedback">Masukkan Email Pegawai dengan benar</div>
                                             </div>
                                         </div>
+                                        @error('email')
+                                        <div class="invalid-feedback" style="display: block;">{{ $message }}
+                                        </div>
+                                        @enderror
                                         <div class="col-12">
                                             <label for="yourUsername" class="form-label">Nama Pegawai</label>
                                             <div class="input-group has-validation">
-                                                <input type="text" name="pegawai_nama" class="form-control" id="yourUsername"
-                                                    required>
+                                                <input type="text" name="pegawai_nama" class="form-control"
+                                                    id="yourUsername">
                                                 <div class="invalid-feedback">Masukkan Nama Pegawai dengan benar</div>
                                             </div>
                                         </div>
+                                        @error('pegawai_nama')
+                                        <div class="invalid-feedback" style="display: block;">{{ $message }}
+                                        </div>
+                                        @enderror
                                         <div class="col-12">
                                             <label for="yourUsername" class="form-label">NIP</label>
                                             <div class="input-group has-validation">
-                                                <input type="number" name="pegawai_nip" class="form-control" id="yourUsername"
-                                                    required>
+                                                <input type="number" name="pegawai_nip" class="form-control"
+                                                    id="yourUsername">
                                                 <div class="invalid-feedback">Masukkan NIP Pegawai dengan benar</div>
                                             </div>
                                         </div>
+                                        @error('pegawai_nip')
+                                        <div class="invalid-feedback" style="display: block;">{{ $message }}
+                                        </div>
+                                        @enderror
                                         <div class="col-12">
                                             <label for="yourUsername" class="form-label">No. Hp Pegawai</label>
                                             <div class="input-group has-validation">
-                                                <input type="number" name="pegawai_nohp" class="form-control" id="yourUsername"
-                                                    required>
+                                                <input type="number" name="pegawai_nohp" class="form-control"
+                                                    id="yourUsername">
                                                 <div class="invalid-feedback">Masukkan No.Hp Pegawai dengan benar</div>
                                             </div>
                                         </div>
+                                        @error('pegawai_nohp')
+                                        <div class="invalid-feedback" style="display: block;">{{ $message }}
+                                        </div>
+                                        @enderror
                                         <div class="col-12">
                                             <label for="yourUsername" class="form-label">Alamat Pegawai</label>
                                             <div class="input-group has-validation">
-                                                <input type="text" name="pegawai_alamat" class="form-control" id="yourUsername"
-                                                    required>
+                                                <input type="text" name="pegawai_alamat" class="form-control"
+                                                    id="yourUsername">
                                                 <div class="invalid-feedback">Masukkan Alamat Pegawai dengan benar</div>
                                             </div>
                                         </div>
+                                        @error('pegawai_alamat')
+                                        <div class="invalid-feedback" style="display: block;">{{ $message }}
+                                        </div>
+                                        @enderror
                                         <div class="row mb-3">
                                             <label class="col-form-label">Status Pegawai</label>
                                             <div class="">
@@ -89,22 +103,29 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        @error('role')
+                                        <div class="invalid-feedback" style="display: block;">{{ $message }}
+                                        </div>
+                                        @enderror
                                         <div class="col-12">
                                             <label for="yourPassword" class="form-label">Password Pegawai</label>
                                             <input type="password" name="password" class="form-control"
-                                                id="yourPassword" required>
+                                                id="yourPassword">
                                             <div class="invalid-feedback">Masukkan Password Pegawai</div>
                                         </div>
+                                        @error('password')
+                                        <div class="invalid-feedback" style="display: block;">{{ $message }}
+                                        </div>
+                                        @enderror
                                         <br>
                                         <div class="col-12">
-                                            <button class="btn btn-outline-success w-100" type="submit"><i
-                                                    class="bi bi-box-arrow-in-right"></i> Daftar</button>
+                                            <button class="btn btn-outline-success w-100" type="submit"> Daftarkan
+                                                Pegawai</button>
                                         </div>
                                         <br>
                                         <div class="col-12">
-                                            <a href="{{ route('akunadmin') }}"
-                                                class="btn btn-outline-secondary w-100"><i
-                                                    class="bi bi-house-door-fill"></i> Kembali</a>
+                                            <a href="{{ route('akunadmin') }}" class="btn btn-outline-secondary w-100">
+                                                Kembali</a>
                                         </div>
                                         <br>
                                     </form>

@@ -22,4 +22,8 @@ class ModJenisSapi extends Model
     {
         return $this->hasMany(ModSapi::class, 'sapi_jenis', 'sjenis_id');
     }
+    public function hargaSapi()
+    {
+        return $this->hasMany(ModJenisSapi::class, 'hs_jenis', 'sjenis_id');
+    }
 }
