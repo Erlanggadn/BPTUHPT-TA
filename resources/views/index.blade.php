@@ -13,7 +13,8 @@
                         <b style="color: #138220"><ins>{{ Auth::user()->pembeli->pembeli_nama}}</ins></b>
                         @else
                         @endif<br>di BPTU HPT Padang
-                        Mengatas<br></h2>
+                        Mengatas<br>
+                    </h2>
                     <p data-aos="fade-up" data-aos-delay="100">Balai Pembibitan Ternak Unggul dan Hijauan Pakan Ternak
                         (BPTUHPT) Padang Mengatas merupakan salah satu unit pelaksana teknis (UPT) dibawah Direktorat
                         Jenderal Peternakan dan Kesehatan Hewan Kementerian Pertanian.</p>
@@ -228,298 +229,37 @@
                 <h2>Menu</h2>
                 <p>Check Harga <span>Sapi</span></p>
             </div>
-            <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
-                <li class="nav-item">
-                    <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#menu-starters">
-                        <h4>Simental</h4>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-breakfast">
-                        <h4>Limosin</h4>
-                    </a>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-lunch">
-                        <h4>Pesisir</h4>
-                    </a>
-                </li>
-            </ul>
-            <div class="tab-content" data-aos="fade-up" data-aos-delay="300">
-                <div class="tab-pane fade active show" id="menu-starters">
-                    <div class="tab-header text-center">
-                        <p>Menu</p>
-                        <h3>Simental</h3>
-                    </div>
-                    <div class="container">
-                        <div class="row gy-5 justify-content-center">
-                            <div class="col-lg-4 menu-item">
-                                <a href="{{ asset('img/simental.png') }}" class="glightbox">
-                                    <img src="{{ asset('img/simental.png') }}" class="menu-img img-fluid"
-                                        alt="Simental">
-                                </a>
-                                <h4 class="mt-3">Jantan</h4>
-                                <p class="ingredients text-muted">Tersedia</p>
-                                <div class="price-list mt-3">
-                                    <table class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr class="table-success">
-                                                <th>Umur</th>
-                                                <th class="text-end">Harga</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Bibit Umur 6 - 9 Bulan</td>
-                                                <td class="text-end">Rp.12.000.000/Ekor</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Bibit Umur > 9 - 12 Bulan</td>
-                                                <td class="text-end">Rp.14.000.000/Ekor</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Bibit Umur > 12 - 15 Bulan</td>
-                                                <td class="text-end">Rp.16.000.000/Ekor</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Bibit Umur > 15 - 18 Bulan</td>
-                                                <td class="text-end">Rp.18.000.000/Ekor</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Bibit Umur > 18 - < 24 Bulan</td> <td class="text-end">
-                                                        Rp.20.000.000/Ekor</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Bibit Umur > 24 - <36 Bulan</td> <td class="text-end">
-                                                        Rp.25.000.000/Ekor</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Bibit Umur > 36 Bulan</td>
-                                                <td class="text-end">Rp.28.000.000/Ekor</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Calon Bull (Pejantan) Umur 18 - 24 Bulan</td>
-                                                <td class="text-end">Rp.30.000.000/Ekor</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 menu-item">
-                                <a href="{{ asset('img/simental.png') }}" class="glightbox">
-                                    <img src="{{ asset('img/simental.png') }}" class="menu-img img-fluid"
-                                        alt="Simental">
-                                </a>
-                                <h4 class="mt-3">Betina</h4>
-                                <p class="ingredients text-muted">Tersedia</p>
-                                <div class="price-list mt-3">
-                                    <table class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr class="table-success">
-                                                <th>Umur</th>
-                                                <th class="text-end">Harga</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Umur 6 - 9 Bulan</td>
-                                                <td class="text-end">Rp.11.000.000/Ekor</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Umur > 9 - 12 Bulan</td>
-                                                <td class="text-end">Rp.13.000.000/Ekor</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Umur > 12 - 15 Bulan</td>
-                                                <td class="text-end">Rp.15.000.000/Ekor</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Umur > 15 - 18 Bulan</td>
-                                                <td class="text-end">Rp.17.000.000/Ekor</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Umur > 18 - < 24 Bulan</td> <td class="text-end">Rp.19.000.000/Ekor
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Umur > 24 - < 36 Bulan</td> <td class="text-end">Rp.23.000.000/Ekor
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="menu-breakfast">
-                    <div class="tab-header text-center">
-                        <p>Menu</p>
-                        <h3>Limosin</h3>
-                    </div>
-                    <div class="container">
-                        <div class="row gy-5 justify-content-center">
-                            <div class="col-lg-4 menu-item">
-                                <a href="{{ asset('img/limosin.png') }}" class="glightbox"><img
-                                        src="{{ asset('img/limosin.png') }}" class="menu-img img-fluid" alt=""></a>
-                                <h4>Jantan</h4>
-                                <p class="ingredients">
-                                    Tersedia
-                                </p>
-                                <div class="price-list mt-3">
-                                    <table class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr class="table-success">
-                                                <th>Umur</th>
-                                                <th class="text-end">Harga</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Bibit Umur 6 - 9 Bulan</td>
-                                                <td class="text-end">Rp.12.000.000/Ekor</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Bibit Umur > 9 - 12 Bulan</td>
-                                                <td class="text-end">Rp.14.000.000/Ekor</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Bibit Umur > 12 - 15 Bulan</td>
-                                                <td class="text-end">Rp.16.000.000/Ekor</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Bibit Umur > 15 - 18 Bulan</td>
-                                                <td class="text-end">Rp.18.000.000/Ekor</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Bibit Umur > 18 - < 24 Bulan</td> <td class="text-end">
-                                                        Rp.20.000.000/Ekor</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Bibit Umur > 24 - <36 Bulan</td> <td class="text-end">
-                                                        Rp.25.000.000/Ekor</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Bibit Umur > 36 Bulan</td>
-                                                <td class="text-end">Rp.28.000.000/Ekor</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Calon Bull (Pejantan) Umur 18 - 24 Bulan</td>
-                                                <td class="text-end">Rp.30.000.000/Ekor</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 menu-item">
-                                <a href="{{ asset('img/limosin.png') }}" class="glightbox"><img
-                                        src="{{ asset('img/limosin.png') }}" class="menu-img img-fluid" alt=""></a>
-                                <h4>Betina</h4>
-                                <p class="ingredients">
-                                    Tersedia
-                                </p>
-                                <div class="price-list mt-3">
-                                    <table class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr class="table-success">
-                                                <th>Umur</th>
-                                                <th class="text-end">Harga</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Umur 6 - 9 Bulan</td>
-                                                <td class="text-end">Rp.11.000.000/Ekor</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Umur > 9 - 12 Bulan</td>
-                                                <td class="text-end">Rp.13.000.000/Ekor</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Umur > 12 - 15 Bulan</td>
-                                                <td class="text-end">Rp.15.000.000/Ekor</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Umur > 15 - 18 Bulan</td>
-                                                <td class="text-end">Rp.17.000.000/Ekor</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Umur > 18 - < 24 Bulan</td> <td class="text-end">Rp.19.000.000/Ekor
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Umur > 24 - < 36 Bulan</td> <td class="text-end">Rp.23.000.000/Ekor
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="menu-lunch">
-                    <div class="tab-header text-center">
-                        <p>Menu</p>
-                        <h3>Pesisir</h3>
-                    </div>
-                    <div class="container">
-                        <div class="row gy-5 justify-content-center">
-                            <div class="col-lg-4 menu-item">
-                                <a href="{{ asset('img/pesisir.png') }}" class="glightbox"><img
-                                        src="{{ asset('img/pesisir.png') }}" class="menu-img img-fluid" alt=""></a>
-                                <h4>Jantan</h4>
-                                <p class="ingredients">
-                                    Tersedia
-                                </p>
-                                <div class="price-list mt-3">
-                                    <table class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr class="table-success">
-                                                <th>Umur</th>
-                                                <th class="text-end">Harga</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Umur 6 - 9 Bulan</td>
-                                                <td class="text-end">Rp.3.500.000/Ekor</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Umur > 9 - 12 Bulan</td>
-                                                <td class="text-end">Rp.4.000.000/Ekor</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Umur > 12 - 15 Bulan</td>
-                                                <td class="text-end">Rp.5.000.000/Ekor</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Umur > 15 - 18 Bulan</td>
-                                                <td class="text-end">Rp.7.000.000/Ekor</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Umur > 18 - < 24 Bulan</td> <td class="text-end">Rp.10.000.000/Ekor
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Umur > 24 - < 36 Bulan</td> <td class="text-end">Rp.12.000.000/Ekor
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Umur ≥ 36 Bulan</td>
-                                                <td class="text-end">Rp.14.000.000/Ekor</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
 
-                                </div>
-                            </div>
+            <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
+                @foreach($jenis_sapi as $jenis)
+                <li class="nav-item">
+                    <a class="nav-link {{ $loop->first ? 'active show' : '' }}" data-bs-toggle="tab"
+                        data-bs-target="#menu-{{ $jenis->sjenis_id }}">
+                        <h4>{{ $jenis->sjenis_nama }}</h4>
+                    </a>
+                </li>
+                @endforeach
+            </ul>
+
+            <div class="tab-content" data-aos="fade-up" data-aos-delay="300">
+                @foreach($jenis_sapi as $jenis)
+                <div class="tab-pane fade {{ $loop->first ? 'active show' : '' }}" id="menu-{{ $jenis->sjenis_id }}">
+                    <div class="tab-header text-center">
+                        <p>Menu</p>
+                        <h3>{{ $jenis->sjenis_nama }}</h3>
+                    </div>
+
+                    <div class="container">
+                        <div class="row gy-5 justify-content-center">
+                            @foreach(['Jantan', 'Betina'] as $kelamin)
                             <div class="col-lg-4 menu-item">
-                                <a href="{{ asset('img/pesisir.png') }}" class="glightbox"><img
-                                        src="{{ asset('img/pesisir.png') }}" class="menu-img img-fluid" alt=""></a>
-                                <h4>Betina</h4>
-                                <p class="ingredients">
-                                    Tersedia
-                                </p>
+                                <a href="{{ asset('img/' . strtolower($jenis->sjenis_nama) . '.png') }}"
+                                    class="glightbox">
+                                    <img src="{{ asset('img/' . strtolower($jenis->sjenis_nama) . '.png') }}"
+                                        class="menu-img img-fluid" alt="{{ $jenis->sjenis_nama }}">
+                                </a>
+                                <h4 class="mt-3">{{ $kelamin }}</h4>
+                                <p class="ingredients text-muted">Tersedia</p>
                                 <div class="price-list mt-3">
                                     <table class="table table-bordered table-striped">
                                         <thead>
@@ -529,37 +269,22 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach($jenis->hargaSapi->where('hs_kelamin', $kelamin) as $harga)
                                             <tr>
-                                                <td>Umur 6 - 9 Bulan</td>
-                                                <td class="text-end">Rp.3.000.000/Ekor</td>
+                                                <td>{{ $harga->hs_kategori }}</td>
+                                                <td class="text-end">Rp.{{ number_format($harga->hs_harga, 0, ',', '.')
+                                                    }}/Ekor</td>
                                             </tr>
-                                            <tr>
-                                                <td>Umur > 9 - 12 Bulan</td>
-                                                <td class="text-end">Rp.3.500.000/Ekor</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Umur > 12 - 15 Bulan</td>
-                                                <td class="text-end">Rp.55.000.000/Ekor</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Umur > 15 - 18 Bulan</td>
-                                                <td class="text-end">Rp.6.000.000/Ekor</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Umur > 18 - < 24 Bulan</td> <td class="text-end">Rp.8.000.000/Ekor
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Umur > 24 - < 36 Bulan</td> <td class="text-end">Rp.10.000.000/Ekor
-                                                </td>
-                                            </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
+                @endforeach
             </div>
         </div>
     </section>

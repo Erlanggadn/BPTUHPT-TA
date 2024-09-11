@@ -14,7 +14,7 @@ class ModPegawai extends Model
     public $incrementing = false;
     protected $fillable = [
         'pegawai_id',
-        'pegawai_detail',
+        'user_id',
         'pegawai_nip',
         'pegawai_nama',
         'pegawai_alamat',
@@ -23,11 +23,16 @@ class ModPegawai extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class,);
+        return $this->belongsTo(User::class, 'user_id', 'user_id');
     }
 
     public function kandang()
     {
         return $this->hasMany(User::class);
+    }
+
+    public function lahan()
+    {
+        return $this->hasMany(ModKegiatanLahan::class, 'pegawai_id', 'pegawai_id');
     }
 }

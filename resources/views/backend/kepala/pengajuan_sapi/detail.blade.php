@@ -8,7 +8,7 @@
             <div class="card">
                 <div class="card-body pt-3">
                     <div class="tab-content pt-2">
-                        <h5 class="card-title">Detail Pengajuan Pembelian Sapi ({{  $pengajuan->user->pembeli_nama }})
+                        <h5 class="card-title">Detail Pengajuan Pembelian Sapi ({{ $pengajuan->user->pembeli_nama }})
                         </h5>
                         @if (session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -90,10 +90,10 @@
                                 <div class="row mb-3">
                                     <div class="col-lg-3 col-md-4 label">Jenis Sapi</div>
                                     <div class="col-lg-9 col-md-8">
-                                        <select class="form-select" disabled>
+                                        <select name="sjenis_id[]" id="sjenis_id" class="form-select" disabled>
                                             @foreach($sapiJenis as $jenis)
-                                            <option value="{{ $jenis->sjenis_id }}"
-                                                {{ $detail->detail_jenis == $jenis->sjenis_id ? 'selected' : '' }}>
+                                            <option value="{{ $jenis->sjenis_id }}" {{ $detail->sjenis_id ==
+                                                $jenis->sjenis_id ? 'selected' : '' }}>
                                                 {{ $jenis->sjenis_nama }}</option>
                                             @endforeach
                                         </select>
@@ -103,35 +103,12 @@
                                 <div class="row mb-3">
                                     <div class="col-lg-3 col-md-4 label">Kategori Sapi</div>
                                     <div class="col-lg-9 col-md-8">
-                                        <select class="form-select" disabled>
-                                            <option value="Bibit"
-                                                {{ $detail->detail_kategori == 'Bibit' ? 'selected' : '' }}>Bibit
-                                            </option>
-                                            <optgroup label="Bibit">
-                                                <option value="Bibit  6-9 Bulan"
-                                                    {{ $detail->detail_kategori == 'Bibit  6-9 Bulan' ? 'selected' : '' }}>
-                                                    Bibit 6-9 Bulan</option>
-                                                <option value="Bibit 9-12 Bulan"
-                                                    {{ $detail->detail_kategori == 'Bibit 9-12 Bulan' ? 'selected' : '' }}>
-                                                    Bibit 9-12 Bulan</option>
-                                                <option value="Bibit 12-15 Bulan"
-                                                    {{ $detail->detail_kategori == 'Bibit 12-15 Bulan' ? 'selected' : '' }}>
-                                                    Bibit 12-15 Bulan</option>
-                                                <option value="Bibit 15-18 Bulan"
-                                                    {{ $detail->detail_kategori == 'Bibit 15-18 Bulan' ? 'selected' : '' }}>
-                                                    Bibit 15-18 Bulan</option>
-                                                <option value="Bibit 18-24 Bulan"
-                                                    {{ $detail->detail_kategori == 'Bibit 18-24 Bulan' ? 'selected' : '' }}>
-                                                    Bibit 18-24 Bulan</option>
-                                                <option value="Bibit 24-36 Bulan"
-                                                    {{ $detail->detail_kategori == 'Bibit 24-36 Bulan' ? 'selected' : '' }}>
-                                                    Bibit 24-36 Bulan</option>
-                                            </optgroup>
-                                            <optgroup label="Calon Bul(Pejantan)">
-                                                <option value="Calon Bul(Pejantan) 18-24 Bulan"
-                                                    {{ $detail->detail_kategori == 'Calon Bul(Pejantan) 18-24 Bulan' ? 'selected' : '' }}>
-                                                    18-24 Bulan</option>
-                                            </optgroup>
+                                        <select name="detail_kategori[]" id="detail_kategori" class="form-select"
+                                            disabled>
+                                            @foreach($hargaData as $harga)
+                                            <option value="{{ $harga->hs_kategori }}">{{ $harga->hs_kategori
+                                                }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -143,16 +120,24 @@
                                             disabled>
                                     </div>
                                 </div>
+                                <div class="row mb-3">
+                                    <div class="col-lg-3 col-md-4 label">Berat Sapi (KG)</div>
+                                    <div class="col-lg-9 col-md-8">
+                                        <input type="number" class="form-control" value="{{ $detail->detail_berat }}"
+                                            disabled>
+                                    </div>
+                                </div>
+
 
                                 <div class="row mb-3">
                                     <div class="col-lg-3 col-md-4 label">Jenis Kelamin Sapi</div>
                                     <div class="col-lg-9 col-md-8">
                                         <select class="form-select" disabled>
-                                            <option value="Jantan"
-                                                {{ $detail->detail_kelamin == 'Jantan' ? 'selected' : '' }}>Jantan
+                                            <option value="Jantan" {{ $detail->detail_kelamin == 'Jantan' ? 'selected' :
+                                                '' }}>Jantan
                                             </option>
-                                            <option value="Betina"
-                                                {{ $detail->detail_kelamin == 'Betina' ? 'selected' : '' }}>Betina
+                                            <option value="Betina" {{ $detail->detail_kelamin == 'Betina' ? 'selected' :
+                                                '' }}>Betina
                                             </option>
                                         </select>
                                     </div>
@@ -166,14 +151,14 @@
                                 <div class="col-lg-3 col-md-4 label">Status</div>
                                 <div class="col-lg-9 col-md-8">
                                     <select name="belisapi_status" class="form-select" required>
-                                        <option value="Pending"
-                                            {{ $pengajuan->belisapi_status == 'Pending' ? 'selected' : '' }}>
+                                        <option value="Pending" {{ $pengajuan->belisapi_status == 'Pending' ? 'selected'
+                                            : '' }}>
                                             Pending</option>
-                                        <option value="Approved"
-                                            {{ $pengajuan->belisapi_status == 'Approved' ? 'selected' : '' }}>Approved
+                                        <option value="Approved" {{ $pengajuan->belisapi_status == 'Approved' ?
+                                            'selected' : '' }}>Approved
                                         </option>
-                                        <option value="Rejected"
-                                            {{ $pengajuan->belisapi_status == 'Rejected' ? 'selected' : '' }}>Rejected
+                                        <option value="Rejected" {{ $pengajuan->belisapi_status == 'Rejected' ?
+                                            'selected' : '' }}>Rejected
                                         </option>
                                     </select>
                                 </div>

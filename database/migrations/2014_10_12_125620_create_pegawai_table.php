@@ -15,7 +15,7 @@ class CreatePegawaiTable extends Migration
     {
         Schema::create('pegawai', function (Blueprint $table) {
             $table->string('pegawai_id', 30)->primary();
-            $table->unsignedBigInteger('pegawai_detail');
+            $table->unsignedBigInteger('user_id');
             $table->bigInteger('pegawai_nip');
             $table->string('pegawai_nama', 50);
             $table->string('pegawai_alamat', 255);
@@ -23,7 +23,7 @@ class CreatePegawaiTable extends Migration
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
 
-            $table->foreign('pegawai_detail')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
         });
     }
 

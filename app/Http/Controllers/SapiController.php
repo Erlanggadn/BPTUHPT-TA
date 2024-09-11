@@ -11,7 +11,7 @@ use App\Models\ModJenisRumput;
 use Illuminate\Routing\Controller;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-    
+
 class SapiController extends Controller
 {
 
@@ -45,20 +45,21 @@ class SapiController extends Controller
 
     public function store(Request $request)
     {
-    
+
+        // dd($request->all());
         // Validasi inputan
         $request->validate([
-            'sapi_jenis' => 'required',
+            'sjenis_id' => 'required',
             'sapi_urutan_lahir' => 'required|integer',
             'sapi_tanggal_lahir' => 'required|date',
-            'sapi_no_induk' => 'required|string|max:255',
+            'sapi_no_induk' => 'required|string|max:30',
             'sapi_keterangan' => 'required|string|max:255',
-            'sapi_kelamin' => 'required|string|max:255',
-            'sapi_status' => 'required|string|max:255',
+            'sapi_kelamin' => 'required|string|max:30',
+            'sapi_status' => 'required|string|max:30',
         ]);
 
         // Generate sapi_id
-        $jenisSapi = ModJenisSapi::find($request->sapi_jenis);
+        $jenisSapi = ModJenisSapi::find($request->sjenis_id);
         if (!$jenisSapi) {
             return redirect()->back()->with('error', 'Jenis sapi tidak ditemukan');
         }
@@ -74,7 +75,7 @@ class SapiController extends Controller
 
         $sapi = new ModSapi;
         $sapi->sapi_id = $sapi_id;
-        $sapi->sapi_jenis = $request->sapi_jenis;
+        $sapi->sjenis_id = $request->sjenis_id;
         $sapi->sapi_urutan_lahir = $request->sapi_urutan_lahir;
         $sapi->sapi_tanggal_lahir = $request->sapi_tanggal_lahir;
         $sapi->sapi_no_induk = $request->sapi_no_induk;

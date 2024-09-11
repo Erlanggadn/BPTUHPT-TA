@@ -8,7 +8,7 @@
             <div class="card">
                 <div class="card-body pt-3">
                     <div class="tab-content pt-2">
-                        <h5 class="card-title">Detail Pengajuan Pembelian Sapi ({{  $pengajuan->user->pembeli_nama }})
+                        <h5 class="card-title">Detail Pengajuan Pembelian Sapi ({{ $pengajuan->user->pembeli_nama }})
                         </h5>
                         @if (session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -94,8 +94,8 @@
                                 <div class="col-lg-3 col-md-4 label">Status Pembelian</div>
                                 <div class="col-lg-9 col-md-8">
                                     <select name="belisapi_status" id="belisapi_status" class="form-select" required>
-                                        <option value="{{ $pengajuan->belisapi_status }}"
-                                            {{ $pengajuan->belisapi_status ? 'selected' : '' }}>
+                                        <option value="{{ $pengajuan->belisapi_status }}" {{ $pengajuan->belisapi_status
+                                            ? 'selected' : '' }}>
                                             {{ $pengajuan->belisapi_status }}</option>
                                         <option value="" disabled>-- Status Pembelian --</option>
                                         <option value="Disetujui">Disetujui</option>
@@ -119,10 +119,10 @@
                                 <div class="row mb-3">
                                     <div class="col-lg-3 col-md-4 label">Jenis Sapi</div>
                                     <div class="col-lg-9 col-md-8">
-                                        <select name="detail_jenis[]" id="detail_jenis" class="form-select" required>
+                                        <select name="sjenis_id[]" id="sjenis_id" class="form-select" required>
                                             @foreach($sapiJenis as $jenis)
-                                            <option value="{{ $jenis->sjenis_id }}"
-                                                {{ $detail->detail_jenis == $jenis->sjenis_id ? 'selected' : '' }}>
+                                            <option value="{{ $jenis->sjenis_id }}" {{ $detail->sjenis_id ==
+                                                $jenis->sjenis_id ? 'selected' : '' }}>
                                                 {{ $jenis->sjenis_nama }}</option>
                                             @endforeach
                                         </select>
@@ -132,36 +132,11 @@
                                 <div class="row mb-3">
                                     <div class="col-lg-3 col-md-4 label">Kategori Sapi</div>
                                     <div class="col-lg-9 col-md-8">
-                                        <select name="detail_kategori[]" id="detail_kategori" class="form-select"
-                                            required>
-                                            <option value="Bibit"
-                                                {{ $detail->detail_kategori == 'Bibit' ? 'selected' : '' }}>Bibit
-                                            </option>
-                                            <optgroup label="Bibit">
-                                                <option value="Bibit  6-9 Bulan"
-                                                    {{ $detail->detail_kategori == 'Bibit  6-9 Bulan' ? 'selected' : '' }}>
-                                                    Bibit 6-9 Bulan</option>
-                                                <option value="Bibit 9-12 Bulan"
-                                                    {{ $detail->detail_kategori == 'Bibit 9-12 Bulan' ? 'selected' : '' }}>
-                                                    Bibit 9-12 Bulan</option>
-                                                <option value="Bibit 12-15 Bulan"
-                                                    {{ $detail->detail_kategori == 'Bibit 12-15 Bulan' ? 'selected' : '' }}>
-                                                    Bibit 12-15 Bulan</option>
-                                                <option value="Bibit 15-18 Bulan"
-                                                    {{ $detail->detail_kategori == 'Bibit 15-18 Bulan' ? 'selected' : '' }}>
-                                                    Bibit 15-18 Bulan</option>
-                                                <option value="Bibit 18-24 Bulan"
-                                                    {{ $detail->detail_kategori == 'Bibit 18-24 Bulan' ? 'selected' : '' }}>
-                                                    Bibit 18-24 Bulan</option>
-                                                <option value="Bibit 24-36 Bulan"
-                                                    {{ $detail->detail_kategori == 'Bibit 24-36 Bulan' ? 'selected' : '' }}>
-                                                    Bibit 24-36 Bulan</option>
-                                            </optgroup>
-                                            <optgroup label="Calon Bul(Pejantan)">
-                                                <option value="Calon Bul(Pejantan) 18-24 Bulan"
-                                                    {{ $detail->detail_kategori == 'Calon Bul(Pejantan) 18-24 Bulan' ? 'selected' : '' }}>
-                                                    18-24 Bulan</option>
-                                            </optgroup>
+                                        <select name="detail_kategori[]" id="detail_kategori" class="form-select">
+                                            @foreach($hargaData as $harga)
+                                            <option value="{{ $harga->hs_kategori }}">{{ $harga->hs_kategori
+                                                }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -173,17 +148,24 @@
                                             class="form-control" value="{{ $detail->detail_jumlah }}" required>
                                     </div>
                                 </div>
+                                <div class="row mb-3">
+                                    <div class="col-lg-3 col-md-4 label">Estimisasi Berat Sapi</div>
+                                    <div class="col-lg-9 col-md-8">
+                                        <input type="number" name="detail_berat[]" id="detail_berat"
+                                            class="form-control" value="{{ $detail->detail_berat }}" required>
+                                    </div>
+                                </div>
 
                                 <div class="row mb-3">
                                     <div class="col-lg-3 col-md-4 label">Jenis Kelamin Sapi</div>
                                     <div class="col-lg-9 col-md-8">
                                         <select name="detail_kelamin[]" id="detail_kelamin" class="form-select"
                                             required>
-                                            <option value="Jantan"
-                                                {{ $detail->detail_kelamin == 'Jantan' ? 'selected' : '' }}>Jantan
+                                            <option value="Jantan" {{ $detail->detail_kelamin == 'Jantan' ? 'selected' :
+                                                '' }}>Jantan
                                             </option>
-                                            <option value="Betina"
-                                                {{ $detail->detail_kelamin == 'Betina' ? 'selected' : '' }}>Betina
+                                            <option value="Betina" {{ $detail->detail_kelamin == 'Betina' ? 'selected' :
+                                                '' }}>Betina
                                             </option>
                                         </select>
                                     </div>
@@ -195,10 +177,40 @@
                                 <button type="button" class="btn btn-primary" id="add-field">Tambah Jenis Sapi</button>
                             </div>
 
+                            <h5 class="card-title">Status Pembayaran
+                            </h5>
+                            @if($pembayaran)
+                            <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">Bukti Bayar</div>
+                                <div class="col-lg-9 col-md-8">
+                                    <a href="{{ asset('uploads/' . $pembayaran->dbeli_bukti) }}" target="_blank">
+                                        <span class="badge bg-success">Bukti Pembayaran</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">Status Bayar Pembeli</div>
+                                <div class="col-lg-9 col-md-8">
+                                    <input type="text" name="dbeli_status" id="dbeli_status" class="form-control"
+                                        value="{{ $pembayaran->dbeli_status }}" disabled>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">Invoice</div>
+                                <div class="col-lg-9 col-md-8">
+                                    <a href="{{ asset('uploads/' . $pembayaran->dbeli_invoice) }}" target="_blank">
+                                        <span class="badge bg-primary">Lihat Invoice</span>
+                                    </a>
+                                </div>
+                            </div>
+                            @else
+                            <div class="text-danger ">Data pembayaran tidak ditemukan atau belum ada.</div>
+                            @endif
                             <div class="text-center mb-4">
                                 <button type="submit" class="btn btn-success">Ubah Pengajuan</button>
                                 <a href="{{ route('index.ppid.psapi') }}" class="btn btn-secondary">Kembali</a>
                             </div>
+
                         </form>
                     </div>
                 </div>

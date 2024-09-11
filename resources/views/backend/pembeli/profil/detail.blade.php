@@ -28,7 +28,7 @@
                         </div>
                         @endif
 
-                        <form action="{{ route('update.profil.pembeli', $akunuser->id) }}" method="POST">
+                        <form action="{{ route('update.profil.pembeli', $akunuser->user_id) }}" method="POST">
                             @csrf
                             @method('PUT')
 

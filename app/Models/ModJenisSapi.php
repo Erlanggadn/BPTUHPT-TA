@@ -20,10 +20,10 @@ class ModJenisSapi extends Model
 
     public function sapi()
     {
-        return $this->hasMany(ModSapi::class, 'sapi_jenis', 'sjenis_id');
+        return $this->hasMany(ModSapi::class, 'sjenis_id', 'sjenis_id');
     }
     public function hargaSapi()
     {
-        return $this->hasMany(ModJenisSapi::class, 'hs_jenis', 'sjenis_id');
+        return $this->hasMany(ModHargaSapi::class, 'sjenis_id', 'sjenis_id');
     }
 }

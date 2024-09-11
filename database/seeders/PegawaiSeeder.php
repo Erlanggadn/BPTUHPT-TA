@@ -17,7 +17,7 @@ class PegawaiSeeder extends Seeder
         foreach ($users as $index => $user) {
             ModPegawai::create([
                 'pegawai_id' => 'PGW' . str_pad($index + 1, 3, '0', STR_PAD_LEFT),
-                'pegawai_detail' => $user->id,
+                'user_id' => $user->user_id,
                 'pegawai_nip' => '1234567890' . $index,
                 'pegawai_nama' => 'Nama Pegawai ' . ($index + 1),
                 'pegawai_alamat' => 'Alamat Pegawai ' . ($index + 1),

@@ -14,7 +14,7 @@ class ModPembeli extends Model
     public $incrementing = false;
     protected $fillable = [
         'pembeli_id',
-        'pembeli_detail',
+        'user_id',
         'pembeli_instansi',
         'pembeli_lahir',
         'pembeli_nama',
@@ -24,11 +24,11 @@ class ModPembeli extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'pembeli_detail', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'user_id');
     }
     
     public function sapi()
     { 
-        return $this->hasMany(ModPengajuanSapi::class, 'belisapi_orang', 'pembeli_id');
+        return $this->hasMany(ModPengajuanSapi::class, 'pembeli_id', 'pembeli_id');
     }
 }

@@ -35,7 +35,7 @@
                                         <div class="mb-3">
                                             <label class="col-form-label">Jenis Hewan Ternak</label>
                                             <div class="">
-                                                <select name="sapi_jenis" class="form-select"
+                                                <select name="sjenis_id" class="form-select"
                                                     aria-label="Default select example">
                                                     <option selected disabled>Pilih Jenis</option>
                                                     @foreach($jenisSapi as $jenis)
@@ -43,7 +43,7 @@
                                                     </option>
                                                     @endforeach
                                                 </select>
-                                                @error('sapi_jenis')
+                                                @error('sjenis_id')
                                                 <div class="invalid-feedback" style="display: block;">{{ $message }}
                                                 </div>
                                                 @enderror

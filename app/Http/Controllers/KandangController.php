@@ -25,7 +25,7 @@ class KandangController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'kand_jenis' => 'required|string|max:50',
+            'kandang_id' => 'required|string|max:50',
             'kand_nama' => 'required|string|max:50',
             'kand_keterangan' => 'required|string|max:50',
             'kand_aktif' => 'required|in:Aktif,NonAktif',
@@ -36,7 +36,7 @@ class KandangController extends Controller
 
         ModKandang::create([
             'kand_id' => $newKode,
-            'kand_jenis' => $request->kand_jenis,
+            'kandang_id' => $request->kandang_id,
             'kand_nama' => $request->kand_nama,
             'kand_keterangan' => $request->kand_keterangan,
             'kand_aktif' => $request->kand_aktif,

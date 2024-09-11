@@ -14,7 +14,7 @@
         public function up()
         {
             Schema::create('users', function (Blueprint $table) {
-                $table->id();
+                $table->bigIncrements('user_id');
                 $table->enum('role', ['admin', 'pembeli', 'wasbitnak', 'keswan', 'ppid', 'kepala', 'bendahara', 'wastukan']);
                 $table->string('email', 50)->unique();
                 $table->string('password', 255);

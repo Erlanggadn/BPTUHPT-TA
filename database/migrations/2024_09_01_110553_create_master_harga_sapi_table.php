@@ -15,12 +15,12 @@ class CreateMasterHargaSapiTable extends Migration
     {
         Schema::create('master_harga_sapi', function (Blueprint $table) {
             $table->string('hs_id', 30)->primary();
-            $table->string('hs_jenis', 30);
+            $table->string('sjenis_id', 30);
             $table->string('hs_kelamin', 30);
             $table->string('hs_kategori', 100);
             $table->bigInteger('hs_harga');
 
-            $table->foreign('hs_jenis')->references('sjenis_id')->on('master_sapi_jenis')->onDelete('cascade');
+            $table->foreign('sjenis_id')->references('sjenis_id')->on('master_sapi_jenis')->onDelete('cascade');
 
             $table->timestamps();
         });

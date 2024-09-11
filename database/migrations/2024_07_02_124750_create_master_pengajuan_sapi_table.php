@@ -16,7 +16,7 @@ class CreateMasterPengajuanSapiTable extends Migration
         Schema::create('master_pengajuan_sapi', function (Blueprint $table) {
             $table->string('belisapi_id', 30)->primary();
             // IDENTITAS PEMBELI
-            $table->string('belisapi_orang', 30);
+            $table->string('pembeli_id', 30);
             $table->bigInteger('belisapi_nohp');
             $table->string('belisapi_alamat', 255);
             $table->string('belisapi_surat');
@@ -27,7 +27,7 @@ class CreateMasterPengajuanSapiTable extends Migration
             $table->string('belisapi_keterangan', 255);
             $table->timestamps();
 
-            $table->foreign('belisapi_orang')->references('pembeli_id')->on('pembeli')->onDelete('cascade');
+            $table->foreign('pembeli_id')->references('pembeli_id')->on('pembeli')->onDelete('cascade');
         });
     }
 

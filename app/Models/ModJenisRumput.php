@@ -20,6 +20,6 @@ class ModJenisRumput extends Model
 
     public function rumput()
     {
-        return $this->hasMany(ModRumput::class, 'rumput_jenis', 'rum_id');
+        return $this->hasMany(ModRumput::class, 'rum_id', 'rum_id');
     }
 }

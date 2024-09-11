@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\ModPegawai;
 use App\Models\ModPembeli;
+use App\Models\ModJenisSapi;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +18,8 @@ class AuthController extends Controller
     public function home()
     {
         $akunuser = Auth::user();
-        return view('index', ['akunuser' => $akunuser]);
+        $jenis_sapi = ModJenisSapi::with('hargaSapi')->get();
+        return view('index', ['akunuser' => $akunuser, 'jenis_sapi' => $jenis_sapi]);
     }
 
     //REGIS - PEMBELI
@@ -51,7 +53,7 @@ class AuthController extends Controller
 
         ModPembeli::create([
             'pembeli_id' => $newKode,
-            'pembeli_detail' => $user->id,
+            'user_id' => $user->user_id,
             'pembeli_instansi' => $request->pembeli_instansi,
             'pembeli_lahir' => $request->pembeli_lahir,
             'pembeli_nama' => $request->pembeli_nama,
@@ -194,7 +196,7 @@ class AuthController extends Controller
 
         ModPegawai::create([
             'pegawai_id' => $newKode,
-            'pegawai_detail' => $user->id,
+            'user_id' => $user->user_id,
             'pegawai_nip' => $request->pegawai_nip,
             'pegawai_nama' => $request->pegawai_nama,
             'pegawai_alamat' => $request->pegawai_alamat,

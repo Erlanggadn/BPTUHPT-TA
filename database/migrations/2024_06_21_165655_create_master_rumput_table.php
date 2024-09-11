@@ -15,7 +15,7 @@ class CreateMasterRumputTable extends Migration
     {
         Schema::create('master_rumput', function (Blueprint $table) {
             $table->string('rumput_id', 30)->primary();
-            $table->string('rumput_jenis', 50);
+            $table->string('rum_id', 30);
             $table->integer('rumput_berat_awal');
             $table->integer('rumput_berat_hasil')->default(0);
             $table->date('rumput_masuk');
@@ -25,7 +25,7 @@ class CreateMasterRumputTable extends Migration
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
 
-            $table->foreign('rumput_jenis')->references('rum_id')->on('master_rumput_jenis')->onDelete('cascade');
+            $table->foreign('rum_id')->references('rum_id')->on('master_rumput_jenis')->onDelete('cascade');
         });
     }
 

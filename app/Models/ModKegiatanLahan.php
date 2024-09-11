@@ -11,12 +11,12 @@ class ModKegiatanLahan extends Model
     protected $table = 'master_kegiatan_lahan';
     protected $primaryKey = 'tanam_id';
     public $incrementing = false;
-    protected $keyType = 'string';  
+    protected $keyType = 'string';
     protected $fillable = [
         'tanam_id',
-        'tanam_orang',
-        'tanam_detail_rumput',
-        'tanam_detail_lahan',
+        'pegawai_id',
+        'rumput_id',
+        'lahan_id',
         'tanam_tanggal',
         'tanam_jam_mulai',
         'tanam_jam_selesai',
@@ -27,15 +27,15 @@ class ModKegiatanLahan extends Model
 
     public function rumput()
     {
-        return $this->belongsTo(ModRumput::class, 'tanam_detail_rumput', 'rumput_id');
+        return $this->belongsTo(ModRumput::class, 'rumput_id', 'rumput_id');
     }
 
     public function lahan()
     {
-        return $this->belongsTo(ModJenisLahan::class, 'tanam_detail_lahan', 'lahan_id');
+        return $this->belongsTo(ModJenisLahan::class, 'lahan_id', 'lahan_id');
     }
     public function pegawai()
     {
-        return $this->belongsTo(ModPegawai::class, 'tanam_orang', 'pegawai_id');
+        return $this->belongsTo(ModPegawai::class, 'pegawai_id', 'pegawai_id');
     }
 }

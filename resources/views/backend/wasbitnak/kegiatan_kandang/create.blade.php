@@ -29,7 +29,7 @@
                                     <input name="kegiatan_orang_display" class="form-control"
                                         value="{{ $user->pegawai ? $user->pegawai->pegawai_nama : $user->name }}"
                                         disabled>
-                                    <input type="hidden" name="kegiatan_orang"
+                                    <input type="hidden" name="pegawai_id"
                                         value="{{ $user->pegawai ? $user->pegawai->pegawai_id : '' }}">
                                 </div>
                             </div>
@@ -37,7 +37,7 @@
                             <div class="row mb-4">
                                 <div class="col-lg-3 col-md-4 label">Tipe Kandang</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <select name="kegiatan_jenis_kandang" class="form-select">
+                                    <select name="kand_id" class="form-select">
                                         <option value="" selected disabled>Pilih Tipe Kandang</option>
                                         @foreach($jenisKandang as $jenis)
                                         <option value="{{ $jenis->kand_id }}">
@@ -49,7 +49,7 @@
                                     </select>
                                 </div>
                             </div>
-                            @error('kegiatan_jenis_kandang')
+                            @error('kand_id')
                             <div class="invalid-feedback" style="display: block;">{{ $message }}
                             </div>
                             @enderror

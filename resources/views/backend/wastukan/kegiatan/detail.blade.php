@@ -22,17 +22,17 @@
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Pegawai Lapangan</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <p name="" class="" disabled>{{ $kegiatan->pegawai->pegawai_nama }}</p>
+                                    <p name="pegawai_id" class="" disabled>{{ $kegiatan->pegawai->pegawai_nama }}</p>
                                 </div>
                             </div>
                             <div class="row mb-4">
                                 <div class="col-lg-3 col-md-4 label">Nama Rumput</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <select name="tanam_detail_rumput" class="form-select" disabled>
+                                    <select name="rumput_id" class="form-select" disabled>
                                         <option value="">Pilih Rumput</option>
                                         @foreach($jenisRumput as $rumput)
-                                        <option value="{{ $rumput->rumput_id }}"
-                                            {{ $rumput->rumput_id == $kegiatan->tanam_detail_rumput ? 'selected' : '' }}>
+                                        <option value="{{ $rumput->rumput_id }}" {{ $rumput->rumput_id ==
+                                            $kegiatan->rumput_id ? 'selected' : '' }}>
                                             {{ $rumput->rumput_id }} - [ {{ $rumput->jenisRumput->rum_nama }} -
                                             {{ $rumput->rumput_berat_awal }} KG ]
                                         </option>
@@ -43,11 +43,11 @@
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Nama Lahan</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <select name="tanam_detail_lahan" class="form-select" disabled>
+                                    <select name="lahan_id" class="form-select" disabled>
                                         <option value="">Pilih Lahan</option>
                                         @foreach($jenisLahan as $lahan)
-                                        <option value="{{ $lahan->lahan_id }}"
-                                            {{ $lahan->lahan_id == $kegiatan->tanam_detail_lahan ? 'selected' : '' }}>
+                                        <option value="{{ $lahan->lahan_id }}" {{ $lahan->lahan_id ==
+                                            $kegiatan->lahan_id ? 'selected' : '' }}>
                                             {{ $lahan->lahan_id }} - {{ $lahan->lahan_nama }}
                                         </option>
                                         @endforeach
@@ -99,13 +99,13 @@
                                 <div class="col-lg-3 col-md-4 label">Status Kegiatan</div>
                                 <div class="col-lg-9 col-md-8">
                                     <select name="tanam_status" class="form-select">
-                                        <option value="Selesai"
-                                            {{ $kegiatan->tanam_status == 'Selesai' ? 'selected' : '' }}>Selesai
+                                        <option value="Selesai" {{ $kegiatan->tanam_status == 'Selesai' ? 'selected' :
+                                            '' }}>Selesai
                                         </option>
-                                        <option value="Proses"
-                                            {{ $kegiatan->tanam_status == 'Proses' ? 'selected' : '' }}>Proses</option>
-                                        <option value="Belum Selesai"
-                                            {{ $kegiatan->tanam_status == 'Belum Selesai' ? 'selected' : '' }}>Belum
+                                        <option value="Proses" {{ $kegiatan->tanam_status == 'Proses' ? 'selected' : ''
+                                            }}>Proses</option>
+                                        <option value="Belum Selesai" {{ $kegiatan->tanam_status == 'Belum Selesai' ?
+                                            'selected' : '' }}>Belum
                                             Selesai</option>
                                     </select>
                                 </div>

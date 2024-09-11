@@ -15,7 +15,7 @@ class ModSapi extends Model
     protected $keyType = 'string';
     public $incrementing = false;
     protected $fillable = [
-        'sapi_jenis',
+        'sjenis_id',
         'sapi_urutan_lahir',
         'sapi_tanggal_lahir',
         'sapi_no_induk',
@@ -28,7 +28,7 @@ class ModSapi extends Model
 
     public function jenisSapi()
     {
-        return $this->belongsTo(ModJenisSapi::class, 'sapi_jenis', 'sjenis_id');
+        return $this->belongsTo(ModJenisSapi::class, 'sjenis_id', 'sjenis_id');
     }
 
     public function getUmurAttribute()

@@ -17,7 +17,7 @@ class PembeliSeeder extends Seeder
         foreach ($users as $index => $user) {
             ModPembeli::create([
                 'pembeli_id' => 'PMB' . str_pad($index + 1, 3, '0', STR_PAD_LEFT),
-                'pembeli_detail' => $user->id,
+                'user_id' => $user->user_id,
                 'pembeli_instansi' => 'Instansi ' . ($index + 1),
                 'pembeli_lahir' => now()->subYears(rand(20, 50)),
                 'pembeli_nama' => 'Nama Pembeli ' . ($index + 1),

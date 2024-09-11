@@ -73,9 +73,9 @@ Route::middleware(['auth', 'checkAdmin'])->group(function () {
     //AKUN PEGAWAI
     Route::get('/akun-pegawai', [AdminController::class, 'indexadmin'])->name('akunadmin');
     Route::prefix('akun-pegawai')->group(function () {
-        Route::get('/detail/{id}', [AkunController::class, 'detailakun'])->name('detailakun');
-        Route::get('/edit/{id}', [AkunController::class, 'edit'])->name('akunadmin.edit');
-        Route::put('/update/{id}', [AkunController::class, 'update'])->name('akunadmin.update');
+        Route::get('/detail/{user_id}', [AkunController::class, 'detailakun'])->name('detailakun');
+        Route::get('/edit/{user_id}', [AkunController::class, 'edit'])->name('akunadmin.edit');
+        Route::put('/update/{user_id}', [AkunController::class, 'update'])->name('akunadmin.update');
         Route::get('/admin/export', [AdminController::class, 'export'])->name('pegawai.export');
     });
     //AKUN PEMBELI
@@ -85,9 +85,9 @@ Route::middleware(['auth', 'checkAdmin'])->group(function () {
     Route::put('akun-pembeli/pembeli/update/{id}', [AkunController::class, 'updatepembeli'])->name('pembeliadmin.update');
     Route::get('akun-pembeli/pembeli/export', [AkunController::class, 'exportpembeli'])->name('pembeli.export');
     //AKUN PROFIL
-    Route::get('akun-profil/admin/', [AkunController::class, 'profil'])->name('profiladmin');
-    Route::get('akun-profil/edit/{id}', [AkunController::class, 'editprofil'])->name('admin.profil.edit');
-    Route::put('akun-profil/update/{id}', [AkunController::class, 'updateprofil'])->name('admin.profil.update');
+    Route::get('akun-profil/admin/{user_id}', [AkunController::class, 'profil'])->name('profiladmin');
+    Route::get('akun-profil/edit/{user_id}', [AkunController::class, 'editprofil'])->name('admin.profil.edit');
+    Route::put('akun-profil/update/{user_id}', [AkunController::class, 'updateprofil'])->name('admin.profil.update');
     //AKUN DAFTAR
     Route::get('/admin/pegawai/daftar', [AuthController::class, 'pegawaidaftar'])->name('pegawaidaftar');
     Route::post('/admin/pegawai/daftar', [AuthController::class, 'pegawaidaftarsave'])->name('pegawaidaftar.save');
@@ -111,16 +111,16 @@ Route::middleware(['auth', 'checkKeswan'])->group(function () {
     Route::get('/keswan/list-pegawai', [AdminController::class, 'pegawaiKeswan'])->name('pegawai.keswan');
     Route::get('/keswan/detail-pegawai/{id}', [AdminController::class, 'detailPKeswan'])->name('detail.pegawai.keswan');
     // KESWAN - PROFIL
-    Route::get('/keswan/profil/{id}', [AkunController::class, 'profilkeswan'])->name('profilkeswan');
-    Route::get('/keswan/profil/edit/{id}', [AkunController::class, 'editkeswan'])->name('edit.profil.keswan');
-    Route::put('keswan/profil/update/{id}', [AkunController::class, 'updatekeswan'])->name('update.profil.keswan');
+    Route::get('/keswan/profil/{user_id}', [AkunController::class, 'profilkeswan'])->name('profilkeswan');
+    Route::get('/keswan/profil/edit/{user_id}', [AkunController::class, 'editkeswan'])->name('edit.profil.keswan');
+    Route::put('keswan/profil/update/{user_id}', [AkunController::class, 'updatekeswan'])->name('update.profil.keswan');
 });
 //WASTUKAN 
 Route::middleware(['auth', 'checkWastukan'])->group(function () {
     //WASTUKAN - DETAIL PROFIL
-    Route::get('/wastukan/profil/{id}', [AkunController::class, 'profilwastukan'])->name('profilwastukan');
-    Route::get('/wastukan/profil/edit/{id}', [AkunController::class, 'editwastukan'])->name('edit.profil.wastukan');
-    Route::put('wastukan/profil/update/{id}', [AkunController::class, 'updatewastukan'])->name('update.profil.wastukan');
+    Route::get('/wastukan/profil/{user_id}', [AkunController::class, 'profilwastukan'])->name('profilwastukan');
+    Route::get('/wastukan/profil/edit/{user_id}', [AkunController::class, 'editwastukan'])->name('edit.profil.wastukan');
+    Route::put('wastukan/profil/update/{user_id}', [AkunController::class, 'updatewastukan'])->name('update.profil.wastukan');
     // WASTUKAN RUMPUT
     Route::get('/wastukan/rumput', [RumputController::class, 'index'])->name('index.rumput');
     Route::get('/wastukan/tambah/rumput', [RumputController::class, 'show'])->name('show.rumput');
@@ -161,9 +161,9 @@ Route::middleware(['auth', 'checkWastukan'])->group(function () {
 //WASBITNAK
 Route::middleware(['auth', 'checkWasbitnak'])->group(function () {
     //WASBITNAK - PROFIL
-    Route::get('/waasbitnak/profil/{id}', [AkunController::class, 'profilwasbitnak'])->name('profilwasbitnak');
-    Route::get('/wasbitnak/profil/edit/{id}', [AkunController::class, 'editwasbitnak'])->name('edit.profil.wasbitnak');
-    Route::put('wasbitnak/profil/update/{id}', [AkunController::class, 'updatewasbitnak'])->name('update.profil.wasbitnak');
+    Route::get('/waasbitnak/profil/{user_id}', [AkunController::class, 'profilwasbitnak'])->name('profilwasbitnak');
+    Route::get('/wasbitnak/profil/edit/{user_id}', [AkunController::class, 'editwasbitnak'])->name('edit.profil.wasbitnak');
+    Route::put('wasbitnak/profil/update/{user_id}', [AkunController::class, 'updatewasbitnak'])->name('update.profil.wasbitnak');
     //WASBITNAK - JENIS
     Route::get('/wasbitnak', [JenisSapiController::class, 'index'])->name('wasbitnak');
     //WASBITNAK - JENIS KANDANG
@@ -274,8 +274,8 @@ Route::middleware(['auth', 'checkPPID'])->group(function () {
         Route::delete('/delete/{id}', [PPIDController::class, 'deletehargasapi'])->name('delete.harga.sapi');
     });
     //PPID - PROFIL
-    Route::get('/PPID/Profil/{id}', [AkunController::class, 'profilppid'])->name('detail.profil.ppid');
-    Route::get('/PPID/Profil/Edit/{id}', [AkunController::class, 'editppid'])->name('edit.profil.ppid');
+    Route::get('/PPID/Profil/{user_id}', [AkunController::class, 'profilppid'])->name('detail.profil.ppid');
+    Route::get('/PPID/Profil/Edit/{user_id}', [AkunController::class, 'editppid'])->name('edit.profil.ppid');
     Route::put('/PPID/Profil/Update/{id}', [AkunController::class, 'updateppid'])->name('update.profil.ppid');
 });
 //BENDAHARA
@@ -283,7 +283,7 @@ Route::middleware(['auth', 'checkBendahara'])->group(function () {
     Route::get('/dasboard/Bendahara', [BendaharaController::class, 'dashboard'])->name('dashboard.bendahara');
     //PROFIL
     Route::get('/bendahara/profil/{id}', [AkunController::class, 'profilbendahara'])->name('profilbendahara');
-    Route::get('/bendahara/profil/edit/{id}', [AkunController::class, 'editbendahara'])->name('edit.profil.bendahara');
+    Route::get('/bendahara/profil/edit/{user_id}', [AkunController::class, 'editbendahara'])->name('edit.profil.bendahara');
     Route::put('bendahara/profil/update/{id}', [AkunController::class, 'updatebendahara'])->name('update.profil.bendahara');
     //PENGAJUAN SAPI
     Route::prefix('pengajuan-sapi-bendahara')->group(function () {
@@ -305,8 +305,8 @@ Route::middleware(['auth', 'checkBendahara'])->group(function () {
 Route::middleware(['auth', 'checkKepala'])->group(function () {
     Route::get('/dasboard/kepala', [KepalaBalaiController::class, 'dashboard'])->name('dashboard.kepala');
     Route::get('/Kepala/Profil/{id}', [AkunController::class, 'profilkepala'])->name('detail.profil.kepala');
-    Route::get('/Kepala/Profil/Edit/{id}', [AkunController::class, 'editkepala'])->name('edit.profil.kepala');
-    Route::put('/Kepala/Profil/Update/{id}', [AkunController::class, 'updatekepala'])->name('update.profil.kepala');
+    Route::get('/Kepala/Profil/Edit/{user_id}', [AkunController::class, 'editkepala'])->name('edit.profil.kepala');
+    Route::put('/Kepala/Profil/Update/{user_id}', [AkunController::class, 'updatekepala'])->name('update.profil.kepala');
     Route::prefix('pengajuan-sapi-kepala')->group(function () {
         Route::get('/', [KepalaBalaiController::class, 'pengajuansapi'])->name('index.kepala.psapi');
         Route::get('/detail/{id}', [KepalaBalaiController::class, 'detailpengajuansapi'])->name('detail.kepala.psapi');

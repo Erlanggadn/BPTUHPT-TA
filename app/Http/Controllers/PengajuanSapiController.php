@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Dotenv\Util\Str;
+use App\Models\ModHargaSapi;
 use App\Models\ModJenisSapi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -21,7 +22,7 @@ class PengajuanSapiController extends Controller
         $userId = Auth::id();
         $pembeli = Auth::user()->pembeli;
         $PSapi = ModPengajuanSapi::with('user')
-            ->where('belisapi_orang', $pembeli->pembeli_id)
+            ->where('pembeli_id', $pembeli->pembeli_id)
             ->get();
 
         return view('backend.pembeli.pengajuan_sapi.index', compact('PSapi'));
@@ -31,31 +32,36 @@ class PengajuanSapiController extends Controller
         $users = User::all();
         $sapiJenis = ModJenisSapi::all();
         $currentUser = auth()->user();
-        return view('backend.pembeli.pengajuan_sapi.tambah', compact('users', 'sapiJenis', 'currentUser'));
+        $hargaData = ModHargaSapi::all();  // Ambil semua data harga sapi
+
+        return view('backend.pembeli.pengajuan_sapi.tambah', compact('users', 'sapiJenis', 'currentUser', 'hargaData'));
     }
     public function store(Request $request)
     {
+        // dd($request->all());
         $today = date('Y-m-d');
         $validated = $request->validate([
-            'belisapi_orang' => 'required|string',
+            'pembeli_id' => 'required|string',
             'belisapi_nohp' => 'required|string',
             'belisapi_alamat' => 'required|string',
             'belisapi_surat' => 'required|file|mimes:jpeg,png,jpg,pdf|max:2048',
             'belisapi_tanggal' => 'required|date|after_or_equal:' . $today,
             'belisapi_alasan' => 'required|string',
 
-            'detail_jenis' => 'required|array',
-            'detail_jenis.*' => 'required|string|exists:master_sapi_jenis,sjenis_id',
+            'sjenis_id' => 'required|array',
+            'sjenis_id.*' => 'required|string|exists:master_sapi_jenis,sjenis_id',
             'detail_kategori' => 'required|array',
             'detail_kategori.*' => 'required|string',
             'detail_jumlah' => 'required|array',
             'detail_jumlah.*' => 'required|integer',
+            'detail_berat' => 'required|array',
+            'detail_berat.*' => 'required|integer',
             'detail_kelamin' => 'required|array',
             'detail_kelamin.*' => 'required|string',
         ]);
 
         // Periksa apakah ada pengajuan oleh pengguna ini
-        $existingPengajuan = ModPengajuanSapi::where('belisapi_orang', $request->belisapi_orang)->exists();
+        $existingPengajuan = ModPengajuanSapi::where('pembeli_id', $request->pembeli_id)->exists();
 
         if ($existingPengajuan) {
             return redirect()->back()->with('error', 'Anda sudah pernah melakukan pengajuan. Harap tunggu keputusan sebelum mengajukan kembali.')->withInput();
@@ -75,7 +81,7 @@ class PengajuanSapiController extends Controller
             // Create ModPengajuanSapi
             $pengajuan = ModPengajuanSapi::create([
                 'belisapi_id' => $newKode,
-                'belisapi_orang' => $request->belisapi_orang,
+                'pembeli_id' => $request->pembeli_id,
                 'belisapi_nohp' => $request->belisapi_nohp,
                 'belisapi_alamat' => $request->belisapi_alamat,
                 'belisapi_surat' => $filename,
@@ -85,16 +91,17 @@ class PengajuanSapiController extends Controller
                 'belisapi_keterangan' => 'Belum Ada',
             ]);
 
-            foreach ($validated['detail_jenis'] as $key => $jenis) {
+            foreach ($validated['sjenis_id'] as $key => $jenis) {
                 $lastCode = ModDetailPengajuanSapi::orderBy('detail_id', 'desc')->first();
                 $newCode = $lastCode ? 'DPS' . str_pad(((int) substr($lastCode->detail_id, 3)) + 1, 3, '0', STR_PAD_LEFT) : 'DPS001';
 
                 ModDetailPengajuanSapi::create([
                     'detail_id' => $newCode,
-                    'detail_pengajuan' => $newKode,
-                    'detail_jenis' => $jenis,
+                    'belisapi_id' => $newKode,
+                    'sjenis_id' => $jenis,
                     'detail_kategori' => $validated['detail_kategori'][$key],
                     'detail_jumlah' => $validated['detail_jumlah'][$key],
+                    'detail_berat' => $validated['detail_berat'][$key],
                     'detail_kelamin' => $validated['detail_kelamin'][$key],
                 ]);
             }
@@ -113,9 +120,10 @@ class PengajuanSapiController extends Controller
         $pengajuan = ModPengajuanSapi::with('details')->findOrFail($id);
         $sapiJenis = ModJenisSapi::all();
         $currentUser = auth()->user();
-        $pembayaran = ModPembayaranSapi::where('dbeli_beli', $id)->first();
+        $pembayaran = ModPembayaranSapi::where('belisapi_id', $id)->first();
+        $hargaData = ModHargaSapi::all();
 
-        return view('backend.pembeli.pengajuan_sapi.detail', compact('pengajuan', 'sapiJenis', 'currentUser', 'pembayaran'));
+        return view('backend.pembeli.pengajuan_sapi.detail', compact('pengajuan', 'sapiJenis', 'currentUser', 'pembayaran', 'hargaData'));
     }
 
     public function update(Request $request, $id)

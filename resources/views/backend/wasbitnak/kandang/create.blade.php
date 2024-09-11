@@ -29,7 +29,7 @@
                                         <div class="row mb-3">
                                             <label class="col-form-label">Jenis Kandang</label>
                                             <div class="">
-                                                <select name="kand_jenis" class="form-select"
+                                                <select name="kandang_id" class="form-select"
                                                     aria-label="Default select example">
                                                     <option selected disabled>Pilih Jenis/Tipe</option>
                                                     @foreach($jenisKandang as $jenis)
@@ -39,7 +39,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        @error('kand_jenis')
+                                        @error('kandang_id')
                                         <div class="invalid-feedback" style="display: block;">{{ $message }}
                                         </div>
                                         @enderror

@@ -16,17 +16,17 @@ class ModKandang extends Model
         'kand_id',
         'kand_nama',
         'kand_kode',
-        'kand_jenis',
+        'kandang_id',
         'kand_keterangan',
         'kand_aktif',
     ];
-    
+
     public function jenisKandang()
     {
-        return $this->belongsTo(ModJenisKandang::class, 'kand_jenis', 'kandang_id');
+        return $this->belongsTo(ModJenisKandang::class, 'kandang_id', 'kandang_id');
     }
     public function kegiatanKandangs()
     {
-        return $this->hasMany(ModKegiatanKandang::class, 'kegiatan_jenis_kandang', 'kand_id');
+        return $this->hasMany(ModKegiatanKandang::class, 'kand_id', 'kand_id');
     }
 }

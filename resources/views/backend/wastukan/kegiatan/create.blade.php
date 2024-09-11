@@ -26,17 +26,17 @@
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Pegawai Lapangan</div>
                                 <div class="col-lg-9 col-md-10">
-                                    <input name="kegiatan_orang_display" class="form-control"
+                                    <input name="pegawai_id" class="form-control"
                                         value="{{ $user->pegawai ? $user->pegawai->pegawai_nama : $user->name }}"
                                         disabled>
-                                    <input type="hidden" name="kegiatan_orang"
+                                    <input type="hidden" name="pegawai_id"
                                         value="{{ $user->pegawai ? $user->pegawai->pegawai_id : '' }}">
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Nama Rumput</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <select name="tanam_detail_rumput" class="form-select" required>
+                                    <select name="rumput_id" class="form-select" required>
                                         <option value="" selected disabled>-- Pilih Rumput --</option>
                                         @foreach($jenisRumput as $rumput)
                                         <option value="{{ $rumput->rumput_id }}">{{ $rumput->rumput_id }} -
@@ -49,7 +49,7 @@
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Nama Lahan</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <select name="tanam_detail_lahan" class="form-select" required>
+                                    <select name="lahan_id" class="form-select" required>
                                         <option value="" selected disabled>-- Pilih Lahan --</option>
                                         @foreach($jenisLahan as $lahan)
                                         <option value="{{ $lahan->lahan_id }}">{{ $lahan->lahan_nama }} -

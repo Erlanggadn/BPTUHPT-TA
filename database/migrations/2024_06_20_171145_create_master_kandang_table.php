@@ -15,15 +15,15 @@ class CreateMasterKandangTable extends Migration
     {
         Schema::create('master_kandang', function (Blueprint $table) {
             $table->string('kand_id', 30)->primary();
-            $table->string('kand_jenis', 50);
+            $table->string('kandang_id', 30);
             $table->string('kand_nama', 50);
             $table->string('kand_keterangan', 255);
             $table->enum('kand_aktif', ['Aktif', 'NonAktif']);
-            
+
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
 
-            $table->foreign('kand_jenis')->references('kandang_id')->on('master_kandang_jenis')->onDelete('cascade');
+            $table->foreign('kandang_id')->references('kandang_id')->on('master_kandang_jenis')->onDelete('cascade');
         });
     }
 

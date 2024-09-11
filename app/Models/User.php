@@ -12,8 +12,9 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
     /**
      *
-     * @var array<int, string>
+     * @var 
      */
+    protected $primaryKey = 'user_id';
     protected $fillable = [
         'email',
         'role',
@@ -45,10 +46,10 @@ class User extends Authenticatable
 
     public function pembeli()
     {
-        return $this->hasOne(ModPembeli::class, 'pembeli_detail', 'id');
+        return $this->hasOne(ModPembeli::class, 'user_id', 'user_id');
     }
     public function pegawai()
     {
-        return $this->hasOne(ModPegawai::class, 'pegawai_detail', 'id');
+        return $this->hasOne(ModPegawai::class, 'user_id', 'user_id');
     }
 }

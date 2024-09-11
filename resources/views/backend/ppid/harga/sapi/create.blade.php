@@ -28,15 +28,15 @@
                                     @endif
 
                                     <div class="col-12">
-                                        <label for="hs_jenis" class="form-label">Jenis Sapi</label>
-                                        <select name="hs_jenis" class="form-control" id="hs_jenis">
+                                        <label for="sjenis_id" class="form-label">Jenis Sapi</label>
+                                        <select name="sjenis_id" class="form-control" id="sjenis_id">
                                             <option selected disabled>-- Pilih Jenis Sapi --</option>
                                             @foreach($jenisSapi as $jenis)
                                             <option value="{{ $jenis->sjenis_id }}">{{ $jenis->sjenis_nama }}</option>
                                             @endforeach
                                         </select>
                                     </div>
-                                    @error('hs_jenis')
+                                    @error('sjenis_id')
                                     <div class="invalid-feedback" style="display: block;">{{ $message }}</div>
                                     @enderror
                                     <div class="col-12">

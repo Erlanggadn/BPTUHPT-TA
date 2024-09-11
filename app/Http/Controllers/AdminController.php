@@ -16,19 +16,15 @@ class AdminController extends Controller
     {
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
-        $akunuser = User::with('pegawai')
+        $akunuser = User::when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
+            return $query->whereBetween('created_at', [$startDate, $endDate]);
+        })
             ->whereNotIn('role', ['admin', 'pembeli'])
-            ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
-                return $query->whereBetween('created_at', [$startDate, $endDate]);
-            })
-            ->get();
-
-        $jumlahPegawai = $akunuser->count();
-        $pegawai = ModPegawai::all();
+            ->pluck('user_id');
+        $pegawai = ModPegawai::whereIn('user_id', $akunuser)->get();
 
         return view('backend.admin.index', [
             'akunuser' => $akunuser,
-            'jumlahPegawai' => $jumlahPegawai,
             'pegawai' => $pegawai,
             'startDate' => $startDate,
             'endDate' => $endDate
@@ -38,12 +34,13 @@ class AdminController extends Controller
     {
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
-        $akunuser = User::with('pegawai')
+        $akunuser = User::when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
+            return $query->whereBetween('created_at', [$startDate, $endDate]);
+        })
             ->whereNotIn('role', ['admin', 'pembeli'])
-            ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
-                return $query->whereBetween('created_at', [$startDate, $endDate]);
-            })
-            ->get();
+            ->pluck('user_id');
+        $pegawai = ModPegawai::whereIn('user_id', $akunuser)->get();
+
 
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -55,13 +52,13 @@ class AdminController extends Controller
         $sheet->setCellValue('F1', 'Jabatan');
         $sheet->setCellValue('G1', 'Tgl Buat');
         $row = 2;
-        foreach ($akunuser as $item) {
-            $sheet->setCellValue('A' . $row, $item->pegawai->pegawai_id);
-            $sheet->setCellValue('B' . $row, $item->pegawai->pegawai_nama);
+        foreach ($pegawai as $item) {
+            $sheet->setCellValue('A' . $row, $item->pegawai_id);
+            $sheet->setCellValue('B' . $row, $item->pegawai_nama);
             $sheet->setCellValue('C' . $row, $item->email);
-            $sheet->setCellValue('D' . $row, (string)$item->pegawai->pegawai_nip);
-            $sheet->setCellValue('E' . $row, (string)$item->pegawai->pegawai_nohp);
-            $sheet->setCellValue('F' . $row, $item->role);
+            $sheet->setCellValue('D' . $row, (string)$item->pegawai_nip);
+            $sheet->setCellValue('E' . $row, (string)$item->pegawai_nohp);
+            $sheet->setCellValue('F' . $row, $item->user->role);
             $sheet->setCellValue('G' . $row, $item->created_at->translatedFormat('d F Y'));
             $row++;
         }
@@ -91,7 +88,7 @@ class AdminController extends Controller
     }
     public function detailPKeswan($id)
     {
-        $akunuser = User::with('pegawai')->where('id', $id)->first();
+        $akunuser = User::with('pegawai')->where('user_id', $id)->first();
         return view('backend.keswan.list-pegawai.detail', ["akunuser" => $akunuser, "pegawai" => $akunuser->pegawai]);
     }
 
@@ -106,7 +103,7 @@ class AdminController extends Controller
     }
     public function detailPWasbitnak($id)
     {
-        $akunuser = User::with('pegawai')->where('id', $id)->first();
+        $akunuser = User::with('pegawai')->where('user_id', $id)->first();
         return view('backend.wasbitnak.pegawai.detail', ["akunuser" => $akunuser, "pegawai" => $akunuser->pegawai]);
     }
 
@@ -121,7 +118,7 @@ class AdminController extends Controller
     }
     public function detailPWastukan($id)
     {
-        $akunuser = User::with('pegawai')->where('id', $id)->first();
+        $akunuser = User::with('pegawai')->where('user_id', $id)->first();
         return view('backend.wastukan.pegawai.detail', ["akunuser" => $akunuser, "pegawai" => $akunuser->pegawai]);
     }
 }

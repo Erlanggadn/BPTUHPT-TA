@@ -15,9 +15,9 @@ class CreateMasterPembayaranSapiTable extends Migration
     {
         Schema::create('master_pembayaran_sapi', function (Blueprint $table) {
             $table->string('dbeli_id', 30)->primary();
-            $table->string('dbeli_beli', 30);
+            $table->string('belisapi_id', 30);
             $table->string('dbeli_invoice');
-            $table->string('dbeli_bukti');
+            $table->string('dbeli_bukti')->nullable();
             $table->string('dbeli_sudah', 30);
             $table->string('dbeli_status', 30);
             $table->string('dbeli_keterangan', 255);
@@ -25,7 +25,7 @@ class CreateMasterPembayaranSapiTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('dbeli_beli')->references('belisapi_id')->on('master_pengajuan_sapi')->onDelete('cascade');
+            $table->foreign('belisapi_id')->references('belisapi_id')->on('master_pengajuan_sapi')->onDelete('cascade');
         });
     }
 

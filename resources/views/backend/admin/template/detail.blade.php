@@ -9,31 +9,31 @@
                             <h5 class="card-title">Profil Pengguna</h5>
                             <div class="row mb-4">
                                 <div class="col-lg-3 col-md-4 label">ID Akun</div>
-                                <div class="col-lg-9 col-md-8">: {{ $user->id }}</div>
+                                <div class="col-lg-9 col-md-8">: {{ $akunuser->user_id }}</div>
                             </div>
                             <div class="row mb-4">
                                 <div class="col-lg-3 col-md-4 label">Status/Jabatan</div>
-                                <div class="col-lg-9 col-md-8">: {{ $user->role }}</div>
+                                <div class="col-lg-9 col-md-8">: {{ $akunuser->role }}</div>
                             </div>
                             <div class="row mb-4">
                                 <div class="col-lg-3 col-md-4 label">Kode Pegawai </div>
-                                <div class="col-lg-9 col-md-8">: {{ $akunuser->pegawai_id }}</div>
+                                <div class="col-lg-9 col-md-8">: {{ $akunuser->pegawai->pegawai_id }}</div>
                             </div>
                             <div class="row mb-4">
                                 <div class="col-lg-3 col-md-4 label">Nama </div>
-                                <div class="col-lg-9 col-md-8">: {{ $akunuser->pegawai_nama }}</div>
+                                <div class="col-lg-9 col-md-8">: {{ $akunuser->pegawai->pegawai_nama }}</div>
                             </div>
                             <div class="row mb-4">
                                 <div class="col-lg-3 col-md-4 label">NIP </div>
-                                <div class="col-lg-9 col-md-8">: {{ $akunuser->pegawai_nip }}</div>
+                                <div class="col-lg-9 col-md-8">: {{ $akunuser->pegawai->pegawai_nip }}</div>
                             </div>
                             <div class="row mb-4">
                                 <div class="col-lg-3 col-md-4 label">Alamat </div>
-                                <div class="col-lg-9 col-md-8">: {{ $akunuser->pegawai_alamat }}</div>
+                                <div class="col-lg-9 col-md-8">: {{ $akunuser->pegawai->pegawai_alamat }}</div>
                             </div>
                             <div class="row mb-4">
                                 <div class="col-lg-3 col-md-4 label">No.Hp </div>
-                                <div class="col-lg-9 col-md-8">: {{ $akunuser->pegawai_nohp }}</div>
+                                <div class="col-lg-9 col-md-8">: {{ $akunuser->pegawai->pegawai_nohp }}</div>
                             </div>
 
                             @if(Auth::user()->role == 'admin')
@@ -42,35 +42,35 @@
                                 target="_blank">
                                 <i class="bi bi-whatsapp"></i> Whatsapp
                             </a>
-                            <a href="{{ route('admin.profil.edit', ['id' => $user->id]) }}"
+                            <a href="{{ route('admin.profil.edit', ['user_id' => $akunuser->user_id]) }}"
                                 class="btn btn-outline-warning edit"><i class="bi bi-pencil-square"></i> Edit</a>
                             @endif
                             @if(Auth::user()->role == 'keswan')
-                            <a href="{{ route('edit.profil.keswan', ['id' => $user->id]) }}"
+                            <a href="{{ route('edit.profil.keswan', ['user_id' => $akunuser->user_id]) }}"
                                 class="btn btn-outline-warning edit"><i class="bi bi-pencil-square"></i> Edit</a>
                             @endif
                             @if(Auth::user()->role == 'wasbitnak')
-                            <a href="{{ route('edit.profil.wasbitnak', ['id' => $user->id]) }}"
+                            <a href="{{ route('edit.profil.wasbitnak', ['user_id' => $akunuser->user_id]) }}"
                                 class="btn btn-outline-warning edit"><i class="bi bi-pencil-square"></i> Edit</a>
                             @endif
                             @if(Auth::user()->role == 'ppid')
-                            <a href="{{ route('edit.profil.ppid', ['id' => $user->id]) }}"
+                            <a href="{{ route('edit.profil.ppid', ['user_id' => $akunuser->user_id]) }}"
                                 class="btn btn-outline-warning edit"><i class="bi bi-pencil-square"></i> Edit</a>
                             @endif
                             @if(Auth::user()->role == 'pembeli')
-                            <a href="{{ route('edit.profil.ppid', ['id' => $user->id]) }}"
+                            <a href="{{ route('edit.profil.ppid', ['user_id' => $user->user_id]) }}"
                                 class="btn btn-outline-warning edit"><i class="bi bi-pencil-square"></i> Edit</a>
                             @endif
                             @if(Auth::user()->role == 'kepala')
-                            <a href="{{ route('edit.profil.kepala', ['id' => $user->id]) }}"
+                            <a href="{{ route('edit.profil.kepala', ['user_id' => $akunuser->user_id]) }}"
                                 class="btn btn-outline-warning edit"><i class="bi bi-pencil-square"></i> Edit</a>
                             @endif
                             @if(Auth::user()->role == 'wastukan')
-                            <a href="{{ route('edit.profil.wastukan', ['id' => $user->id]) }}"
+                            <a href="{{ route('edit.profil.wastukan', ['user_id' => $akunuser->user_id]) }}"
                                 class="btn btn-outline-warning edit"><i class="bi bi-pencil-square"></i> Edit</a>
                             @endif
                             @if(Auth::user()->role == 'bendahara')
-                            <a href="{{ route('edit.profil.bendahara', ['id' => $user->id]) }}"
+                            <a href="{{ route('edit.profil.bendahara', ['user_id' => $akunuser->user_id]) }}"
                                 class="btn btn-outline-warning edit"><i class="bi bi-pencil-square"></i> Edit</a>
                             @endif
                         </div>

@@ -35,14 +35,14 @@
                                         <div class="row mb-3">
                                             <label class="col-form-label">Jenis Rumput</label>
                                             <div class="">
-                                                <select name="rumput_jenis" class="form-select"
+                                                <select name="rum_id" class="form-select"
                                                     aria-label="Default select example">
                                                     <option selected disabled>-- Pilih Jenis --</option>
                                                     @foreach($jenisRumput as $jenis)
                                                     <option value="{{ $jenis->rum_id }}">{{ $jenis->rum_nama }}</option>
                                                     @endforeach
                                                 </select>
-                                                @error('rumput_jenis')
+                                                @error('rum_id')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>

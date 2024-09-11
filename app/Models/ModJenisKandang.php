@@ -22,4 +22,11 @@ class ModJenisKandang extends Model
     {
         return $this->hasMany(ModSapi::class, 'kandang_jenis', 'kandang_id');
     }
+
+    public function kandang()
+    {
+        return $this->hasMany(ModKandang::class, 'kandang_id', 'kandang_id');
+    }
+
+
 }

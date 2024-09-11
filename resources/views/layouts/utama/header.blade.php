@@ -22,7 +22,7 @@
                         <li><a href="{{ route('index.pengajuan.sapi') }}">Pengajuan Beli <i
                                     class="bi bi-cart-check-fill"></i></a></li>
                         @isset($akunuser)
-                        <li><a href="{{ route('detail.profil.pembeli', ['id' => $akunuser->id]) }}">Profil Saya <i
+                        <li><a href="{{ route('detail.profil.pembeli', ['id' => $akunuser->user_id]) }}">Profil Saya <i
                                     class="bi bi-person-fill-gear"></i></a></li>
                         @endisset
 

@@ -6,7 +6,7 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-4 col-md-6 flex-column align-items-center justify-content-center">
                         <div class="d-flex justify-content-center py-4"></div><!-- End Logo -->
-                        <form action="{{ route('update.profil.kepala', $akunuser->id) }}" method="POST">
+                        <form action="{{ route('update.profil.kepala', $akunuser->user_id) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="card mb-3">
@@ -135,7 +135,7 @@
                                         </div>
                                         <br>
                                         <div class="col-12">
-                                            <a href="{{ route('detail.profil.kepala', $akunuser->id) }}"
+                                            <a href="{{ route('detail.profil.kepala', $akunuser->user_id) }}"
                                                 class="btn btn-outline-danger w-100"><i
                                                     class="bi bi-house-door-fill"></i> Beranda</a>
                                         </div>

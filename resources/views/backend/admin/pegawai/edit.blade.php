@@ -15,7 +15,7 @@
                             </ul>
                         </div>
                         @endif
-                        <form action="{{ route('akunadmin.update', $akunuser->id) }}" method="POST">
+                        <form action="{{ route('akunadmin.update', $akunuser->user_id) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="card mb-3">
@@ -164,7 +164,8 @@
                                         </div>
                                         <br>
                                         <div class="col-12">
-                                            <a href="{{ url()->previous() }}" class="btn btn-outline-secondary w-100">Kembali</a>
+                                            <a href="{{ url()->previous() }}"
+                                                class="btn btn-outline-secondary w-100">Kembali</a>
                                         </div>
                                         <br>
                                     </div>

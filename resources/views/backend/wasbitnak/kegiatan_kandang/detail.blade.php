@@ -28,11 +28,11 @@
                             <div class="row mb-4">
                                 <div class="col-lg-3 col-md-4 label">Tipe Kandang</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <select name="kegiatan_jenis_kandang" class="form-select">
+                                    <select name="kand_id" class="form-select">
                                         <option value="" disabled>Pilih Tipe Kandang</option>
                                         @foreach($jenisKandang as $jenis)
                                         <option value="{{ $jenis->kand_id }}"
-                                            {{ $jenis->kand_id == $kegiatan->kegiatan_jenis_kandang ? 'selected' : '' }}>
+                                            {{ $jenis->kand_id == $kegiatan->kand_id ? 'selected' : '' }}>
                                             {{ $jenis->kand_id }} - [ {{ $jenis->jenisKandang->kandang_tipe }} -
                                             {{ $jenis->kand_nama }} ]
                                         </option>

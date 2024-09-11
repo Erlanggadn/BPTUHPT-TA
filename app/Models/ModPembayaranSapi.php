@@ -14,7 +14,7 @@ class ModPembayaranSapi extends Model
     public $timestamps = true;
     protected $fillable = [
         'dbeli_id',
-        'dbeli_beli',
+        'belisapi_id',
         'dbeli_invoice',
         'dbeli_bukti',
         'dbeli_sudah',
@@ -24,6 +24,6 @@ class ModPembayaranSapi extends Model
 
     public function PengajuanSapi()
     {
-        return $this->belongsTo(ModPengajuanSapi::class, 'dbeli_beli', 'belisapi_id');
+        return $this->belongsTo(ModPengajuanSapi::class, 'belisapi_id', 'belisapi_id');
     }
 }

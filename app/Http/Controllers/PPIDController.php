@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Models\ModJenisRumput;
 use Illuminate\Support\Carbon;
 use App\Models\ModPengajuanSapi;
+use App\Models\ModPembayaranSapi;
 use PhpParser\Node\Expr\FuncCall;
 use App\Models\ModPengajuanRumput;
 use Illuminate\Routing\Controller;
@@ -35,7 +36,7 @@ class PPIDController extends Controller
     }
     public function detailPembeli($id)
     {
-        $akunuser = User::with('pembeli')->where('id', $id)->first();
+        $akunuser = User::with('pembeli')->where('user_id', $id)->first();
         return view('backend.ppid.daftar_pembeli.detail', ["akunuser" => $akunuser, "pembeli" => $akunuser->pembeli]);
     }
     public function updatePembeli(Request $request, $id)
@@ -55,7 +56,7 @@ class PPIDController extends Controller
             $akunuser->pembeli->update($request->only('pembeli_instansi', 'pembeli_nama', 'pembeli_alamat', 'pembeli_nohp', 'pembeli_lahir'));
         }
 
-        return redirect()->route('detail.ppid.pembeli', $akunuser->id)->with('berhasil.edit', 'Akun berhasil diperbarui');
+        return redirect()->route('detail.ppid.pembeli', $akunuser->user_id)->with('berhasil.edit', 'Akun berhasil diperbarui');
     }
     public function deletepembeli($id)
     {
@@ -91,8 +92,6 @@ class PPIDController extends Controller
         $sapi->sapi_keterangan = $request->sapi_keterangan;
         $sapi->sapi_status = $request->sapi_status;
         $sapi->sapi_umur = Carbon::parse($sapi->sapi_tanggal_lahir)->diffInMonths(Carbon::now());
-        $sapi->updated_id = auth()->user()->id;
-        $sapi->updated_nama = auth()->user()->name;
         $sapi->save();
 
         return redirect()->route('detail.ppid.sapi', $id)->with('success', 'Data sapi berhasil diperbarui');
@@ -222,8 +221,10 @@ class PPIDController extends Controller
         $pengajuan = ModPengajuanSapi::with('details', 'pembayaranSapi')->findOrFail($id);
         $sapiJenis = ModJenisSapi::all();
         $currentUser = ModPembeli::all();
+        $hargaData = ModHargaSapi::all();
+        $pembayaran = ModPembayaranSapi::where('belisapi_id', $id)->first();
 
-        return view('backend.ppid.pengajuan-sapi.detail', compact('pengajuan', 'sapiJenis', 'currentUser'));
+        return view('backend.ppid.pengajuan-sapi.detail', compact('pengajuan', 'sapiJenis', 'currentUser', 'hargaData', 'pembayaran'));
     }
     public function updatepengajuansapi(Request $request, $id)
     {
@@ -237,12 +238,14 @@ class PPIDController extends Controller
             'belisapi_status' => 'required|string',
             'belisapi_keterangan' => 'required|string',
 
-            'detail_jenis' => 'required|array',
-            'detail_jenis.*' => 'required|string|exists:master_sapi_jenis,sjenis_id',
+            'sjenis_id' => 'required|array',
+            'sjenis_id.*' => 'required|string|exists:master_sapi_jenis,sjenis_id',
             'detail_kategori' => 'required|array',
             'detail_kategori.*' => 'required|string',
             'detail_jumlah' => 'required|array',
             'detail_jumlah.*' => 'required|integer',
+            'detail_berat' => 'required|array',
+            'detail_berat.*' => 'required|integer',
             'detail_kelamin' => 'required|array',
             'detail_kelamin.*' => 'required|string',
         ]);
@@ -270,19 +273,20 @@ class PPIDController extends Controller
             $pengajuan->save();
 
             // Hapus detail lama
-            ModDetailPengajuanSapi::where('detail_pengajuan', $id)->delete();
+            ModDetailPengajuanSapi::where('belisapi_id', $id)->delete();
 
             // Tambah detail baru
-            foreach ($validated['detail_jenis'] as $key => $jenis) {
+            foreach ($validated['sjenis_id'] as $key => $jenis) {
                 $lastCode = ModDetailPengajuanSapi::orderBy('detail_id', 'desc')->first();
                 $newCode = $lastCode ? 'DPS' . str_pad(((int) substr($lastCode->detail_id, 3)) + 1, 3, '0', STR_PAD_LEFT) : 'DPS001';
 
                 ModDetailPengajuanSapi::create([
                     'detail_id' => $newCode,
-                    'detail_pengajuan' => $id,
-                    'detail_jenis' => $jenis,
+                    'belisapi_id' => $id,
+                    'sjenis_id' => $jenis,
                     'detail_kategori' => $validated['detail_kategori'][$key],
                     'detail_jumlah' => $validated['detail_jumlah'][$key],
+                    'detail_berat' => $validated['detail_berat'][$key],
                     'detail_kelamin' => $validated['detail_kelamin'][$key],
                 ]);
             }
@@ -301,7 +305,7 @@ class PPIDController extends Controller
 
         try {
             // Hapus detail pengajuan terlebih dahulu
-            ModDetailPengajuanSapi::where('detail_pengajuan', $id)->delete();
+            ModDetailPengajuanSapi::where('belisapi_id', $id)->delete();
 
             // Hapus pengajuan
             $pengajuan = ModPengajuanSapi::findOrFail($id);
@@ -435,7 +439,7 @@ class PPIDController extends Controller
     {
         // Validate the request data
         $request->validate([
-            'hs_jenis' => 'required|string|max:30|exists:master_sapi_jenis,sjenis_id',
+            'sjenis_id' => 'required|string|max:30|exists:master_sapi_jenis,sjenis_id',
             'hs_kategori' => 'required|string|max:100',
             'hs_kelamin' => 'required|string|max:30',
             'hs_harga' => 'required|integer',
@@ -448,7 +452,7 @@ class PPIDController extends Controller
         // Create a new record in the database
         ModHargaSapi::create([
             'hs_id' => $newKode,
-            'hs_jenis' => $request->hs_jenis,
+            'sjenis_id' => $request->sjenis_id,
             'hs_kelamin' => $request->hs_kelamin,
             'hs_kategori' => $request->hs_kategori,
             'hs_harga' => $request->hs_harga,

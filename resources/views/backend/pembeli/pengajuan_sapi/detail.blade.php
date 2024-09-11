@@ -102,10 +102,10 @@
                                 <div class="row mb-3">
                                     <div class="col-lg-3 col-md-4 label">Jenis Sapi</div>
                                     <div class="col-lg-9 col-md-8">
-                                        <select name="detail_jenis[]" id="detail_jenis" class="form-select" disabled>
+                                        <select name="sjenis_id[]" id="sjenis_id" class="form-select" disabled>
                                             @foreach($sapiJenis as $jenis)
-                                            <option value="{{ $jenis->sjenis_id }}"
-                                                {{ $detail->detail_jenis == $jenis->sjenis_id ? 'selected' : '' }}>
+                                            <option value="{{ $jenis->sjenis_id }}" {{ $detail->sjenis_id ==
+                                                $jenis->sjenis_id ? 'selected' : '' }}>
                                                 {{ $jenis->sjenis_nama }}</option>
                                             @endforeach
                                         </select>
@@ -117,34 +117,10 @@
                                     <div class="col-lg-9 col-md-8">
                                         <select name="detail_kategori[]" id="detail_kategori" class="form-select"
                                             disabled>
-                                            <option value="Bibit"
-                                                {{ $detail->detail_kategori == 'Bibit' ? 'selected' : '' }}>Bibit
-                                            </option>
-                                            <optgroup label="Bibit">
-                                                <option value="Bibit  6-9 Bulan"
-                                                    {{ $detail->detail_kategori == 'Bibit  6-9 Bulan' ? 'selected' : '' }}>
-                                                    Bibit 6-9 Bulan</option>
-                                                <option value="Bibit 9-12 Bulan"
-                                                    {{ $detail->detail_kategori == 'Bibit 9-12 Bulan' ? 'selected' : '' }}>
-                                                    Bibit 9-12 Bulan</option>
-                                                <option value="Bibit 12-15 Bulan"
-                                                    {{ $detail->detail_kategori == 'Bibit 12-15 Bulan' ? 'selected' : '' }}>
-                                                    Bibit 12-15 Bulan</option>
-                                                <option value="Bibit 15-18 Bulan"
-                                                    {{ $detail->detail_kategori == 'Bibit 15-18 Bulan' ? 'selected' : '' }}>
-                                                    Bibit 15-18 Bulan</option>
-                                                <option value="Bibit 18-24 Bulan"
-                                                    {{ $detail->detail_kategori == 'Bibit 18-24 Bulan' ? 'selected' : '' }}>
-                                                    Bibit 18-24 Bulan</option>
-                                                <option value="Bibit 24-36 Bulan"
-                                                    {{ $detail->detail_kategori == 'Bibit 24-36 Bulan' ? 'selected' : '' }}>
-                                                    Bibit 24-36 Bulan</option>
-                                            </optgroup>
-                                            <optgroup label="Calon Bul(Pejantan)">
-                                                <option value="Calon Bul(Pejantan) 18-24 Bulan"
-                                                    {{ $detail->detail_kategori == 'Calon Bul(Pejantan) 18-24 Bulan' ? 'selected' : '' }}>
-                                                    18-24 Bulan</option>
-                                            </optgroup>
+                                            @foreach($hargaData as $harga)
+                                            <option value="{{ $harga->hs_kategori }}">{{ $harga->hs_kategori
+                                                }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -156,17 +132,24 @@
                                             class="form-control" value="{{ $detail->detail_jumlah }}" disabled>
                                     </div>
                                 </div>
+                                <div class="row mb-3">
+                                    <div class="col-lg-3 col-md-4 label">Estimasi Berat Sapi (KG)</div>
+                                    <div class="col-lg-9 col-md-8">
+                                        <input type="number" name="detail_jumlah[]" id="detail_jumlah"
+                                            class="form-control" value="{{ $detail->detail_berat }}" disabled>
+                                    </div>
+                                </div>
 
                                 <div class="row mb-3">
                                     <div class="col-lg-3 col-md-4 label">Jenis Kelamin Sapi</div>
                                     <div class="col-lg-9 col-md-8">
                                         <select name="detail_kelamin[]" id="detail_kelamin" class="form-select"
                                             disabled>
-                                            <option value="Jantan"
-                                                {{ $detail->detail_kelamin == 'Jantan' ? 'selected' : '' }}>Jantan
+                                            <option value="Jantan" {{ $detail->detail_kelamin == 'Jantan' ? 'selected' :
+                                                '' }}>Jantan
                                             </option>
-                                            <option value="Betina"
-                                                {{ $detail->detail_kelamin == 'Betina' ? 'selected' : '' }}>Betina
+                                            <option value="Betina" {{ $detail->detail_kelamin == 'Betina' ? 'selected' :
+                                                '' }}>Betina
                                             </option>
                                         </select>
                                     </div>
@@ -196,7 +179,7 @@
                             @endif
                             <div class="text-center mb-4">
                                 {{-- <a class="btn btn-success" href="{{ route('update.bayar' $belisapi_id) }}">Update
-                                Pengajuan</a> --}}
+                                    Pengajuan</a> --}}
                             </div>
                         </form>
                         <!-- Form untuk mengupdate pembayaran -->
@@ -221,8 +204,8 @@
                                 <div class="col-lg-9 col-md-8">
                                     <select name="dbeli_sudah" id="dbeli_sudah" class="form-control">
                                         <option value="" disabled selected>-- Pilih Status --</option>
-                                        <option value="Saya Sudah Membayar"
-                                            {{ $pembayaran->dbeli_sudah == 'Saya Sudah Membayar' ? 'selected' : '' }}>
+                                        <option value="Saya Sudah Membayar" {{ $pembayaran->dbeli_sudah == 'Saya Sudah
+                                            Membayar' ? 'selected' : '' }}>
                                             Saya Sudah Membayar
                                         </option>
                                     </select>

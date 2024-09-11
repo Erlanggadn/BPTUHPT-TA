@@ -15,12 +15,12 @@ class CreateMasterHargaRumputTable extends Migration
     {
         Schema::create('master_harga_rumput', function (Blueprint $table) {
             $table->string('hr_id', 30)->primary();
-            $table->string('hr_jenis', 30);
+            $table->string('rum_id', 30);
             $table->string('hr_kelamin', 30);
             $table->string('hr_kategori', 100);
             $table->bigInteger('hr_harga');
 
-            $table->foreign('hr_jenis')->references('sjenis_id')->on('master_sapi_jenis')->onDelete('cascade');
+            $table->foreign('rum_id')->references('rum_id')->on('master_rumput_jenis')->onDelete('cascade');
 
             $table->timestamps();
         });

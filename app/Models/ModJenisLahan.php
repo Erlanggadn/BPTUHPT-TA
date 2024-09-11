@@ -20,4 +20,9 @@ class ModJenisLahan extends Model
         'lahan_ukuran',
         'lahan_aktif',
     ];
+
+    public function kegiatanLahan()
+    {
+        return $this->hasMany(ModKegiatanLahan::class, 'lahan_id', 'lahan_id');
+    }
 }

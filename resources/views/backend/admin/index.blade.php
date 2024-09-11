@@ -46,24 +46,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @isset($akunuser)
-                                    @foreach ($akunuser as $item)
+                                    @isset($pegawai)
+                                    @foreach ($pegawai as $item)
                                     <tr>
-                                        <td>{{ $item->pegawai->pegawai_id }}</td>
-                                        <td>{{ $item->pegawai->pegawai_nama }}</td>
-                                        <td>{{ $item->pegawai->pegawai_nohp }}</td>
-                                        <td>{{ $item->role }}</td>
+                                        <td>{{ $item->pegawai_id }}</td>
+                                        <td>{{ $item->pegawai_nama }}</td>
+                                        <td>{{ $item->pegawai_nohp }}</td>
+                                        <td>{{ $item->user->role }}</td>
                                         <td>{{ $item->created_at->translatedFormat('d F Y') }}</td>
                                         <td><a class="btn btn-outline-success"
-                                                href="{{ route('detailakun', $item->id) }}"><i
+                                                href="{{ route('detailakun', $item->user_id) }}"><i
                                                     class="bi bi-info-lg"></i></a>
-                                            <form action="{{ route('akunadmin.delete', $item->id) }}" method="POST"
+                                            <form action="{{ route('akunadmin.delete', $item->user_id) }}" method="POST"
                                                 style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="button" class="btn btn-outline-danger"
                                                     data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                    data-action="{{ route('akunadmin.delete', $item->id) }}">
+                                                    data-action="{{ route('akunadmin.delete', $item->user_id) }}">
                                                     <i class="bi bi-person-x-fill"></i>
                                                 </button>
                                             </form>

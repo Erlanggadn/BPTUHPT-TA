@@ -15,7 +15,7 @@
                             </ul>
                         </div>
                         @endif
-                        <form action="{{ route('pembeliadmin.update', $akunuser->id) }}" method="POST">
+                        <form action="{{ route('pembeliadmin.update', $akunuser->user_id) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="card mb-3">
@@ -157,7 +157,7 @@
                                         </div>
                                         <br>
                                         <div class="col-12">
-                                            <a href="{{ route('detail.akun.pembeli', $akunuser->id) }}"
+                                            <a href="{{ route('detail.akun.pembeli', $akunuser->user_id) }}"
                                                 class="btn btn-outline-secondary w-100">Kembali</a>
                                         </div>
                                         <br>

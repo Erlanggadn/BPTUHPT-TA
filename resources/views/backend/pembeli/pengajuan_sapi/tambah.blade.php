@@ -30,7 +30,7 @@
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Nama Anda</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input type="hidden" name="belisapi_orang" id="belisapi_orang"
+                                    <input type="hidden" name="pembeli_id" id="pembeli_id"
                                         value="{{ $currentUser->pembeli ? $currentUser->pembeli->pembeli_id : $currentUser->name }}">
                                     <input type="text" class="form-control"
                                         value="{{ $currentUser->pembeli ? $currentUser->pembeli->pembeli_nama : '' }}"
@@ -86,11 +86,12 @@
                             </div>
 
                             <!-- Detail Pengajuan -->
-                            <div id="dynamic-field">
+                            <div id="dynamic-group">
                                 <div class="row mb-3">
                                     <div class="col-lg-3 col-md-4 label">Jenis Sapi</div>
                                     <div class="col-lg-9 col-md-8">
-                                        <select name="detail_jenis[]" id="detail_jenis" class="form-select" required>
+                                        <select name="sjenis_id[]" id="sjenis_id" class="form-select" required>
+                                            <option value="Bibit" selected disabled>-- Jenis Sapi--</option>
                                             @foreach($sapiJenis as $jenis)
                                             <option value="{{ $jenis->sjenis_id }}">{{ $jenis->sjenis_nama }}</option>
                                             @endforeach
@@ -103,22 +104,42 @@
                                     <div class="col-lg-9 col-md-8">
                                         <select name="detail_kategori[]" id="detail_kategori" class="form-select"
                                             required>
-                                            <option value="Bibit">Bibit</option>
-                                            <optgroup label="Bibit">
-                                                <option value="Bibit  6-9 Bulan">Bibit 6-9 Bulan</option>
-                                                <option value="Bibit 9-12 Bulan">Bibit 9-12 Bulan</option>
-                                                <option value="Bibit 12-15 Bulan">Bibit 12-15 Bulan</option>
-                                                <option value="Bibit 15-18 Bulan">Bibit 15-18 Bulan</option>
-                                                <option value="Bibit 18-24 Bulan">Bibit 18-24 Bulan</option>
-                                                <option value="Bibit 24-36 Bulan">Bibit 24-36 Bulan</option>
-                                            </optgroup>
-                                            <optgroup label="Calon Bul(Pejantan)">
+                                            <option selected disabled>-- Bibit --</option>
+                                            <option>
+                                                @foreach($hargaData as $harga)
+                                            <option value="{{ $harga->hs_kategori }}">{{ $harga->hs_kategori
+                                                }}</option>
+                                            @endforeach
+                                            {{-- <option value="Bibit 9-12 Bulan">Bibit 9-12 Bulan</option>
+                                            <option value="Bibit 12-15 Bulan">Bibit 12-15 Bulan</option>
+                                            <option value="Bibit 15-18 Bulan">Bibit 15-18 Bulan</option>
+                                            <option value="Bibit 18-24 Bulan">Bibit 18-24 Bulan</option>
+                                            <option value="Bibit 24-36 Bulan">Bibit 24-36 Bulan</option> --}}
+                                            </option>
+                                            {{-- <optgroup label="Calon Bul(Pejantan)">
                                                 <option value="Calon Bul(Pejantan) 18-24 Bulan">18-24 Bulan</option>
-                                            </optgroup>
+                                            </optgroup> --}}
                                         </select>
                                     </div>
                                 </div>
-
+                                <div class="row mb-3">
+                                    <div class="col-lg-3 col-md-4 label">Jenis Kelamin Sapi</div>
+                                    <div class="col-lg-9 col-md-8">
+                                        <select name="detail_kelamin[]" id="detail_kelamin" class="form-select"
+                                            required>
+                                            <option value="Bibit" selected disabled>-- Jenis Kelamin --</option>
+                                            <option value="Jantan">Jantan</option>
+                                            <option value="Betina">Betina</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-lg-3 col-md-4 label">Estimasi Berat Sapi (KG)</div>
+                                    <div class="col-lg-9 col-md-8">
+                                        <input type="number" name="detail_berat[]" id="detail_berat"
+                                            class="form-control" required>
+                                    </div>
+                                </div>
                                 <div class="row mb-3">
                                     <div class="col-lg-3 col-md-4 label">Jumlah Sapi</div>
                                     <div class="col-lg-9 col-md-8">
@@ -127,22 +148,18 @@
                                     </div>
                                 </div>
 
-                                <div class="row mb-3">
-                                    <div class="col-lg-3 col-md-4 label">Jenis Kelamin Sapi</div>
-                                    <div class="col-lg-9 col-md-8">
-                                        <select name="detail_kelamin[]" id="detail_kelamin" class="form-select"
-                                            required>
-                                            <option value="Jantan">Jantan</option>
-                                            <option value="Betina">Betina</option>
-                                        </select>
-                                    </div>
-                                </div>
                             </div>
                             <p class="badge bg-danger">*jika membeli lebih dari satu jenis</p>
                             <div class=" mb-4">
                                 <button type="button" class="btn btn-primary" id="add-field">Tambah Jenis
                                     Sapi</button>
 
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">Total Harga Sementara</div>
+                                <div class="col-lg-9 col-md-8">
+                                    <input type="text" id="total_harga" class="form-control" readonly>
+                                </div>
                             </div>
 
                             <div class="text-center mb-4">
@@ -217,7 +234,7 @@
 </main>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        var dynamicField = document.getElementById('dynamic-field');
+        var dynamicField = document.getElementById('dynamic-group');
         var addFieldButton = document.getElementById('add-field');
 
         addFieldButton.addEventListener('click', function () {
@@ -240,4 +257,82 @@
         @endif
     });
 
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var dynamicField = document.querySelector('dynamic-group'); // Group field yang akan di-clone
+        var addFieldButton = document.getElementById('add-field');
+
+        addFieldButton.addEventListener('click', function () {
+            // Clone hanya elemen dynamic-group, bukan seluruh form
+            var clone = dynamicField.cloneNode(true);
+
+            // Bersihkan input dalam clone
+            var inputs = clone.querySelectorAll('input, select');
+            inputs.forEach(input => {
+                input.value = ''; // Kosongkan nilai
+                input.name = input.name.replace(/\[\d+\]/, '[' + document.querySelectorAll('dynamic-group').length + ']'); // Update index nama field
+            });
+
+            // Tambahkan field clone sebelum tombol "Tambah Jenis Sapi"
+            addFieldButton.parentElement.before(clone);
+
+            // Pasang ulang listeners setelah field baru ditambahkan
+            recalculateListeners();
+
+            // Hitung ulang total setelah field baru ditambahkan
+            calculateTotal();
+        });
+
+        function recalculateListeners() {
+            document.querySelectorAll('select[name^="sjenis_id"], select[name^="detail_kategori"], input[name^="detail_jumlah"], select[name^="detail_kelamin"]').forEach(element => {
+                element.removeEventListener('change', calculateTotal); // Hapus listener lama
+                element.addEventListener('change', calculateTotal); // Tambahkan listener baru
+            });
+        }
+
+        function calculateTotal() {
+            let total = 0;
+            const jenisSapi = document.querySelectorAll('select[name^="sjenis_id"]');
+            const kategoriSapi = document.querySelectorAll('select[name^="detail_kategori"]');
+            const jumlahSapi = document.querySelectorAll('input[name^="detail_jumlah"]');
+            const kelaminSapi = document.querySelectorAll('select[name^="detail_kelamin"]');
+
+            jenisSapi.forEach((_, index) => {
+                const jenisId = jenisSapi[index].value;
+                const kategori = kategoriSapi[index].value;
+                const jumlah = jumlahSapi[index].value;
+                const kelamin = kelaminSapi[index].value;
+
+                // Pastikan semua field sudah diisi sebelum menghitung harga
+                if (jenisId && kategori && jumlah && kelamin) {
+                    // Ambil harga berdasarkan jenis, kategori, dan kelamin
+                    const hargaPerEkor = getHarga(jenisId, kategori, kelamin);
+                    total += hargaPerEkor * jumlah;
+                }
+            });
+
+            // Update total harga ke field
+            document.getElementById('total_harga').value = `Rp. ${total.toLocaleString('id-ID')}`;
+        }
+
+        function getHarga(jenisId, kategori, kelamin) {
+            const hargaData = @json($hargaData); // Pastikan hargaData di-passing dari backend
+
+            // Cari harga yang sesuai dengan jenis, kategori, dan kelamin
+            const harga = hargaData.find(item => 
+                item.sjenis_id == jenisId && 
+                item.hs_kategori == kategori && 
+                item.hs_kelamin == kelamin
+            );
+
+            return harga ? harga.hs_harga : 0; // Kembalikan harga jika ditemukan, jika tidak, kembalikan 0
+        }
+
+        // Pasang listeners pada saat halaman pertama kali dimuat
+        recalculateListeners();
+
+        // Hitung total ketika halaman pertama kali dimuat
+        calculateTotal();
+    });
 </script>

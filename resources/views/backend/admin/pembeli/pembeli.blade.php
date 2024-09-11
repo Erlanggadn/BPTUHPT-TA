@@ -54,16 +54,16 @@
                                         <td>{{ $item->created_at->translatedFormat('d F Y') }}</td>
                                         <td>
                                             <a class="btn btn-outline-success"
-                                                href="{{ route('detail.akun.pembeli', ['id' => $item->id]) }}">
+                                                href="{{ route('detail.akun.pembeli', ['id' => $item->user_id]) }}">
                                                 <i class="bi bi-info-lg"></i>
                                             </a>
-                                            <form action="{{ route('akunadmin.delete', ['id' => $item->id]) }}"
+                                            <form action="{{ route('akunadmin.delete', ['id' => $item->user_id]) }}"
                                                 method="POST" style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="button" class="btn btn-outline-danger"
                                                     data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                    data-action="{{ route('akunadmin.delete', $item->id) }}">
+                                                    data-action="{{ route('akunadmin.delete', $item->user_id) }}">
                                                     <i class="bi bi-person-x-fill"></i>
                                                 </button>
                                             </form>

@@ -14,13 +14,13 @@ class ModHargaSapi extends Model
     public $incrementing = false;
     protected $fillable = [
         'hs_id',
-        'hs_jenis',
+        'sjenis_id',
         'hs_kelamin',
         'hs_kategori',
         'hs_harga',
     ];
     public function jenis()
     {
-        return $this->belongsTo(ModJenisSapi::class, 'hs_jenis', 'sjenis_id');
+        return $this->belongsTo(ModJenisSapi::class, 'sjenis_id', 'sjenis_id');
     }
 }

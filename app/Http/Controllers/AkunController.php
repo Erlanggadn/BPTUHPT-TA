@@ -15,9 +15,9 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class AkunController extends Controller
 {
     //PEGAWAI
-    public function detailakun($id)
+    public function detailakun($user_id)
     {
-        $akunuser = User::with('pegawai')->where('id', $id)->first();
+        $akunuser = User::with('pegawai')->where('user_id', $user_id)->first();
         return view('backend.admin.pegawai.detailakun', ["akunuser" => $akunuser, "pegawai" => $akunuser->pegawai]);
     }
     public function edit($id)
@@ -60,7 +60,7 @@ class AkunController extends Controller
             $akunuser->pegawai->update($request->only('pegawai_nip', 'pegawai_nama', 'pegawai_alamat', 'pegawai_nohp'));
         }
 
-        return redirect()->route('detailakun', $akunuser->id)->with('berhasil.edit', 'Akun berhasil diperbarui');
+        return redirect()->route('detailakun', $akunuser->user_id)->with('berhasil.edit', 'Akun berhasil diperbarui');
     }
 
     //PEMBELI
@@ -134,9 +134,9 @@ class AkunController extends Controller
 
         return response()->download($filePath)->deleteFileAfterSend(true);
     }
-    public function detailakunpembeli($id)
+    public function detailakunpembeli($user_id)
     {
-        $akunuser = User::with('pembeli')->where('id', $id)->first();
+        $akunuser = User::with('pembeli')->where('user_id', $user_id)->first();
         return view('backend.admin.pembeli.detail', ["akunuser" => $akunuser, "pembeli" => $akunuser->pembeli]);
     }
     public function editpembeli($id)
@@ -180,19 +180,18 @@ class AkunController extends Controller
             $akunuser->pembeli->update($request->only('pembeli_instansi', 'pembeli_nama', 'pembeli_alamat', 'pembeli_nohp', 'pembeli_lahir'));
         }
 
-        return redirect()->route('detail.akun.pembeli', $akunuser->id)->with('berhasil.edit', 'Akun berhasil diperbarui');
+        return redirect()->route('detail.akun.pembeli', $akunuser->user_id)->with('berhasil.edit', 'Akun berhasil diperbarui');
     }
 
     //PROFIL ADMIN
-    public function profil()
+    public function profil($user_id)
     {
-        $user = Auth::user();
-        $akunuser = $user->pegawai;
-        return view('backend.admin.detailadmin', compact('user', 'akunuser'));
+        $akunuser = User::with('pegawai')->where('user_id', $user_id)->first();
+        return view('backend.admin.detailadmin', ["akunuser" => $akunuser, "pegawai" => $akunuser->pegawai]);
     }
-    public function editprofil($id)
+    public function editprofil($user_id)
     {
-        $akunuser = User::with('pegawai')->findOrFail($id);
+        $akunuser = User::with('pegawai')->findOrFail($user_id);
         return view('backend.admin.template.edit', compact('akunuser'));
     }
     public function updateprofil(Request $request, $id)
@@ -234,20 +233,19 @@ class AkunController extends Controller
     }
 
     //DELETE AKUN
-    public function delete($id)
+    public function delete($user_id)
     {
-        $akunuser = User::findOrFail($id);
+        $akunuser = User::findOrFail($user_id);
         $akunuser->delete();
 
         return redirect()->back()->with('berhasil.hapus', 'Akun berhasil dihapus');
     }
 
     //PROFIL - KESWAN
-    public function profilkeswan()
+    public function profilkeswan($user_id)
     {
-        $user = Auth::user();
-        $akunuser = $user->pegawai;
-        return view('backend.keswan.detailkeswan', compact('user', 'akunuser'));
+        $akunuser = User::with('pegawai')->where('user_id', $user_id)->first();
+        return view('backend.keswan.detailkeswan', ["akunuser" => $akunuser, "pegawai" => $akunuser->pegawai]);
     }
     public function editkeswan($id)
     {
@@ -289,17 +287,15 @@ class AkunController extends Controller
             $akunuser->pegawai->update($request->only('pegawai_nip', 'pegawai_nama', 'pegawai_alamat', 'pegawai_nohp'));
         }
 
-        return redirect()->route('profilkeswan', $akunuser->id)->with('berhasil.edit', 'Akun berhasil diperbarui');
+        return redirect()->route('profilkeswan', $akunuser->user_id)->with('berhasil.edit', 'Akun berhasil diperbarui');
     }
 
 
     //PROFIL - WASBITNAK
-    public function profilwasbitnak()
+    public function profilwasbitnak($user_id)
     {
-
-        $user = Auth::user();
-        $akunuser = $user->pegawai;
-        return view('backend.wasbitnak.profil.detailprofil', compact('user', 'akunuser'));
+        $akunuser = User::with('pegawai')->where('user_id', $user_id)->first();
+        return view('backend.wasbitnak.profil.detailprofil', ["akunuser" => $akunuser, "pegawai" => $akunuser->pegawai]);
     }
     public function editwasbitnak($id)
     {
@@ -341,15 +337,14 @@ class AkunController extends Controller
             $akunuser->pegawai->update($request->only('pegawai_nip', 'pegawai_nama', 'pegawai_alamat', 'pegawai_nohp'));
         }
 
-        return redirect()->route('profilwasbitnak', $akunuser->id)->with('berhasil.edit', 'Akun berhasil diperbarui');
+        return redirect()->route('profilwasbitnak', $akunuser->user_id)->with('berhasil.edit', 'Akun berhasil diperbarui');
     }
 
     //PPID - PROFIL
-    public function profilppid()
+    public function profilppid($id)
     {
-        $user = Auth::user();
-        $akunuser = $user->pegawai;
-        return view('backend.ppid.profil.detail', compact('user', 'akunuser'));
+        $akunuser = User::with('pembeli')->where('user_id', $id)->first();
+        return view('backend.ppid.profil.detail', ["akunuser" => $akunuser, "pembeli" => $akunuser->pembeli]);
     }
     public function editppid($id)
     {
@@ -391,13 +386,13 @@ class AkunController extends Controller
             $akunuser->pegawai->update($request->only('pegawai_nip', 'pegawai_nama', 'pegawai_alamat', 'pegawai_nohp'));
         }
 
-        return redirect()->route('detail.profil.ppid', $akunuser->id)->with('berhasil.edit', 'Akun berhasil diperbarui');
+        return redirect()->route('detail.profil.ppid', $akunuser->user_id)->with('berhasil.edit', 'Akun berhasil diperbarui');
     }
 
     //PEMBELI - PROFIL
     public function profilpembeliakun($id)
     {
-        $akunuser = User::with('pembeli')->where('id', $id)->first();
+        $akunuser = User::with('pembeli')->where('user_id', $id)->first();
         return view('backend.pembeli.profil.detail', ["akunuser" => $akunuser, "pembeli" => $akunuser->pembeli]);
     }
     public function updatepembeliakun(Request $request, $id)
@@ -412,7 +407,7 @@ class AkunController extends Controller
             'pembeli_nohp' => 'required|string',
             'pembeli_lahir' => 'required|date',
             'current_password' => 'required_if:change_password,on',
-            'new_password' => 'nullable|min:8|confirmed',
+            'new_password' => 'nullable|min:5|confirmed',
         ]);
 
         if ($validator->fails()) {
@@ -437,15 +432,14 @@ class AkunController extends Controller
             $akunuser->save();
         }
 
-        return redirect()->route('detail.profil.pembeli', $akunuser->id)->with('success', 'Akun berhasil diperbarui');
+        return redirect()->route('detail.profil.pembeli', $akunuser->user_id)->with('success', 'Akun berhasil diperbarui');
     }
 
     //KEPALA BALAI - PROFIL
-    public function profilkepala()
+    public function profilkepala($user_id)
     {
-        $user = Auth::user();
-        $akunuser = $user->pegawai;
-        return view('backend.kepala.profil.detail', compact('user', 'akunuser'));
+        $akunuser = User::with('pegawai')->where('user_id', $user_id)->first();
+        return view('backend.kepala.profil.detail', ["akunuser" => $akunuser, "pegawai" => $akunuser->pegawai]);
     }
     public function editkepala($id)
     {
@@ -487,15 +481,14 @@ class AkunController extends Controller
             $akunuser->pegawai->update($request->only('pegawai_nip', 'pegawai_nama', 'pegawai_alamat', 'pegawai_nohp'));
         }
 
-        return redirect()->route('detail.profil.kepala', $akunuser->id)->with('berhasil.edit', 'Akun berhasil diperbarui');
+        return redirect()->route('detail.profil.kepala', $akunuser->user_id)->with('berhasil.edit', 'Akun berhasil diperbarui');
     }
 
     //WASTUKAN - PROFIL
-    public function profilwastukan()
+    public function profilwastukan($user_id)
     {
-        $user = Auth::user();
-        $akunuser = $user->pegawai;
-        return view('backend.wastukan.profil.detailprofil', compact('user', 'akunuser'));
+        $akunuser = User::with('pegawai')->where('user_id', $user_id)->first();
+        return view('backend.wastukan.profil.detailprofil', ["akunuser" => $akunuser, "pegawai" => $akunuser->pegawai]);
     }
     public function editwastukan($id)
     {
@@ -537,15 +530,14 @@ class AkunController extends Controller
             $akunuser->pegawai->update($request->only('pegawai_nip', 'pegawai_nama', 'pegawai_alamat', 'pegawai_nohp'));
         }
 
-        return redirect()->route('profilwastukan', $akunuser->id)->with('berhasil.edit', 'Akun berhasil diperbarui');
+        return redirect()->route('profilwastukan', $akunuser->user_id)->with('berhasil.edit', 'Akun berhasil diperbarui');
     }
 
     //WASTUKAN - PROFIL
-    public function profilbendahara()
+    public function profilbendahara($user_id)
     {
-        $user = Auth::user();
-        $akunuser = $user->pegawai;
-        return view('backend.bendahara.profil.detail', compact('user', 'akunuser'));
+        $akunuser = User::with('pegawai')->where('user_id', $user_id)->first();
+        return view('backend.bendahara.profil.detail', ["akunuser" => $akunuser, "pegawai" => $akunuser->pegawai]);
     }
     public function editbendahara($id)
     {
@@ -587,6 +579,6 @@ class AkunController extends Controller
             $akunuser->pegawai->update($request->only('pegawai_nip', 'pegawai_nama', 'pegawai_alamat', 'pegawai_nohp'));
         }
 
-        return redirect()->route('profilbendahara', $akunuser->id)->with('berhasil.edit', 'Akun berhasil diperbarui');
+        return redirect()->route('profilbendahara', $akunuser->user_id)->with('berhasil.edit', 'Akun berhasil diperbarui');
     }
 }

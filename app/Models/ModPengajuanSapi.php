@@ -14,7 +14,7 @@ class ModPengajuanSapi extends Model
     public $timestamps = true;
     protected $fillable = [
         'belisapi_id',
-        'belisapi_orang',
+        'pembeli_id',
         'belisapi_nohp',
         'belisapi_alamat',
         'belisapi_surat',
@@ -26,15 +26,15 @@ class ModPengajuanSapi extends Model
 
     public function details()
     {
-        return $this->hasMany(ModDetailPengajuanSapi::class, 'detail_pengajuan', 'belisapi_id');
+        return $this->hasMany(ModDetailPengajuanSapi::class, 'belisapi_id', 'belisapi_id');
     }
     public function user()
     {
-        return $this->belongsTo(ModPembeli::class, 'belisapi_orang', 'pembeli_id');
+        return $this->belongsTo(ModPembeli::class, 'pembeli_id', 'pembeli_id');
     }
     public function pembayaranSapi()
     {
-        return $this->hasMany(ModPembayaranSapi::class, 'dbeli_beli', 'belisapi_id');
+        return $this->hasMany(ModPembayaranSapi::class, 'belisapi_id', 'belisapi_id');
     }
     public function getDisplayStatusAttribute()
     {

@@ -14,7 +14,7 @@ class ModRumput extends Model
     public $incrementing = false;
     protected $fillable = [
         'rumput_id',
-        'rumput_jenis',
+        'rum_id',
         'rumput_berat_awal',
         'rumput_berat_hasil',
         'rumput_masuk',
@@ -24,7 +24,11 @@ class ModRumput extends Model
 
     public function jenisRumput()
     {
-        return $this->belongsTo(ModJenisRumput::class, 'rumput_jenis', 'rum_id');
+        return $this->belongsTo(ModJenisRumput::class, 'rum_id', 'rum_id');
+    }
+    public function kegiatanRumput()
+    {
+        return $this->hasMany(ModKegiatanLahan::class, 'rumput_id', 'rumput_id');
     }
 }
 

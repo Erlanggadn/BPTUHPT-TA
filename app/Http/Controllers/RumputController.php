@@ -25,7 +25,7 @@ class RumputController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'rumput_jenis' => 'required',
+            'rum_id' => 'required',
             'rumput_berat_awal' => 'required|integer|max:1000',
             // 'rumput_berat_hasil' => 'nullable|integer|max:1000', // Mengizinkan null karena default 0 di database
             'rumput_masuk' => 'required|date',
@@ -38,7 +38,7 @@ class RumputController extends Controller
 
         ModRumput::create([
             'rumput_id' => $newKode,
-            'rumput_jenis' => $request->rumput_jenis,
+            'rum_id' => $request->rum_id,
             'rumput_berat_awal' => $request->rumput_berat_awal,
             'rumput_berat_hasil' => $request->rumput_berat_hasil ?? 0, // Jika tidak diinput, defaultnya 0
             'rumput_masuk' => $request->rumput_masuk,

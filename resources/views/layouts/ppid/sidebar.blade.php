@@ -3,7 +3,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
         <li class="nav-heading">ppid- PROFIL</li>
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('detail.profil.ppid', Auth::user()->id) }}">
+            <a class="nav-link collapsed" href="{{ route('detail.profil.ppid', Auth::user()->user_id) }}">
                 <i class="bi bi-person-circle"></i>
                 <span>Profil Saya</span>
             </a>

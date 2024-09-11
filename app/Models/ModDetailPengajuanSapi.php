@@ -14,22 +14,21 @@ class ModDetailPengajuanSapi extends Model
     public $timestamps = false;
     protected $fillable = [
         'detail_id',
-        'detail_pengajuan',
-        'detail_jenis',
+        'belisapi_id',
+        'sjenis_id',
         'detail_kategori',
         'detail_jumlah',
+        'detail_berat',
         'detail_kelamin',
     ];
 
 
     public function pengajuan()
     {
-        return $this->belongsTo(ModPengajuanSapi::class, 'detail_pengajuan', 'belisapi_id');
+        return $this->belongsTo(ModPengajuanSapi::class, 'belisapi_id', 'belisapi_id');
     }
     public function sapiJenis()
     {
-        return $this->belongsTo(ModJenisSapi::class, 'detail_jenis', 'sjenis_id');
+        return $this->belongsTo(ModJenisSapi::class, 'sjenis_id', 'sjenis_id');
     }
-
-    
 }

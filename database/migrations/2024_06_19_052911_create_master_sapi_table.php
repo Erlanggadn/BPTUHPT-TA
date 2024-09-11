@@ -15,7 +15,7 @@ class CreateMasterSapiTable extends Migration
     {
         Schema::create('master_sapi', function (Blueprint $table) {
             $table->string('sapi_id', 30)->primary();
-            $table->string('sapi_jenis', 50);
+            $table->string('sjenis_id', 30);
             $table->integer('sapi_urutan_lahir');
             $table->date('sapi_tanggal_lahir');
             $table->string('sapi_no_induk', 30);
@@ -27,7 +27,7 @@ class CreateMasterSapiTable extends Migration
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
 
-            $table->foreign('sapi_jenis')->references('sjenis_id')->on('master_sapi_jenis')->onDelete('cascade');
+            $table->foreign('sjenis_id')->references('sjenis_id')->on('master_sapi_jenis')->onDelete('cascade');
         });
     }
 

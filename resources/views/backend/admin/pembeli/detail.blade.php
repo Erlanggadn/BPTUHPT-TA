@@ -15,7 +15,7 @@
                             <h5 class="card-title">Profil Pengguna</h5>
                             <div class=" row mb-4">
                                 <div class="col-lg-3 col-md-4 label">ID Akun</div>
-                                <div class="col-lg-9 col-md-8">: {{ $akunuser->id }}</div>
+                                <div class="col-lg-9 col-md-8">: {{ $akunuser->user_id }}</div>
                             </div>
                             <div class=" row mb-4">
                                 <div class="col-lg-3 col-md-4 label">Status/Jabatan</div>
@@ -59,7 +59,7 @@
                             </a>
                             @endisset
 
-                            <a href="{{ route('pembeliadmin.edit', $akunuser->id) }}"
+                            <a href="{{ route('pembeliadmin.edit', $akunuser->user_id) }}"
                                 class="btn btn-outline-warning edit"><i class="bi bi-pencil-square"></i> Edit</a>
                         </div>
                     </div><!-- End Bordered Tabs -->

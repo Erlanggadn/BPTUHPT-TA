@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ModSapi;
 use App\Models\ModRumput;
 use App\Models\ModKandang;
+use App\Models\ModHargaSapi;
 use App\Models\ModJenisSapi;
 use Illuminate\Http\Request;
 use App\Models\ModJenisLahan;
@@ -41,8 +42,9 @@ class KepalaBalaiController extends Controller
         if (!$pengajuan) {
             return redirect()->back()->withErrors(['Pengajuan tidak ditemukan']);
         }
+        $hargaData = ModHargaSapi::all();
 
-        return view('backend.kepala.pengajuan_sapi.detail', compact('pengajuan', 'sapiJenis'));
+        return view('backend.kepala.pengajuan_sapi.detail', compact('pengajuan', 'sapiJenis', 'hargaData'));
     }
 
     public function updatepengajuansapi(Request $request, $id)
@@ -82,7 +84,7 @@ class KepalaBalaiController extends Controller
 
         return view('backend.kepala.pengajuan_rumput.detail', compact('pengajuan', 'rumputJenis'));
     }
-    
+
     public function updatepengajuanrumput(Request $request, $id)
     {
         $request->validate([

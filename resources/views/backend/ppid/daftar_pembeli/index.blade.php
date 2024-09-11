@@ -13,7 +13,8 @@
                         <p>Berikut ini adalah data hak akses akun yang sepenuhnya dikelola oleh <b>Admin dan Divisi
                                 PPID</b> BPTU HPT Padang Mengatas</p>
                         <p>Jumlah Pembeli Saat Ini : <b>{{ $jumlahPembeli }}</b></p>
-                        {{-- <a class="btn btn-outline-success mb-4" href=""><i class="bi bi-file-earmark-spreadsheet"></i>
+                        {{-- <a class="btn btn-outline-success mb-4" href=""><i
+                                class="bi bi-file-earmark-spreadsheet"></i>
                             Cetak Excel</a>
                         <a class="btn btn-outline-danger mb-4" href="" target="_blank"><i
                                 class="bi bi-file-earmark-pdf-fill"></i> Cetak PDF</a> --}}
@@ -42,10 +43,10 @@
                                         <td>{{ $item->created_at->translatedFormat('d F Y') }}</td>
                                         <td>
                                             <a class="btn btn-outline-success"
-                                                href="{{ route('detail.ppid.pembeli', ['id' => $item->id]) }}">
+                                                href="{{ route('detail.ppid.pembeli', ['id' => $item->user_id]) }}">
                                                 <i class="bi bi-info-lg"></i>
                                             </a>
-                                            <form action="{{ route('akunadmin.delete', ['id' => $item->id]) }}"
+                                            <form action="{{ route('akunadmin.delete', ['id' => $item->user_id]) }}"
                                                 method="POST" style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')

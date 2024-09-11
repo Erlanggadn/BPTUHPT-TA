@@ -15,16 +15,16 @@ class ModDetailKandangSapi extends Model
     protected $keyType = 'string';
     protected $fillable = [
         'detail_id',
-        'detail_kandang',
-        'detail_sapi',
+        'kegiatan_id',
+        'sapi_id',
     ];
 
     public function kegiatanKandang()
     {
-        return $this->belongsTo(ModKegiatanKandang::class, 'detail_kandang', 'kegiatan_id');
+        return $this->belongsTo(ModKegiatanKandang::class, 'kegiatan_id', 'kegiatan_id');
     }
     public function sapi()
     {
-        return $this->belongsTo(ModSapi::class, 'detail_sapi', 'sapi_id');
+        return $this->belongsTo(ModSapi::class, 'sapi_id', 'sapi_id');
     }
 }

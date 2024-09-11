@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ModPembeli;
+use App\Models\ModHargaSapi;
 use App\Models\ModJenisSapi;
 use Illuminate\Http\Request;
 use App\Models\ModJenisRumput;
@@ -34,15 +35,17 @@ class BendaharaController extends Controller
     public function detailsapi($belisapi_id)
     {
         $pengajuan = ModPengajuanSapi::where('belisapi_id', $belisapi_id)->firstOrFail();
-        $detail = ModDetailPengajuanSapi::where('detail_pengajuan', $belisapi_id)->first();
+        $detail = ModDetailPengajuanSapi::where('belisapi_id', $belisapi_id)->first();
         $sapiJenis = ModJenisSapi::all();
         $currentUser = ModPembeli::all();
-        $pembayaran = ModPembayaranSapi::where('dbeli_beli', $belisapi_id)->first(); // Pastikan variabel pembayaran diambil
+        $pembayaran = ModPembayaranSapi::where('belisapi_id', $belisapi_id)->first(); // Pastikan variabel pembayaran diambil
+        $hargaData = ModHargaSapi::all();
 
-        return view('backend.bendahara.sapi.detail', compact('pengajuan', 'sapiJenis', 'currentUser', 'pembayaran'));
+        return view('backend.bendahara.sapi.detail', compact('pengajuan', 'sapiJenis', 'currentUser', 'pembayaran', 'hargaData'));
     }
     public function storebayarsapi(Request $request, $belisapi_id)
     {
+        // dd($request->all());
         $request->validate([
             'dbeli_invoice' => 'required|file|mimes:jpg,png,jpeg,pdf',
             'dbeli_status' => 'required|string',
@@ -62,7 +65,7 @@ class BendaharaController extends Controller
         // Simpan data pembayaran sapi
         ModPembayaranSapi::create([
             'dbeli_id' => $newKode,
-            'dbeli_beli' => $belisapi_id,
+            'belisapi_id' => $belisapi_id,
             'dbeli_invoice' => $filename,
             'dbeli_status' => $request->dbeli_status,
             'dbeli_keterangan' => $request->dbeli_keterangan,

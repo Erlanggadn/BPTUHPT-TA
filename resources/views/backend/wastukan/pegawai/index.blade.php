@@ -45,7 +45,7 @@
                                         <td>{{ $item->pegawai->pegawai_nohp }}</td>
                                         <td>{{ $item->created_at->translatedFormat('d F Y') }}</td>
                                         <td><a class="btn btn-outline-success"
-                                                href="{{ route('detail.pegawai.wastukan', $item->id) }}"><i
+                                                href="{{ route('detail.pegawai.wastukan', $item->user_id) }}"><i
                                                     class="bi bi-info-lg"></i></a>
                                         </td>
                                     </tr>
