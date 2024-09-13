@@ -31,4 +31,8 @@ class ModPembeli extends Model
     { 
         return $this->hasMany(ModPengajuanSapi::class, 'pembeli_id', 'pembeli_id');
     }
+    public function rumput()
+    { 
+        return $this->hasMany(ModPengajuanRumput::class, 'pembeli_id', 'pembeli_id');
+    }
 }

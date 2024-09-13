@@ -9,6 +9,7 @@ use App\Models\ModPembeli;
 use App\Models\ModHargaSapi;
 use App\Models\ModJenisSapi;
 use Illuminate\Http\Request;
+use App\Models\ModHargaRumput;
 use App\Models\ModJenisRumput;
 use Illuminate\Support\Carbon;
 use App\Models\ModPengajuanSapi;
@@ -211,11 +212,31 @@ class PPIDController extends Controller
     }
 
     //PENGAJUAN SAPI
-    public function indexpengajuansapi()
+    public function indexpengajuansapi(Request $request)
     {
-        $PSapi = ModPengajuanSapi::with('user')->get();
+        $query = ModPengajuanSapi::with('user');
+
+        // Ambil parameter tanggal dari request
+        $tanggalMulai = $request->input('tanggal_mulai');
+        $tanggalSelesai = $request->input('tanggal_selesai');
+
+        // Periksa apakah parameter tanggal ada
+        if ($tanggalMulai && $tanggalSelesai) {
+            // Gunakan Carbon untuk memproses tanggal
+            $tanggalMulai = Carbon::parse($tanggalMulai)->startOfDay();
+            $tanggalSelesai = Carbon::parse($tanggalSelesai)->endOfDay();
+
+            // Tambahkan kondisi filter tanggal ke query
+            $query->whereBetween('belisapi_tanggal', [$tanggalMulai, $tanggalSelesai]);
+        }
+
+        // Ambil data dengan filter yang diterapkan
+        $PSapi = $query->get();
+
+        // Kirim data ke view
         return view('backend.ppid.pengajuan-sapi.index', compact('PSapi'));
     }
+
     public function detailpengajuansapi($id)
     {
         $pengajuan = ModPengajuanSapi::with('details', 'pembayaranSapi')->findOrFail($id);
@@ -331,8 +352,9 @@ class PPIDController extends Controller
         $pengajuan = ModPengajuanRumput::with('detailPengajuanRumput', 'pembayaranRumput')->findOrFail($id);
         $rumputJenis = ModJenisRumput::all();
         $currentUser = ModPembeli::all();
+        $hargaRumput = ModHargaRumput::all();
 
-        return view('backend.ppid.pengajuan-rumput.detail', compact('pengajuan', 'rumputJenis', 'currentUser'));
+        return view('backend.ppid.pengajuan-rumput.detail', compact('pengajuan', 'rumputJenis', 'currentUser', 'hargaRumput'));
     }
     public function updatepengajuanrumput(Request $request, $id)
     {
@@ -345,8 +367,8 @@ class PPIDController extends Controller
             'belirum_status' => 'required|string',
             'belirum_keterangan' => 'required|string',
 
-            'drumput_jenis' => 'required|array',
-            'drumput_jenis.*' => 'required|string|exists:master_rumput_jenis,rum_id',
+            'rum_id' => 'required|array',
+            'rum_id.*' => 'required|string|exists:master_rumput_jenis,rum_id',
             'drumput_kategori' => 'required|array',
             'drumput_kategori.*' => 'required|string',
             'drumput_berat' => 'required|array',
@@ -377,17 +399,17 @@ class PPIDController extends Controller
             $pengajuan->save();
 
             // Hapus detail lama
-            ModDetailPengajuanRumput::where('drumput_pengajuan', $id)->delete();
+            ModDetailPengajuanRumput::where('belirum_id', $id)->delete();
 
             // Tambah detail baru
-            foreach ($validated['drumput_jenis'] as $key => $jenis) {
+            foreach ($validated['rum_id'] as $key => $jenis) {
                 $lastCode = ModDetailPengajuanRumput::orderBy('drumput_id', 'desc')->first();
                 $newCode = $lastCode ? 'DPR' . str_pad(((int) substr($lastCode->drumput_id, 3)) + 1, 3, '0', STR_PAD_LEFT) : 'DPR001';
 
                 ModDetailPengajuanRumput::create([
                     'drumput_id' => $newCode,
-                    'drumput_pengajuan' => $id,
-                    'drumput_jenis' => $jenis,
+                    'belirum_id' => $id,
+                    'rum_id' => $jenis,
                     'drumput_kategori' => $validated['drumput_kategori'][$key],
                     'drumput_berat' => $validated['drumput_berat'][$key],
                     'drumput_satuan' => $validated['drumput_satuan'][$key],
@@ -408,7 +430,7 @@ class PPIDController extends Controller
 
         try {
             // Hapus detail pengajuan terlebih dahulu
-            ModDetailPengajuanRumput::where('drumput_pengajuan', $id)->delete();
+            ModDetailPengajuanRumput::where('belirum_id', $id)->delete();
 
             // Hapus pengajuan
             $pengajuan = ModPengajuanRumput::findOrFail($id);
@@ -423,7 +445,7 @@ class PPIDController extends Controller
         }
     }
 
-    //HARGA PRODUK
+    //HARGA PRODUK SAPI
     public function indexhargasapi()
     {
         $hargasapi = ModHargaSapi::all();
@@ -462,7 +484,203 @@ class PPIDController extends Controller
         return redirect()->route('index.harga.sapi')->with('success', 'Harga sapi berhasil ditambahkan.');
     }
 
-    public function detailhargasapi() {}
-    public function updatehargasapi() {}
-    public function deletehargasapi() {}
+    public function detailhargasapi($id)
+    {
+        $hargaSapi = ModHargaSapi::findOrFail($id);
+        $jenisSapi = ModJenisSapi::all(); // Jika ingin menampilkan pilihan jenis sapi pada view
+        return view('backend.ppid.harga.sapi.detail', compact('hargaSapi', 'jenisSapi'));
+    }
+
+    public function updatehargasapi(Request $request, $id)
+    {
+        // Validasi input
+        $request->validate([
+            'sjenis_id' => 'required|string|max:30|exists:master_sapi_jenis,sjenis_id',
+            'hs_kategori' => 'required|string|max:100',
+            'hs_kelamin' => 'required|string|max:30',
+            'hs_harga' => 'required|integer',
+        ]);
+
+        // Temukan record yang akan di-update
+        $hargaSapi = ModHargaSapi::findOrFail($id);
+
+        // Update record
+        $hargaSapi->update([
+            'sjenis_id' => $request->sjenis_id,
+            'hs_kelamin' => $request->hs_kelamin,
+            'hs_kategori' => $request->hs_kategori,
+            'hs_harga' => $request->hs_harga,
+        ]);
+
+        // Redirect dengan pesan sukses
+        return redirect()->route('index.harga.sapi')->with('success', 'Harga sapi berhasil diperbarui.');
+    }
+
+    public function deletehargasapi($id)
+    {
+        // Temukan record yang akan dihapus
+        $hargaSapi = ModHargaSapi::findOrFail($id);
+
+        // Hapus record
+        $hargaSapi->delete();
+
+        // Redirect dengan pesan sukses
+        return redirect()->route('index.harga.sapi')->with('success', 'Harga sapi berhasil dihapus.');
+    }
+
+
+    //HARGA PRODUK RUMPUT
+    public function indexhargarumput()
+    {
+        $hargarumput = ModHargaRumput::all();
+        return view('backend.ppid.harga.rumput.index', compact('hargarumput'));
+    }
+    public function showhargarumput()
+    {
+        $jenisRumput = ModJenisRumput::all();
+        return view('backend.ppid.harga.rumput.create', compact('jenisRumput'));
+    }
+    public function storehargarumput(Request $request)
+    {
+        // dd($request->all());
+        // Validate the request data
+        $request->validate([
+            'rum_id' => 'required|string|max:30|exists:master_rumput_jenis,rum_id',
+            'hr_kategori' => 'required|string|max:100',
+            'hr_jenis' => 'required|string|max:50',
+            'hr_satuan' => 'required|string|max:30',
+            'hr_harga' => 'required|integer',
+        ]);
+
+        // Generate a new hs_id
+        $lastHarga = ModHargaRumput::orderBy('hr_id', 'desc')->first();
+        $newKode = $lastHarga ? 'HR' . str_pad(((int) substr($lastHarga->hr_id, 2)) + 1, 3, '0', STR_PAD_LEFT) : 'HR001';
+
+        // Create a new record in the database
+        ModHargaRumput::create([
+            'hr_id' => $newKode,
+            'rum_id' => $request->rum_id,
+            'hr_jenis' => $request->hr_jenis,
+            'hr_satuan' => $request->hr_satuan,
+            'hr_kategori' => $request->hr_kategori,
+            'hr_harga' => $request->hr_harga,
+        ]);
+
+        // Redirect or return success response
+        return redirect()->route('index.harga.rumput')->with('success', 'Harga rumput berhasil ditambahkan.');
+    }
+    public function detailhargarumput($id)
+    {
+        $hargaRumput = ModHargaRumput::findOrFail($id);
+        $jenisRumput = ModJenisRumput::all(); // Jika ingin menampilkan pilihan jenis sapi pada view
+        return view('backend.ppid.harga.rumput.detail', compact('hargaRumput', 'jenisRumput'));
+    }
+    public function updatehargarumput(Request $request, $id)
+    {
+        // Validasi input
+        $request->validate([
+            'rum_id' => 'required|string|max:30|exists:master_rumput_jenis,rum_id',
+            'hr_kategori' => 'required|string|max:100',
+            'hr_jenis' => 'required|string|max:50',
+            'hr_satuan' => 'required|string|max:30',
+            'hr_harga' => 'required|integer',
+        ]);
+
+        // Temukan record yang akan di-update
+        $hargaRumput = ModHargaRumput::findOrFail($id);
+
+        // Update record
+        $hargaRumput->update([
+            'rum_id' => $request->rum_id,
+            'hr_satuan' => $request->hr_satuan,
+            'hr_jenis' => $request->hr_jenis,
+            'hr_kategori' => $request->hr_kategori,
+            'hr_harga' => $request->hr_harga,
+        ]);
+
+        // Redirect dengan pesan sukses
+        return redirect()->route('index.harga.rumput')->with('success', 'Harga rumput berhasil diperbarui.');
+    }
+
+    public function deletehargarumput($id)
+    {
+        // Temukan record yang akan dihapus
+        $hargaRumput = ModHargaRumput::findOrFail($id);
+
+        // Hapus record
+        $hargaRumput->delete();
+
+        // Redirect dengan pesan sukses
+        return redirect()->route('index.harga.rumput')->with('success', 'Harga rumput berhasil dihapus.');
+    }
+
+    //FILTER DAN EXPORT PENGAJUAN SAPI
+    public function export(Request $request)
+    {
+        $tanggalMulai = $request->input('tanggal_mulai');
+        $tanggalSelesai = $request->input('tanggal_selesai');
+
+        // Query data dengan filter tanggal
+        $query = ModPengajuanSapi::with('user');
+
+        if ($tanggalMulai && $tanggalSelesai) {
+            $tanggalMulai = Carbon::parse($tanggalMulai)->startOfDay();
+            $tanggalSelesai = Carbon::parse($tanggalSelesai)->endOfDay();
+
+            $query->whereBetween('belisapi_tanggal', [$tanggalMulai, $tanggalSelesai]);
+        }
+
+        $PSapi = $query->get();
+
+        // Buat spreadsheet baru
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Set header kolom
+        $sheet->setCellValue('A1', 'ID Pengajuan');
+        $sheet->setCellValue('B1', 'Nama Pengirim');
+        $sheet->setCellValue('C1', 'Asal Instansi');
+        $sheet->setCellValue('D1', 'Tanggal Masuk');
+        $sheet->setCellValue('E1', 'Disposisi');
+        $sheet->setCellValue('F1', 'Status');
+
+        // Isi data ke sheet
+        $row = 2;
+        foreach ($PSapi as $item) {
+            $sheet->setCellValue('A' . $row, $item->belisapi_id);
+            $sheet->setCellValue('B' . $row, $item->user->pembeli_nama);
+            $sheet->setCellValue('C' . $row, $item->user->pembeli_instansi);
+            $sheet->setCellValue('D' . $row, Carbon::parse($item->belisapi_tanggal)->translatedFormat('j F Y'));
+            $sheet->setCellValue('E' . $row, $item->belisapi_keterangan);
+            $sheet->setCellValue('F' . $row, $item->belisapi_status);
+            $row++;
+        }
+
+        // Set nama file
+        $filename = 'pengajuan_sapi_' . date('Ymd_His') . '.xlsx';
+        $writer = new Xlsx($spreadsheet);
+
+        // Kirim file ke browser
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="' . $filename . '"');
+        $writer->save('php://output');
+        exit;
+    }
+
+    public function filter(Request $request)
+    {
+        $tanggalMulai = $request->input('tanggal_mulai');
+        $tanggalSelesai = $request->input('tanggal_selesai');
+
+        // Pastikan tanggal yang diberikan valid
+        if ($tanggalMulai && $tanggalSelesai) {
+            return redirect()->route('index.ppid.psapi', [
+                'tanggal_mulai' => $tanggalMulai,
+                'tanggal_selesai' => $tanggalSelesai
+            ]);
+        } else {
+            // Handle jika tidak ada tanggal yang dipilih
+            return redirect()->back()->with('error', 'Pilih rentang tanggal terlebih dahulu.');
+        }
+    }
 }

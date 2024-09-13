@@ -226,7 +226,6 @@ class KegiatanKandangController extends Controller
         exit;
     }
 
-
     public function filter(Request $request)
     {
         $startDate = $request->input('start_date');

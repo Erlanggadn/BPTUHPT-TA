@@ -22,4 +22,8 @@ class ModJenisRumput extends Model
     {
         return $this->hasMany(ModRumput::class, 'rum_id', 'rum_id');
     }
+    public function hargaRumput()
+    {
+        return $this->hasMany(ModHargaRumput::class, 'rum_id', 'rum_id');
+    }
 }

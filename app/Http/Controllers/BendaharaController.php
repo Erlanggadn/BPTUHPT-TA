@@ -112,10 +112,10 @@ class BendaharaController extends Controller
     public function detailrumput($belirum_id)
     {
         $pengajuan = ModPengajuanRumput::where('belirum_id', $belirum_id)->firstOrFail();
-        $detail = ModDetailPengajuanRumput::where('drumput_pengajuan', $belirum_id)->first();
+        $detail = ModDetailPengajuanRumput::where('belirum_id', $belirum_id)->first();
         $rumputJenis = ModJenisRumput::all();
         $currentUser = ModPembeli::all();
-        $pembayaran = ModPembayaranRumput::where('bayarrum_beli', $belirum_id)->first(); // Pastikan variabel pembayaran diambil
+        $pembayaran = ModPembayaranRumput::where('belirum_id', $belirum_id)->first(); // Pastikan variabel pembayaran diambil
 
         return view('backend.bendahara.rumput.detail', compact('pengajuan', 'rumputJenis', 'currentUser', 'pembayaran'));
     }
@@ -140,7 +140,7 @@ class BendaharaController extends Controller
         // Simpan data pembayaran sapi
         ModPembayaranRumput::create([
             'bayarrum_id' => $newKode,
-            'bayarrum_beli' => $belirum_id,
+            'belirum_id' => $belirum_id,
             'bayarrum_invoice' => $filename,
             'bayarrum_status' => $request->bayarrum_status,
             'bayarrum_keterangan' => $request->bayarrum_keterangan,

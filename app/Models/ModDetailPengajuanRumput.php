@@ -14,8 +14,8 @@ class ModDetailPengajuanRumput extends Model
     protected $keyType = 'string';
     protected $fillable = [
         'drumput_id',
-        'drumput_pengajuan',
-        'drumput_jenis',
+        'belirum_id',
+        'rum_id',
         'drumput_kategori',
         'drumput_berat',
         'drumput_satuan'
@@ -23,10 +23,10 @@ class ModDetailPengajuanRumput extends Model
 
     public function pengajuanRumput()
     {
-        return $this->belongsTo(ModPengajuanRumput::class, 'drumput_pengajuan', 'belirum_id');
+        return $this->belongsTo(ModPengajuanRumput::class, 'belirum_id', 'belirum_id');
     }
     public function jenisRumput()
     {
-        return $this->belongsTo(ModJenisRumput::class, 'drumput_jenis', 'rum_id');
+        return $this->belongsTo(ModJenisRumput::class, 'rum_id', 'rum_id');
     }
 }

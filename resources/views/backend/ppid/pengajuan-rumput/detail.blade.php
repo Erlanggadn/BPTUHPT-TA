@@ -9,7 +9,7 @@
                 <div class="card-body pt-3">
                     <div class="tab-content pt-2">
                         <h5 class="card-title">Detail Pengajuan Pembelian Rumput
-                            ({{  $pengajuan->pembeli->pembeli_nama }})
+                            ({{ $pengajuan->pembeli->pembeli_nama }})
                         </h5>
                         @if (session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -34,8 +34,8 @@
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Nama </div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input type="hidden" name="belirum_orang" id="belirum_orang"
-                                        value="{{ $pengajuan->belirum_orang }}">
+                                    <input type="hidden" name="pembeli_id" id="pembeli_id"
+                                        value="{{ $pengajuan->pembeli_id }}">
                                     <input type="text" class="form-control"
                                         value="{{  $pengajuan->pembeli->pembeli_nama }}" disabled>
                                 </div>
@@ -43,7 +43,7 @@
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Asal Instansi</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input type="hidden" name="belirum_orang" id="belirum_orang" value="">
+                                    <input type="hidden" name="pembeli_id" id="pembeli_id" value="">
                                     <input type="text" class="form-control"
                                         value="{{  $pengajuan->pembeli->pembeli_instansi }}" disabled>
                                 </div>
@@ -91,8 +91,8 @@
                                 <div class="col-lg-3 col-md-4 label">Status Pembelian</div>
                                 <div class="col-lg-9 col-md-8">
                                     <select name="belirum_status" id="belirum_status" class="form-select" required>
-                                        <option value="{{ $pengajuan->belirum_status }}"
-                                            {{ $pengajuan->belirum_status ? 'selected' : '' }}>
+                                        <option value="{{ $pengajuan->belirum_status }}" {{ $pengajuan->belirum_status ?
+                                            'selected' : '' }}>
                                             {{ $pengajuan->belirum_status }}</option>
                                         <option value="" disabled>-- Status Pembelian --</option>
                                         <option value="Disetujui">Disetujui</option>
@@ -115,10 +115,10 @@
                                 <div class="row mb-3">
                                     <div class="col-lg-3 col-md-4 label">Jenis Rumput</div>
                                     <div class="col-lg-9 col-md-8">
-                                        <select name="drumput_jenis[]" id="drumput_jenis" class="form-select" required>
+                                        <select name="rum_id[]" id="rum_id" class="form-select" required>
                                             @foreach($rumputJenis as $jenis)
-                                            <option value="{{ $jenis->rum_id }}"
-                                                {{ $detail->drumput_jenis == $jenis->rum_id ? 'selected' : '' }}>
+                                            <option value="{{ $jenis->rum_id }}" {{ $detail->rum_id ==
+                                                $jenis->rum_id ? 'selected' : '' }}>
                                                 {{ $jenis->rum_nama }}
                                             </option>
                                             @endforeach
@@ -129,22 +129,12 @@
                                     <div class="col-lg-3 col-md-4 label">Kategori Rumput</div>
                                     <div class="col-lg-9 col-md-8">
                                         <select name="drumput_kategori[]" id="drumput_kategori" class="form-select">
-                                            <option value="{{ $detail->drumput_kategori }}">
-                                                {{ $detail->drumput_kategori }} </option>
-                                            <optgroup label="Benih dan HPT">
-                                                <option value="Rumput Padang Pengembaalaan">Rumput Padang Pengembalaan
-                                                </option>
-                                                <option value="Rumput Potong">Rumput Potong</option>
-                                                <option value="Rumput">Rumput</option>
-                                                <option value="Leguminosa Pohon">Leguminosa Pohon</option>
-                                                <option value="Leguminosa Menjalar">Leguminosa Menjalar</option>
-                                            </optgroup>
-                                            <optgroup label="Hasil Ikutan">
-                                                <option value="Kompos">Kompos</option>
-                                                <option value="Rumput Pakan Ternak">Rumput Pakan Ternak</option>
-                                                <option value="Silase">Silase</option>
-                                                <option value="Mineral Block">Mineral Block</option>
-                                            </optgroup>
+                                            @foreach($hargaRumput as $harga)
+                                            <option value="{{ $harga->hr_kategori}}" {{ $detail->hr_kategori==
+                                                $harga->hr_kategori? 'selected' : '' }}>
+                                                {{ $harga->hr_kategori }} - {{ $harga->hr_satuan }}
+                                            </option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -161,14 +151,12 @@
                                     <div class="col-lg-3 col-md-4 label">Satuan Per</div>
                                     <div class="col-lg-9 col-md-8">
                                         <select name="drumput_satuan[]" id="drumput_satuan" class="form-select">
-                                            <option value="{{ $detail->drumput_satuan }}">{{ $detail->drumput_satuan }}
+                                            @foreach($hargaRumput as $harga)
+                                            <option value="{{ $harga->hr_satuan}}" {{ $detail->hr_satuan==
+                                                $harga->hr_satuan? 'selected' : '' }}>
+                                                {{ $harga->hr_satuan }}
                                             </option>
-                                            <option value="Per Pools">Per Pools</option>
-                                            <option value="Per Stek">Per Stek</option>
-                                            <option value="Per Biji">Per Biji</option>
-                                            <option value="Per Batang">Per Batang</option>
-                                            <option value="Per Kilogram">Per Kilogram</option>
-                                            <option value="Per Stolon">Per Stolon</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>

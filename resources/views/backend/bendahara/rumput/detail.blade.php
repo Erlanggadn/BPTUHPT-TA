@@ -9,7 +9,7 @@
                 <div class="card-body pt-3">
                     <div class="tab-content pt-2">
                         <h5 class="card-title">Detail Pengajuan Pembelian Rumput
-                            ({{  $pengajuan->pembeli->pembeli_nama }})
+                            ({{ $pengajuan->pembeli->pembeli_nama }})
                         </h5>
                         @if (session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -30,8 +30,8 @@
                         <div class="row mb-3">
                             <div class="col-lg-3 col-md-4 label">Nama </div>
                             <div class="col-lg-9 col-md-8">
-                                <input type="hidden" name="belirum_orang" id="belirum_orang"
-                                    value="{{ $pengajuan->belirum_orang }}">
+                                <input type="hidden" name="pembeli_id" id="pembeli_id"
+                                    value="{{ $pengajuan->pembeli_id }}">
                                 <input type="text" class="form-control" value="{{  $pengajuan->pembeli->pembeli_nama }}"
                                     disabled>
                             </div>
@@ -39,7 +39,7 @@
                         <div class="row mb-3">
                             <div class="col-lg-3 col-md-4 label">Asal Instansi</div>
                             <div class="col-lg-9 col-md-8">
-                                <input type="hidden" name="belirum_orang" id="belirum_orang" value="">
+                                <input type="hidden" name="pembeli_id" id="pembeli_id" value="">
                                 <input type="text" class="form-control"
                                     value="{{  $pengajuan->pembeli->pembeli_instansi }}" disabled>
                             </div>
@@ -90,8 +90,8 @@
                             <div class="col-lg-3 col-md-4 label">Status Pembelian</div>
                             <div class="col-lg-9 col-md-8">
                                 <select name="belirum_status" id="belirum_status" class="form-select" disabled>
-                                    <option value="{{ $pengajuan->belirum_status }}"
-                                        {{ $pengajuan->belirum_status ? 'selected' : '' }}>
+                                    <option value="{{ $pengajuan->belirum_status }}" {{ $pengajuan->belirum_status ?
+                                        'selected' : '' }}>
                                         {{ $pengajuan->belirum_status }}</option>
                                     <option value="" disabled>-- Status Pembelian --</option>
                                     <option value="Diverifikasi">Diverifikasi</option>
@@ -116,8 +116,8 @@
                                 <div class="col-lg-9 col-md-8">
                                     <select name="drumput_jenis[]" id="drumput_jenis" class="form-select" disabled>
                                         @foreach($rumputJenis as $jenis)
-                                        <option value="{{ $jenis->rum_id }}"
-                                            {{ $detail->drumput_jenis == $jenis->rum_id ? 'selected' : '' }}>
+                                        <option value="{{ $jenis->rum_id }}" {{ $detail->drumput_jenis == $jenis->rum_id
+                                            ? 'selected' : '' }}>
                                             {{ $jenis->rum_nama }}</option>
                                         @endforeach
                                     </select>
@@ -190,9 +190,8 @@
                                 <div class="col-lg-9 col-md-8">
                                     <select name="bayarrum_status" id="bayarrum_status" class="form-control">
                                         <option value="" selected disabled>-- Pilih Status --</option>
-                                        <option value="" disabled>{{ $pembayaran->dbeli_status }}</option>
-                                        <option value="Diterima"
-                                            {{ $pembayaran->dbeli_status == 'Diterima' ? 'selected' : '' }}>
+                                        <option value="Diterima" {{ $pembayaran->dbeli_status == 'Diterima' ? 'selected'
+                                            : '' }}>
                                             Diterima</option>
                                     </select>
                                 </div>

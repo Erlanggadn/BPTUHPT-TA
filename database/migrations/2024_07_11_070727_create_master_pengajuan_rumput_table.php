@@ -16,7 +16,7 @@ class CreateMasterPengajuanRumputTable extends Migration
         Schema::create('master_pengajuan_rumput', function (Blueprint $table) {
             $table->string('belirum_id', 30)->primary();
             // IDENTITAS PEMBELI
-            $table->string('belirum_orang', 30);
+            $table->string('pembeli_id', 30);
             $table->bigInteger('belirum_nohp');
             $table->string('belirum_alamat', 255);
             $table->string('belirum_surat');
@@ -26,7 +26,7 @@ class CreateMasterPengajuanRumputTable extends Migration
             $table->string('belirum_status', 30);
             $table->string('belirum_keterangan', 255);
 
-            $table->foreign('belirum_orang')->references('pembeli_id')->on('pembeli')->onDelete('cascade');
+            $table->foreign('pembeli_id')->references('pembeli_id')->on('pembeli')->onDelete('cascade');
             $table->timestamps();
         });
     }

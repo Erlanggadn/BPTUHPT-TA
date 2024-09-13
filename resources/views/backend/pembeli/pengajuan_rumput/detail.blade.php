@@ -31,8 +31,8 @@
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Nama Anda</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input type="hidden" name="belirum_orang" id="belirum_orang"
-                                        value="{{ $pengajuan->belirum_orang }}">
+                                    <input type="hidden" name="pembeli_id" id="pembeli_id"
+                                        value="{{ $pengajuan->pembeli_id }}">
                                     <input type="text" class="form-control"
                                         value="{{ $currentUser->pembeli ? $currentUser->pembeli->pembeli_nama : '' }}"
                                         disabled>

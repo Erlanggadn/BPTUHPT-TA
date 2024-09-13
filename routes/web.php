@@ -49,6 +49,8 @@ Route::middleware(['auth', 'checkPembeli'])->group(function () {
         Route::put('/pembayaran/update/{id}', [PengajuanSapiController::class, 'updateBukti'])->name('update.bayar.pembeli');
         Route::get('/pembayaran/update/show/{id}', [PengajuanSapiController::class, 'updateBuktiShow'])->name('update.bayar');
         Route::put('/bukti/update/{id}', [PengajuanSapiController::class, 'updatebayarsapi'])->name('bukti.bayar.pembeli');
+        Route::get('/pengajuan-sapi/{id}/print', [PengajuanSapiController::class, 'print'])->name('print.pengajuan.sapi');
+
     });
     Route::prefix('profil-pembeli')->group(function () {
         Route::get('/detail/{id}', [AkunController::class, 'profilpembeliakun'])->name('detail.profil.pembeli');
@@ -62,6 +64,7 @@ Route::middleware(['auth', 'checkPembeli'])->group(function () {
         Route::get('/detail/{id}', [PengajuanRumputController::class, 'detail'])->name('detail.pengajuan.rumput');
         Route::put('/update/{id}', [PengajuanRumputController::class, 'update'])->name('update.pengajuan.rumput');
         Route::put('/bukti/update/{id}', [PengajuanRumputController::class, 'updatebayarrumput'])->name('bukti.bayar.rumput');
+        Route::get('/{id}/print', [PengajuanRumputController::class, 'print'])->name('print.pengajuan.rumput');
     });
     Route::prefix('cetak-template')->group(function () {
         Route::get('/sapi', [PengajuanSapiController::class, 'cetaksurat'])->name('cetak.template.sapi');
@@ -258,6 +261,9 @@ Route::middleware(['auth', 'checkPPID'])->group(function () {
         Route::get('/detail/{id}', [PPIDController::class, 'detailpengajuansapi'])->name('detail.ppid.psapi');
         Route::put('/update/{id}', [PPIDController::class, 'updatepengajuansapi'])->name('update.ppid.psapi');
         Route::delete('/delete/{id}', [PPIDController::class, 'deletepengajuansapi'])->name('delete.ppid.psapi');
+        Route::get('/filter/pengajuan-sapi', [PPIDController::class, 'filter'])->name('filter.ppid.psapi');
+        Route::get('/export', [PPIDController::class, 'export'])->name('export.ppid.psapi');
+
     });
     Route::prefix('pengajuan-rumput-ppid')->group(function () {
         Route::get('/', [PPIDController::class, 'indexpengajuanrumput'])->name('index.ppid.prumput');
@@ -272,6 +278,14 @@ Route::middleware(['auth', 'checkPPID'])->group(function () {
         Route::get('/detail/{id}', [PPIDController::class, 'detailhargasapi'])->name('detail.harga.sapi');
         Route::put('/update/{id}', [PPIDController::class, 'updatehargasapi'])->name('update.harga.sapi');
         Route::delete('/delete/{id}', [PPIDController::class, 'deletehargasapi'])->name('delete.harga.sapi');
+    });
+    Route::prefix('harga-rumput')->group(function () {
+        Route::get('/', [PPIDController::class, 'indexhargarumput'])->name('index.harga.rumput');
+        Route::get('/tambah', [PPIDController::class, 'showhargarumput'])->name('show.harga.rumput');
+        Route::post('/store', [PPIDController::class, 'storehargarumput'])->name('store.harga.rumput');
+        Route::get('/detail/{id}', [PPIDController::class, 'detailhargarumput'])->name('detail.harga.rumput');
+        Route::put('/update/{id}', [PPIDController::class, 'updatehargarumput'])->name('update.harga.rumput');
+        Route::delete('/delete/{id}', [PPIDController::class, 'deletehargarumput'])->name('delete.harga.rumput');
     });
     //PPID - PROFIL
     Route::get('/PPID/Profil/{user_id}', [AkunController::class, 'profilppid'])->name('detail.profil.ppid');
@@ -318,7 +332,6 @@ Route::middleware(['auth', 'checkKepala'])->group(function () {
         Route::put('/update/{id}', [KepalaBalaiController::class, 'updatepengajuanrumput'])->name('update.kepala.prumput');
     });
 });
-
 
 // lOGOUT
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');

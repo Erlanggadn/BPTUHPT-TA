@@ -16,7 +16,8 @@ class CreateMasterHargaRumputTable extends Migration
         Schema::create('master_harga_rumput', function (Blueprint $table) {
             $table->string('hr_id', 30)->primary();
             $table->string('rum_id', 30);
-            $table->string('hr_kelamin', 30);
+            $table->string('hr_jenis', 50);
+            $table->string('hr_satuan', 30);
             $table->string('hr_kategori', 100);
             $table->bigInteger('hr_harga');
 

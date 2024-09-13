@@ -60,8 +60,11 @@ use Carbon\Carbon;
                                             <span class="badge bg-danger">Ditolak</span>
                                             @else
                                             <span class="badge bg-warning">Diproses</span>
-                                            @endif</td>
-                                        <td> <a class="btn btn-outline-success"
+                                            @endif
+                                        </td>
+                                        <td> <a href="{{ route('print.pengajuan.sapi', $item->belisapi_id) }}"
+                                                class="btn btn-outline-info"><i class="bi bi-printer"></i></a>
+                                            <a class="btn btn-outline-success"
                                                 href="{{ route('detail.pengajuan.sapi', $item->belisapi_id) }}"><i
                                                     class="bi bi-info-lg"></i></a>
                                         </td>

@@ -34,7 +34,11 @@ class PengajuanSapiController extends Controller
         $currentUser = auth()->user();
         $hargaData = ModHargaSapi::all();  // Ambil semua data harga sapi
 
-        return view('backend.pembeli.pengajuan_sapi.tambah', compact('users', 'sapiJenis', 'currentUser', 'hargaData'));
+        $existingPengajuan = ModPengajuanSapi::where('pembeli_id', $currentUser->pembeli ? $currentUser->pembeli->pembeli_id : $currentUser->id)
+            ->where('belisapi_status', 'Sedang Diproses')
+            ->exists();
+
+        return view('backend.pembeli.pengajuan_sapi.tambah', compact('users', 'sapiJenis', 'currentUser', 'hargaData', 'existingPengajuan'));
     }
     public function store(Request $request)
     {
@@ -225,5 +229,16 @@ class PengajuanSapiController extends Controller
     public function cetaksurat()
     {
         return view('backend.pembeli.surat.sapi');
+    }
+
+    public function print($id)
+    {
+        $pengajuan = ModPengajuanSapi::with('details')->findOrFail($id);
+        $sapiJenis = ModJenisSapi::all();
+        $currentUser = auth()->user();
+        $pembayaran = ModPembayaranSapi::where('belisapi_id', $id)->first();
+        $hargaData = ModHargaSapi::all();
+
+        return view('backend.pembeli.pengajuan_sapi.print', compact('pengajuan', 'sapiJenis', 'currentUser', 'pembayaran', 'hargaData'));
     }
 }

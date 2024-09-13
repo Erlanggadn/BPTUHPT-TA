@@ -14,7 +14,7 @@ class ModPengajuanRumput extends Model
     protected $keyType = 'string';
     protected $fillable = [
         'belirum_id',
-        'belirum_orang',
+        'pembeli_id',
         'belirum_nohp',
         'belirum_alamat',
         'belirum_surat',
@@ -26,15 +26,15 @@ class ModPengajuanRumput extends Model
 
     public function pembeli()
     {
-        return $this->belongsTo(ModPembeli::class, 'belirum_orang', 'pembeli_id');
+        return $this->belongsTo(ModPembeli::class, 'pembeli_id', 'pembeli_id');
     }
     public function detailPengajuanRumput()
     {
-        return $this->hasMany(ModDetailPengajuanRumput::class, 'drumput_pengajuan', 'belirum_id');
+        return $this->hasMany(ModDetailPengajuanRumput::class, 'belirum_id', 'belirum_id');
     }
     public function pembayaranRumput()
     {
-        return $this->hasMany(ModPembayaranRumput::class, 'bayarrum_beli', 'belirum_id');
+        return $this->hasMany(ModPembayaranRumput::class, 'belirum_id', 'belirum_id');
     }
     public function getDisplayStatusAttribute()
     {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ModJenisRumput;
 use App\Models\User;
 use App\Models\ModPegawai;
 use App\Models\ModPembeli;
@@ -19,7 +20,8 @@ class AuthController extends Controller
     {
         $akunuser = Auth::user();
         $jenis_sapi = ModJenisSapi::with('hargaSapi')->get();
-        return view('index', ['akunuser' => $akunuser, 'jenis_sapi' => $jenis_sapi]);
+        $jenis_rumput = ModJenisRumput::with('hargaRumput')->get();
+        return view('index', ['akunuser' => $akunuser, 'jenis_sapi' => $jenis_sapi ,'jenis_rumput' => $jenis_rumput]);
     }
 
     //REGIS - PEMBELI

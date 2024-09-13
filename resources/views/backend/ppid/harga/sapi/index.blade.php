@@ -34,7 +34,7 @@ use Carbon\Carbon;
                                         <th>Gender</th>
                                         <th>Kategori</th>
                                         <th>Harga</th>
-                                        {{-- <th>Action</th> --}}
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -46,9 +46,9 @@ use Carbon\Carbon;
                                         <td>{{ $item->hs_kelamin }}</td>
                                         <td>{{ $item->hs_kategori }}</td>
                                         <td>Rp. {{ number_format($item->hs_harga, 0, ',', '.') }}</td>
-                                        {{-- <td>
+                                        <td>
                                             <a class="btn btn-outline-success"
-                                                href="{{ route('edit.harga.sapi', $item->hs_id) }}"><i
+                                                href="{{ route('detail.harga.sapi', $item->hs_id) }}"><i
                                                     class="bi bi-pencil-square"></i></a>
                                             <form id="deleteForm{{ $item->hs_id }}"
                                                 action="{{ route('delete.harga.sapi', $item->hs_id) }}" method="POST"
@@ -60,7 +60,7 @@ use Carbon\Carbon;
                                                     <i class="bi bi-trash-fill"></i>
                                                 </button>
                                             </form>
-                                        </td> --}}
+                                        </td>
                                     </tr>
                                     @endforeach
                                     @endisset
@@ -100,13 +100,17 @@ use Carbon\Carbon;
 <script src="{{ asset ('js/main.js') }}"></script>
 <script>
     function showDeleteModal(action, id) {
-        var deleteForm = document.getElementById('deleteForm' + id);
-        deleteForm.action = action;
-        var deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
-        deleteModal.show();
+    // Simpan ID form yang akan dihapus
+    var deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+    document.getElementById('confirmDelete').setAttribute('data-id', id); // Simpan ID ke tombol Hapus
+    deleteModal.show();
     }
 
+    // Ketika tombol konfirmasi hapus ditekan
     document.getElementById('confirmDelete').addEventListener('click', function () {
-        document.getElementById('deleteForm').submit();
+        var id = this.getAttribute('data-id'); // Ambil ID yang disimpan
+        var deleteForm = document.getElementById('deleteForm' + id); // Pilih form berdasarkan ID
+        deleteForm.submit(); // Submit form
     });
+
 </script>

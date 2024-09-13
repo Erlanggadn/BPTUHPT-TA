@@ -15,9 +15,9 @@ class CreateMasterPembayaranRumputTable extends Migration
     {
         Schema::create('master_pembayaran_rumput', function (Blueprint $table) {
             $table->string('bayarrum_id', 30)->primary();
-            $table->string('bayarrum_beli', 30);
+            $table->string('belirum_id', 30);
             $table->string('bayarrum_invoice',);
-            $table->string('bayarrum_bukti');
+            $table->string('bayarrum_bukti')->nullable();
             $table->string('bayarrum_sudah', 30);
             $table->string('bayarrum_status', 30);
             $table->string('bayarrum_keterangan', 255);
@@ -25,7 +25,7 @@ class CreateMasterPembayaranRumputTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('bayarrum_beli')->references('belirum_id')->on('master_pengajuan_rumput')->onDelete('cascade');
+            $table->foreign('belirum_id')->references('belirum_id')->on('master_pengajuan_rumput')->onDelete('cascade');
         });
     }
 

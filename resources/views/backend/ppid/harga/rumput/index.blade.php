@@ -2,70 +2,67 @@
 use Carbon\Carbon;
 @endphp
 @include('layouts.utama.main2')
-@include('layouts.pembeli.navbar')
-@include('layouts.pembeli.sidebar')
-
+@include('layouts.ppid.navbar')
+@include('layouts.ppid.sidebar')
 
 <main id="main" class="main">
-
-    <div class="pagetitle">
-        <h1>Selamat Datang, <b>{{ Auth::user()->pembeli->pembeli_nama }} </b> </h1>
-    </div><!-- End Page Title -->
-
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title"></h5>
-                        <p>Silahkan Tunggu data anda sedang diverifikasi, anda akan dihubungi dan menerima notifikasi
-                            tentang
-                            status pengajuan pembelian sapi anda, Terima kasih telah mempercayai <b>BPTU HPT Padang
-                                Mengatas</b>. Jika mengalami masalah silahkan hubungi <a
-                                href="https://wa.me/082169402404?text=Halo%20BPTU%20HPT%20Padang%20Mengatas"><span
-                                    class="badge bg-success">admin</span></a>.
+                        <h5 class="card-title">Data Harga Rumput</h5>
+                        <p>Berikut ini adalah data harga Rumput yang sepenuhnya dikelola oleh <b>Divisi PPID</b> BPTU
+                            HPT Padang Mengatas
                         </p>
+                        <a href="{{ route('show.harga.rumput') }}" class="btn btn-primary mb-4"><i
+                                class="bi bi-plus"></i>
+                            Tambah Harga</a>
                         @if (session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             {{ session('success') }}
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                         @endif
+
                         <!-- Table with stripped rows -->
                         <div class="table-responsive">
                             <table class="table datatable">
                                 <thead>
                                     <tr>
-                                        <th>ID Pengajuan</th>
-                                        <th>Nama Pengirim</th>
-                                        <th>Asal Instansi</th>
-                                        <th>Tanggal Kirim</th>
-                                        <th>Status</th>
+                                        <th>ID Harga</th>
+                                        <th>Jenis Rumput</th>
+                                        <th>Jenis Pakan</th>
+                                        <th>Satuan</th>
+                                        <th>Kategori</th>
+                                        <th>Harga</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @isset($PRumput)
-                                    @foreach ($PRumput as $item)
+                                    @isset($hargarumput)
+                                    @foreach ($hargarumput as $item)
                                     <tr>
-                                        <td><span class="badge bg-primary">{{ $item->belirum_id}}</span></td>
-                                        <td>{{ $item->pembeli->pembeli_nama }}</td>
-                                        <td>{{ $item->pembeli->pembeli_instansi }}</td>
-                                        <td>{{ Carbon::parse($item->belirum_tanggal)->translatedFormat('j F Y') }}</td>
-                                        <td>@if ($item->display_status == 'Diproses')
-                                            <span class="badge bg-warning">Diproses</span>
-                                            @elseif ($item->display_status == 'Disetujui')
-                                            <span class="badge bg-success">Disetujui</span>
-                                            @elseif ($item->display_status == 'Ditolak')
-                                            <span class="badge bg-danger">Ditolak</span>
-                                            @else
-                                            <span class="badge bg-warning">Diproses</span>
-                                            @endif</td>
-                                        <td> <a href="{{ route('print.pengajuan.rumput', $item->belirum_id) }}"
-                                            class="btn btn-outline-info"><i class="bi bi-printer"></i></a>
+                                        <td><span class="badge bg-primary">{{ $item->hr_id }}</span></td>
+                                        <td>{{ $item->jenis->rum_nama }}</td>
+                                        <td>{{ $item->hr_jenis }}</td>
+                                        <td>{{ $item->hr_satuan }}</td>
+                                        <td>{{ $item->hr_kategori }}</td>
+                                        <td>Rp. {{ number_format($item->hr_harga, 0, ',', '.') }}</td>
+                                        <td>
                                             <a class="btn btn-outline-success"
-                                                href="{{ route('detail.pengajuan.rumput', $item->belirum_id) }}"><i
-                                                    class="bi bi-info-lg"></i></a>
+                                                href="{{ route('detail.harga.rumput', $item->hr_id) }}"><i
+                                                    class="bi bi-pencil-square"></i></a>
+                                            <form id="deleteForm{{ $item->hr_id }}"
+                                                action="{{ route('delete.harga.rumput', $item->hr_id) }}" method="POST"
+                                                style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="btn btn-outline-danger"
+                                                    onclick="showDeleteModal('{{ route('delete.harga.rumput', $item->hr_id) }}', '{{ $item->hr_id }}')">
+                                                    <i class="bi bi-trash-fill"></i>
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -88,7 +85,7 @@ use Carbon\Carbon;
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Apakah Anda yakin ingin menghapus data Pengajuan Pembelian Sapi ini?</p>
+                    <p>Apakah Anda yakin ingin menghapus data Harga Sapi ini?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -105,8 +102,8 @@ use Carbon\Carbon;
 <!-- Template Main JS File -->
 <script src="{{ asset ('js/main.js') }}"></script>
 <script>
-    function showDeleteModal(action) {
-        var deleteForm = document.getElementById('deleteForm');
+    function showDeleteModal(action, id) {
+        var deleteForm = document.getElementById('deleteForm' + id);
         deleteForm.action = action;
         var deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
         deleteModal.show();
@@ -115,5 +112,4 @@ use Carbon\Carbon;
     document.getElementById('confirmDelete').addEventListener('click', function () {
         document.getElementById('deleteForm').submit();
     });
-
 </script>

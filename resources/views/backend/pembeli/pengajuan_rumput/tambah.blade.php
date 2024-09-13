@@ -31,7 +31,7 @@
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Nama Anda</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input type="hidden" name="belirum_orang" id="belirum_orang"
+                                    <input type="hidden" name="pembeli_id" id="pembeli_id"
                                         value="{{ $currentUser->pembeli ? $currentUser->pembeli->pembeli_id : $currentUser->name }}">
                                     <input type="text" class="form-control"
                                         value="{{ $currentUser->pembeli ? $currentUser->pembeli->pembeli_nama : '' }}"
@@ -87,27 +87,29 @@
                             </div>
 
                             <!-- Detail Pengajuan -->
+                            <h5 class="card-title">Form Jenis Produk</h5>
                             <div id="dynamic-field">
+                                <div class="row mb-3">
+                                    <div class="col-lg-3 col-md-4 label">Jenis Rumput</div>
+                                    <div class="col-lg-9 col-md-8">
+                                        <select name="rum_id[]" id="rum_id" class="form-select" required>
+                                            <option value="" selected disabled>-- Pilih Jenis --</option>
+                                            @foreach($rumputJenis as $jenis)
+                                            <option value="{{ $jenis->rum_id }}">{{ $jenis->rum_nama }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="row mb-3">
                                     <div class="col-lg-3 col-md-4 label">Kategori Rumput</div>
                                     <div class="col-lg-9 col-md-8">
                                         <select name="drumput_kategori[]" id="drumput_kategori" class="form-select"
                                             required>
                                             <option value="" selected disabled>-- Pilih Kategori --</option>
-                                            <optgroup label="Benih dan HPT">
-                                                <option value="Rumput Padang Pengembaalaan">Rumput Padang Pengembalaan
-                                                </option>
-                                                <option value="Rumput Potong">Rumput Potong</option>
-                                                <option value="Rumput">Rumput</option>
-                                                <option value="Leguminosa Pohon">Leguminosa Pohon</option>
-                                                <option value="Leguminosa Menjalar">Leguminosa Menjalar</option>
-                                            </optgroup>
-                                            <optgroup label="Hasil Ikutan">
-                                                <option value="Kompos">Kompos</option>
-                                                <option value="Rumput Pakan Ternak">Rumput Pakan Ternak</option>
-                                                <option value="Silase">Silase</option>
-                                                <option value="Mineral Block">Mineral Block</option>
-                                            </optgroup>
+                                            @foreach($hargaRumput as $harga)
+                                            <option value="{{ $harga->hr_kategori }}">{{ $harga->hr_kategori }} - {{
+                                                $harga->hr_satuan }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -117,29 +119,14 @@
                                         <select name="drumput_satuan[]" id="drumput_satuan" class="form-select"
                                             required>
                                             <option value="" selected disabled>-- Pilih Satuan --</option>
-                                            <option value="Per Pools">Per Pools</option>
-                                            <option value="Per Stek">Per Stek</option>
-                                            <option value="Per Biji">Per Biji</option>
-                                            <option value="Per Batang">Per Batang</option>
-                                            <option value="Per Kilogram">Per Kilogram</option>
-                                            <option value="Per Stolon">Per Stolon</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <div class="col-lg-3 col-md-4 label">Jenis Rumput</div>
-                                    <div class="col-lg-9 col-md-8">
-                                        <select name="drumput_jenis[]" id="drumput_jenis" class="form-select" required>
-                                            <option value="" selected disabled>-- Pilih Jenis --</option>
-                                            @foreach($rumputJenis as $jenis)
-                                            <option value="{{ $jenis->rum_id }}">{{ $jenis->rum_nama }}</option>
+                                            @foreach($hargaRumput as $harga)
+                                            <option value="{{ $harga->hr_satuan }}">{{ $harga->hr_satuan}}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <div class="col-lg-3 col-md-4 label">Berat Rumput (KG)</div>
+                                    <div class="col-lg-3 col-md-4 label">Jumlah Pembelian</div>
                                     <div class="col-lg-9 col-md-8">
                                         <input type="number" name="drumput_berat[]" id="drumput_berat"
                                             class="form-control" required>
@@ -151,6 +138,13 @@
                                 <button type="button" class="btn btn-primary" id="add-field">Tambah Jenis
                                     Rumput</button>
                             </div>
+                            <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">Total Harga Sementara (Rp)</div>
+                                <div class="col-lg-9 col-md-8">
+                                    <input type="text" id="totalHargaRumput" class="form-control" value="0" readonly>
+                                </div>
+                            </div>
+
                             <div class="text-center mb-4">
                                 <button type="submit" class="btn btn-success">Ajukan Pembelian</button>
                                 <a href="{{ route('home') }}" class="btn btn-secondary">Kembali</a>
@@ -196,6 +190,26 @@
             </div>
         </div>
     </div>
+    <!-- Modal verifikasi pengajuan -->
+    <div class="modal fade" id="existingRequestModal" tabindex="-1" aria-labelledby="existingRequestModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="existingRequestModalLabel">Pengajuan Tertunda</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Maaf, Anda sudah memiliki pengajuan yang belum diverifikasi. Harap tunggu hingga pengajuan
+                    sebelumnya diproses.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Template Main JS File -->
     <script src="{{ asset('js/main.js') }}"></script>
@@ -246,4 +260,73 @@
         @endif
     });
 
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    // var dynamicField = document.getElementById('dynamic-field');
+    var addFieldButton = document.getElementById('add-field');
+    var totalHargaInput = document.getElementById('totalHargaRumput');
+    var hargaRumput = @json($hargaRumput); // Ambil harga dari server-side
+
+    function updateTotalHarga() {
+        var totalHarga = 0;
+        var beratInputs = document.querySelectorAll('input[name="drumput_berat[]"]');
+        var rumputSelects = document.querySelectorAll('select[name="rum_id[]"]');
+        
+        beratInputs.forEach(function(input, index) {
+            var berat = parseFloat(input.value) || 0;
+            var rumputId = rumputSelects[index].value;
+            
+            // Cari harga berdasarkan rumput yang dipilih
+            var hargaPerKg = hargaRumput.find(h => h.rum_id == rumputId)?.hr_harga || 0;
+            totalHarga += berat * hargaPerKg;
+        });
+        totalHargaInput.value = totalHarga.toLocaleString();
+    }
+
+    // Fungsi untuk menambahkan event listener ke field baru
+    function addEventListenersToFields() {
+        var beratInputs = document.querySelectorAll('input[name="drumput_berat[]"]');
+        var rumputSelects = document.querySelectorAll('select[name="rum_id[]"]');
+        
+        beratInputs.forEach(function(input) {
+            input.removeEventListener('input', updateTotalHarga); // Pastikan tidak ada event listener ganda
+            input.addEventListener('input', updateTotalHarga);
+        });
+        
+        rumputSelects.forEach(function(select) {
+            select.removeEventListener('change', updateTotalHarga); // Pastikan tidak ada event listener ganda
+            select.addEventListener('change', updateTotalHarga);
+        });
+    }
+
+    // Panggil fungsi ini sekali di awal untuk field yang ada
+    addEventListenersToFields();
+
+    // Ketika tombol "Tambah Jenis Rumput" diklik, tambahkan field baru
+    addFieldButton.addEventListener('click', function () {
+        var clone = dynamicField.cloneNode(true);
+        document.querySelector('form').insertBefore(clone, addFieldButton.parentElement);
+        
+        // Setelah field baru ditambahkan, pasang kembali event listener ke semua input dan select
+        addEventListenersToFields();
+    });
+});
+
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        @if($existingPengajuan)
+        var existingRequestModal = new bootstrap.Modal(document.getElementById('existingRequestModal'));
+        existingRequestModal.show();
+        @endif
+    });
+</script>
+<script>
+    var existingRequestModal = document.getElementById('existingRequestModal');
+    
+    // Ketika modal ditutup, alihkan ke halaman home
+    existingRequestModal.addEventListener('hide.bs.modal', function () {
+        window.location.href = "{{ url('/') }}"; // arahkan ke halaman home
+    });
 </script>

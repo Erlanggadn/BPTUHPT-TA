@@ -317,115 +317,53 @@
                         <h3>Benih dan HPT</h3>
                     </div>
                     <div class="row gy-5">
+                        @foreach($jenis_rumput as $rumput)
+                        @foreach($rumput->hargaRumput as $harga)
+                        @if($harga->hr_jenis == 'Benih dan HPT')
                         <div class="col-lg-4 menu-item">
                             <div class="card shadow">
                                 <div class="card-body">
-                                    <h4 class="card-title">Rumput Padang Pengembalaan</h4>
-                                    <p class="card-text">Per Pools</p>
-                                    <p class="card-text price">Rp. 200</p>
+                                    <h4 class="card-title">{{ $rumput->rum_nama }}</h4>
+                                    <p class="card-text">{{ $harga->hr_satuan }}</p>
+                                    <p class="card-text price">Rp. {{ number_format($harga->hr_harga, 0, ',', '.') }}
+                                    </p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 menu-item">
-                            <div class="card shadow">
-                                <div class="card-body">
-                                    <h4 class="card-title">Rumput Potong</h4>
-                                    <p class="card-text">Per Stek</p>
-                                    <p class="card-text price">Rp. 200</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 menu-item">
-                            <div class="card shadow">
-                                <div class="card-body">
-                                    <h4 class="card-title">Rumput Potong</h4>
-                                    <p class="card-text">Per Pools</p>
-                                    <p class="card-text price">Rp. 500</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 menu-item">
-                            <div class="card shadow">
-                                <div class="card-body">
-                                    <h4 class="card-title">Rumput (Biji)</h4>
-                                    <p class="card-text">Per Kilogram</p>
-                                    <p class="card-text price">Rp. 200.000</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 menu-item">
-                            <div class="card shadow">
-                                <div class="card-body">
-                                    <h4 class="card-title">Leguminosa Pohon</h4>
-                                    <p class="card-text">Tersedia</p>
-                                    <p class="card-text price">Rp. 350 /Stek</p>
-                                    <p class="card-text price">Rp. 5.00 /Batang</p>
-                                    <p class="card-text price">Rp. 250.000 /Kilogram</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 menu-item">
-                            <div class="card shadow">
-                                <div class="card-body">
-                                    <h4 class="card-title">Leguminosa Menjalar</h4>
-                                    <p class="card-text">Tersedia</p>
-                                    <p class="card-text price">Rp. 100.000 /Kilogram</p>
-                                    <p class="card-text price">Rp. 200 /Stolon</p>
-                                </div>
-                            </div>
-                        </div>
+                        @endif
+                        @endforeach
+                        @endforeach
                     </div>
-
                 </div>
-                <div class="tab-pane fade mb-4 " id="menu-hasil">
+                <div class="tab-pane fade mb-4" id="menu-hasil">
                     <div class="tab-header text-center">
                         <p>Menu</p>
                         <h3>Hasil Ikutan</h3>
                     </div>
                     <div class="row gy-5">
+                        @foreach($jenis_rumput as $rumput)
+                        @foreach($rumput->hargaRumput as $harga)
+                        @if($harga->hr_jenis == 'Hasil Ikutan')
                         <div class="col-lg-4 menu-item">
                             <div class="card shadow">
                                 <div class="card-body">
-                                    <h4 class="card-title">Kompos</h4>
-                                    <p class="card-text">Harga (Per Kilogram)</p>
-                                    <p class="card-text price">Rp. 400</p>
+                                    <h4 class="card-title">{{ $rumput->rum_nama }}</h4>
+                                    <p class="card-text">{{ $harga->hr_satuan }}</p>
+                                    <p class="card-text price">Rp. {{ number_format($harga->hr_harga, 0, ',', '.') }}
+                                    </p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 menu-item">
-                            <div class="card shadow">
-                                <div class="card-body">
-                                    <h4 class="card-title">Rumput Pakan Ternak</h4>
-                                    <p class="card-text">Harga (Per Kilogram)</p>
-                                    <p class="card-text price">Rp. 200</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 menu-item">
-                            <div class="card shadow">
-                                <div class="card-body">
-                                    <h4 class="card-title">Silase</h4>
-                                    <p class="card-text">Harga (Per Kilogram)</p>
-                                    <p class="card-text price">Rp. 500</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 menu-item">
-                            <div class="card shadow">
-                                <div class="card-body">
-                                    <h4 class="card-title">Mineral Block</h4>
-                                    <p class="card-text">Harga (Per Kilogram)</p>
-                                    <p class="card-text price">Rp. 10.000</p>
-                                </div>
-                            </div>
-                        </div>
+                        @endif
+                        @endforeach
+                        @endforeach
                     </div>
-
                 </div>
             </div>
         </div>
     </section>
     {{-- END HARGA RUMPUT --}}
+
     @else
     @endif
 

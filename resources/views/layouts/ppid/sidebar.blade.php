@@ -23,7 +23,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('index.ppid.prumput') }}">
+            <a class="nav-link collapsed" href="{{ route('index.harga.rumput') }}">
                 <i class="bi bi-currency-dollar"></i>
                 <span>Rumput</span>
             </a>

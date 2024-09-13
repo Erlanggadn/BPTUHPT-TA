@@ -207,6 +207,25 @@
             </div>
         </div>
     </div>
+    <!-- Modal verifikasi pengajuan -->
+    <div class="modal fade" id="existingRequestModal" tabindex="-1" aria-labelledby="existingRequestModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="existingRequestModalLabel">Pengajuan Tertunda</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Maaf, Anda sudah memiliki pengajuan yang belum diverifikasi. Harap tunggu hingga pengajuan
+                    sebelumnya diproses.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Template Main JS File -->
     <script src="{{ asset('js/main.js') }}"></script>
@@ -334,5 +353,21 @@
 
         // Hitung total ketika halaman pertama kali dimuat
         calculateTotal();
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        @if($existingPengajuan)
+        var existingRequestModal = new bootstrap.Modal(document.getElementById('existingRequestModal'));
+        existingRequestModal.show();
+        @endif
+    });
+</script>
+<script>
+    var existingRequestModal = document.getElementById('existingRequestModal');
+    
+    // Ketika modal ditutup, alihkan ke halaman home
+    existingRequestModal.addEventListener('hide.bs.modal', function () {
+        window.location.href = "{{ url('/') }}"; // arahkan ke halaman home
     });
 </script>

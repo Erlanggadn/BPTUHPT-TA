@@ -16,7 +16,7 @@ class ModPembayaranRumput extends Model
     use SoftDeletes;
     protected $fillable = [
         'bayarrum_id',
-        'bayarrum_beli',
+        'belirum_id',
         'bayarrum_invoice',
         'bayarrum_bukti',
         'bayarrum_sudah',
@@ -26,6 +26,6 @@ class ModPembayaranRumput extends Model
 
     public function pengajuanRumput()
     {
-        return $this->belongsTo(ModPengajuanRumput::class, 'bayarrum_beli', 'belirum_id');
+        return $this->belongsTo(ModPengajuanRumput::class, 'belirum_id', 'belirum_id');
     }
 }
