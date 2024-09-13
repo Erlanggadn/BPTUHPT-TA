@@ -270,6 +270,7 @@ Route::middleware(['auth', 'checkPPID'])->group(function () {
         Route::get('/detail/{id}', [PPIDController::class, 'detailpengajuanrumput'])->name('detail.ppid.prumput');
         Route::put('/update/{id}', [PPIDController::class, 'updatepengajuanrumput'])->name('update.ppid.prumput');
         Route::delete('/delete/{id}', [PPIDController::class, 'deletepengajuanrumput'])->name('delete.ppid.prumput');
+        Route::get('/filter', [PPIDController::class, 'filterrumput'])->name('filter.ppid.prumput');
     });
     Route::prefix('harga-sapi')->group(function () {
         Route::get('/', [PPIDController::class, 'indexhargasapi'])->name('index.harga.sapi');

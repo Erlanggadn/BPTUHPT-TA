@@ -20,6 +20,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Models\ModDetailPengajuanSapi;
 use App\Models\ModDetailPengajuanRumput;
+use App\Models\ModPembayaranRumput;
 use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -353,8 +354,9 @@ class PPIDController extends Controller
         $rumputJenis = ModJenisRumput::all();
         $currentUser = ModPembeli::all();
         $hargaRumput = ModHargaRumput::all();
+        $pembayaran = ModPembayaranRumput::where('bayarrum_id', $id)->first();
 
-        return view('backend.ppid.pengajuan-rumput.detail', compact('pengajuan', 'rumputJenis', 'currentUser', 'hargaRumput'));
+        return view('backend.ppid.pengajuan-rumput.detail', compact('pengajuan', 'rumputJenis', 'currentUser', 'hargaRumput', 'pembayaran'));
     }
     public function updatepengajuanrumput(Request $request, $id)
     {
@@ -675,6 +677,24 @@ class PPIDController extends Controller
         // Pastikan tanggal yang diberikan valid
         if ($tanggalMulai && $tanggalSelesai) {
             return redirect()->route('index.ppid.psapi', [
+                'tanggal_mulai' => $tanggalMulai,
+                'tanggal_selesai' => $tanggalSelesai
+            ]);
+        } else {
+            // Handle jika tidak ada tanggal yang dipilih
+            return redirect()->back()->with('error', 'Pilih rentang tanggal terlebih dahulu.');
+        }
+    }
+
+    //FILTER DAN EXPORT PENGAJUAN RUMPUT
+    public function filterrumput(Request $request)
+    {
+        $tanggalMulai = $request->input('tanggal_mulai');
+        $tanggalSelesai = $request->input('tanggal_selesai');
+
+        // Pastikan tanggal yang diberikan valid
+        if ($tanggalMulai && $tanggalSelesai) {
+            return redirect()->route('index.ppid.prumput', [
                 'tanggal_mulai' => $tanggalMulai,
                 'tanggal_selesai' => $tanggalSelesai
             ]);

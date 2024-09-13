@@ -167,9 +167,38 @@
                                 <button type="button" class="btn btn-primary" id="add-field">Tambah Jenis
                                     Rumput</button>
                             </div>
+                            <h5 class="card-title">Status Pembayaran
+                            </h5>
+                            @if($pembayaran)
+                            <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">Bukti Bayar</div>
+                                <div class="col-lg-9 col-md-8">
+                                    <a href="{{ asset('uploads/' . $pembayaran->bayarrum_bukti) }}" target="_blank">
+                                        <span class="badge bg-success">Bukti Pembayaran</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">Status Bayar Pembeli</div>
+                                <div class="col-lg-9 col-md-8">
+                                    <input type="text" name="bayarrum_status" id="bayarrum_status" class="form-control"
+                                        value="{{ $pembayaran->bayarrum_status }}" disabled>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-lg-3 col-md-4 label">Invoice</div>
+                                <div class="col-lg-9 col-md-8">
+                                    <a href="{{ asset('uploads/' . $pembayaran->bayarrum_invoice) }}" target="_blank">
+                                        <span class="badge bg-primary">Lihat Invoice</span>
+                                    </a>
+                                </div>
+                            </div>
+                            @else
+                            <div class="text-danger ">Data pembayaran tidak ditemukan atau belum ada.</div>
+                            @endif
                             <div class="text-center mb-4">
                                 <button type="submit" class="btn btn-success">Ubah Pengajuan</button>
-                                <a href="{{ route('index.ppid.psapi') }}" class="btn btn-secondary">Kembali</a>
+                                <a href="{{ route('index.ppid.prumput') }}" class="btn btn-secondary">Kembali</a>
                             </div>
                         </form>
                     </div>
