@@ -343,11 +343,31 @@ class PPIDController extends Controller
     }
 
     //PENGAJUAN RUMPUT
-    public function indexpengajuanrumput()
+    public function indexpengajuanrumput(Request $request)
     {
-        $PRumput = ModPengajuanRumput::with('pembeli')->get();
+        $query = ModPengajuanRumput::with('pembeli');
+
+        // Ambil parameter tanggal dari request
+        $tanggalMulai = $request->input('tanggal_mulai');
+        $tanggalSelesai = $request->input('tanggal_selesai');
+
+        // Periksa apakah parameter tanggal ada
+        if ($tanggalMulai && $tanggalSelesai) {
+            // Gunakan Carbon untuk memproses tanggal
+            $tanggalMulai = Carbon::parse($tanggalMulai)->startOfDay();
+            $tanggalSelesai = Carbon::parse($tanggalSelesai)->endOfDay();
+
+            // Tambahkan kondisi filter tanggal ke query
+            $query->whereBetween('belirum_tanggal', [$tanggalMulai, $tanggalSelesai]);
+        }
+
+        // Ambil data dengan filter yang diterapkan
+        $PRumput = $query->get();
+
+        // Kirim data ke view
         return view('backend.ppid.pengajuan-rumput.index', compact('PRumput'));
     }
+
     public function detailpengajuanrumput($id)
     {
         $pengajuan = ModPengajuanRumput::with('detailPengajuanRumput', 'pembayaranRumput')->findOrFail($id);
@@ -702,5 +722,59 @@ class PPIDController extends Controller
             // Handle jika tidak ada tanggal yang dipilih
             return redirect()->back()->with('error', 'Pilih rentang tanggal terlebih dahulu.');
         }
+    }
+
+    public function exportrumput(Request $request)
+    {
+        $tanggalMulai = $request->input('tanggal_mulai');
+        $tanggalSelesai = $request->input('tanggal_selesai');
+
+
+        $query = ModPengajuanRumput::with('pembeli');
+
+        if ($tanggalMulai && $tanggalSelesai) {
+            $tanggalMulai = Carbon::parse($tanggalMulai)->startOfDay();
+            $tanggalSelesai = Carbon::parse($tanggalSelesai)->endOfDay();
+
+            $query->whereBetween('belirum_tanggal', [$tanggalMulai, $tanggalSelesai]);
+        }
+
+        $PRumput = $query->get();
+
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        
+        $sheet->setCellValue('A1', 'ID Pengajuan');
+        $sheet->setCellValue('B1', 'Nama Pembeli');
+        $sheet->setCellValue('C1', 'Alamat');
+        $sheet->setCellValue('D1', 'Tanggal Pengajuan');
+        $sheet->setCellValue('E1', 'Alasan Pengajuan');
+        $sheet->setCellValue('F1', 'Status');
+        $sheet->setCellValue('G1', 'Disposisi');
+
+        
+        $row = 2;
+        foreach ($PRumput as $item) {
+            $sheet->setCellValue('A' . $row, $item->belirum_id);
+            $sheet->setCellValue('B' . $row, $item->pembeli->pembeli_nama);
+            $sheet->setCellValue('C' . $row, $item->belirum_alamat);
+            $sheet->setCellValue('D' . $row, Carbon::parse($item->belirum_tanggal)->translatedFormat('j F Y'));
+            $sheet->setCellValue('E' . $row, $item->belirum_alasan);
+            $sheet->setCellValue('F' . $row, $item->belirum_status);
+            $sheet->setCellValue('G' . $row, $item->belirum_keterangan);
+            $row++;
+        }
+
+
+        $filename = 'pengajuan_rumput_' . date('Ymd_His') . '.xlsx';
+        $writer = new Xlsx($spreadsheet);
+
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="' . $filename . '"');
+        $writer->save('php://output');
+        exit;
     }
 }

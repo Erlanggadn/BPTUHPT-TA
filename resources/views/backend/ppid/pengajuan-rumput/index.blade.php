@@ -44,10 +44,10 @@ use Carbon\Carbon;
                         </form>
                         <a href="{{ route('index.ppid.prumput') }}" class="btn btn-secondary"><i
                                 class="bi bi-arrow-clockwise"></i> Reset Filter</a>
-                        <a href="" class="btn btn-success">
+                        <a href="{{ route('export.ppid.prumput', request()->query()) }}" class="btn btn-success">
                             <i class="bi bi-file-earmark-excel"></i> Export to Excel
                         </a>
-                        {{-- {{ route('export.ppid.psapi', request()->query()) }} --}}
+
                         <!-- Table with stripped rows -->
                         <div class="table-responsive">
                             <table class="table datatable">

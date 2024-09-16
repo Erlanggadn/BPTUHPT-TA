@@ -271,6 +271,7 @@ Route::middleware(['auth', 'checkPPID'])->group(function () {
         Route::put('/update/{id}', [PPIDController::class, 'updatepengajuanrumput'])->name('update.ppid.prumput');
         Route::delete('/delete/{id}', [PPIDController::class, 'deletepengajuanrumput'])->name('delete.ppid.prumput');
         Route::get('/filter', [PPIDController::class, 'filterrumput'])->name('filter.ppid.prumput');
+        Route::get('/export', [PPIDController::class, 'exportrumput'])->name('export.ppid.prumput');
     });
     Route::prefix('harga-sapi')->group(function () {
         Route::get('/', [PPIDController::class, 'indexhargasapi'])->name('index.harga.sapi');
@@ -307,6 +308,8 @@ Route::middleware(['auth', 'checkBendahara'])->group(function () {
         Route::post('/storebayarsapi/{belisapi_id}', [BendaharaController::class, 'storebayarsapi'])->name('store.bayar.psapi');
         Route::put('/update/{dbeli_id}', [BendaharaController::class, 'updatebayarsapi'])->name('update.bayar.psapi');
         Route::delete('/bayar/psapi/{dbeli_id}', [BendaharaController::class, 'deletebayarsapi'])->name('delete.bayar.psapi');
+        Route::get('/filter', [BendaharaController::class, 'filtersapi'])->name('filter.bendahara.psapi');
+        Route::get('/export', [BendaharaController::class, 'exportsapi'])->name('export.bendahara.psapi');
     });
     Route::prefix('pengajuan-rumput-bendahara')->group(function () {
         Route::get('/', [BendaharaController::class, 'indexrumput'])->name('index.bendahara.prumput');
@@ -314,6 +317,8 @@ Route::middleware(['auth', 'checkBendahara'])->group(function () {
         Route::post('/storebayarrumput/{belirum_id}', [BendaharaController::class, 'storebayarrumput'])->name('store.bayar.prumput');
         Route::put('/update/{bayarrum_id}', [BendaharaController::class, 'updatebayarrumput'])->name('update.bayar.prumput');
         Route::delete('/bayar/prumput/{bayarrum_id}', [BendaharaController::class, 'deletebayarrumput'])->name('delete.bayar.prumput');
+        Route::get('/filter', [BendaharaController::class, 'filterrumput'])->name('filter.bendahara.prumput');
+        Route::get('/export', [BendaharaController::class, 'exportrumput'])->name('export.bendahara.prumput');
     });
 });
 //KEPALA

@@ -48,7 +48,7 @@ class PengajuanSapiController extends Controller
             'pembeli_id' => 'required|string',
             'belisapi_nohp' => 'required|string',
             'belisapi_alamat' => 'required|string',
-            'belisapi_surat' => 'required|file|mimes:jpeg,png,jpg,pdf|max:2048',
+            'belisapi_surat' => 'required|file|mimes:pdf,jpeg,png,jpg|max:2048',
             'belisapi_tanggal' => 'required|date|after_or_equal:' . $today,
             'belisapi_alasan' => 'required|string',
 
@@ -65,11 +65,11 @@ class PengajuanSapiController extends Controller
         ]);
 
         // Periksa apakah ada pengajuan oleh pengguna ini
-        $existingPengajuan = ModPengajuanSapi::where('pembeli_id', $request->pembeli_id)->exists();
+        // $existingPengajuan = ModPengajuanSapi::where('pembeli_id', $request->pembeli_id)->exists();
 
-        if ($existingPengajuan) {
-            return redirect()->back()->with('error', 'Anda sudah pernah melakukan pengajuan. Harap tunggu keputusan sebelum mengajukan kembali.')->withInput();
-        }
+        // if ($existingPengajuan) {
+        //     return redirect()->back()->with('error', 'Anda sudah pernah melakukan pengajuan. Harap tunggu keputusan sebelum mengajukan kembali.')->withInput();
+        // }
 
         DB::beginTransaction();
 

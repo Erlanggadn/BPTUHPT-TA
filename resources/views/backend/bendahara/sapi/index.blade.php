@@ -21,6 +21,25 @@ use Carbon\Carbon;
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                         @endif
+                        <form method="GET" action="{{ route('filter.bendahara.psapi') }}" class="row g-3 my-3">
+                            <div class="col-md-5">
+                                <label for="tanggal_mulai" class="form-label">Mulai Tanggal</label>
+                                <input type="date" class="form-control" id="tanggal_mulai" name="tanggal_mulai">
+                            </div>
+                            <div class="col-md-5">
+                                <label for="tanggal_selesai" class="form-label">Sampai Tanggal</label>
+                                <input type="date" class="form-control" id="tanggal_selesai" name="tanggal_selesai">
+                            </div>
+                            <div class="col-md-2 d-flex align-items-end">
+                                <button type="submit" class="btn btn-primary w-100"><i class="bi bi-funnel"></i>
+                                    Filter</button>
+                            </div>
+                        </form>
+                        <a href="{{ route('index.bendahara.psapi') }}" class="btn btn-secondary"><i
+                                class="bi bi-arrow-clockwise"></i> Reset Filter</a>
+                        <a href="{{ route('export.bendahara.psapi', request()->query()) }}" class="btn btn-success">
+                            <i class="bi bi-file-earmark-excel"></i> Export to Excel
+                        </a>
                         <!-- Table with stripped rows -->
                         <div class="table-responsive">
                             <table class="table datatable">

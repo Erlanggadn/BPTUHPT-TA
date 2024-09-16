@@ -205,6 +205,9 @@
                             </div>
                             <button type="submit" class="btn btn-success mb-4">Update Pembayaran</button>
                         </form>
+                        <div class="mb-4">
+                            <a href="{{ route('index.bendahara.prumput') }}" class="btn btn-secondary">Kembali</a>
+                        </div>
                         <form action="{{ route('delete.bayar.prumput', $pembayaran->bayarrum_id) }}" method="POST"
                             class="d-inline">
                             @csrf

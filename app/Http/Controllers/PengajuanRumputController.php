@@ -63,13 +63,13 @@ class PengajuanRumputController extends Controller
         ]);
 
         // Periksa apakah ada pengajuan yang belum diverifikasi oleh pengguna ini
-        $existingPengajuan = ModPengajuanRumput::where('pembeli_id', $request->pembeli_id)
-            ->where('belirum_status', 'Belum Verifikasi')
-            ->exists();
+        // $existingPengajuan = ModPengajuanRumput::where('pembeli_id', $request->pembeli_id)
+        //     ->where('belirum_status', 'Belum Verifikasi')
+        //     ->exists();
 
-        if ($existingPengajuan) {
-            return redirect()->back()->with('error', 'Anda sudah memiliki pengajuan yang belum diverifikasi oleh PPID. Harap tunggu keputusan sebelum mengajukan kembali.')->withInput();
-        }
+        // if ($existingPengajuan) {
+        //     return redirect()->back()->with('error', 'Anda sudah memiliki pengajuan yang belum diverifikasi oleh PPID. Harap tunggu keputusan sebelum mengajukan kembali.')->withInput();
+        // }
 
         DB::beginTransaction();
 
