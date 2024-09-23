@@ -15,15 +15,13 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                         @endif
-                        @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
+                        @if (session('error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('error') }}
                         </div>
                         @endif
+
+
                         <form action="{{ route('store.pengajuan.sapi') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <!-- Identitas Pembeli -->
@@ -48,41 +46,70 @@
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Nomor HP Perusahaan/Instansi</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input type="number" name="belisapi_nohp" id="belisapi_nohp" class="form-control"
-                                        required>
+                                    <input type="number" name="belisapi_nohp" id="belisapi_nohp" class="form-control">
                                 </div>
+                                @error('belisapi_nohp')
+                                <div class="invalid-feedback" style="display: block;">
+                                    No HP tidak valid/kosong
+                                    <!-- Pesan error yang diubah secara manual -->
+                                </div>
+                                @enderror
                             </div>
+
 
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Alamat Perusahaan/Instansi</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input type="text" name="belisapi_alamat" id="belisapi_alamat" class="form-control"
-                                        required>
+                                    <input type="text" name="belisapi_alamat" id="belisapi_alamat" class="form-control">
                                 </div>
+                                @error('belisapi_alamat')
+                                <div class="invalid-feedback" style="display: block;">
+                                    Alamat Perusahaan tidak valid/kosong
+                                    <!-- Pesan error yang diubah secara manual -->
+                                </div>
+                                @enderror
                             </div>
 
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Surat Pengajuan</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input type="file" name="belisapi_surat" id="belisapi_surat" class="form-control"
-                                        required>
+                                    <input type="file" name="belisapi_surat" id="belisapi_surat" class="form-control">
                                 </div>
+                                @error('belisapi_surat')
+                                <div class="invalid-feedback" style="display: block;">
+                                    Ukuran file terlalu besar atau kolom masih kosong
+                                    <!-- Pesan error yang diubah secara manual -->
+                                </div>
+                                @enderror
                             </div>
+
 
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Tanggal Pengajuan</div>
                                 <div class="col-lg-9 col-md-8">
                                     <input type="date" name="belisapi_tanggal" id="belisapi_tanggal"
-                                        class="form-control" required>
+                                        class="form-control">
                                 </div>
+                                @error('belisapi_tanggal')
+                                <div class="invalid-feedback" style="display: block;">
+                                    Tanggal pengajuan diisi
+                                    <!-- Pesan error yang diubah secara manual -->
+                                </div>
+                                @enderror
                             </div>
 
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Alasan Pembelian</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <textarea name="belisapi_alasan" id="belisapi_alasan" class="form-control"
-                                        required></textarea>
+                                    <textarea name="belisapi_alasan" id="belisapi_alasan"
+                                        class="form-control"></textarea>
                                 </div>
+                                @error('belisapi_alasan')
+                                <div class="invalid-feedback" style="display: block;">
+                                    Alasan pembelian harus diisi
+                                    <!-- Pesan error yang diubah secara manual -->
+                                </div>
+                                @enderror
                             </div>
 
                             <!-- Detail Pengajuan -->
@@ -90,35 +117,11 @@
                                 <div class="row mb-3">
                                     <div class="col-lg-3 col-md-4 label">Jenis Sapi</div>
                                     <div class="col-lg-9 col-md-8">
-                                        <select name="sjenis_id[]" id="sjenis_id" class="form-select" required>
-                                            <option value="Bibit" selected disabled>-- Jenis Sapi--</option>
+                                        <select name="sjenis_id[]" id="sjenis_id" class="form-select">
+                                            <option value="" selected disabled>-- Jenis Sapi --</option>
                                             @foreach($sapiJenis as $jenis)
                                             <option value="{{ $jenis->sjenis_id }}">{{ $jenis->sjenis_nama }}</option>
                                             @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <div class="col-lg-3 col-md-4 label">Kategori Sapi</div>
-                                    <div class="col-lg-9 col-md-8">
-                                        <select name="detail_kategori[]" id="detail_kategori" class="form-select"
-                                            required>
-                                            <option selected disabled>-- Bibit --</option>
-                                            <option>
-                                                @foreach($hargaData as $harga)
-                                            <option value="{{ $harga->hs_kategori }}">{{ $harga->hs_kategori
-                                                }}</option>
-                                            @endforeach
-                                            {{-- <option value="Bibit 9-12 Bulan">Bibit 9-12 Bulan</option>
-                                            <option value="Bibit 12-15 Bulan">Bibit 12-15 Bulan</option>
-                                            <option value="Bibit 15-18 Bulan">Bibit 15-18 Bulan</option>
-                                            <option value="Bibit 18-24 Bulan">Bibit 18-24 Bulan</option>
-                                            <option value="Bibit 24-36 Bulan">Bibit 24-36 Bulan</option> --}}
-                                            </option>
-                                            {{-- <optgroup label="Calon Bul(Pejantan)">
-                                                <option value="Calon Bul(Pejantan) 18-24 Bulan">18-24 Bulan</option>
-                                            </optgroup> --}}
                                         </select>
                                     </div>
                                 </div>
@@ -126,25 +129,41 @@
                                     <div class="col-lg-3 col-md-4 label">Jenis Kelamin Sapi</div>
                                     <div class="col-lg-9 col-md-8">
                                         <select name="detail_kelamin[]" id="detail_kelamin" class="form-select"
-                                            required>
-                                            <option value="Bibit" selected disabled>-- Jenis Kelamin --</option>
+                                            disabled>
+                                            <option value="" selected disabled>-- Jenis Kelamin --</option>
                                             <option value="Jantan">Jantan</option>
                                             <option value="Betina">Betina</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
+                                    <div class="col-lg-3 col-md-4 label">Kategori Sapi</div>
+                                    <div class="col-lg-9 col-md-8">
+                                        <select name="detail_kategori[]" id="detail_kategori" class="form-select"
+                                            disabled>
+                                            <option selected disabled>-- Kategori --</option>
+                                            @foreach($hargaData as $harga)
+                                            <option value="{{ $harga->hs_kategori }}"
+                                                data-sjenis="{{ $harga->sjenis_id }}"
+                                                data-kelamin="{{ $harga->hs_kelamin }}">{{ $harga->hs_kategori }}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
                                     <div class="col-lg-3 col-md-4 label">Estimasi Berat Sapi (KG)</div>
                                     <div class="col-lg-9 col-md-8">
                                         <input type="number" name="detail_berat[]" id="detail_berat"
-                                            class="form-control" required>
+                                            class="form-control">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-lg-3 col-md-4 label">Jumlah Sapi</div>
                                     <div class="col-lg-9 col-md-8">
                                         <input type="number" name="detail_jumlah[]" id="detail_jumlah"
-                                            class="form-control" required>
+                                            class="form-control">
                                     </div>
                                 </div>
 
@@ -253,15 +272,58 @@
 </main>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        var dynamicField = document.getElementById('dynamic-group');
-        var addFieldButton = document.getElementById('add-field');
+    var dynamicField = document.getElementById('dynamic-group');
+    var addFieldButton = document.getElementById('add-field');
+    var fieldCounter = 1;
 
-        addFieldButton.addEventListener('click', function () {
-            var clone = dynamicField.cloneNode(true);
-            document.querySelector('form').insertBefore(clone, addFieldButton.parentElement);
+    addFieldButton.addEventListener('click', function () {
+        var clone = dynamicField.cloneNode(true);
+        fieldCounter++;
+
+        // Update ID dan Name pada cloned elements agar unik
+        clone.querySelectorAll('select, input').forEach(function (element) {
+            var originalId = element.id;
+            element.id = originalId + '-' + fieldCounter;
+            element.name = element.name.replace('[]', '[' + fieldCounter + ']');
+        });
+
+        // Insert cloned form before the add button
+        document.querySelector('form').insertBefore(clone, addFieldButton.parentElement);
+
+        // Disable Kategori dan Jenis Kelamin pada form baru dan reset value
+        var clonedJenis = clone.querySelector('#sjenis_id-' + fieldCounter);
+        var clonedKelamin = clone.querySelector('#detail_kelamin-' + fieldCounter);
+        var clonedKategori = clone.querySelector('#detail_kategori-' + fieldCounter);
+        
+        clonedKelamin.disabled = true;
+        clonedKategori.disabled = true;
+
+        // Add event listener untuk dropdown dinamis pada clone
+        clonedJenis.addEventListener('change', function() {
+            var selectedJenis = clonedJenis.value;
+            clonedKelamin.disabled = false;
+            clonedKategori.disabled = true;
+            clonedKategori.value = '';  // Reset kategori value
+        });
+
+        clonedKelamin.addEventListener('change', function() {
+            var selectedJenis = clonedJenis.value;
+            var selectedKelamin = clonedKelamin.value;
+
+            clonedKategori.disabled = false;
+            clonedKategori.value = '';  // Reset kategori value
+
+            // Filter kategori berdasarkan jenis dan kelamin
+            clonedKategori.querySelectorAll('option').forEach(function(option) {
+                if (option.dataset.sjenis == selectedJenis && option.dataset.kelamin == selectedKelamin) {
+                    option.style.display = '';
+                } else {
+                    option.style.display = 'none';
+                }
+            });
         });
     });
-
+});
 </script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -369,5 +431,33 @@
     // Ketika modal ditutup, alihkan ke halaman home
     existingRequestModal.addEventListener('hide.bs.modal', function () {
         window.location.href = "{{ url('/') }}"; // arahkan ke halaman home
+    });
+</script>
+<script>
+    document.getElementById('sjenis_id').addEventListener('change', function() {
+        const sjenisId = this.value;
+
+        // Enable and filter the 'Jenis Kelamin' dropdown
+        const kelaminSelect = document.getElementById('detail_kelamin');
+        kelaminSelect.disabled = false;
+
+        // Add event listener to 'Jenis Kelamin'
+        kelaminSelect.addEventListener('change', function() {
+            const kelaminValue = this.value;
+
+            // Enable and filter the 'Kategori Sapi' dropdown
+            const kategoriSelect = document.getElementById('detail_kategori');
+            kategoriSelect.disabled = false;
+
+            // Filter the options in the 'Kategori Sapi' dropdown
+            Array.from(kategoriSelect.options).forEach(function(option) {
+                // Show only options that match both selected 'Jenis Sapi' and 'Jenis Kelamin'
+                if (option.getAttribute('data-sjenis') === sjenisId && option.getAttribute('data-kelamin') === kelaminValue) {
+                    option.style.display = 'block';
+                } else {
+                    option.style.display = 'none';
+                }
+            });
+        });
     });
 </script>

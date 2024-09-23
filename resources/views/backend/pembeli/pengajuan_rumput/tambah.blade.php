@@ -65,9 +65,14 @@
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-4 label">Surat Pengajuan</div>
                                 <div class="col-lg-9 col-md-8">
-                                    <input type="file" name="belirum_surat" id="belirum_surat" class="form-control"
-                                        required>
+                                    <input type="file" name="belirum_surat" id="belirum_surat" class="form-control">
                                 </div>
+                                @error('belirum_surat')
+                                <div class="invalid-feedback" style="display: block;">
+                                    Ukuran file terlalu besar atau kolom masih kosong
+                                    <!-- Pesan error yang diubah secara manual -->
+                                </div>
+                                @enderror
                             </div>
 
                             <div class="row mb-3">
@@ -329,4 +334,59 @@
     existingRequestModal.addEventListener('hide.bs.modal', function () {
         window.location.href = "{{ url('/') }}"; // arahkan ke halaman home
     });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    var dynamicField = document.getElementById('dynamic-group');
+    var addFieldButton = document.getElementById('add-field');
+    var fieldCounter = 1;
+
+    addFieldButton.addEventListener('click', function () {
+        var clone = dynamicField.cloneNode(true);
+        fieldCounter++;
+
+        // Update ID dan Name pada cloned elements agar unik
+        clone.querySelectorAll('select, input').forEach(function (element) {
+            var originalId = element.id;
+            element.id = originalId + '-' + fieldCounter;
+            element.name = element.name.replace('[]', '[' + fieldCounter + ']');
+        });
+
+        // Insert cloned form before the add button
+        document.querySelector('form').insertBefore(clone, addFieldButton.parentElement);
+
+        // Disable Kategori dan Satuan pada form baru dan reset value
+        var clonedJenis = clone.querySelector('#rum_id-' + fieldCounter);
+        var clonedKategori = clone.querySelector('#drumput_kategori-' + fieldCounter);
+        var clonedSatuan = clone.querySelector('#drumput_satuan-' + fieldCounter);
+        
+        clonedKategori.disabled = true;
+        clonedSatuan.disabled = true;
+
+        // Add event listener untuk dropdown dinamis pada clone
+        clonedJenis.addEventListener('change', function() {
+            var selectedJenis = clonedJenis.value;
+            clonedKategori.disabled = false;
+            clonedSatuan.disabled = true;
+            clonedKategori.value = '';  // Reset kategori value
+        });
+
+        clonedKategori.addEventListener('change', function() {
+            var selectedKategori = clonedKategori.value;
+
+            clonedSatuan.disabled = false;
+            clonedSatuan.value = '';  // Reset satuan value
+
+            // Filter satuan berdasarkan kategori
+            clonedSatuan.querySelectorAll('option').forEach(function(option) {
+                if (option.dataset.kategori == selectedKategori) {
+                    option.style.display = '';
+                } else {
+                    option.style.display = 'none';
+                }
+            });
+        });
+    });
+});
+
 </script>

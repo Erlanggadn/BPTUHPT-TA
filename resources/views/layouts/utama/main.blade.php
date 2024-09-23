@@ -9,6 +9,7 @@
     <link rel="icon" type="image/png" href="{{ asset ('img/peternakan.png') }}" />
     <meta content="" name="description">
     <meta content="" name="keywords">
+    
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,22 +20,27 @@
     <!-- Vendor CSS Files -->
     <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/aos/aos.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
 
-    <link href="{{ asset('vendor/aos/aos.css') }}" rel="stylesheet">
+    
     <!-- Template Main CSS File -->
     <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
+    {{--
+    --}}
+
 
     <!-- Vendor JS Files -->
-    <script src="{{ asset('vendor/apexcharts/apexcharts.min.js') }}"></script>
+    {{-- <script src="{{ asset('vendor/apexcharts/apexcharts.min.js') }}"></script>
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('vendor/chart.js/chart.umd.js') }}"></script>
     <script src="{{ asset('vendor/echarts/echarts.min.js') }}"></script>
     <script src="{{ asset('vendor/quill/quill.min.js') }}"></script>
     <script src="{{ asset('vendor/simple-datatables/simple-datatables.js') }}"></script>
     <script src="{{ asset('vendor/tinymce/tinymce.min.js') }}"></script>
-    <script src="{{ asset('vendor/php-email-form/validate.js') }}"></script>
+    <script src="{{ asset('vendor/php-email-form/validate.js') }}"></script> --}}
+    
 
     <!-- Template Main JS File -->
     <script src="{{ asset('js/main.js') }}"></script>

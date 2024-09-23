@@ -77,7 +77,7 @@
                                 <div class="col-lg-3 col-md-4 label">Tanggal Pengajuan</div>
                                 <div class="col-lg-9 col-md-8">
                                     <input type="date" name="belisapi_tanggal" id="belisapi_tanggal"
-                                        class="form-control" value="{{ $pengajuan->belisapi_tanggal }}" required>
+                                        class="form-control" value="{{ $pengajuan->belisapi_tanggal }}">
                                 </div>
                             </div>
 

@@ -125,6 +125,16 @@
         <p>....</p>
         <p><img src="stempel_ttd.png" alt="Stempel dan Tanda Tangan"></p>
     </div>
+    <script>
+        window.onload = function() {
+            window.print(); // Membuka dialog cetak secara otomatis
+
+            // Event listener untuk mendeteksi jika dialog cetak ditutup
+            window.onafterprint = function() {
+                window.history.back(); // Kembali ke halaman sebelumnya setelah dialog cetak ditutup
+            };
+        };
+    </script>
 </body>
 
 </html>

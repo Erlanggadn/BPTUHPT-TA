@@ -81,7 +81,7 @@
                                 <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
                                     <a href="{{ route('cetak.template.sapi') }}" class="btn-book-a-table ">Cetak
                                         Template Surat
-                                        <i class="bi bi-arrow-right-circle"></i></a>
+                                        <i class="bi bi-envelope-arrow-down-fill"></i></a>
                                 </div>
                                 @else
                                 <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
@@ -114,7 +114,7 @@
                                 <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
                                     <a href="{{ route('cetak.template.rumput') }}" class="btn-book-a-table ">Cetak
                                         Template Surat
-                                        <i class="bi bi-arrow-right-circle"></i></a>
+                                        <i class="bi bi-envelope-arrow-down-fill"></i></a>
                                 </div>
                                 @else
                                 <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
@@ -428,11 +428,14 @@
     </footer>
     {{-- END KONTAK KAMI --}}
 </main>
-
-<script src="{{ asset ('js/main.js') }}"></script>
+<script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('vendor/aos/aos.js') }}"></script>
+<script src="{{ asset('vendor/glightbox/js/glightbox.min.js') }}"></script>
+<script src="{{ asset('vendor/purecounter/purecounter_vanilla.js') }}"></script>
+<script src="{{ asset('vendor/swiper/swiper-bundle.min.js') }}"></script>
+<script src="{{ asset('vendor/php-email-form/validate.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
 <script>
     AOS.init();
 
 </script>
-<script src="{{ asset('vendor/swiper/swiper-bundle.min.css') }}"></script>

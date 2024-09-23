@@ -62,6 +62,9 @@ class PengajuanSapiController extends Controller
             'detail_berat.*' => 'required|integer',
             'detail_kelamin' => 'required|array',
             'detail_kelamin.*' => 'required|string',
+        ],[
+            'belisapi_surat.max' => 'File anda terlalu besar, Maksimum 2 Mb', // Pesan kustom untuk ukuran file
+            'belisapi_surat.mimes' => 'Format file tidak valid, hanya pdf, jpeg, png, jpg yang diizinkan', // Pesan kustom untuk tipe file
         ]);
 
         // Periksa apakah ada pengajuan oleh pengguna ini

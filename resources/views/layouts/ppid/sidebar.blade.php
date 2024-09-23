@@ -32,21 +32,20 @@
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('index.ppid.sapi') }}">
                 <i class="bi bi-list-nested"></i>
-                <span>List Sapi Jual</span>
+                <span>Sapi Siap Jual</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('index.ppid.psapi') }}">
+                <i class="bi bi-list-nested"></i>
+                <span>Pengajuan Sapi</span>
             </a>
         </li>
         <li class="nav-heading">PPID - Rumput</li>
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('index.ppid.rumput') }}">
                 <i class="bi bi-list-nested"></i>
-                <span>List Rumput Jual</span>
-            </a>
-        </li>
-        <li class="nav-heading">PPID - Pengajuan Beli</li>
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('index.ppid.psapi') }}">
-                <i class="bi bi-list-nested"></i>
-                <span>Pengajuan Sapi</span>
+                <span>Rumput Siap Jual</span>
             </a>
         </li>
         <li class="nav-item">
@@ -55,6 +54,9 @@
                 <span>Pengajuan Rumput</span>
             </a>
         </li>
+
+
+
         {{-- <li class="nav-heading">PPID - Pembelian</li>
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('index.ppid.psapi') }}">
