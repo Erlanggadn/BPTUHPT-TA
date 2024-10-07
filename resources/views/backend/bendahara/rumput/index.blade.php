@@ -13,6 +13,14 @@ use Carbon\Carbon;
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Data Pengajuan Rumput</h5>
+                        @if($jumlahBelumDiterima > 0)
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            Pembayaran yang belum diterima: <span class="badge bg-danger">{{ $jumlahBelumDiterima
+                                }}</span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        @endif
+
                         <p>Berikut ini adalah data Pengajuan Rumput yang sepenuhnya dikelola oleh <b>Divisi PPID</b>
                             BPTU
                             HPT Padang Mengatas
@@ -68,14 +76,15 @@ use Carbon\Carbon;
                                         <td>{{ $item->belirum_keterangan }}</td>
                                         <td>
                                             @if($item->pembayaranRumput->isNotEmpty())
-                                                {{ $item->pembayaranRumput->first()->bayarrum_status }}
+                                            {{ $item->pembayaranRumput->first()->bayarrum_status }}
                                             @else
-                                                Tidak ada pembayaran
+                                            Tidak ada pembayaran
                                             @endif
                                         </td>
                                         <td>{{ $item->belirum_status}}</td>
                                         <td>
-                                            <a class="btn btn-outline-success" href="{{ route('detail.bendahara.prumput', $item->belirum_id) }}">
+                                            <a class="btn btn-outline-success"
+                                                href="{{ route('detail.bendahara.prumput', $item->belirum_id) }}">
                                                 <i class="bi bi-info-lg"></i>
                                             </a>
                                         </td>
@@ -83,7 +92,7 @@ use Carbon\Carbon;
                                     @endforeach
                                     @endisset
                                 </tbody>
-                                
+
                             </table>
                         </div>
                         <!-- End Table with stripped rows -->

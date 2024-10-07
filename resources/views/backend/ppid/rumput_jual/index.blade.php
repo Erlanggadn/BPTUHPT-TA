@@ -10,6 +10,13 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Data Rumput</h5>
+                        @if($Rumput->count() > 0)
+                        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                            Jumlah data rumput siap jual: <span class="badge bg-danger">{{ $Rumput->count() }}</span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        @endif
+
                         <p>Berikut ini adalah data Rumput yang sepenuhnya dikelola oleh <b>Divisi Pengawas Mutu
                                 Pakan</b> BPTU HPT Padang Mengatas
                         </p>
@@ -45,8 +52,8 @@
                                                 href="{{ route('detail.ppid.rumput', $item->rumput_id) }}"><i
                                                     class="bi bi-info-lg"></i></a>
                                             <form id="deleteForm"
-                                                action="{{ route('delete.ppid.rumput', $item->rumput_id) }}" method="POST"
-                                                style="display: inline;">
+                                                action="{{ route('delete.ppid.rumput', $item->rumput_id) }}"
+                                                method="POST" style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="button" class="btn btn-outline-danger"

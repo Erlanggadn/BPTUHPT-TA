@@ -31,9 +31,13 @@ class KepalaBalaiController extends Controller
     //SAPI
     public function pengajuansapi()
     {
+
+        $jumlahDataBaru = ModPengajuanSapi::where('belisapi_status', 'Sedang Diproses')->count();
+
         $PSapi = ModPengajuanSapi::with('user')->get();
-        return view('backend.kepala.pengajuan_sapi.index', compact('PSapi'));
+        return view('backend.kepala.pengajuan_sapi.index', compact('PSapi', 'jumlahDataBaru'));
     }
+
 
     public function detailpengajuansapi($id)
     {
@@ -70,9 +74,13 @@ class KepalaBalaiController extends Controller
     //RUMPUT
     public function pengajuanrumput()
     {
+        // Hitung jumlah data baru dengan status "Sedang Diproses"
+        $jumlahDataBaru = ModPengajuanRumput::where('belirum_status', 'Sedang Diproses')->count();
+
         $PRumput = ModPengajuanRumput::with('pembeli')->get();
-        return view('backend.kepala.pengajuan_rumput.index', compact('PRumput'));
+        return view('backend.kepala.pengajuan_rumput.index', compact('PRumput', 'jumlahDataBaru'));
     }
+
 
     public function detailpengajuanrumput($id)
     {

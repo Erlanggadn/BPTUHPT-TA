@@ -13,6 +13,12 @@ use Carbon\Carbon;
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Data Pengajuan Rumput</h5>
+                        @if($jumlahDataBaru > 0)
+                        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                            Data baru masuk untuk Anda: <span class="badge bg-danger">{{ $jumlahDataBaru }}</span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        @endif
                         <p>Berikut ini adalah data Pengajuan Rumput yang sepenuhnya dikelola oleh <b>Divisi PPID</b>
                             BPTU
                             HPT Padang Mengatas

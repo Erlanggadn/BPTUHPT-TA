@@ -85,7 +85,7 @@ use Carbon\Carbon;
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Apakah Anda yakin ingin menghapus data Harga Sapi ini?</p>
+                    <p>Apakah Anda yakin ingin menghapus data Harga Rumput ini?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -103,13 +103,19 @@ use Carbon\Carbon;
 <script src="{{ asset ('js/main.js') }}"></script>
 <script>
     function showDeleteModal(action, id) {
-        var deleteForm = document.getElementById('deleteForm' + id);
-        deleteForm.action = action;
-        var deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
-        deleteModal.show();
-    }
+    var deleteForm = document.getElementById('deleteForm' + id);
+    deleteForm.action = action;
+    var deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+    deleteModal.show();
+
+    // Menyimpan id untuk digunakan dalam konfirmasi
+    document.getElementById('confirmDelete').setAttribute('data-id', id);
+}
 
     document.getElementById('confirmDelete').addEventListener('click', function () {
-        document.getElementById('deleteForm').submit();
+        var id = this.getAttribute('data-id');
+        var deleteForm = document.getElementById('deleteForm' + id);
+        deleteForm.submit();
     });
+
 </script>

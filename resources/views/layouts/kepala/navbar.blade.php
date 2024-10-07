@@ -1,12 +1,12 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between w-100">
+        <i class="bi bi-list toggle-sidebar-btn"></i>
         <a href="" class="logo d-flex align-items-center">
             <img src="{{ asset('img/peternakan.png') }}" alt="">
             <img src="{{ asset('img/pkh.png') }}" alt="">
             <img src="{{ asset('img/bptu.png') }}" alt="">
         </a>
-        <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
     <nav class="header-nav ms-auto">

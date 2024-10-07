@@ -21,7 +21,7 @@ class AuthController extends Controller
         $akunuser = Auth::user();
         $jenis_sapi = ModJenisSapi::with('hargaSapi')->get();
         $jenis_rumput = ModJenisRumput::with('hargaRumput')->get();
-        return view('index', ['akunuser' => $akunuser, 'jenis_sapi' => $jenis_sapi ,'jenis_rumput' => $jenis_rumput]);
+        return view('index', ['akunuser' => $akunuser, 'jenis_sapi' => $jenis_sapi, 'jenis_rumput' => $jenis_rumput]);
     }
 
     //REGIS - PEMBELI
@@ -39,6 +39,10 @@ class AuthController extends Controller
             'pembeli_lahir' => 'required|date',
             'pembeli_alamat' => 'required',
             'password' => 'required|confirmed',
+        ], [
+            'email.unique' => 'Maaf email anda telah digunakan.',
+            'email.required' => 'Email harus diisi.',
+            'email.email' => 'Format email tidak valid.'
         ]);
 
         if ($validator->fails()) {
@@ -67,6 +71,7 @@ class AuthController extends Controller
 
         return redirect()->route('loginpembeli');
     }
+
 
     //LOGIN - PEGAWAI
     public function login()
@@ -220,5 +225,4 @@ class AuthController extends Controller
     {
         return view('backend.auth.unauthorized');
     }
-    
 }

@@ -30,7 +30,6 @@ class BendaharaController extends Controller
     //BAYAR SAPI
     public function indexsapi(Request $request)
     {
-        // Ambil parameter tanggal dari request
         $tanggalMulai = $request->input('tanggal_mulai');
         $tanggalSelesai = $request->input('tanggal_selesai');
 
@@ -51,9 +50,15 @@ class BendaharaController extends Controller
         // Ambil data dengan filter yang diterapkan
         $PSapi = $query->get();
 
+        // Menghitung jumlah pembayaran yang belum diterima
+        $jumlahBelumDiterima = $PSapi->sum(function ($item) {
+            return $item->pembayaranSapi->where('dbeli_status', 'Belum diterima')->count();
+        });
+
         // Kirim data ke view
-        return view('backend.bendahara.sapi.index', compact('PSapi'));
+        return view('backend.bendahara.sapi.index', compact('PSapi', 'jumlahBelumDiterima'));
     }
+
 
     public function detailsapi($belisapi_id)
     {
@@ -127,10 +132,18 @@ class BendaharaController extends Controller
     //BAYAR RUMPUT
     public function indexrumput()
     {
+        // Ambil data pengajuan rumput dengan relasi
         $PRumput = ModPengajuanRumput::with(['pembeli', 'pembayaranRumput' => function ($query) {
             $query->orderBy('created_at', 'desc');
         }])->where('belirum_status', 'Disetujui')->get();
-        return view('backend.bendahara.rumput.index', compact('PRumput'));
+
+        // Menghitung jumlah pembayaran yang belum diterima
+        $jumlahBelumDiterima = $PRumput->sum(function ($item) {
+            return $item->pembayaranRumput->where('bayarrum_status', 'Belum diterima')->count();
+        });
+
+        // Kirim data ke view
+        return view('backend.bendahara.rumput.index', compact('PRumput', 'jumlahBelumDiterima'));
     }
 
     public function detailrumput($belirum_id)

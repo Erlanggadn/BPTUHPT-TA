@@ -21,7 +21,7 @@
                 <span>Pembelian Rumput</span>
             </a>
         </li>
-        <li class="nav-heading">Kepala - Logout</li>
+        <li class="nav-heading">Bendahara - Logout</li>
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('logout') }}">
                 <i class="bi bi-box-arrow-left"></i>

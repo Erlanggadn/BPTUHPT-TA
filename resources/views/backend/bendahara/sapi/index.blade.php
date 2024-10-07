@@ -12,6 +12,14 @@ use Carbon\Carbon;
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Data Pengajuan Sapi</h5>
+                        @if($jumlahBelumDiterima > 0)
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            Pembayaran yang belum diterima: <span class="badge bg-danger">{{ $jumlahBelumDiterima
+                                }}</span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        @endif
+
                         <p>Berikut ini adalah data Pengajuan Sapi yang sepenuhnya dikelola oleh <b>Divisi PPID</b> BPTU
                             HPT Padang Mengatas
                         </p>

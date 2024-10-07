@@ -64,7 +64,7 @@
                                 @foreach ($Kegiatan as $item)
                                 <tr>
                                     <td>{{ $item->kegiatan_id }}</td>
-                                    <td>{{ $item->kegiatan_jenis_kandang }} - [
+                                    <td>{{ $item->kandang->kand_id }} - [
                                         {{ $item->kandang->jenisKandang->kandang_tipe }}
                                         - {{ $item->kandang->kand_nama }} ]</td>
                                     <td>{{ $item->kegiatan_tanggal }}</td>

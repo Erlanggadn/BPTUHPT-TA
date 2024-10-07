@@ -18,7 +18,8 @@
                     </ul>
                 </li>
                 <li><a href="#kontak">Kontak Kami</a></li>
-                <li class="dropdown"><a href="{{ route('detail.profil.pembeli', ['id' => $akunuser->user_id]) }}"><span>Profil</span> <i
+                <li class="dropdown"><a
+                        href="{{ route('detail.profil.pembeli', ['id' => $akunuser->user_id]) }}"><span>Profil</span> <i
                             class="bi bi-chevron-down dropdown-indicator"></i></a>
                     <ul>
                         <li><a href="{{ route('index.pengajuan.sapi') }}">Pengajuan Beli <i
@@ -48,9 +49,9 @@
         </nav><!-- .navbar -->
 
         @if(Auth::check() && Auth::user()->role == 'pembeli')
-        <a class="btn-book-a-table" href="{{ route('logout') }}">Logout</a>
+        <a class="btn-book-a-table" href="{{ route('logout') }}">Keluar</a>
         @else
-        <a class="btn-book-a-table" href="{{ route('loginpembeli') }}">Login</a>
+        <a class="btn-book-a-table" href="{{ route('loginpembeli') }}">Masuk</a>
         @endif
         <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
         <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>

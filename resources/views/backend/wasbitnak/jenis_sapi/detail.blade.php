@@ -62,7 +62,7 @@
     </section>
 </main>
 
-// Modal Edit Berhasil
+
 <div class="modal fade" id="successModalEditRumput" tabindex="-1" aria-labelledby="successModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">

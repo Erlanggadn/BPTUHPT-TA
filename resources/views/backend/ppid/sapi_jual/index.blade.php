@@ -10,6 +10,12 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Data Sapi</h5>
+                        @if($jumlahSapiSiapJual > 0)
+                        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                            Jumlah data sapi siap jual: <span class="badge bg-danger">{{ $jumlahSapiSiapJual }}</span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        @endif
                         <p>Berikut ini adalah data Sapi yang sepenuhnya dikelola oleh <b>Divisi Kesehatan Hewan</b> BPTU
                             HPT Padang Mengatas
                         </p>

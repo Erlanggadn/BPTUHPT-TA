@@ -71,13 +71,18 @@ class PPIDController extends Controller
     //SAPI SIAP JUAL
     public function indexsapijual()
     {
+        // Ambil semua data sapi dengan status "Siap Jual" dan "terjual"
         $Sapi = ModSapi::with('jenisSapi')
             ->whereIn('sapi_status', ['Siap Jual', 'terjual'])
             ->get();
 
+        // Hitung jumlah sapi dengan status "Siap Jual"
+        $jumlahSapiSiapJual = ModSapi::where('sapi_status', 'Siap Jual')->count();
+
         $jenisList = ModJenisSapi::all();
-        return view('backend.ppid.sapi_jual.index', compact('Sapi', 'jenisList'));
+        return view('backend.ppid.sapi_jual.index', compact('Sapi', 'jenisList', 'jumlahSapiSiapJual'));
     }
+
     public function detailsapijual($id)
     {
         $sapi = ModSapi::with('jenisSapi')->findOrFail($id);
@@ -175,12 +180,18 @@ class PPIDController extends Controller
     //RUMPUT RUMPUT JUAL
     public function indexrumputjual()
     {
+        // Ambil semua data rumput dengan status "siap jual"
         $Rumput = ModRumput::with('jenisRumput')
             ->where('rumput_status', 'siap jual')
             ->get();
+
+        // Ambil semua jenis rumput
         $jenisList = ModJenisRumput::all();
+
+        // Kirim data ke view
         return view('backend.ppid.rumput_jual.index', compact('Rumput', 'jenisList'));
     }
+
     public function detailrumputjual($id)
     {
         $rumput = ModRumput::with('jenisRumput')->findOrFail($id);
@@ -234,9 +245,13 @@ class PPIDController extends Controller
         // Ambil data dengan filter yang diterapkan
         $PSapi = $query->get();
 
+        // Menghitung jumlah data yang sedang diproses
+        $jumlahSedangDiproses = $PSapi->where('belisapi_status', 'Sedang Diproses')->count();
+
         // Kirim data ke view
-        return view('backend.ppid.pengajuan-sapi.index', compact('PSapi'));
+        return view('backend.ppid.pengajuan-sapi.index', compact('PSapi', 'jumlahSedangDiproses'));
     }
+
 
     public function detailpengajuansapi($id)
     {
@@ -364,9 +379,13 @@ class PPIDController extends Controller
         // Ambil data dengan filter yang diterapkan
         $PRumput = $query->get();
 
+        // Menghitung jumlah data yang sedang diproses
+        $jumlahSedangDiproses = $PRumput->where('belirum_status', 'Sedang Diproses')->count();
+
         // Kirim data ke view
-        return view('backend.ppid.pengajuan-rumput.index', compact('PRumput'));
+        return view('backend.ppid.pengajuan-rumput.index', compact('PRumput', 'jumlahSedangDiproses'));
     }
+
 
     public function detailpengajuanrumput($id)
     {
@@ -745,7 +764,7 @@ class PPIDController extends Controller
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
-        
+
         $sheet->setCellValue('A1', 'ID Pengajuan');
         $sheet->setCellValue('B1', 'Nama Pembeli');
         $sheet->setCellValue('C1', 'Alamat');
@@ -754,7 +773,7 @@ class PPIDController extends Controller
         $sheet->setCellValue('F1', 'Status');
         $sheet->setCellValue('G1', 'Disposisi');
 
-        
+
         $row = 2;
         foreach ($PRumput as $item) {
             $sheet->setCellValue('A' . $row, $item->belirum_id);

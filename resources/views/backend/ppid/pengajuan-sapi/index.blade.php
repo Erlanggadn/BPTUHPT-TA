@@ -13,6 +13,14 @@ use Carbon\Carbon;
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Data Pengajuan Sapi</h5>
+                        @if($jumlahSedangDiproses > 0)
+                        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                            Jumlah data yang sedang diproses: <span class="badge bg-danger">{{ $jumlahSedangDiproses
+                                }}</span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        @endif
+
                         <p>Berikut ini adalah data Pengajuan Sapi yang sepenuhnya dikelola oleh <b>Divisi PPID</b> BPTU
                             HPT Padang Mengatas
                         </p>
@@ -39,8 +47,7 @@ use Carbon\Carbon;
                         </form>
                         <a href="{{ route('index.ppid.psapi') }}" class="btn btn-secondary"><i
                                 class="bi bi-arrow-clockwise"></i> Reset Filter</a>
-                        <a href="{{ route('export.ppid.psapi', request()->query()) }}"
-                            class="btn btn-success">
+                        <a href="{{ route('export.ppid.psapi', request()->query()) }}" class="btn btn-success">
                             <i class="bi bi-file-earmark-excel"></i> Export to Excel
                         </a>
                         <!-- Table with stripped rows -->
