@@ -12,7 +12,7 @@ class RumputController extends Controller
     public function index()
     {
         $Rumput = ModRumput::with('jenisRumput')->get();
-        $jenisList = ModJenisRumput::all(); // Mengambil daftar jenis rumput untuk dropdown filter
+        $jenisList = ModJenisRumput::all();
         return view('backend.wastukan.rumput.index', compact('Rumput', 'jenisList'));
     }
 
@@ -40,7 +40,7 @@ class RumputController extends Controller
             'rumput_id' => $newKode,
             'rum_id' => $request->rum_id,
             'rumput_berat_awal' => $request->rumput_berat_awal,
-            'rumput_berat_hasil' => $request->rumput_berat_hasil ?? 0, // Jika tidak diinput, defaultnya 0
+            'rumput_berat_hasil' => $request->rumput_berat_hasil ?? 0, 
             'rumput_masuk' => $request->rumput_masuk,
             'rumput_keterangan' => $request->rumput_keterangan,
             'rumput_status' => $request->rumput_status,

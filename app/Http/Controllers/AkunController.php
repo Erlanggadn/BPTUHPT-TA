@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Models\ModPembeli;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -14,7 +13,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class AkunController extends Controller
 {
-    //PEGAWAI
+    //ADMIN - PEGAWAI
     public function detailakun($user_id)
     {
         $akunuser = User::with('pegawai')->where('user_id', $user_id)->first();
@@ -38,9 +37,7 @@ class AkunController extends Controller
             'current_password' => 'nullable|string',
             'new_password' => 'nullable|string|confirmed',
         ]);
-
         // dd($request->all());
-
         $validator->after(function ($validator) use ($request, $akunuser) {
             if ($request->filled('current_password') && !Hash::check($request->current_password, $akunuser->password)) {
                 $validator->errors()->add('current_password', 'Password tidak sesuai');
@@ -63,7 +60,7 @@ class AkunController extends Controller
         return redirect()->route('detailakun', $akunuser->user_id)->with('berhasil.edit', 'Akun berhasil diperbarui');
     }
 
-    //PEMBELI
+    //ADMIN - PEMBELI
     public function indexpembeli(Request $request)
     {
         $startDate = $request->input('start_date');
@@ -88,11 +85,9 @@ class AkunController extends Controller
     }
     public function exportpembeli(Request $request)
     {
-        // Ambil input tanggal dari form
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
 
-        // Query untuk mengambil data akun user dengan filter tanggal
         $akunuser = User::with('pembeli')
             ->whereNotIn('role', ['admin', 'ppid', 'wastukan', 'wasbitnak', 'kepala', 'keswan', 'bendahara'])
             ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
@@ -103,7 +98,6 @@ class AkunController extends Controller
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
-        // Set header
         $sheet->setCellValue('A1', 'ID');
         $sheet->setCellValue('B1', 'Nama');
         $sheet->setCellValue('C1', 'Email');
@@ -113,7 +107,6 @@ class AkunController extends Controller
         $sheet->setCellValue('G1', 'Alamat');
         $sheet->setCellValue('H1', 'Tgl Buat');
 
-        // Isi data
         $row = 2;
         foreach ($akunuser as $item) {
             $sheet->setCellValue('A' . $row, $item->pembeli->pembeli_id);

@@ -71,18 +71,14 @@ class PPIDController extends Controller
     //SAPI SIAP JUAL
     public function indexsapijual()
     {
-        // Ambil semua data sapi dengan status "Siap Jual" dan "terjual"
         $Sapi = ModSapi::with('jenisSapi')
             ->whereIn('sapi_status', ['Siap Jual', 'terjual'])
             ->get();
-
-        // Hitung jumlah sapi dengan status "Siap Jual"
         $jumlahSapiSiapJual = ModSapi::where('sapi_status', 'Siap Jual')->count();
 
         $jenisList = ModJenisSapi::all();
         return view('backend.ppid.sapi_jual.index', compact('Sapi', 'jenisList', 'jumlahSapiSiapJual'));
     }
-
     public function detailsapijual($id)
     {
         $sapi = ModSapi::with('jenisSapi')->findOrFail($id);
@@ -92,7 +88,7 @@ class PPIDController extends Controller
     {
         $request->validate([
             'sapi_keterangan' => 'required|string|max:255',
-            'sapi_status' => 'required|string|max:255', // Tambahkan validasi status
+            'sapi_status' => 'required|string|max:255', 
         ]);
 
         $sapi = ModSapi::findOrFail($id);
@@ -157,7 +153,7 @@ class PPIDController extends Controller
     {
         $jenisSapi = $request->input('jenis_sapi');
         $bulanLahir = $request->input('bulan_lahir');
-        $tahunLahir = $request->input('tahun_lahir'); // Ambil input tahun lahir
+        $tahunLahir = $request->input('tahun_lahir'); 
 
         $Sapi = ModSapi::with('jenisSapi')
             ->when($jenisSapi, function ($query, $jenisSapi) {
@@ -168,7 +164,7 @@ class PPIDController extends Controller
             ->when($bulanLahir, function ($query, $bulanLahir) {
                 return $query->whereMonth('sapi_tanggal_lahir', $bulanLahir);
             })
-            ->when($tahunLahir, function ($query, $tahunLahir) { // Tambahkan kondisi untuk tahun lahir
+            ->when($tahunLahir, function ($query, $tahunLahir) { 
                 return $query->whereYear('sapi_tanggal_lahir', $tahunLahir);
             })
             ->get();
@@ -180,15 +176,12 @@ class PPIDController extends Controller
     //RUMPUT RUMPUT JUAL
     public function indexrumputjual()
     {
-        // Ambil semua data rumput dengan status "siap jual"
         $Rumput = ModRumput::with('jenisRumput')
             ->where('rumput_status', 'siap jual')
             ->get();
 
-        // Ambil semua jenis rumput
         $jenisList = ModJenisRumput::all();
 
-        // Kirim data ke view
         return view('backend.ppid.rumput_jual.index', compact('Rumput', 'jenisList'));
     }
 
@@ -228,24 +221,18 @@ class PPIDController extends Controller
     {
         $query = ModPengajuanSapi::with('user');
 
-        // Ambil parameter tanggal dari request
+        
         $tanggalMulai = $request->input('tanggal_mulai');
         $tanggalSelesai = $request->input('tanggal_selesai');
 
-        // Periksa apakah parameter tanggal ada
         if ($tanggalMulai && $tanggalSelesai) {
-            // Gunakan Carbon untuk memproses tanggal
             $tanggalMulai = Carbon::parse($tanggalMulai)->startOfDay();
             $tanggalSelesai = Carbon::parse($tanggalSelesai)->endOfDay();
-
-            // Tambahkan kondisi filter tanggal ke query
             $query->whereBetween('belisapi_tanggal', [$tanggalMulai, $tanggalSelesai]);
         }
 
-        // Ambil data dengan filter yang diterapkan
         $PSapi = $query->get();
 
-        // Menghitung jumlah data yang sedang diproses
         $jumlahSedangDiproses = $PSapi->where('belisapi_status', 'Sedang Diproses')->count();
 
         // Kirim data ke view
@@ -292,7 +279,6 @@ class PPIDController extends Controller
         try {
             $pengajuan = ModPengajuanSapi::findOrFail($id);
 
-            // Update file jika ada file baru
             if ($request->hasFile('belisapi_surat')) {
                 $file = $request->file('belisapi_surat');
                 $filename = time() . '.' . $file->getClientOriginalExtension();
@@ -300,7 +286,6 @@ class PPIDController extends Controller
                 $pengajuan->belisapi_surat = $filename;
             }
 
-            // Update data pengajuan
             $pengajuan->belisapi_nohp = $request->belisapi_nohp;
             $pengajuan->belisapi_alamat = $request->belisapi_alamat;
             $pengajuan->belisapi_tanggal = $request->belisapi_tanggal;
@@ -309,10 +294,8 @@ class PPIDController extends Controller
             $pengajuan->belisapi_keterangan = $request->belisapi_keterangan;
             $pengajuan->save();
 
-            // Hapus detail lama
             ModDetailPengajuanSapi::where('belisapi_id', $id)->delete();
 
-            // Tambah detail baru
             foreach ($validated['sjenis_id'] as $key => $jenis) {
                 $lastCode = ModDetailPengajuanSapi::orderBy('detail_id', 'desc')->first();
                 $newCode = $lastCode ? 'DPS' . str_pad(((int) substr($lastCode->detail_id, 3)) + 1, 3, '0', STR_PAD_LEFT) : 'DPS001';
@@ -341,10 +324,9 @@ class PPIDController extends Controller
         DB::beginTransaction();
 
         try {
-            // Hapus detail pengajuan terlebih dahulu
+            
             ModDetailPengajuanSapi::where('belisapi_id', $id)->delete();
 
-            // Hapus pengajuan
             $pengajuan = ModPengajuanSapi::findOrFail($id);
             $pengajuan->delete();
 
@@ -362,27 +344,17 @@ class PPIDController extends Controller
     {
         $query = ModPengajuanRumput::with('pembeli');
 
-        // Ambil parameter tanggal dari request
         $tanggalMulai = $request->input('tanggal_mulai');
         $tanggalSelesai = $request->input('tanggal_selesai');
 
-        // Periksa apakah parameter tanggal ada
         if ($tanggalMulai && $tanggalSelesai) {
-            // Gunakan Carbon untuk memproses tanggal
             $tanggalMulai = Carbon::parse($tanggalMulai)->startOfDay();
             $tanggalSelesai = Carbon::parse($tanggalSelesai)->endOfDay();
-
-            // Tambahkan kondisi filter tanggal ke query
             $query->whereBetween('belirum_tanggal', [$tanggalMulai, $tanggalSelesai]);
         }
-
-        // Ambil data dengan filter yang diterapkan
         $PRumput = $query->get();
-
-        // Menghitung jumlah data yang sedang diproses
         $jumlahSedangDiproses = $PRumput->where('belirum_status', 'Sedang Diproses')->count();
 
-        // Kirim data ke view
         return view('backend.ppid.pengajuan-rumput.index', compact('PRumput', 'jumlahSedangDiproses'));
     }
 
@@ -423,7 +395,7 @@ class PPIDController extends Controller
         try {
             $pengajuan = ModPengajuanRumput::findOrFail($id);
 
-            // Update file jika ada file baru
+        
             if ($request->hasFile('belirum_surat')) {
                 $file = $request->file('belirum_surat');
                 $filename = time() . '.' . $file->getClientOriginalExtension();
@@ -431,7 +403,7 @@ class PPIDController extends Controller
                 $pengajuan->belirum_surat = $filename;
             }
 
-            // Update data pengajuan
+
             $pengajuan->belirum_nohp = $request->belirum_nohp;
             $pengajuan->belirum_alamat = $request->belirum_alamat;
             $pengajuan->belirum_alasan = $request->belirum_alasan;
@@ -439,10 +411,8 @@ class PPIDController extends Controller
             $pengajuan->belirum_keterangan = $request->belirum_keterangan;
             $pengajuan->save();
 
-            // Hapus detail lama
             ModDetailPengajuanRumput::where('belirum_id', $id)->delete();
 
-            // Tambah detail baru
             foreach ($validated['rum_id'] as $key => $jenis) {
                 $lastCode = ModDetailPengajuanRumput::orderBy('drumput_id', 'desc')->first();
                 $newCode = $lastCode ? 'DPR' . str_pad(((int) substr($lastCode->drumput_id, 3)) + 1, 3, '0', STR_PAD_LEFT) : 'DPR001';
@@ -470,7 +440,6 @@ class PPIDController extends Controller
         DB::beginTransaction();
 
         try {
-            // Hapus detail pengajuan terlebih dahulu
             ModDetailPengajuanRumput::where('belirum_id', $id)->delete();
 
             // Hapus pengajuan
@@ -500,7 +469,7 @@ class PPIDController extends Controller
 
     public function storehargasapi(Request $request)
     {
-        // Validate the request data
+        
         $request->validate([
             'sjenis_id' => 'required|string|max:30|exists:master_sapi_jenis,sjenis_id',
             'hs_kategori' => 'required|string|max:100',
@@ -508,11 +477,9 @@ class PPIDController extends Controller
             'hs_harga' => 'required|integer',
         ]);
 
-        // Generate a new hs_id
         $lastHarga = ModHargaSapi::orderBy('hs_id', 'desc')->first();
         $newKode = $lastHarga ? 'HS' . str_pad(((int) substr($lastHarga->hs_id, 2)) + 1, 3, '0', STR_PAD_LEFT) : 'HS001';
 
-        // Create a new record in the database
         ModHargaSapi::create([
             'hs_id' => $newKode,
             'sjenis_id' => $request->sjenis_id,
@@ -521,20 +488,19 @@ class PPIDController extends Controller
             'hs_harga' => $request->hs_harga,
         ]);
 
-        // Redirect or return success response
         return redirect()->route('index.harga.sapi')->with('success', 'Harga sapi berhasil ditambahkan.');
     }
 
     public function detailhargasapi($id)
     {
         $hargaSapi = ModHargaSapi::findOrFail($id);
-        $jenisSapi = ModJenisSapi::all(); // Jika ingin menampilkan pilihan jenis sapi pada view
+        $jenisSapi = ModJenisSapi::all(); 
         return view('backend.ppid.harga.sapi.detail', compact('hargaSapi', 'jenisSapi'));
     }
 
     public function updatehargasapi(Request $request, $id)
     {
-        // Validasi input
+        
         $request->validate([
             'sjenis_id' => 'required|string|max:30|exists:master_sapi_jenis,sjenis_id',
             'hs_kategori' => 'required|string|max:100',
@@ -542,10 +508,10 @@ class PPIDController extends Controller
             'hs_harga' => 'required|integer',
         ]);
 
-        // Temukan record yang akan di-update
+        
         $hargaSapi = ModHargaSapi::findOrFail($id);
 
-        // Update record
+        
         $hargaSapi->update([
             'sjenis_id' => $request->sjenis_id,
             'hs_kelamin' => $request->hs_kelamin,
@@ -553,19 +519,19 @@ class PPIDController extends Controller
             'hs_harga' => $request->hs_harga,
         ]);
 
-        // Redirect dengan pesan sukses
+        
         return redirect()->route('index.harga.sapi')->with('success', 'Harga sapi berhasil diperbarui.');
     }
 
     public function deletehargasapi($id)
     {
-        // Temukan record yang akan dihapus
+        
         $hargaSapi = ModHargaSapi::findOrFail($id);
 
-        // Hapus record
+        
         $hargaSapi->delete();
 
-        // Redirect dengan pesan sukses
+        
         return redirect()->route('index.harga.sapi')->with('success', 'Harga sapi berhasil dihapus.');
     }
 
@@ -584,7 +550,6 @@ class PPIDController extends Controller
     public function storehargarumput(Request $request)
     {
         // dd($request->all());
-        // Validate the request data
         $request->validate([
             'rum_id' => 'required|string|max:30|exists:master_rumput_jenis,rum_id',
             'hr_kategori' => 'required|string|max:100',
@@ -593,11 +558,11 @@ class PPIDController extends Controller
             'hr_harga' => 'required|integer',
         ]);
 
-        // Generate a new hs_id
+        
         $lastHarga = ModHargaRumput::orderBy('hr_id', 'desc')->first();
         $newKode = $lastHarga ? 'HR' . str_pad(((int) substr($lastHarga->hr_id, 2)) + 1, 3, '0', STR_PAD_LEFT) : 'HR001';
 
-        // Create a new record in the database
+        
         ModHargaRumput::create([
             'hr_id' => $newKode,
             'rum_id' => $request->rum_id,
@@ -607,18 +572,18 @@ class PPIDController extends Controller
             'hr_harga' => $request->hr_harga,
         ]);
 
-        // Redirect or return success response
+        
         return redirect()->route('index.harga.rumput')->with('success', 'Harga rumput berhasil ditambahkan.');
     }
     public function detailhargarumput($id)
     {
         $hargaRumput = ModHargaRumput::findOrFail($id);
-        $jenisRumput = ModJenisRumput::all(); // Jika ingin menampilkan pilihan jenis sapi pada view
+        $jenisRumput = ModJenisRumput::all(); 
         return view('backend.ppid.harga.rumput.detail', compact('hargaRumput', 'jenisRumput'));
     }
     public function updatehargarumput(Request $request, $id)
     {
-        // Validasi input
+        
         $request->validate([
             'rum_id' => 'required|string|max:30|exists:master_rumput_jenis,rum_id',
             'hr_kategori' => 'required|string|max:100',
@@ -627,10 +592,10 @@ class PPIDController extends Controller
             'hr_harga' => 'required|integer',
         ]);
 
-        // Temukan record yang akan di-update
+        
         $hargaRumput = ModHargaRumput::findOrFail($id);
 
-        // Update record
+        
         $hargaRumput->update([
             'rum_id' => $request->rum_id,
             'hr_satuan' => $request->hr_satuan,
@@ -639,19 +604,15 @@ class PPIDController extends Controller
             'hr_harga' => $request->hr_harga,
         ]);
 
-        // Redirect dengan pesan sukses
+        
         return redirect()->route('index.harga.rumput')->with('success', 'Harga rumput berhasil diperbarui.');
     }
 
     public function deletehargarumput($id)
     {
-        // Temukan record yang akan dihapus
+        
         $hargaRumput = ModHargaRumput::findOrFail($id);
-
-        // Hapus record
         $hargaRumput->delete();
-
-        // Redirect dengan pesan sukses
         return redirect()->route('index.harga.rumput')->with('success', 'Harga rumput berhasil dihapus.');
     }
 
@@ -661,7 +622,6 @@ class PPIDController extends Controller
         $tanggalMulai = $request->input('tanggal_mulai');
         $tanggalSelesai = $request->input('tanggal_selesai');
 
-        // Query data dengan filter tanggal
         $query = ModPengajuanSapi::with('user');
 
         if ($tanggalMulai && $tanggalSelesai) {
@@ -673,11 +633,9 @@ class PPIDController extends Controller
 
         $PSapi = $query->get();
 
-        // Buat spreadsheet baru
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
-        // Set header kolom
         $sheet->setCellValue('A1', 'ID Pengajuan');
         $sheet->setCellValue('B1', 'Nama Pengirim');
         $sheet->setCellValue('C1', 'Asal Instansi');
@@ -685,7 +643,6 @@ class PPIDController extends Controller
         $sheet->setCellValue('E1', 'Disposisi');
         $sheet->setCellValue('F1', 'Status');
 
-        // Isi data ke sheet
         $row = 2;
         foreach ($PSapi as $item) {
             $sheet->setCellValue('A' . $row, $item->belisapi_id);
@@ -697,11 +654,9 @@ class PPIDController extends Controller
             $row++;
         }
 
-        // Set nama file
         $filename = 'pengajuan_sapi_' . date('Ymd_His') . '.xlsx';
         $writer = new Xlsx($spreadsheet);
 
-        // Kirim file ke browser
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment; filename="' . $filename . '"');
         $writer->save('php://output');
@@ -713,32 +668,30 @@ class PPIDController extends Controller
         $tanggalMulai = $request->input('tanggal_mulai');
         $tanggalSelesai = $request->input('tanggal_selesai');
 
-        // Pastikan tanggal yang diberikan valid
         if ($tanggalMulai && $tanggalSelesai) {
             return redirect()->route('index.ppid.psapi', [
                 'tanggal_mulai' => $tanggalMulai,
                 'tanggal_selesai' => $tanggalSelesai
             ]);
         } else {
-            // Handle jika tidak ada tanggal yang dipilih
+
             return redirect()->back()->with('error', 'Pilih rentang tanggal terlebih dahulu.');
         }
     }
 
-    //FILTER DAN EXPORT PENGAJUAN RUMPUT
     public function filterrumput(Request $request)
     {
         $tanggalMulai = $request->input('tanggal_mulai');
         $tanggalSelesai = $request->input('tanggal_selesai');
 
-        // Pastikan tanggal yang diberikan valid
+
         if ($tanggalMulai && $tanggalSelesai) {
             return redirect()->route('index.ppid.prumput', [
                 'tanggal_mulai' => $tanggalMulai,
                 'tanggal_selesai' => $tanggalSelesai
             ]);
         } else {
-            // Handle jika tidak ada tanggal yang dipilih
+
             return redirect()->back()->with('error', 'Pilih rentang tanggal terlebih dahulu.');
         }
     }

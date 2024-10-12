@@ -37,8 +37,6 @@ class KepalaBalaiController extends Controller
         $PSapi = ModPengajuanSapi::with('user')->get();
         return view('backend.kepala.pengajuan_sapi.index', compact('PSapi', 'jumlahDataBaru'));
     }
-
-
     public function detailpengajuansapi($id)
     {
         $sapiJenis = ModJenisSapi::all();
@@ -50,7 +48,6 @@ class KepalaBalaiController extends Controller
 
         return view('backend.kepala.pengajuan_sapi.detail', compact('pengajuan', 'sapiJenis', 'hargaData'));
     }
-
     public function updatepengajuansapi(Request $request, $id)
     {
         $request->validate([
@@ -70,18 +67,14 @@ class KepalaBalaiController extends Controller
         return redirect()->route('detail.kepala.psapi', $id)->with('success', 'Pengajuan berhasil diupdate');
     }
 
-
     //RUMPUT
     public function pengajuanrumput()
     {
-        // Hitung jumlah data baru dengan status "Sedang Diproses"
         $jumlahDataBaru = ModPengajuanRumput::where('belirum_status', 'Sedang Diproses')->count();
 
         $PRumput = ModPengajuanRumput::with('pembeli')->get();
         return view('backend.kepala.pengajuan_rumput.index', compact('PRumput', 'jumlahDataBaru'));
     }
-
-
     public function detailpengajuanrumput($id)
     {
         $rumputJenis = ModJenisRumput::all();
@@ -92,7 +85,6 @@ class KepalaBalaiController extends Controller
 
         return view('backend.kepala.pengajuan_rumput.detail', compact('pengajuan', 'rumputJenis'));
     }
-
     public function updatepengajuanrumput(Request $request, $id)
     {
         $request->validate([

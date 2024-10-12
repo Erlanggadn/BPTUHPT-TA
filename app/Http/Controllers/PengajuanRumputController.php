@@ -39,7 +39,6 @@ class PengajuanRumputController extends Controller
 
         return view('backend.pembeli.pengajuan_rumput.tambah', compact('users', 'rumputJenis', 'currentUser', 'hargaRumput', 'existingPengajuan'));
     }
-
     public function store(Request $request)
     {
         // dd($request->all());
@@ -147,12 +146,10 @@ class PengajuanRumputController extends Controller
 
         return redirect()->route('index.pengajuan.rumput')->with('success', 'Terima Kasih telah melakukan pembayaran, silahkan mendatangi kantor BPTU HPT Padang Mengatas untuk melakukan pengambilan Pakan Ternak');
     }
-
     public function cetaksurat()
     {
         return view('backend.pembeli.surat.rumput');
     }
-
     public function print($id)
     {
         $pengajuan = ModPengajuanRumput::with('detailPengajuanRumput')->findOrFail($id);

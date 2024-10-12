@@ -76,7 +76,7 @@ class AuthController extends Controller
     //LOGIN - PEGAWAI
     public function login()
     {
-        return view('backend.auth.login.login-pegawai'); // Untuk semua role kecuali pembeli
+        return view('backend.auth.login.login-pegawai'); 
     }
     public function loginAction(Request $request)
     {
@@ -137,7 +137,7 @@ class AuthController extends Controller
     //LOGIN - PEMBELI
     public function loginPembeli()
     {
-        return view('backend.auth.login.login-pembeli'); // Khusus pembeli
+        return view('backend.auth.login.login-pembeli');
     }
     public function loginPembeliAction(Request $request)
     {

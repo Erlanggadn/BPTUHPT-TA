@@ -13,12 +13,10 @@ class JenisLahanController extends Controller
         $JenisLahan = ModJenisLahan::all();
         return view('backend.wastukan.jenis_lahan.index', compact('JenisLahan'));
     }
-
     public function show()
     {
         return view('backend.wastukan.jenis_lahan.create');
     }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -43,13 +41,11 @@ class JenisLahanController extends Controller
 
         return redirect()->route('index.jenis.lahan')->with('success', 'Jenis Lahan berhasil ditambahkan');
     }
-
     public function detail($lahan_id)
     {
         $jenisLahan = ModJenisLahan::findOrFail($lahan_id);
         return view('backend.wastukan.jenis_lahan.detail', compact('jenisLahan'));
     }
-
     public function update(Request $request, $lahan_id)
     {
         $request->validate([
@@ -69,7 +65,6 @@ class JenisLahanController extends Controller
 
         return redirect()->route('detail.jenis.lahan', $lahan_id)->with('success', 'Jenis Lahan berhasil diubah');
     }
-
     public function destroy($lahan_id)
     {
         $jenisLahan = ModJenisLahan::findOrFail($lahan_id);

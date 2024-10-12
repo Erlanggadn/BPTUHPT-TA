@@ -30,8 +30,6 @@ class CheckPembeliRole
         if (Auth::check() && Auth::user()->role == 'pembeli') {
             return $next($request);
         }
-
-        // Jika tidak memiliki peran yang sesuai, arahkan ke halaman error
         return redirect()->route('unauthorized');
     }
 }

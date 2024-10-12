@@ -13,12 +13,10 @@ class JenisKandangController extends Controller
         $JenisKandang = ModJenisKandang::all();
         return view('backend.wasbitnak.jenis_kandang.index', compact('JenisKandang'));
     }
-
     public function show()
     {
         return view('backend.wasbitnak.jenis_kandang.create');
     }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -37,19 +35,16 @@ class JenisKandangController extends Controller
 
         return redirect()->route('index.jenis.kandang')->with('success', 'Jenis Kandang berhasil ditambahkan');
     }
-
     public function detail($id)
     {
         $jenisKandang = ModJenisKandang::findOrFail($id);
         return view('backend.wasbitnak.jenis_kandang.detail', compact('jenisKandang'));
     }
-
     public function edit($kandang_id)
     {
         $jenisKandang = ModJenisKandang::findOrFail($kandang_id);
         return view('backend.wasbitnak.jenis_kandang.edit', compact('jenisKandang'));
     }
-
     public function update(Request $request, $kandang_id)
     {
         $request->validate([
@@ -65,7 +60,6 @@ class JenisKandangController extends Controller
 
         return redirect()->route('index.jenis.kandang')->with('success', 'Jenis Kandang berhasil diubah');
     }
-
     public function destroy($id)
     {
         $jenisLahan = ModJenisKandang::findOrFail($id);

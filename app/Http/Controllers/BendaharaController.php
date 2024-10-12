@@ -33,40 +33,32 @@ class BendaharaController extends Controller
         $tanggalMulai = $request->input('tanggal_mulai');
         $tanggalSelesai = $request->input('tanggal_selesai');
 
-        // Query data sapi yang statusnya 'Disetujui'
         $query = ModPengajuanSapi::with(['user', 'pembayaranSapi' => function ($query) {
             $query->orderBy('created_at', 'desc');
         }])->where('belisapi_status', 'Disetujui');
 
-        // Periksa apakah parameter tanggal ada
         if ($tanggalMulai && $tanggalSelesai) {
             $tanggalMulai = Carbon::parse($tanggalMulai)->startOfDay();
             $tanggalSelesai = Carbon::parse($tanggalSelesai)->endOfDay();
 
-            // Tambahkan kondisi filter tanggal ke query
             $query->whereBetween('belisapi_tanggal', [$tanggalMulai, $tanggalSelesai]);
         }
 
-        // Ambil data dengan filter yang diterapkan
         $PSapi = $query->get();
 
-        // Menghitung jumlah pembayaran yang belum diterima
         $jumlahBelumDiterima = $PSapi->sum(function ($item) {
             return $item->pembayaranSapi->where('dbeli_status', 'Belum diterima')->count();
         });
 
-        // Kirim data ke view
         return view('backend.bendahara.sapi.index', compact('PSapi', 'jumlahBelumDiterima'));
     }
-
-
     public function detailsapi($belisapi_id)
     {
         $pengajuan = ModPengajuanSapi::where('belisapi_id', $belisapi_id)->firstOrFail();
         $detail = ModDetailPengajuanSapi::where('belisapi_id', $belisapi_id)->first();
         $sapiJenis = ModJenisSapi::all();
         $currentUser = ModPembeli::all();
-        $pembayaran = ModPembayaranSapi::where('belisapi_id', $belisapi_id)->first(); // Pastikan variabel pembayaran diambil
+        $pembayaran = ModPembayaranSapi::where('belisapi_id', $belisapi_id)->first(); 
         $hargaData = ModHargaSapi::all();
 
         return view('backend.bendahara.sapi.detail', compact('pengajuan', 'sapiJenis', 'currentUser', 'pembayaran', 'hargaData'));
@@ -80,17 +72,13 @@ class BendaharaController extends Controller
             'dbeli_keterangan' => 'nullable|string',
         ]);
 
-        // Simpan file invoice
         $file = $request->file('dbeli_invoice');
         $filename = time() . '.' . $file->getClientOriginalExtension();
         $file->move(public_path('uploads'), $filename);
 
-
-        // Buat kode baru untuk dbeli_id
         $lastKode = ModPembayaranSapi::orderBy('dbeli_id', 'desc')->first();
         $newKode = $lastKode ? 'BS' . str_pad(((int) substr($lastKode->dbeli_id, 2)) + 1, 3, '0', STR_PAD_LEFT) : 'BS001';
 
-        // Simpan data pembayaran sapi
         ModPembayaranSapi::create([
             'dbeli_id' => $newKode,
             'belisapi_id' => $belisapi_id,
@@ -101,7 +89,6 @@ class BendaharaController extends Controller
             'dbeli_sudah' => 'Saya Belum membayar',
         ]);
 
-        // Redirect dengan pesan sukses
         return redirect()->route('index.bendahara.psapi')->with('success', 'Pembayaran berhasil disimpan.');
     }
     public function updatebayarsapi(Request $request, $dbeli_id)
@@ -111,10 +98,8 @@ class BendaharaController extends Controller
             'dbeli_keterangan' => 'nullable|string',
         ]);
 
-        // Cari data pembayaran berdasarkan dbeli_id
         $pembayaran = ModPembayaranSapi::findOrFail($dbeli_id);
 
-        // Update data pembayaran
         $pembayaran->update([
             'dbeli_status' => $request->dbeli_status,
             'dbeli_keterangan' => $request->dbeli_keterangan,
@@ -132,27 +117,23 @@ class BendaharaController extends Controller
     //BAYAR RUMPUT
     public function indexrumput()
     {
-        // Ambil data pengajuan rumput dengan relasi
         $PRumput = ModPengajuanRumput::with(['pembeli', 'pembayaranRumput' => function ($query) {
             $query->orderBy('created_at', 'desc');
         }])->where('belirum_status', 'Disetujui')->get();
 
-        // Menghitung jumlah pembayaran yang belum diterima
         $jumlahBelumDiterima = $PRumput->sum(function ($item) {
             return $item->pembayaranRumput->where('bayarrum_status', 'Belum diterima')->count();
         });
 
-        // Kirim data ke view
         return view('backend.bendahara.rumput.index', compact('PRumput', 'jumlahBelumDiterima'));
     }
-
     public function detailrumput($belirum_id)
     {
         $pengajuan = ModPengajuanRumput::where('belirum_id', $belirum_id)->firstOrFail();
         $detail = ModDetailPengajuanRumput::where('belirum_id', $belirum_id)->first();
         $rumputJenis = ModJenisRumput::all();
         $currentUser = ModPembeli::all();
-        $pembayaran = ModPembayaranRumput::where('belirum_id', $belirum_id)->first(); // Pastikan variabel pembayaran diambil
+        $pembayaran = ModPembayaranRumput::where('belirum_id', $belirum_id)->first(); 
 
         return view('backend.bendahara.rumput.detail', compact('pengajuan', 'rumputJenis', 'currentUser', 'pembayaran'));
     }
@@ -169,12 +150,9 @@ class BendaharaController extends Controller
         $filename = time() . '.' . $file->getClientOriginalExtension();
         $file->move(public_path('uploads'), $filename);
 
-
-        // Buat kode baru untuk dbeli_id
         $lastKode = ModPembayaranRumput::orderBy('bayarrum_id', 'desc')->first();
         $newKode = $lastKode ? 'BR' . str_pad(((int) substr($lastKode->bayarrum_id, 2)) + 1, 3, '0', STR_PAD_LEFT) : 'BR001';
 
-        // Simpan data pembayaran sapi
         ModPembayaranRumput::create([
             'bayarrum_id' => $newKode,
             'belirum_id' => $belirum_id,
@@ -185,7 +163,6 @@ class BendaharaController extends Controller
             'bayarrum_sudah' => 'Saya Belum membayar',
         ]);
 
-        // Redirect dengan pesan sukses
         return redirect()->route('index.bendahara.prumput')->with('success', 'Pembayaran berhasil disimpan.');
     }
     public function updatebayarrumput(Request $request, $bayarrum_id)
@@ -195,10 +172,8 @@ class BendaharaController extends Controller
             'bayarrum_keterangan' => 'nullable|string',
         ]);
 
-        // Cari data pembayaran berdasarkan bayarrum_id
         $pembayaran = ModPembayaranRumput::findOrFail($bayarrum_id);
 
-        // Update data pembayaran
         $pembayaran->update([
             'bayarrum_status' => $request->bayarrum_status,
             'bayarrum_keterangan' => $request->bayarrum_keterangan,
@@ -219,29 +194,24 @@ class BendaharaController extends Controller
         $tanggalMulai = $request->input('tanggal_mulai');
         $tanggalSelesai = $request->input('tanggal_selesai');
 
-        // Pastikan tanggal yang diberikan valid
         if ($tanggalMulai && $tanggalSelesai) {
             return redirect()->route('index.bendahara.psapi', [
                 'tanggal_mulai' => $tanggalMulai,
                 'tanggal_selesai' => $tanggalSelesai
             ]);
         } else {
-            // Handle jika tidak ada tanggal yang dipilih
             return redirect()->back()->with('error', 'Pilih rentang tanggal terlebih dahulu.');
         }
     }
-
     public function exportsapi(Request $request)
     {
-        // Ambil parameter tanggal dari request
+    
         $tanggalMulai = $request->input('tanggal_mulai');
         $tanggalSelesai = $request->input('tanggal_selesai');
 
-        // Query data sapi yang hanya berstatus 'Disetujui'
         $query = ModPengajuanSapi::with('user')
-            ->where('belisapi_status', 'Disetujui'); // Tambahkan filter status 'Disetujui'
+            ->where('belisapi_status', 'Disetujui'); 
 
-        // Filter berdasarkan tanggal, jika ada input tanggal
         if ($tanggalMulai && $tanggalSelesai) {
             $tanggalMulai = Carbon::parse($tanggalMulai)->startOfDay();
             $tanggalSelesai = Carbon::parse($tanggalSelesai)->endOfDay();
@@ -249,14 +219,11 @@ class BendaharaController extends Controller
             $query->whereBetween('belisapi_tanggal', [$tanggalMulai, $tanggalSelesai]);
         }
 
-        // Dapatkan hasil query
         $PSapi = $query->get();
 
-        // Buat spreadsheet baru
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
-        // Set header kolom
         $sheet->setCellValue('A1', 'ID Pengajuan');
         $sheet->setCellValue('B1', 'Nama Pengirim');
         $sheet->setCellValue('C1', 'Asal Instansi');
@@ -264,7 +231,6 @@ class BendaharaController extends Controller
         $sheet->setCellValue('E1', 'Disposisi');
         $sheet->setCellValue('F1', 'Status');
 
-        // Isi data ke sheet
         $row = 2;
         foreach ($PSapi as $item) {
             $sheet->setCellValue('A' . $row, $item->belisapi_id);
@@ -276,11 +242,9 @@ class BendaharaController extends Controller
             $row++;
         }
 
-        // Set nama file
         $filename = 'pengajuan_sapi_' . date('Ymd_His') . '.xlsx';
         $writer = new Xlsx($spreadsheet);
 
-        // Kirim file ke browser untuk di-download
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment; filename="' . $filename . '"');
         $writer->save('php://output');
@@ -290,55 +254,54 @@ class BendaharaController extends Controller
     //FILTER DAN EXPORT PEMBELIAN RUMPUT
     public function filterrumput(Request $request)
     {
-        // Ambil parameter tanggal dari request
+    
         $tanggalMulai = $request->input('tanggal_mulai');
         $tanggalSelesai = $request->input('tanggal_selesai');
 
-        // Query data pengajuan rumput dengan status 'Disetujui'
+    
         $query = ModPengajuanRumput::with(['pembeli', 'pembayaranRumput' => function ($query) {
             $query->orderBy('created_at', 'desc');
         }])->where('belirum_status', 'Disetujui');
 
-        // Jika ada filter tanggal
+    
         if ($tanggalMulai && $tanggalSelesai) {
             $tanggalMulai = Carbon::parse($tanggalMulai)->startOfDay();
             $tanggalSelesai = Carbon::parse($tanggalSelesai)->endOfDay();
 
-            // Filter berdasarkan rentang tanggal belirum_tanggal
+            
             $query->whereBetween('belirum_tanggal', [$tanggalMulai, $tanggalSelesai]);
         }
 
-        // Ambil data yang sudah difilter
+        
         $PRumput = $query->get();
 
-        // Return data yang sudah difilter ke view
+        
         return view('backend.bendahara.rumput.index', compact('PRumput'));
     }
-
     public function exportrumput(Request $request)
     {
         $tanggalMulai = $request->input('tanggal_mulai');
         $tanggalSelesai = $request->input('tanggal_selesai');
 
-        // Query data pengajuan rumput dengan status 'Disetujui'
+        
         $query = ModPengajuanRumput::with('pembeli')->where('belirum_status', 'Disetujui');
 
-        // Jika ada filter tanggal
+        
         if ($tanggalMulai && $tanggalSelesai) {
             $tanggalMulai = Carbon::parse($tanggalMulai)->startOfDay();
             $tanggalSelesai = Carbon::parse($tanggalSelesai)->endOfDay();
 
-            // Filter berdasarkan rentang tanggal belirum_tanggal
+            
             $query->whereBetween('belirum_tanggal', [$tanggalMulai, $tanggalSelesai]);
         }
 
         $PRumput = $query->get();
 
-        // Buat spreadsheet baru
+       
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
-        // Set header kolom
+        
         $sheet->setCellValue('A1', 'ID Pengajuan');
         $sheet->setCellValue('B1', 'Nama Pembeli');
         $sheet->setCellValue('C1', 'Alamat');
@@ -347,7 +310,7 @@ class BendaharaController extends Controller
         $sheet->setCellValue('F1', 'Status');
         $sheet->setCellValue('G1', 'Keterangan');
 
-        // Isi data ke sheet
+        
         $row = 2;
         foreach ($PRumput as $item) {
             $sheet->setCellValue('A' . $row, $item->belirum_id);
@@ -360,11 +323,11 @@ class BendaharaController extends Controller
             $row++;
         }
 
-        // Set nama file
+        
         $filename = 'pengajuan_rumput_' . date('Ymd_His') . '.xlsx';
         $writer = new Xlsx($spreadsheet);
 
-        // Kirim file ke browser
+        
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment; filename="' . $filename . '"');
         $writer->save('php://output');

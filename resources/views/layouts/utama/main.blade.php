@@ -6,10 +6,10 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <title>BPTU HPT - TA</title>
-    <link rel="icon" type="image/png" href="{{ asset ('img/logobptu.png') }}" />
+    <link rel="icon" type="image/png" href="{{ asset('img/logobptu.png') }}" />
     <meta content="" name="description">
     <meta content="" name="keywords">
-    
+
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,7 +24,7 @@
     <link href="{{ asset('vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
 
-    
+
     <!-- Template Main CSS File -->
     <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
     {{--
@@ -40,7 +40,7 @@
     <script src="{{ asset('vendor/simple-datatables/simple-datatables.js') }}"></script>
     <script src="{{ asset('vendor/tinymce/tinymce.min.js') }}"></script>
     <script src="{{ asset('vendor/php-email-form/validate.js') }}"></script> --}}
-    
+
 
     <!-- Template Main JS File -->
     <script src="{{ asset('js/main.js') }}"></script>

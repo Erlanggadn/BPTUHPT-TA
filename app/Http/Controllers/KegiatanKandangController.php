@@ -30,7 +30,6 @@ class KegiatanKandangController extends Controller
 
         return view('backend.wasbitnak.kegiatan_kandang.index', compact('Kegiatan'));
     }
-
     public function show()
     {
         $jenisKandang = ModKandang::whereNotIn('kand_aktif', ['NonAktif'])->get();
@@ -39,7 +38,6 @@ class KegiatanKandangController extends Controller
 
         return view('backend.wasbitnak.kegiatan_kandang.create', compact('sapis', 'jenisKandang', 'user'));
     }
-
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -100,7 +98,6 @@ class KegiatanKandangController extends Controller
 
         return redirect()->route('index.kegiatan.kandang')->with('success', 'Kegiatan berhasil ditambahkan!');
     }
-
     public function detail($kegiatan_id)
     {
         $kegiatan = ModKegiatanKandang::findOrFail($kegiatan_id);
@@ -110,7 +107,6 @@ class KegiatanKandangController extends Controller
 
         return view('backend.wasbitnak.kegiatan_kandang.detail', compact('kegiatan', 'jenisKandang', 'sapis', 'selectedSapi'));
     }
-
     public function update(Request $request, $kegiatan_id)
     {
         // dd($request->all());
@@ -169,7 +165,6 @@ class KegiatanKandangController extends Controller
 
         return redirect()->route('index.kegiatan.kandang')->with('success', 'Kegiatan berhasil diperbarui!');
     }
-
     public function destroy($id)
     {
         $kegiatanKandang = ModKegiatanKandang::findOrFail($id);
@@ -177,7 +172,6 @@ class KegiatanKandangController extends Controller
 
         return redirect()->route('index.kegiatan.kandang')->with('success', 'Data berhasil dihapus');
     }
-
     public function export(Request $request)
     {
         $startDate = $request->input('start_date');
@@ -225,7 +219,6 @@ class KegiatanKandangController extends Controller
         $writer->save('php://output');
         exit;
     }
-
     public function filter(Request $request)
     {
         $startDate = $request->input('start_date');

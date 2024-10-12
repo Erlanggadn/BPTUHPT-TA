@@ -121,7 +121,6 @@ class PengajuanSapiController extends Controller
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
-
     public function detail($id)
     {
         $pengajuan = ModPengajuanSapi::with('details')->findOrFail($id);
@@ -132,7 +131,6 @@ class PengajuanSapiController extends Controller
 
         return view('backend.pembeli.pengajuan_sapi.detail', compact('pengajuan', 'sapiJenis', 'currentUser', 'pembayaran', 'hargaData'));
     }
-
     public function update(Request $request, $id)
     {
         $today = date('Y-m-d');
@@ -201,7 +199,6 @@ class PengajuanSapiController extends Controller
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
-
     public function updatebayarsapi(Request $request, $dbeli_id)
     {
         $request->validate([
@@ -228,12 +225,10 @@ class PengajuanSapiController extends Controller
 
         return redirect()->route('index.pengajuan.sapi')->with('success', 'Terima Kasih telah melakukan pembayaran, silahkan mendatangi kantor BPTU HPT Padang Mengatas untuk melakukan pengambilan Ternak');
     }
-
     public function cetaksurat()
     {
         return view('backend.pembeli.surat.sapi');
     }
-
     public function print($id)
     {
         $pengajuan = ModPengajuanSapi::with('details')->findOrFail($id);

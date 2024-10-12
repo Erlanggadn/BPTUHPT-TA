@@ -31,7 +31,6 @@ class KegiatanLahanController extends Controller
 
         return view('backend.wastukan.kegiatan.index', compact('kegiatanLahan', 'jenisLahan'));
     }
-
     public function show()
     {
         $jenisRumput = ModRumput::where('rumput_status', 'Bibit')->get();
@@ -39,7 +38,6 @@ class KegiatanLahanController extends Controller
         $user = Auth::user();
         return view('backend.wastukan.kegiatan.create', compact('jenisRumput', 'jenisLahan', 'user'));
     }
-
     public function store(Request $request)
     {
         $today = date('Y-m-d');
@@ -100,7 +98,6 @@ class KegiatanLahanController extends Controller
 
         return redirect()->route('index.tanam')->with('success', 'Kegiatan lahan berhasil ditambahkan.');
     }
-
     public function detail($id)
     {
         $kegiatan = ModKegiatanLahan::findOrFail($id);
@@ -109,7 +106,6 @@ class KegiatanLahanController extends Controller
 
         return view('backend.wastukan.kegiatan.detail', compact('kegiatan', 'jenisRumput', 'jenisLahan'));
     }
-
     // dd($request->all());
     public function update(Request $request, $id)
     {
@@ -139,7 +135,6 @@ class KegiatanLahanController extends Controller
 
         return redirect()->route('index.tanam')->with('success', 'Kegiatan lahan berhasil diperbarui.');
     }
-
     public function destroy($id)
     {
         $kegiatanKandang = ModKegiatanLahan::findOrFail($id);
@@ -147,7 +142,6 @@ class KegiatanLahanController extends Controller
 
         return redirect()->route('index.tanam')->with('success', 'Data berhasil dihapus');
     }
-
     public function export(Request $request)
     {
         $startDate = $request->query('start_date');

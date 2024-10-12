@@ -15,7 +15,7 @@ class SapiJualController extends Controller
     public function index()
     {
         $Sapi = ModSapi::with('jenisSapi')->get();
-        $jenisList = ModJenisSapi::all(); // Mengambil daftar jenis sapi untuk dropdown filter
+        $jenisList = ModJenisSapi::all(); 
         return view('backend.wasbitnak.sapi.index', compact('Sapi', 'jenisList'));
     }
 
@@ -27,17 +27,17 @@ class SapiJualController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi inputan
+        
         $request->validate([
             'sapi_jenis' => 'required',
             'sapi_urutan_lahir' => 'required|integer',
             'sapi_tanggal_lahir' => 'required|date',
             'sapi_no_induk' => 'required|string|max:255',
             'sapi_keterangan' => 'required|string|max:255',
-            'sapi_status' => 'required|string|max:255', // Tambahkan validasi status
+            'sapi_status' => 'required|string|max:255', 
         ]);
 
-        // Generate sapi_id
+        
         $jenisSapi = ModJenisSapi::find($request->sapi_jenis);
         if (!$jenisSapi) {
             return redirect()->back()->with('error', 'Jenis sapi tidak ditemukan');
@@ -47,7 +47,7 @@ class SapiJualController extends Controller
         $urutan_lahir = str_pad($request->sapi_urutan_lahir, 2, '0', STR_PAD_LEFT);
         $sapi_id = $jenis . $urutan_lahir . $bulanTahun;
 
-        // Validasi unique sapi_id
+        
         if (ModSapi::where('sapi_id', $sapi_id)->exists()) {
             return redirect()->back()->withErrors(['sapi_id' => 'ID sapi sudah digunakan.']);
         }
@@ -59,8 +59,8 @@ class SapiJualController extends Controller
         $sapi->sapi_tanggal_lahir = $request->sapi_tanggal_lahir;
         $sapi->sapi_no_induk = $request->sapi_no_induk;
         $sapi->sapi_keterangan = $request->sapi_keterangan;
-        $sapi->sapi_status = $request->sapi_status; // Set status
-        $sapi->sapi_umur = Carbon::parse($request->sapi_tanggal_lahir)->diffInMonths(Carbon::now()); // Hitung umur
+        $sapi->sapi_status = $request->sapi_status; 
+        $sapi->sapi_umur = Carbon::parse($request->sapi_tanggal_lahir)->diffInMonths(Carbon::now());
         $sapi->created_id = auth()->user()->id;
         $sapi->created_nama = auth()->user()->name;
         $sapi->updated_id = auth()->user()->id;
@@ -81,15 +81,15 @@ class SapiJualController extends Controller
         $request->validate([
             'sapi_no_induk' => 'required|string|max:255',
             'sapi_keterangan' => 'required|string|max:255',
-            'sapi_status' => 'required|string|max:255', // Tambahkan validasi status
+            'sapi_status' => 'required|string|max:255', 
         ]);
 
         $sapi = ModSapi::findOrFail($id);
 
         $sapi->sapi_no_induk = $request->sapi_no_induk;
         $sapi->sapi_keterangan = $request->sapi_keterangan;
-        $sapi->sapi_status = $request->sapi_status; // Set status
-        $sapi->sapi_umur = Carbon::parse($sapi->sapi_tanggal_lahir)->diffInMonths(Carbon::now()); // Hitung ulang umur
+        $sapi->sapi_status = $request->sapi_status; 
+        $sapi->sapi_umur = Carbon::parse($sapi->sapi_tanggal_lahir)->diffInMonths(Carbon::now()); 
         $sapi->save();
 
         return redirect()->route('detail.sapi.wasbitnak', $id)->with('success', 'Data sapi berhasil diperbarui');

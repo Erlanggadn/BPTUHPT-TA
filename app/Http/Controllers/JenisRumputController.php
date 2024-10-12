@@ -13,12 +13,10 @@ class JenisRumputController extends Controller
         $JenisRumput = ModJenisRumput::all();
         return view('backend.wastukan.jenis_rumput.index', compact('JenisRumput'));
     }
-
     public function show()
     {
         return view('backend.wastukan.jenis_rumput.create');
     }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -38,13 +36,11 @@ class JenisRumputController extends Controller
 
         return redirect()->route('index.jenis.rumput')->with('success', 'Jenis rumput berhasil ditambahkan.');
     }
-
     public function detail($id)
     {
         $jenisRumput = ModJenisRumput::findOrFail($id);
         return view('backend.wastukan.jenis_rumput.detail', compact('jenisRumput'));
     }
-
     public function update(Request $request, $rum_id)
     {
 
@@ -61,7 +57,6 @@ class JenisRumputController extends Controller
 
         return redirect()->route('index.jenis.rumput')->with('success', 'Jenis rumput berhasil diperbarui.');
     }
-
     public function destroy($id)
     {
         $jenisRumput = ModJenisRumput::findOrFail($id);

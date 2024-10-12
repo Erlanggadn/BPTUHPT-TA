@@ -13,12 +13,10 @@ class JenisSapiController extends Controller
         $JenisSapi = ModJenisSapi::all();
         return view('backend.wasbitnak.jenis_sapi.index', compact('JenisSapi'));
     }
-
     public function show()
     {
         return view('backend.wasbitnak.jenis_sapi.create');
     }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -37,19 +35,16 @@ class JenisSapiController extends Controller
 
         return redirect()->route('index.jenis.sapi')->with('success', 'Jenis Sapi berhasil ditambahkan');
     }
-
     public function detail($id)
     {
         $jenisSapi = ModJenisSapi::findOrFail($id);
         return view('backend.wasbitnak.jenis_sapi.detail', compact('jenisSapi'));
     }
-
     public function edit($sjenis_id)
     {
         $jenisSapi = ModJenisSapi::findOrFail($sjenis_id);
         return view('backend.wasbitnak.jenis_sapi.edit', compact('jenisSapi'));
     }
-
     public function update(Request $request, $sjenis_id)
     {
         $jenisSapi = ModJenisSapi::findOrFail($sjenis_id);
@@ -65,7 +60,6 @@ class JenisSapiController extends Controller
         ]);
         return redirect()->route('index.jenis.sapi')->with('success', 'Jenis Sapi berhasil diperbarui.');
     }
-
     public function destroy($id)
     {
         $jenisSapi = ModJenisSapi::findOrFail($id);

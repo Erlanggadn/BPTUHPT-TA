@@ -20,7 +20,7 @@ class SapiController extends Controller
         $Rumput = ModRumput::with('jenisRumput')
             ->where('rumput_status', 'Siap Pakan')
             ->get();
-        $jenisList = ModJenisRumput::all(); // Mengambil daftar jenis rumput untuk dropdown filter
+        $jenisList = ModJenisRumput::all(); 
         return view('backend.wasbitnak.rumput.index', compact('Rumput', 'jenisList'));
     }
 
@@ -33,7 +33,7 @@ class SapiController extends Controller
     public function index()
     {
         $Sapi = ModSapi::with('jenisSapi')->whereNotIn('sapi_status', ['Siap Jual', 'terjual'])->get();
-        $jenisList = ModJenisSapi::all(); // Mengambil daftar jenis sapi untuk dropdown filter
+        $jenisList = ModJenisSapi::all(); 
         return view('backend.keswan.sapi.index', compact('Sapi', 'jenisList'));
     }
 
@@ -47,7 +47,6 @@ class SapiController extends Controller
     {
 
         // dd($request->all());
-        // Validasi inputan
         $request->validate([
             'sjenis_id' => 'required',
             'sapi_urutan_lahir' => 'required|integer',
@@ -58,7 +57,7 @@ class SapiController extends Controller
             'sapi_status' => 'required|string|max:30',
         ]);
 
-        // Generate sapi_id
+
         $jenisSapi = ModJenisSapi::find($request->sjenis_id);
         if (!$jenisSapi) {
             return redirect()->back()->with('error', 'Jenis sapi tidak ditemukan');
@@ -68,7 +67,6 @@ class SapiController extends Controller
         $urutan_lahir = str_pad($request->sapi_urutan_lahir, 2, '0', STR_PAD_LEFT);
         $sapi_id = $jenis . $urutan_lahir . $bulanTahun;
 
-        // Validasi unique sapi_id
         if (ModSapi::where('sapi_id', $sapi_id)->exists()) {
             return redirect()->back()->withErrors(['sapi_id' => 'Kode Sapi sudah ada, Coba lagi']);
         }
@@ -81,7 +79,7 @@ class SapiController extends Controller
         $sapi->sapi_no_induk = $request->sapi_no_induk;
         $sapi->sapi_keterangan = $request->sapi_keterangan;
         $sapi->sapi_kelamin = $request->sapi_kelamin;
-        $sapi->sapi_status = $request->sapi_status; // Set status
+        $sapi->sapi_status = $request->sapi_status; 
         $sapi->sapi_umur = Carbon::parse($request->sapi_tanggal_lahir)->diffInMonths(Carbon::now());
         $sapi->save();
 
@@ -124,7 +122,7 @@ class SapiController extends Controller
     {
         $jenisSapi = $request->input('jenis_sapi');
         $bulanLahir = $request->input('bulan_lahir');
-        $tahunLahir = $request->input('tahun_lahir'); // Ambil input tahun lahir
+        $tahunLahir = $request->input('tahun_lahir'); 
 
         $Sapi = ModSapi::with('jenisSapi')
             ->when($jenisSapi, function ($query, $jenisSapi) {
@@ -135,7 +133,7 @@ class SapiController extends Controller
             ->when($bulanLahir, function ($query, $bulanLahir) {
                 return $query->whereMonth('sapi_tanggal_lahir', $bulanLahir);
             })
-            ->when($tahunLahir, function ($query, $tahunLahir) { // Tambahkan kondisi untuk tahun lahir
+            ->when($tahunLahir, function ($query, $tahunLahir) {
                 return $query->whereYear('sapi_tanggal_lahir', $tahunLahir);
             })
             ->get();

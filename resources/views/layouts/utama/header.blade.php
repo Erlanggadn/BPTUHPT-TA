@@ -10,8 +10,7 @@
         <nav id="navbar" class="navbar">
             @if(Auth::check() && Auth::user()->role == 'pembeli')
             <ul>
-                <li class="dropdown"><a href="#sapi"><span>Layanan</span> <i
-                            class="bi bi-chevron-down dropdown-indicator"></i></a>
+                <li class="dropdown"><a href="#sapi"><span>Layanan</span> </a>
                     <ul>
                         <li><a href="#sapi"> Daftar Harga Sapi</a></li>
                         <li><a href="#rumput">Daftar Harga Rumput</a></li>

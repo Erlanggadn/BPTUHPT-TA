@@ -57,10 +57,8 @@
 
                         @foreach ($pengajuan->details as $detail)
                         <tr>
-                            @foreach($sapiJenis as $jenis)
                             <td>Jenis Sapi</td>
-                            <td>{{ $jenis->sjenis_nama }}</td>
-                            @endforeach
+                            <td>{{ $detail->sapiJenis->sjenis_nama }}</td>
                         </tr>
                         <tr>
                             <td>Kategori Sapi</td>

@@ -1,4 +1,4 @@
-@extends('layouts.utama.main')
+@include('layouts.utama.main')
 @include('layouts.utama.header')
 <main>
     {{-- DASHBOARD INFO --}}
@@ -38,23 +38,6 @@
     {{-- HALAMAN MENU --}}
     <section id="beli" class="chefs section-bg">
         <div class="container py-4  " data-aos="fade-up">
-            {{-- VIDEO PROFILE --}}
-            @if(Auth::check() && Auth::user())
-            @else
-            <div>
-                <div class="section-header">
-                    <h2>Video Kami</h2>
-                    <p>Cerita Kami<span> disini</span></p>
-                </div>
-                <div class="text-center mb-4">
-                    <iframe width="679" height="382" src="https://www.youtube.com/embed/WdxHTJk7_Rg?"
-                        title="BPTU-HPT Padang Mengatas Ramah Untuk Semua" frameborder="0"
-                        allow="accelerometer;  clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                </div>
-            </div>
-            @endif
-            {{-- END VIDEO PROFILE --}}
             {{-- LAYANAN KAMI --}}
             <div>
                 <div class="section-header">
